@@ -3,27 +3,21 @@
 class SVGImage {
 
     private $namespaces;
-    private $nodes;
+    private $document;
 
 
 
     public function __construct() {
         $this->namespaces = array();
-        $this->nodes = array();
+        $this->document = new SVGDocumentFragment(true); // root doc
     }
 
 
 
 
 
-    public function addNode($node) {
-
-        if (!($node instanceof SVGRect)) {
-            return false;
-        }
-
-        $this->nodes[] = $node;
-
+    public function getDocument() {
+        return $this->document;
     }
 
 
@@ -32,15 +26,8 @@ class SVGImage {
 
     public function __toString() {
 
-        $s  = '<?xml version="1.0" standalone="no"?>' . "\n";
-
-        $s .= '<svg xmlns="http://www.w3.org/2000/svg">' . "\n";
-
-        foreach ($this->nodes as $node) {
-            $s .= '    ' . $node . "\n";
-        }
-
-        $s .= '</svg>';
+        $s  = '<?xml version="1.0" encoding="utf-8"?>';
+        $s .= $this->document;
 
         return $s;
 
