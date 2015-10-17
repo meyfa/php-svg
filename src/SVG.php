@@ -12,6 +12,9 @@ include($svg_path.'/nodes/structures/SVGGroup.php');
 
 // shapes
 include($svg_path.'/nodes/shapes/SVGRect.php');
+include($svg_path.'/nodes/shapes/SVGLine.php');
+include($svg_path.'/nodes/shapes/SVGEllipse.php');
+include($svg_path.'/nodes/shapes/SVGCircle.php');
 
 // image
 include($svg_path.'/SVGImage.php');
