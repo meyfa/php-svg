@@ -14,6 +14,46 @@ class SVGPolyline extends SVGNode {
 
 
 
+    public function addPoint($a, $b = null) {
+
+        if (!is_array($a)) {
+            $a = array($a, $b);
+        }
+
+        $points[] = $a;
+
+    }
+
+    public function removePoint($index) {
+        array_splice($this->points, $index, 1);
+    }
+
+
+
+    public function countPoints() {
+        return count($this->points);
+    }
+
+
+
+    public function getPoints() {
+        return $this->points;
+    }
+
+    public function getPoint($index) {
+        return $this->points[$index];
+    }
+
+
+
+    public function setPoint($index, $point) {
+        $this->points[$index] = $point;
+    }
+
+
+
+
+
     public function toXMLString() {
 
         $s  = '<polyline';

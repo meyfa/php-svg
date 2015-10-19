@@ -17,6 +17,50 @@ class SVGEllipse extends SVGNode {
 
 
 
+    public function getCenterX() {
+        return $this->cx;
+    }
+
+    public function setCenterX($cx) {
+        $this->cx = $cx;
+    }
+
+
+
+    public function getCenterY() {
+        return $this->cy;
+    }
+
+    public function setCenterY($cy) {
+        $this->cy = $cy;
+    }
+
+
+
+
+
+    public function getRadiusX() {
+        return $this->rx;
+    }
+
+    public function setRadiusX($rx) {
+        $this->rx = $rx;
+    }
+
+
+
+    public function getRadiusY() {
+        return $this->ry;
+    }
+
+    public function setRadiusY($ry) {
+        $this->ry = $ry;
+    }
+
+
+
+
+
     public function toXMLString() {
 
         $s  = '<ellipse';
