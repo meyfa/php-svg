@@ -12,6 +12,18 @@ offer features in three different, big areas:
 
 
 
+## Contributing
+
+Especially the third goal will take a lot of time and effort, so you are welcome
+to contribute if this is a project you are interested in.  
+In case you decide to contribute, please honor these two simple guidelines:
+
+1. External libraries shall not be used.
+2. Please set your editor to use 4 spaces for indentation. In general, it would
+    be good to follow the existing code style for consistency.
+
+
+
 ## Getting Started
 
 ### Creating an image
@@ -33,14 +45,3 @@ $doc->addChild($square);
 header('Content-Type: image/svg+xml');
 echo $image;
 ```
-
-
-## Contributing
-
-Especially the last goal will take a lot of time and effort, so you are welcome
-to contribute if this is a project you are interested in.  
-In case you decide to contribute, please honor these two simple guidelines:
-
-1. External libraries shall not be used.
-2. Please set your editor to use 4 spaces for indentation. In general, it would
-    be good to follow the existing code style for consistency.
