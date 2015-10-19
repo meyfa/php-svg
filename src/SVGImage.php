@@ -24,13 +24,21 @@ class SVGImage {
 
 
 
-    public function __toString() {
+    public function toXMLString() {
 
         $s  = '<?xml version="1.0" encoding="utf-8"?>';
         $s .= $this->document;
 
         return $s;
 
+    }
+
+
+
+
+
+    public function __toString() {
+        return $this->toXMLString();
     }
 
 }
