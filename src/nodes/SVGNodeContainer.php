@@ -23,7 +23,38 @@ abstract class SVGNodeContainer extends SVGNode {
         if ($node === $this)
             return false;
 
+        if ($node->parent === $this)
+            return false;
+        
+        if (isset($node->parent)) {
+            $node->parent->removeChild($node);
+        }
+
         $this->children[] = $node;
+        $node->parent = $this;
+
+        return true;
+
+    }
+    
+    public function removeChild($nodeOrIndex) {
+
+        if (is_int($nodeOrIndex)) {
+            $index = $nodeOrIndex;
+        } else if ($node instanceof SVGNode) {
+            $index = array_search($node, $this->children, true);
+            if ($index === false)
+                return false;
+        } else {
+            return false;
+        }
+
+        $node = $this->children[$index];
+        $node->parent = null;
+
+        array_splice($this->children, $index, 1);
+
+        return true;
 
     }
 
