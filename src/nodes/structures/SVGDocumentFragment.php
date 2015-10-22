@@ -100,4 +100,12 @@ class SVGDocumentFragment extends SVGNodeContainer {
 
     }
 
+
+
+
+
+    public function draw($image, $imageWidth, $imageHeight, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
+
+    }
+
 }

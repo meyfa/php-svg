@@ -56,6 +56,12 @@ abstract class SVGNode {
 
 
 
+    public abstract function draw($image, $imageWidth, $imageHeight, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0);
+
+
+
+
+
     public function __toString() {
         return $this->toXMLString();
     }

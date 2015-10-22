@@ -81,4 +81,12 @@ class SVGPolyline extends SVGNode {
 
     }
 
+
+
+
+
+    public function draw($image, $imageWidth, $imageHeight, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
+
+    }
+
 }
