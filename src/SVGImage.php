@@ -37,6 +37,27 @@ class SVGImage {
 
 
 
+    public function toRasterImage($width, $height) {
+
+        $out = imagecreatetruecolor($width, $height);
+
+        imagealphablending($out, true);
+        imagesavealpha($out, true);
+
+        imagefill($out, 0, 0, 0x7c000000);
+
+        $scaleX = $width / $this->document->getWidth();
+        $scaleY = $height / $this->document->getHeight();
+        $this->document->draw($out, $width, $height, $scaleX, $scaleY, 0, 0);
+
+        return $out;
+
+    }
+
+
+
+
+
     public function __toString() {
         return $this->toXMLString();
     }
