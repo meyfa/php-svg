@@ -2,6 +2,12 @@
 
 class SVGDocumentFragment extends SVGNodeContainer {
 
+    private static $INITIAL_STYLES = array(
+        'fill' => '#000000',
+        'stroke' => 'none',
+        'stroke-width' => 1
+    );
+
     private $root;
 
 
@@ -14,6 +20,10 @@ class SVGDocumentFragment extends SVGNodeContainer {
 
         $this->width = $width;
         $this->height = $height;
+
+        foreach (self::$INITIAL_STYLES as $style => $value) {
+            $this->setStyle($style, $value);
+        }
 
     }
 
