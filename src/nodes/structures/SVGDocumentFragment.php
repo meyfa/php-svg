@@ -6,14 +6,14 @@ class SVGDocumentFragment extends SVGNodeContainer {
 
 
 
-    public function __construct($root = false) {
+    public function __construct($root = false, $width = "100%", $height = "100%") {
 
         parent::__construct();
 
         $this->root = !!$root;
 
-        $this->width = "100%";
-        $this->height = "100%";
+        $this->width = $width;
+        $this->height = $height;
 
     }
 

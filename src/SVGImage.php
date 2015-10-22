@@ -7,9 +7,9 @@ class SVGImage {
 
 
 
-    public function __construct() {
+    public function __construct($width, $height) {
         $this->namespaces = array();
-        $this->document = new SVGDocumentFragment(true); // root doc
+        $this->document = new SVGDocumentFragment(true, $width, $height); // root doc
     }
 
 
