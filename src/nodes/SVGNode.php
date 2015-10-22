@@ -30,6 +30,24 @@ abstract class SVGNode {
 
 
 
+    public function getComputedStyle($name) {
+
+        $style = null;
+
+        if (isset($this->styles[$name]))
+            $style = $this->styles[$name];
+
+        if (($style === null || $style === 'inherit') && isset($this->parent))
+            return $this->parent->getComputedStyle($name);
+
+        // 'inherit' is not what we want. Either get the real style, or
+        // nothing at all.
+        return $style !== 'inherit' ? $style : null;
+
+    }
+
+
+
 
 
     public abstract function toXMLString();
