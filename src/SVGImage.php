@@ -7,9 +7,9 @@ class SVGImage {
 
 
 
-    public function __construct() {
+    public function __construct($width, $height) {
         $this->namespaces = array();
-        $this->document = new SVGDocumentFragment(true); // root doc
+        $this->document = new SVGDocumentFragment(true, $width, $height); // root doc
     }
 
 
@@ -30,6 +30,27 @@ class SVGImage {
         $s .= $this->document;
 
         return $s;
+
+    }
+
+
+
+
+
+    public function toRasterImage($width, $height) {
+
+        $out = imagecreatetruecolor($width, $height);
+
+        imagealphablending($out, true);
+        imagesavealpha($out, true);
+
+        imagefill($out, 0, 0, 0x7c000000);
+
+        $scaleX = $width / $this->document->getWidth();
+        $scaleY = $height / $this->document->getHeight();
+        $this->document->draw($out, $width, $height, $scaleX, $scaleY, 0, 0);
+
+        return $out;
 
     }
 

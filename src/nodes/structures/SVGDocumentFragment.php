@@ -2,18 +2,28 @@
 
 class SVGDocumentFragment extends SVGNodeContainer {
 
+    private static $INITIAL_STYLES = array(
+        'fill' => '#000000',
+        'stroke' => 'none',
+        'stroke-width' => 1
+    );
+
     private $root;
 
 
 
-    public function __construct($root = false) {
+    public function __construct($root = false, $width = "100%", $height = "100%") {
 
         parent::__construct();
 
         $this->root = !!$root;
 
-        $this->width = "100%";
-        $this->height = "100%";
+        $this->width = $width;
+        $this->height = $height;
+
+        foreach (self::$INITIAL_STYLES as $style => $value) {
+            $this->setStyle($style, $value);
+        }
 
     }
 
@@ -87,6 +97,22 @@ class SVGDocumentFragment extends SVGNodeContainer {
         $s .= '</svg>';
 
         return $s;
+
+    }
+
+
+
+
+
+    public function draw($image, $imageWidth, $imageHeight, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
+
+        $offsetX += $this->x;
+        $offsetY += $this->y;
+
+        for ($i=0, $n=$this->countChildren(); $i<$n; $i++) {
+            $child = $this->getChild($i);
+            $child->draw($image, $imageWidth, $imageHeight, $scaleX, $scaleY, $offsetX, $offsetY);
+        }
 
     }
 

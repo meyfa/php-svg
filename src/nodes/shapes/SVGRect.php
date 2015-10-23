@@ -80,4 +80,30 @@ class SVGRect extends SVGNode {
 
     }
 
+
+
+
+
+    public function draw($image, $imageWidth, $imageHeight, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
+
+        $rx1 = ($offsetX + $this->x) * $scaleX;
+        $ry1 = ($offsetY + $this->y) * $scaleY;
+        $rx2 = ($offsetX + $this->x + $this->width) * $scaleX - 1;
+        $ry2 = ($offsetY + $this->y + $this->height) * $scaleY - 1;
+
+        $fill = $this->getComputedStyle('fill');
+        if (isset($fill) && $fill !== 'none') {
+            $fillColor = SVG::parseColor($fill, true);
+            imagefilledrectangle($image, $rx1, $ry1, $rx2, $ry2, $fillColor);
+        }
+
+        $stroke = $this->getComputedStyle('stroke');
+        if (isset($stroke) && $stroke !== 'none') {
+            $strokeColor = SVG::parseColor($stroke, true);
+            imagesetthickness($image, SVG::convertUnit($this->getComputedStyle('stroke-width'), $imageWidth / $scaleX) * $scaleX);
+            imagerectangle($image, $rx1, $ry1, $rx2, $ry2, $strokeColor);
+        }
+
+    }
+
 }
