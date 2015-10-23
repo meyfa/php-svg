@@ -87,6 +87,28 @@ class SVGPolygon extends SVGNode {
 
     public function draw($image, $imageWidth, $imageHeight, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
 
+        $p = array();
+        $np = count($this->points);
+
+        for ($i=0; $i<$np; $i++) {
+            $point = $this->points[$i];
+            $p[] = ($offsetX + $point[0]) * $scaleX;
+            $p[] = ($offsetY + $point[1]) * $scaleY;
+        }
+
+        $fill = $this->getComputedStyle('fill');
+        if (isset($fill) && $fill !== 'none') {
+            $fillColor = SVG::parseColor($fill, true);
+            imagefilledpolygon($image, $p, $np, $fillColor);
+        }
+
+        $stroke = $this->getComputedStyle('stroke');
+        if (isset($stroke) && $stroke !== 'none') {
+            $strokeColor = SVG::parseColor($stroke, true);
+            imagesetthickness($image, SVG::convertUnit($this->getComputedStyle('stroke-width'), $imageWidth / $scaleX) * $scaleX);
+            imagepolygon($image, $p, $np, $strokeColor);
+        }
+
     }
 
 }

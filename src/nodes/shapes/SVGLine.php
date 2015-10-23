@@ -90,6 +90,18 @@ class SVGLine extends SVGNode {
 
     public function draw($image, $imageWidth, $imageHeight, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
 
+        $x1 = ($offsetX + $this->x1) * $scaleX;
+        $y1 = ($offsetY + $this->y1) * $scaleY;
+        $x2 = ($offsetX + $this->x2) * $scaleX;
+        $y2 = ($offsetY + $this->y2) * $scaleY;
+
+        $stroke = $this->getComputedStyle('stroke');
+        if (isset($stroke) && $stroke !== 'none') {
+            $strokeColor = SVG::parseColor($stroke, true);
+            imagesetthickness($image, SVG::convertUnit($this->getComputedStyle('stroke-width'), $imageWidth / $scaleX) * $scaleX);
+            imageline($image, $x1, $y1, $x2, $y2, $strokeColor);
+        }
+
     }
 
 }
