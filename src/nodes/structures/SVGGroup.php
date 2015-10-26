@@ -44,14 +44,14 @@ class SVGGroup extends SVGNodeContainer {
 
 
 
-    public function draw($image, $imageWidth, $imageHeight, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
 
         $offsetX += $this->x;
         $offsetY += $this->y;
 
         for ($i=0, $n=$this->countChildren(); $i<$n; $i++) {
             $child = $this->getChild($i);
-            $child->draw($image, $imageWidth, $imageHeight, $scaleX, $scaleY, $offsetX, $offsetY);
+            $child->draw($rh, $scaleX, $scaleY, $offsetX, $offsetY);
         }
 
     }

@@ -85,7 +85,10 @@ class SVGPolygon extends SVGNode {
 
 
 
-    public function draw($image, $imageWidth, $imageHeight, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
+
+        // original (document fragment) width for unit parsing
+        $ow = $rh->getWidth() / $scaleX;
 
         $p = array();
         $np = count($this->points);
@@ -99,14 +102,14 @@ class SVGPolygon extends SVGNode {
         $fill = $this->getComputedStyle('fill');
         if (isset($fill) && $fill !== 'none') {
             $fillColor = SVG::parseColor($fill, true);
-            imagefilledpolygon($image, $p, $np, $fillColor);
+            $rh->fillPolygon($p, $np, $fillColor);
         }
 
         $stroke = $this->getComputedStyle('stroke');
         if (isset($stroke) && $stroke !== 'none') {
             $strokeColor = SVG::parseColor($stroke, true);
-            imagesetthickness($image, SVG::convertUnit($this->getComputedStyle('stroke-width'), $imageWidth / $scaleX) * $scaleX);
-            imagepolygon($image, $p, $np, $strokeColor);
+            $rh->setStrokeWidth(SVG::convertUnit($this->getComputedStyle('stroke-width'), $ow) * $scaleX);
+            $rh->drawPolygon($p, $np, $strokeColor);
         }
 
     }

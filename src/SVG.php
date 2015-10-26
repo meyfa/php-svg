@@ -23,6 +23,11 @@ include($svg_path.'/SVGImage.php');
 
 
 
+// misc
+include($svg_path.'/SVGRenderingHelper.php');
+
+
+
 
 
 // class with helper methods

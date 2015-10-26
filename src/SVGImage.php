@@ -46,9 +46,11 @@ class SVGImage {
 
         imagefill($out, 0, 0, 0x7c000000);
 
+        $rh = new SVGRenderingHelper($out, $width, $height);
+
         $scaleX = $width / $this->document->getWidth();
         $scaleY = $height / $this->document->getHeight();
-        $this->document->draw($out, $width, $height, $scaleX, $scaleY, 0, 0);
+        $this->document->draw($rh, $scaleX, $scaleY, 0, 0);
 
         return $out;
 
