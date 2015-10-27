@@ -47,7 +47,7 @@ final class SVG {
         $num = floatval($matches[1]);
         $unit = $matches[2];
 
-        if ($unit === 'px' || $unit === '') {
+        if ($unit === 'px' || $unit === NULL) {
             return $num;
         } else if ($unit === '%') {
             return ($num / 100) * $viewLength;
