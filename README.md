@@ -16,12 +16,13 @@ offer features in three different, big areas:
 
 These tasks will take a lot of time and effort, so you are welcome to contribute
 if this is a project you are interested in.  
-In case you decide to contribute, please honor these three simple things:
+In case you decide to contribute, please honor these things:
 
 1. External libraries shall not be used.
 2. Please set your editor to use 4 spaces for indentation. In general, it would
     be good to follow the existing code style for consistency.
-3. By contributing code, you agree to license that code under the MIT license to
+3. Source files must end with a newline character.
+4. By contributing code, you agree to license that code under the MIT license to
     this project.
 
 
