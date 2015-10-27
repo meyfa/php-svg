@@ -14,13 +14,15 @@ offer features in three different, big areas:
 
 ## Contributing
 
-Especially the third goal will take a lot of time and effort, so you are welcome
-to contribute if this is a project you are interested in.  
-In case you decide to contribute, please honor these two simple guidelines:
+These tasks will take a lot of time and effort, so you are welcome to contribute
+if this is a project you are interested in.  
+In case you decide to contribute, please honor these three simple things:
 
 1. External libraries shall not be used.
 2. Please set your editor to use 4 spaces for indentation. In general, it would
     be good to follow the existing code style for consistency.
+3. By contributing code, you agree to license that code under the MIT license to
+    this project.
 
 
 
@@ -34,7 +36,8 @@ header and echoes it:
 ```php
 include 'php-svg/SVG.php';
 
-$image = new SVGImage();
+// image with 100x100 viewport
+$image = new SVGImage(100, 100);
 $doc = $image->getDocument();
 
 // blue 40x40 square at (0, 0)
@@ -44,4 +47,30 @@ $doc->addChild($square);
 
 header('Content-Type: image/svg+xml');
 echo $image;
+```
+
+### Rasterizing
+
+To convert an instance of SVGImage to a PHP/GD image resource, or in other words
+convert it to a raster image, you simply call `toRasterImage($width, $height)`
+on it. Example:
+
+```php
+include 'php-svg/SVG.php';
+
+$image = new SVGImage(100, 100);
+$doc = $image->getDocument();
+
+// circle with radius 20 and green border, center at (50, 50)
+$circle = new SVGCircle(50, 50, 20);
+$circle->setStyle('fill', 'none');
+$circle->setStyle('stroke', '#0F0');
+$circle->setStyle('stroke-width', '2px');
+$doc->addChild($circle);
+
+// rasterize to a 200x200 image, i.e. the original SVG size scaled by 2
+$rasterImage = $image->toRasterImage(200, 200);
+
+header('Content-Type: image/png');
+imagepng($rasterImage);
 ```
