@@ -20,7 +20,7 @@ class SVGPolygon extends SVGNode {
             $a = array($a, $b);
         }
 
-        $points[] = $a;
+        $this->points[] = $a;
 
     }
 
