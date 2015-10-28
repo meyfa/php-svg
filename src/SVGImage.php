@@ -88,7 +88,10 @@ class SVGImage {
 
         $children = $svg->children();
         foreach ($children as $child) {
-            $doc->addChild(self::parseNode($child));
+            $childNode = self::parseNode($child);
+            if (!$childNode)
+                continue;
+            $doc->addChild($childNode);
         }
 
         return $image;
@@ -156,6 +159,9 @@ class SVGImage {
             }
 
         }
+
+        if (!isset($element))
+            return false;
 
         $attributes = $node->attributes();
         $ignoredAttributes = array(
