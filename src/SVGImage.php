@@ -168,7 +168,8 @@ class SVGImage {
             'x', 'y', 'width', 'height',
             'x1', 'y1', 'x2', 'y2',
             'cx', 'cy', 'r', 'rx', 'ry',
-            'points'
+            'points',
+            'style'
         );
         foreach ($attributes as $attribute => $value) {
             if (in_array($attribute, $ignoredAttributes))
