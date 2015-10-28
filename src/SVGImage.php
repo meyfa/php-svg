@@ -157,6 +157,19 @@ class SVGImage {
 
         }
 
+        $attributes = $node->attributes();
+        $ignoredAttributes = array(
+            'x', 'y', 'width', 'height',
+            'x1', 'y1', 'x2', 'y2',
+            'cx', 'cy', 'r', 'rx', 'ry',
+            'points'
+        );
+        foreach ($attributes as $attribute => $value) {
+            if (in_array($attribute, $ignoredAttributes))
+                continue;
+            $element->setStyle($attribute, $value);
+        }
+
         if (isset($node['style'])) {
             $styles = self::parseStyles($node['style']);
             foreach ($styles as $style => $value) {
