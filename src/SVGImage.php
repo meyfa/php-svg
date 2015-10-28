@@ -157,7 +157,33 @@ class SVGImage {
 
         }
 
+        if (isset($node['style'])) {
+            $styles = self::parseStyles($node['style']);
+            foreach ($styles as $style => $value) {
+                $element->setStyle($style, $value);
+            }
+        }
+
         return $element;
+
+    }
+
+    // Basic style attribute parsing function.
+    // Takes strings like 'fill: #000; stroke: none' and returns associative
+    // array like: ['fill' => '#000', 'stroke' => 'none']
+    private static function parseStyles($styles) {
+
+        $styles = preg_split('/\s*;\s*/', $styles);
+        $arr = array();
+
+        foreach ($styles as $style) {
+            if (($style = trim($style)) === '')
+                continue;
+            $style_spl = preg_split('/\s*:\s*/', $style);
+            $arr[$style_spl[0]] = $style_spl[1];
+        }
+
+        return $arr;
 
     }
 
