@@ -75,3 +75,29 @@ $rasterImage = $image->toRasterImage(200, 200);
 header('Content-Type: image/png');
 imagepng($rasterImage);
 ```
+
+### Loading an SVG
+
+You can load SVG images both from strings and from files. This example loads one
+from a string, moves the contained rectangle and echoes the new SVG:
+
+```php
+include 'php-svg/SVG.php';
+
+$svg  = '<svg width="100" height="100">';
+$svg .= '<rect width="50" height="50" fill="#00F" />';
+$svg .= '</svg>';
+
+$image = SVGImage::fromString($svg);
+$doc = $image->getDocument();
+
+$rect = $doc->getChild(0);
+$rect->setX(25);
+$rect->setY(25);
+
+header('Content-Type: image/svg+xml');
+echo $image;
+```
+
+For loading from a file instead, you would call `SVGImage::fromFile($file)`.
+That function supports local file paths as well as URLs.
