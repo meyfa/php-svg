@@ -2,6 +2,10 @@
 
 class SVGRect extends SVGNode {
 
+    protected $x, $y, $width, $height;
+
+
+
     public function __construct($x, $y, $width, $height) {
         $this->x = $x;
         $this->y = $y;

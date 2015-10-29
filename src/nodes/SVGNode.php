@@ -3,7 +3,6 @@
 abstract class SVGNode {
 
     protected $parent;
-    protected $x, $y, $width, $height;
     protected $styles;
 
 

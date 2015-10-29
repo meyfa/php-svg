@@ -8,6 +8,7 @@ class SVGDocumentFragment extends SVGNodeContainer {
         'stroke-width' => 1
     );
 
+    protected $x, $y, $width, $height;
     private $root;
 
 
