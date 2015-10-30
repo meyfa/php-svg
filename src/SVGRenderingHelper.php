@@ -95,6 +95,61 @@ class SVGRenderingHelper {
 
 
 
+    public function createBuffer() {
+
+        if ($this->buffering) {
+            // destroy current buffer if already buffering
+            imagedestroy($this->buffer);
+        }
+
+        $buffer = imagecreatetruecolor($this->imageWidth, $this->imageHeight);
+        imagealphablending($buffer, true);
+        imagesavealpha($buffer, true);
+        imagefill($buffer, 0, 0, 0x7F000000);
+
+        return new SVGRenderingHelper($buffer, $this->imageWidth, $this->imageHeight);
+
+    }
+
+    public function drawBuffer(SVGRenderingHelper $buffer, $opacity = 1.0) {
+
+        if ($opacity > 1)
+            $opacity = 1;
+        elseif ($opacity < 0)
+            $opacity = 0;
+
+        // imagecopymerge ignores alpha channel, so we have to change the alpha
+        // manually and then do imagecopy (which DOES preserve alpha)
+
+        imagealphablending($buffer->image, false);
+
+        if ($opacity < 1) {
+            for ($x=0; $x<$this->imageWidth; $x++) {
+                for ($y=0; $y<$this->imageHeight; $y++) {
+                    $color = imagecolorat($buffer->image, $x, $y);
+                    $color = self::_multiplyColorAlpha($color, $opacity);
+                    imagesetpixel($buffer->image, $x, $y, $color);
+                }
+            }
+        }
+
+        imagecopy(
+            $this->image, $buffer->image, // dst, src
+            0, 0, // dst x, dst y
+            0, 0, // src x, src y
+            $this->imageWidth, $this->imageHeight // src w, src h
+        );
+
+        // the process above renders the buffer useless (hah, puns), so we can
+        // destroy it without making the situation much worse
+        imagedestroy($buffer->image);
+
+    }
+
+
+
+
+
     public function drawRect($x, $y, $width, $height, $color) {
         $x += $this->state['x'];
         $y += $this->state['y'];
