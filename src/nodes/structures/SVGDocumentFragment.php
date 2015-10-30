@@ -3,9 +3,10 @@
 class SVGDocumentFragment extends SVGNodeContainer {
 
     private static $INITIAL_STYLES = array(
-        'fill' => '#000000',
-        'stroke' => 'none',
-        'stroke-width' => 1
+        'fill'          => '#000000',
+        'stroke'        => 'none',
+        'stroke-width'  => 1,
+        'opacity'       => 1
     );
 
     protected $x, $y, $width, $height;

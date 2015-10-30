@@ -87,6 +87,14 @@ class SVGPolygon extends SVGNode {
 
     public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
 
+        $rh->push();
+
+        $opacity = $this->getStyle('opacity');
+        if (isset($opacity) && is_numeric($opacity)) {
+            $opacity = floatval($opacity);
+            $rh->scaleOpacity($opacity);
+        }
+
         // original (document fragment) width for unit parsing
         $ow = $rh->getWidth() / $scaleX;
 
@@ -111,6 +119,8 @@ class SVGPolygon extends SVGNode {
             $rh->setStrokeWidth(SVG::convertUnit($this->getComputedStyle('stroke-width'), $ow) * $scaleX);
             $rh->drawPolygon($p, $np, $strokeColor);
         }
+
+        $rh->pop();
 
     }
 

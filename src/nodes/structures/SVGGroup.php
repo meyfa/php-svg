@@ -41,9 +41,26 @@ class SVGGroup extends SVGNodeContainer {
 
     public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
 
-        for ($i=0, $n=$this->countChildren(); $i<$n; $i++) {
-            $child = $this->getChild($i);
-            $child->draw($rh, $scaleX, $scaleY, $offsetX, $offsetY);
+        // cannot inherit opacity, so getStyle instead of getComputedStyle
+        $opacity = $this->getStyle('opacity');
+        if (isset($opacity) && is_numeric($opacity)) {
+            $opacity = floatval($opacity);
+        } else {
+            $opacity = 1;
+        }
+
+        if ($opacity < 1) {
+            $buffer = $rh->createBuffer();
+            for ($i=0, $n=$this->countChildren(); $i<$n; $i++) {
+                $child = $this->getChild($i);
+                $child->draw($buffer, $scaleX, $scaleY, $offsetX, $offsetY);
+            }
+            $rh->drawBuffer($buffer, $opacity);
+        } else {
+            for ($i=0, $n=$this->countChildren(); $i<$n; $i++) {
+                $child = $this->getChild($i);
+                $child->draw($rh, $scaleX, $scaleY, $offsetX, $offsetY);
+            }
         }
 
     }
