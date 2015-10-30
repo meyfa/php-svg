@@ -44,7 +44,7 @@ class SVGImage {
         imagealphablending($out, true);
         imagesavealpha($out, true);
 
-        imagefill($out, 0, 0, 0x7c000000);
+        imagefill($out, 0, 0, 0x7F000000);
 
         $rh = new SVGRenderingHelper($out, $width, $height);
 
