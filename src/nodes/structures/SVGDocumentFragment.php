@@ -81,9 +81,20 @@ class SVGDocumentFragment extends SVGNodeContainer {
         if ($this->height != "100%")
             $s .= ' height="'.$this->height.'"';
 
-        if (!empty($this->styles)) {
-            $s .= ' style="';
+        if ($this->root) {
+            $styles = array();
+            // filter styles to not include initial/default ones
             foreach ($this->styles as $style => $value) {
+                if (!isset(self::$INITIAL_STYLES[$style]) || self::$INITIAL_STYLES[$style] !== $value)
+                    $styles[$style] = $value;
+            }
+        } else {
+            $styles = $this->styles;
+        }
+
+        if (!empty($styles)) {
+            $s .= ' style="';
+            foreach ($styles as $style => $value) {
                 $s .= $style . ': ' . $value . '; ';
             }
             $s .= '"';
