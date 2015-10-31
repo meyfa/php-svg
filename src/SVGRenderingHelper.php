@@ -151,10 +151,27 @@ class SVGRenderingHelper {
 
 
     public function drawRect($x, $y, $width, $height, $color) {
+
         $x += $this->state['x'];
         $y += $this->state['y'];
         $color = self::_multiplyColorAlpha($color, $this->state['opacity']);
-        imagerectangle($this->image, $x, $y, $x + $width - 1, $y + $height - 1, $color);
+
+        // imagerectangle draws left and right side 1px thicker than it should,
+        // so we draw four lines instead
+        // (it works, don't screw with it)
+
+        if ($this->strokeWidth > 1) {
+            $t = floor($this->strokeWidth / 2);
+        } else {
+            $t = 0;
+        }
+
+        // order: top, bottom, left, right
+        imageline($this->image, $x - $t,     $y,           $x + $width + $t - 1, $y,                    $color);
+        imageline($this->image, $x - $t,     $y + $height, $x + $width + $t - 1, $y + $height,          $color);
+        imageline($this->image, $x,          $y + $t,      $x,                   $y + $height - $t - 1, $color);
+        imageline($this->image, $x + $width, $y + $t,      $x + $width,          $y + $height - $t - 1, $color);
+
     }
 
     public function fillRect($x, $y, $width, $height, $color) {
