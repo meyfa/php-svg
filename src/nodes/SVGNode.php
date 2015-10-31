@@ -16,7 +16,7 @@ abstract class SVGNode {
 
 
     public function getStyle($name) {
-        return $this->styles[$name];
+        return isset($this->styles[$name]) ? $this->styles[$name] : null;
     }
 
     public function setStyle($name, $value) {
