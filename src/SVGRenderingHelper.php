@@ -97,11 +97,6 @@ class SVGRenderingHelper {
 
     public function createBuffer() {
 
-        if ($this->buffering) {
-            // destroy current buffer if already buffering
-            imagedestroy($this->buffer);
-        }
-
         $buffer = imagecreatetruecolor($this->imageWidth, $this->imageHeight);
         imagealphablending($buffer, true);
         imagesavealpha($buffer, true);
