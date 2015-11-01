@@ -76,10 +76,8 @@ class SVGPath extends SVGNode {
                     // moveto absolute
                     $x = floatval($args[0]);
                     $y = floatval($args[1]);
-                    if ($startX === null) {
-                        $startX = $x;
-                        $startY = $y;
-                    }
+                    $startX = $x;
+                    $startY = $y;
                 } else if ($command === 'm') {
                     // moveto relative
                     $x += floatval($args[0]);
