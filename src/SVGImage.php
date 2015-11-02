@@ -158,6 +158,9 @@ class SVGImage {
                 $element->addPoint($points[$i*2], $points[$i*2 + 1]);
             }
 
+        } else if ($type === 'path') {
+            $d = isset($node['d']) ? $node['d'] : '';
+            $element = new SVGPath($d);
         }
 
         if (!isset($element))
