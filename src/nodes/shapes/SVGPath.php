@@ -115,6 +115,26 @@ class SVGPath extends SVGNode {
                     );
                     $x = $nx;
                     $y = $ny;
+                } else if ($command === 'C') {
+                    $p0 = array(($offsetX + $x) * $scaleX, ($offsetY + $y) * $scaleY);
+                    $p1 = array(($offsetX + floatval($args[0])) * $scaleX, ($offsetY + floatval($args[1])) * $scaleY);
+                    $p2 = array(($offsetX + floatval($args[2])) * $scaleX, ($offsetY + floatval($args[3])) * $scaleY);
+                    $nx = floatval($args[4]);
+                    $ny = floatval($args[5]);
+                    $p3 = array(($offsetX + $nx) * $scaleX, ($offsetY + $ny) * $scaleY);
+                    $rh->drawBezierCurve($p0, $p1, $p2, $p3, $strokeColor);
+                    $x = $nx;
+                    $y = $ny;
+                } else if ($command === 'c') {
+                    $p0 = array(($offsetX + $x) * $scaleX, ($offsetY + $y) * $scaleY);
+                    $p1 = array(($offsetX + $x + floatval($args[0])) * $scaleX, ($offsetY + $y + floatval($args[1])) * $scaleY);
+                    $p2 = array(($offsetX + $x + floatval($args[2])) * $scaleX, ($offsetY + $y + floatval($args[3])) * $scaleY);
+                    $nx = $x + floatval($args[4]);
+                    $ny = $y + floatval($args[5]);
+                    $p3 = array(($offsetX + $nx) * $scaleX, ($offsetY + $ny) * $scaleY);
+                    $rh->drawBezierCurve($p0, $p1, $p2, $p3, $strokeColor);
+                    $x = $nx;
+                    $y = $ny;
                 }
 
             }
