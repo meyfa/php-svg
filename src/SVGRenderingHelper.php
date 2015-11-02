@@ -244,4 +244,71 @@ class SVGRenderingHelper {
 
     }
 
+
+
+
+
+    // $p0 start, $p1 first control point, $p2 second control point, $p3 end
+    public function drawBezierCurve($p0, $p1, $p2, $p3, $color) {
+        $poly = self::approximateBezierCurve($p0, $p1, $p2, $p3);
+        $this->drawPolyline($poly, count($poly) / 2, $color);
+    }
+
+    public static function approximateBezierCurve($p0, $p1, $p2, $p3, $accuracy = 1) {
+
+        $tPrev = 0.0;
+        $prev = $p0;
+        $poly = array($p0[0], $p0[1]);
+
+        while ($tPrev < 1) {
+            if ($tPrev + $step > 1.0) {
+                $step = 1 - $tPrev;
+            }
+            $step = 0.1;
+            $point = self::_bezier($p0, $p1, $p2, $p3, $tPrev + $step);
+            $dist = self::_pointSqDist($prev, $point);
+            while ($dist > $accuracy) {
+                $step /= 2;
+                $point = self::_bezier($p0, $p1, $p2, $p3, $tPrev + $step);
+                $dist = self::_pointSqDist($prev, $point);
+            }
+            $poly[] = $point[0];
+            $poly[] = $point[1];
+            $tPrev += $step;
+            $prev = $point;
+        }
+
+        return $poly;
+
+    }
+
+    private static function _bezier($p0, $p1, $p2, $p3, $t) {
+
+        $ti = 1 - $t;
+
+        // first step: lines between the given points
+        $a0x = $ti*$p0[0] + $t*$p1[0];
+        $a0y = $ti*$p0[1] + $t*$p1[1];
+        $a1x = $ti*$p1[0] + $t*$p2[0];
+        $a1y = $ti*$p1[1] + $t*$p2[1];
+        $a2x = $ti*$p2[0] + $t*$p3[0];
+        $a2y = $ti*$p2[1] + $t*$p3[1];
+
+        // second step: lines between points from step 2
+        $b0x = $ti*$a0x + $t*$a1x;
+        $b0y = $ti*$a0y + $t*$a1y;
+        $b1x = $ti*$a1x + $t*$a2x;
+        $b1y = $ti*$a1y + $t*$a2y;
+
+        // last step: line between points from step 3, result
+        return array($ti*$b0x + $t*$b1x, $ti*$b0y + $t*$b1y);
+
+    }
+
+    private static function _pointSqDist($p1, $p2) {
+        $dx = $p2[0] - $p1[0];
+        $dy = $p2[1] - $p1[1];
+        return $dx * $dx + $dy * $dy;
+    }
+
 }
