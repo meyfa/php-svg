@@ -122,7 +122,7 @@ class SVGPath extends SVGNode {
                     $nx = floatval($args[4]);
                     $ny = floatval($args[5]);
                     $p3 = array(($offsetX + $nx) * $scaleX, ($offsetY + $ny) * $scaleY);
-                    $rh->drawBezierCurve($p0, $p1, $p2, $p3, $strokeColor);
+                    $rh->drawCubicBezier($p0, $p1, $p2, $p3, $strokeColor);
                     $x = $nx;
                     $y = $ny;
                 } else if ($command === 'c') {
@@ -132,7 +132,25 @@ class SVGPath extends SVGNode {
                     $nx = $x + floatval($args[4]);
                     $ny = $y + floatval($args[5]);
                     $p3 = array(($offsetX + $nx) * $scaleX, ($offsetY + $ny) * $scaleY);
-                    $rh->drawBezierCurve($p0, $p1, $p2, $p3, $strokeColor);
+                    $rh->drawCubicBezier($p0, $p1, $p2, $p3, $strokeColor);
+                    $x = $nx;
+                    $y = $ny;
+                } else if ($command === 'Q') {
+                    $p0 = array(($offsetX + $x) * $scaleX, ($offsetY + $y) * $scaleY);
+                    $p1 = array(($offsetX + floatval($args[0])) * $scaleX, ($offsetY + floatval($args[1])) * $scaleY);
+                    $nx = floatval($args[2]);
+                    $ny = floatval($args[3]);
+                    $p2 = array(($offsetX + $nx) * $scaleX, ($offsetY + $ny) * $scaleY);
+                    $rh->drawQuadraticBezier($p0, $p1, $p2, $strokeColor);
+                    $x = $nx;
+                    $y = $ny;
+                } else if ($command === 'q') {
+                    $p0 = array(($offsetX + $x) * $scaleX, ($offsetY + $y) * $scaleY);
+                    $p1 = array(($offsetX + $x + floatval($args[0])) * $scaleX, ($offsetY + $y + floatval($args[1])) * $scaleY);
+                    $nx = $x + floatval($args[2]);
+                    $ny = $y + floatval($args[3]);
+                    $p2 = array(($offsetX + $nx) * $scaleX, ($offsetY + $ny) * $scaleY);
+                    $rh->drawQuadraticBezier($p0, $p1, $p2, $strokeColor);
                     $x = $nx;
                     $y = $ny;
                 }

@@ -249,12 +249,12 @@ class SVGRenderingHelper {
 
 
     // $p0 start, $p1 first control point, $p2 second control point, $p3 end
-    public function drawBezierCurve($p0, $p1, $p2, $p3, $color) {
-        $poly = self::approximateBezierCurve($p0, $p1, $p2, $p3);
+    public function drawCubicBezier($p0, $p1, $p2, $p3, $color) {
+        $poly = self::approximateCubicBezier($p0, $p1, $p2, $p3);
         $this->drawPolyline($poly, count($poly) / 2, $color);
     }
 
-    public static function approximateBezierCurve($p0, $p1, $p2, $p3, $accuracy = 1) {
+    public static function approximateCubicBezier($p0, $p1, $p2, $p3, $accuracy = 1) {
 
         $tPrev = 0.0;
         $prev = $p0;
@@ -265,11 +265,11 @@ class SVGRenderingHelper {
                 $step = 1 - $tPrev;
             }
             $step = 0.1;
-            $point = self::_bezier($p0, $p1, $p2, $p3, $tPrev + $step);
+            $point = self::_cubicBezier($p0, $p1, $p2, $p3, $tPrev + $step);
             $dist = self::_pointSqDist($prev, $point);
             while ($dist > $accuracy) {
                 $step /= 2;
-                $point = self::_bezier($p0, $p1, $p2, $p3, $tPrev + $step);
+                $point = self::_cubicBezier($p0, $p1, $p2, $p3, $tPrev + $step);
                 $dist = self::_pointSqDist($prev, $point);
             }
             $poly[] = $point[0];
@@ -282,7 +282,7 @@ class SVGRenderingHelper {
 
     }
 
-    private static function _bezier($p0, $p1, $p2, $p3, $t) {
+    private static function _cubicBezier($p0, $p1, $p2, $p3, $t) {
 
         $ti = 1 - $t;
 
@@ -304,6 +304,55 @@ class SVGRenderingHelper {
         return array($ti*$b0x + $t*$b1x, $ti*$b0y + $t*$b1y);
 
     }
+
+
+
+    // $p0 start, $p1 control point, $p2 end
+    public function drawQuadraticBezier($p0, $p1, $p2, $color) {
+        $poly = self::approximateQuadraticBezier($p0, $p1, $p2);
+        $this->drawPolyline($poly, count($poly) / 2, $color);
+    }
+
+    public static function approximateQuadraticBezier($p0, $p1, $p2, $accuracy = 1) {
+
+        $tPrev = 0.0;
+        $prev = $p0;
+        $poly = array($p0[0], $p0[1]);
+
+        while ($tPrev < 1) {
+            if ($tPrev + $step > 1.0) {
+                $step = 1 - $tPrev;
+            }
+            $step = 0.1;
+            $point = self::_quadraticBezier($p0, $p1, $p2, $tPrev + $step);
+            $dist = self::_pointSqDist($prev, $point);
+            while ($dist > $accuracy) {
+                $step /= 2;
+                $point = self::_quadraticBezier($p0, $p1, $p2, $tPrev + $step);
+                $dist = self::_pointSqDist($prev, $point);
+            }
+            $poly[] = $point[0];
+            $poly[] = $point[1];
+            $tPrev += $step;
+            $prev = $point;
+        }
+
+        return $poly;
+
+    }
+
+    private static function _quadraticBezier($p0, $p1, $p2, $t) {
+
+        $ti = 1 - $t;
+
+        return array(
+            $ti * $ti * $p0[0] + 2 * $ti * $t * $p1[0] + $t * $t * $p2[0],
+            $ti * $ti * $p0[1] + 2 * $ti * $t * $p1[1] + $t * $t * $p2[1]
+        );
+
+    }
+
+
 
     private static function _pointSqDist($p1, $p2) {
         $dx = $p2[0] - $p1[0];
