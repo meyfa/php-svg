@@ -63,14 +63,14 @@ class SVGPath extends SVGNode {
             $startY = null;
 
             $matches = array();
-            preg_match_all('/[MLCAZ][^MLCAZ]*/i', $this->d, $matches, PREG_SET_ORDER);
+            preg_match_all('/[MLCQAZ][^MLCQAZ]*/i', $this->d, $matches, PREG_SET_ORDER);
 
             foreach ($matches as $match) {
 
                 $match = trim($match[0]);
                 $command = substr($match, 0, 1);
 
-                $args = preg_split('/[\s,]+/', substr($match, 1));
+                $args = preg_split('/[\s,]+/', trim(substr($match, 1)));
 
                 if ($command === 'M') {
                     // moveto absolute
