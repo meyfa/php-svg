@@ -82,6 +82,8 @@ class SVGPath extends SVGNode {
                     // moveto relative
                     $x += floatval($args[0]);
                     $y += floatval($args[1]);
+                    $startX = $x;
+                    $startY = $y;
                 } else if ($command === 'L') {
                     // lineto absolute
                     $nx = floatval($args[0]);
