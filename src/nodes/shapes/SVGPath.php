@@ -75,80 +75,172 @@ class SVGPath extends SVGNode {
 
             if ($command === 'M') {
                 // moveto absolute
+
                 $x = floatval($args[0]);
                 $y = floatval($args[1]);
                 $startX = $x;
                 $startY = $y;
+
                 if (!empty($currentPoly)) {
                     $polys[] = $currentPoly;
                 }
-                $currentPoly = array();
+                $currentPoly = array(
+                    ($offsetX + $x) * $scaleX,
+                    ($offsetY + $y) * $scaleY
+                );
+
             } else if ($command === 'm') {
                 // moveto relative
+
                 $x += floatval($args[0]);
                 $y += floatval($args[1]);
                 $startX = $x;
                 $startY = $y;
+
                 if (!empty($currentPoly)) {
                     $polys[] = $currentPoly;
                 }
-                $currentPoly = array();
+                $currentPoly = array(
+                    ($offsetX + $x) * $scaleX,
+                    ($offsetY + $y) * $scaleY
+                );
+
             } else if ($command === 'L') {
                 // lineto absolute
+
                 $x = floatval($args[0]);
                 $y = floatval($args[1]);
                 $currentPoly[] = ($offsetX + $x) * $scaleX;
                 $currentPoly[] = ($offsetY + $y) * $scaleY;
+
             } else if ($command === 'l') {
                 // lineto relative
+
                 $x += floatval($args[0]);
                 $y += floatval($args[1]);
                 $currentPoly[] = ($offsetX + $x) * $scaleX;
                 $currentPoly[] = ($offsetY + $y) * $scaleY;
+
             } else if ($command === 'Z' || $command === 'z') {
                 // end
+
                 $x = $startX !== null ? $startX : 0;
                 $y = $startY !== null ? $startY : 0;
                 $currentPoly[] = ($offsetX + $x) * $scaleX;
                 $currentPoly[] = ($offsetY + $y) * $scaleY;
+
             } else if ($command === 'C') {
-                $p0 = array(($offsetX + $x) * $scaleX, ($offsetY + $y) * $scaleY);
-                $p1 = array(($offsetX + floatval($args[0])) * $scaleX, ($offsetY + floatval($args[1])) * $scaleY);
-                $p2 = array(($offsetX + floatval($args[2])) * $scaleX, ($offsetY + floatval($args[3])) * $scaleY);
+                // curveto cubic absolute
+
+                // start point
+                $p0x = ($offsetX + $x) * $scaleX;
+                $p0y = ($offsetY + $y) * $scaleY;
+                // first control point
+                $p1x = ($offsetX + floatval($args[0])) * $scaleX;
+                $p1y = ($offsetY + floatval($args[1])) * $scaleY;
+                // second control point
+                $p2x = ($offsetX + floatval($args[2])) * $scaleX;
+                $p2y = ($offsetY + floatval($args[3])) * $scaleY;
+                // final point
                 $nx = floatval($args[4]);
                 $ny = floatval($args[5]);
-                $p3 = array(($offsetX + $nx) * $scaleX, ($offsetY + $ny) * $scaleY);
-                $currentPoly = array_merge($currentPoly, SVGRenderingHelper::approximateCubicBezier($p0, $p1, $p2, $p3));
+                $p3x = ($offsetX + $nx) * $scaleX;
+                $p3y = ($offsetY + $ny) * $scaleY;
+
+                $currentPoly = array_merge($currentPoly,
+                    SVGRenderingHelper::approximateCubicBezier(
+                        array($p0x, $p0y),
+                        array($p1x, $p1y),
+                        array($p2x, $p2y),
+                        array($p3x, $p3y)
+                    )
+                );
+
                 $x = $nx;
                 $y = $ny;
+
             } else if ($command === 'c') {
-                $p0 = array(($offsetX + $x) * $scaleX, ($offsetY + $y) * $scaleY);
-                $p1 = array(($offsetX + $x + floatval($args[0])) * $scaleX, ($offsetY + $y + floatval($args[1])) * $scaleY);
-                $p2 = array(($offsetX + $x + floatval($args[2])) * $scaleX, ($offsetY + $y + floatval($args[3])) * $scaleY);
+                // curveto cubic relative
+
+                // start point
+                $p0x = ($offsetX + $x) * $scaleX;
+                $p0y = ($offsetY + $y) * $scaleY;
+                // first control point
+                $p1x = ($offsetX + $x + floatval($args[0])) * $scaleX;
+                $p1y = ($offsetY + $y + floatval($args[1])) * $scaleY;
+                // second control point
+                $p2x = ($offsetX + $x + floatval($args[2])) * $scaleX;
+                $p2y = ($offsetY + $y + floatval($args[3])) * $scaleY;
+                // final point
                 $nx = $x + floatval($args[4]);
                 $ny = $y + floatval($args[5]);
-                $p3 = array(($offsetX + $nx) * $scaleX, ($offsetY + $ny) * $scaleY);
-                $currentPoly = array_merge($currentPoly, SVGRenderingHelper::approximateCubicBezier($p0, $p1, $p2, $p3));
+                $p3x = ($offsetX + $nx) * $scaleX;
+                $p3y = ($offsetY + $ny) * $scaleY;
+
+                $currentPoly = array_merge($currentPoly,
+                    SVGRenderingHelper::approximateCubicBezier(
+                        array($p0x, $p0y),
+                        array($p1x, $p1y),
+                        array($p2x, $p2y),
+                        array($p3x, $p3y)
+                    )
+                );
+
                 $x = $nx;
                 $y = $ny;
+
             } else if ($command === 'Q') {
-                $p0 = array(($offsetX + $x) * $scaleX, ($offsetY + $y) * $scaleY);
-                $p1 = array(($offsetX + floatval($args[0])) * $scaleX, ($offsetY + floatval($args[1])) * $scaleY);
+                // curveto quadratic absolute
+
+                // start point
+                $p0x = ($offsetX + $x) * $scaleX;
+                $p0y = ($offsetY + $y) * $scaleY;
+                // control point
+                $p1x = ($offsetX + floatval($args[0])) * $scaleX;
+                $p1y = ($offsetY + floatval($args[1])) * $scaleY;
+                // final point
                 $nx = floatval($args[2]);
                 $ny = floatval($args[3]);
-                $p2 = array(($offsetX + $nx) * $scaleX, ($offsetY + $ny) * $scaleY);
-                $currentPoly = array_merge($currentPoly, SVGRenderingHelper::approximateQuadraticBezier($p0, $p1, $p2));
+                $p2x = ($offsetX + $nx) * $scaleX;
+                $p2y = ($offsetY + $ny) * $scaleY;
+
+                $currentPoly = array_merge($currentPoly,
+                    SVGRenderingHelper::approximateQuadraticBezier(
+                        array($p0x, $p0y),
+                        array($p1x, $p1y),
+                        array($p2x, $p2y)
+                    )
+                );
+
                 $x = $nx;
                 $y = $ny;
+
             } else if ($command === 'q') {
-                $p0 = array(($offsetX + $x) * $scaleX, ($offsetY + $y) * $scaleY);
-                $p1 = array(($offsetX + $x + floatval($args[0])) * $scaleX, ($offsetY + $y + floatval($args[1])) * $scaleY);
+                // curveto quadratic relative
+
+                // start point
+                $p0x = ($offsetX + $x) * $scaleX;
+                $p0y = ($offsetY + $y) * $scaleY;
+                // control point
+                $p1x = ($offsetX + $x + floatval($args[0])) * $scaleX;
+                $p1y = ($offsetY + $y + floatval($args[1])) * $scaleY;
+                // final point
                 $nx = $x + floatval($args[2]);
                 $ny = $y + floatval($args[3]);
-                $p2 = array(($offsetX + $nx) * $scaleX, ($offsetY + $ny) * $scaleY);
-                $currentPoly = array_merge($currentPoly, SVGRenderingHelper::approximateQuadraticBezier($p0, $p1, $p2));
+                $p2x = ($offsetX + $nx) * $scaleX;
+                $p2y = ($offsetY + $ny) * $scaleY;
+
+                $currentPoly = array_merge($currentPoly,
+                    SVGRenderingHelper::approximateQuadraticBezier(
+                        array($p0x, $p0y),
+                        array($p1x, $p1y),
+                        array($p2x, $p2y)
+                    )
+                );
+
                 $x = $nx;
                 $y = $ny;
+
             }
 
         }
@@ -159,8 +251,7 @@ class SVGPath extends SVGNode {
 
 
 
-        // outline
-
+        // fill
         $fill = $this->getComputedStyle('fill');
         if (isset($fill) && $fill !== 'none') {
             $fillColor = SVG::parseColor($fill, true);
@@ -169,6 +260,7 @@ class SVGPath extends SVGNode {
             }
         }
 
+        // outline
         $stroke = $this->getComputedStyle('stroke');
         if (isset($stroke) && $stroke !== 'none') {
             $strokeColor = SVG::parseColor($stroke, true);
