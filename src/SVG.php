@@ -17,6 +17,7 @@ include($svg_path.'/nodes/shapes/SVGEllipse.php');
 include($svg_path.'/nodes/shapes/SVGCircle.php');
 include($svg_path.'/nodes/shapes/SVGPolygon.php');
 include($svg_path.'/nodes/shapes/SVGPolyline.php');
+include($svg_path.'/nodes/shapes/SVGPath.php');
 
 // image
 include($svg_path.'/SVGImage.php');
