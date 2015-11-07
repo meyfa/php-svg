@@ -256,7 +256,10 @@ class SVGPath extends SVGNode {
         if (isset($fill) && $fill !== 'none') {
             $fillColor = SVG::parseColor($fill, true);
             foreach ($polys as $poly) {
-                $rh->fillPolygon($poly, count($poly) / 2, $fillColor);
+                $numpoints = count($poly) / 2;
+                if ($numpoints >= 3) {
+                    $rh->fillPolygon($poly, $numpoints, $fillColor);
+                }
             }
         }
 
