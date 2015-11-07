@@ -200,8 +200,8 @@ class SVGPath extends SVGNode {
             } else if ($command === 'Z' || $command === 'z') {
                 // end
 
-                if (count($args) > 0)
-                    break 2;
+                if (!empty($args))
+                    break;
 
                 $x = $startX !== null ? $startX : 0;
                 $y = $startY !== null ? $startY : 0;
