@@ -64,7 +64,7 @@ class SVGPath extends SVGNode {
         $startY = null;
 
         $matches = array();
-        preg_match_all('/[MLCQAZ][^MLCQAZ]*/i', $this->d, $matches, PREG_SET_ORDER);
+        preg_match_all('/[MLHVCQAZ][^MLHVCQAZ]*/i', $this->d, $matches, PREG_SET_ORDER);
 
         foreach ($matches as $match) {
 
@@ -147,6 +147,54 @@ class SVGPath extends SVGNode {
                     $currentPoly[] = ($offsetX + $x) * $scaleX;
                     $currentPoly[] = ($offsetY + $y) * $scaleY;
 
+                }
+
+            } else if ($command === 'H') {
+                // lineto horizontal absolute
+
+                if (empty($args))
+                    break;
+
+                foreach ($args as $arg) {
+                    $x = floatval($arg);
+                    $currentPoly[] = ($offsetX + $x) * $scaleX;
+                    $currentPoly[] = ($offsetY + $y) * $scaleY;
+                }
+
+            } else if ($command === 'h') {
+                // lineto horizontal relative
+
+                if (empty($args))
+                    break;
+
+                foreach ($args as $arg) {
+                    $x += floatval($arg);
+                    $currentPoly[] = ($offsetX + $x) * $scaleX;
+                    $currentPoly[] = ($offsetY + $y) * $scaleY;
+                }
+
+            } else if ($command === 'V') {
+                // lineto vertical absolute
+
+                if (empty($args))
+                    break;
+
+                foreach ($args as $arg) {
+                    $y = floatval($arg);
+                    $currentPoly[] = ($offsetX + $x) * $scaleX;
+                    $currentPoly[] = ($offsetY + $y) * $scaleY;
+                }
+
+            } else if ($command === 'v') {
+                // lineto vertical relative
+
+                if (empty($args))
+                    break;
+
+                foreach ($args as $arg) {
+                    $y += floatval($arg);
+                    $currentPoly[] = ($offsetX + $x) * $scaleX;
+                    $currentPoly[] = ($offsetY + $y) * $scaleY;
                 }
 
             } else if ($command === 'Z' || $command === 'z') {
