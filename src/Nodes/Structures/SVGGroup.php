@@ -1,30 +1,32 @@
 <?php
 
-class SVGGroup extends SVGNodeContainer {
+namespace SVG\Nodes\Structures;
 
-    public function __construct() {
+use SVG\Nodes\SVGNodeContainer;
+use SVG\SVGRenderingHelper;
+
+class SVGGroup extends SVGNodeContainer
+{
+    public function __construct()
+    {
         parent::__construct();
     }
 
-
-
-
-
-    public function toXMLString() {
-
+    public function toXMLString()
+    {
         $s  = '<g';
 
         if (!empty($this->styles)) {
             $s .= ' style="';
             foreach ($this->styles as $style => $value) {
-                $s .= $style . ': ' . $value . '; ';
+                $s .= $style.': '.$value.'; ';
             }
             $s .= '"';
         }
 
         $s .= '>';
 
-        for ($i=0, $n=$this->countChildren(); $i<$n; $i++) {
+        for ($i = 0, $n = $this->countChildren(); $i < $n; ++$i) {
             $child = $this->getChild($i);
             $s .= $child->toXMLString();
         }
@@ -32,14 +34,10 @@ class SVGGroup extends SVGNodeContainer {
         $s .= '</g>';
 
         return $s;
-
     }
 
-
-
-
-
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0)
+    {
 
         // cannot inherit opacity, so getStyle instead of getComputedStyle
         $opacity = $this->getStyle('opacity');
@@ -51,18 +49,16 @@ class SVGGroup extends SVGNodeContainer {
 
         if ($opacity < 1) {
             $buffer = $rh->createBuffer();
-            for ($i=0, $n=$this->countChildren(); $i<$n; $i++) {
+            for ($i = 0, $n = $this->countChildren(); $i < $n; ++$i) {
                 $child = $this->getChild($i);
                 $child->draw($buffer, $scaleX, $scaleY, $offsetX, $offsetY);
             }
             $rh->drawBuffer($buffer, $opacity);
         } else {
-            for ($i=0, $n=$this->countChildren(); $i<$n; $i++) {
+            for ($i = 0, $n = $this->countChildren(); $i < $n; ++$i) {
                 $child = $this->getChild($i);
                 $child->draw($rh, $scaleX, $scaleY, $offsetX, $offsetY);
             }
         }
-
     }
-
 }
