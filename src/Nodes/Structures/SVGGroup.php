@@ -1,9 +1,9 @@
 <?php
 
-namespace SVG\Nodes\Structures;
+namespace Jangobrick\SVG\Nodes\Structures;
 
-use SVG\Nodes\SVGNodeContainer;
-use SVG\SVGRenderingHelper;
+use Jangobrick\SVG\Nodes\SVGNodeContainer;
+use Jangobrick\SVG\SVGRenderingHelper;
 
 class SVGGroup extends SVGNodeContainer
 {

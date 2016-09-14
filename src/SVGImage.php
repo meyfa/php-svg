@@ -1,8 +1,8 @@
 <?php
 
-namespace SVG;
+namespace Jangobrick\SVG;
 
-use SVG\Nodes\Structures\SVGDocumentFragment;
+use Jangobrick\SVG\Nodes\Structures\SVGDocumentFragment;
 
 class SVGImage
 {

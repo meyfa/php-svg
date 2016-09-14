@@ -1,6 +1,6 @@
 <?php
 
-namespace SVG\Nodes;
+namespace Jangobrick\SVG\Nodes;
 
 abstract class SVGNodeContainer extends SVGNode
 {

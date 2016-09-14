@@ -1,10 +1,10 @@
 <?php
 
-namespace SVG\Nodes\Shapes;
+namespace Jangobrick\SVG\Nodes\Shapes;
 
-use SVG\Nodes\SVGNode;
-use SVG\SVG;
-use SVG\SVGRenderingHelper;
+use Jangobrick\SVG\Nodes\SVGNode;
+use Jangobrick\SVG\SVG;
+use Jangobrick\SVG\SVGRenderingHelper;
 
 class SVGEllipse extends SVGNode
 {

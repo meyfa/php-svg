@@ -1,6 +1,6 @@
 <?php
 
-namespace SVG;
+namespace Jangobrick\SVG;
 
 class SVGRenderingHelper
 {
