@@ -1,6 +1,6 @@
 <?php
 
-namespace Jangobrick\SVG;
+namespace JangoBrick\SVG;
 
 // class with helper methods
 

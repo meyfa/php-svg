@@ -1,9 +1,9 @@
 <?php
 
-namespace Jangobrick\SVG\Nodes\Structures;
+namespace JangoBrick\SVG\Nodes\Structures;
 
-use Jangobrick\SVG\Nodes\SVGNodeContainer;
-use Jangobrick\SVG\SVGRenderingHelper;
+use JangoBrick\SVG\Nodes\SVGNodeContainer;
+use JangoBrick\SVG\SVGRenderingHelper;
 
 class SVGDocumentFragment extends SVGNodeContainer
 {

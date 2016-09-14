@@ -1,10 +1,10 @@
 <?php
 
-namespace Jangobrick\SVG\Nodes\Shapes;
+namespace JangoBrick\SVG\Nodes\Shapes;
 
-use Jangobrick\SVG\Nodes\SVGNode;
-use Jangobrick\SVG\SVG;
-use Jangobrick\SVG\SVGRenderingHelper;
+use JangoBrick\SVG\Nodes\SVGNode;
+use JangoBrick\SVG\SVG;
+use JangoBrick\SVG\SVGRenderingHelper;
 
 class SVGPolyline extends SVGNode
 {

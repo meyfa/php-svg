@@ -1,8 +1,8 @@
 <?php
 
-namespace Jangobrick\SVG\Nodes;
+namespace JangoBrick\SVG\Nodes;
 
-use Jangobrick\SVG\SVGRenderingHelper;
+use JangoBrick\SVG\SVGRenderingHelper;
 
 abstract class SVGNode
 {
