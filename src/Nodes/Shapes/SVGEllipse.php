@@ -76,6 +76,8 @@ class SVGEllipse extends SVGNode
             $s .= '"';
         }
 
+        $this->addAttributesToXMLString($s);
+
         $s .= ' />';
 
         return $s;

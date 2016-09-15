@@ -8,10 +8,12 @@ abstract class SVGNode
 {
     protected $parent;
     protected $styles;
+    protected $attributes;
 
     public function __construct()
     {
         $this->styles = [];
+        $this->attributes = [];
     }
 
     public function getStyle($name)
@@ -44,6 +46,30 @@ abstract class SVGNode
         // 'inherit' is not what we want. Either get the real style, or
         // nothing at all.
         return $style !== 'inherit' ? $style : null;
+    }
+
+    public function getAttribute($name)
+    {
+        return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
+    }
+
+    public function setAttribute($name, $value)
+    {
+        $this->attributes[$name] = $value;
+    }
+
+    public function removeAttribute($name)
+    {
+        unset($this->attributes[$name]);
+    }
+
+    protected function addAttributesToXMLString($xmlString)
+    {
+        if (!empty($this->attributes)) {
+            foreach ($this->attributes as $attributeName => $attributeValue) {
+                $xmlString .= ' '.$attributeName.'="'.$attributeValue.'"';
+            }
+        }
     }
 
     abstract public function toXMLString();

@@ -16,12 +16,14 @@ class SVGDocumentFragment extends SVGNodeContainer
 
     protected $x, $y, $width, $height;
     private $root;
+    private $namespaces;
 
-    public function __construct($root = false, $width = '100%', $height = '100%')
+    public function __construct($root = false, $width = '100%', $height = '100%', $namespaces = [])
     {
         parent::__construct();
 
         $this->root = (bool) $root;
+        $this->namespaces = $namespaces;
 
         $this->width  = $width;
         $this->height = $height;
@@ -61,7 +63,9 @@ class SVGDocumentFragment extends SVGNodeContainer
         $s  = '<svg';
 
         if ($this->root) {
-            $s .= ' xmlns="http://www.w3.org/2000/svg"';
+            foreach ($this->namespaces as $namespace => $uri) {
+                $s .= ' '. $namespace.'="'.$uri.'"';
+            }
         } else {
             if ($this->x != 0) {
                 $s .= ' x="'.$this->x.'"';
@@ -96,6 +100,12 @@ class SVGDocumentFragment extends SVGNodeContainer
                 $s .= $style.': '.$value.'; ';
             }
             $s .= '"';
+        }
+
+        if (!empty($this->attributes)) {
+            foreach ($this->attributes as $attributeName => $attributeValue) {
+                $s .= ' '.$attributeName.'="'.$attributeValue.'"';
+            }
         }
 
         $s .= '>';
