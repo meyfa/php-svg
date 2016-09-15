@@ -63,7 +63,7 @@ abstract class SVGNode
         unset($this->attributes[$name]);
     }
 
-    protected function addAttributesToXMLString($xmlString)
+    protected function addAttributesToXMLString(&$xmlString)
     {
         if (!empty($this->attributes)) {
             foreach ($this->attributes as $attributeName => $attributeValue) {
