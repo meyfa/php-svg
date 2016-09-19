@@ -27,6 +27,7 @@ class SVGLine extends SVGNode
     public function setX1($x1)
     {
         $this->x1 = $x1;
+        return $this;
     }
 
     public function getY1()
@@ -37,6 +38,7 @@ class SVGLine extends SVGNode
     public function setY1($y1)
     {
         $this->y1 = $y1;
+        return $this;
     }
 
     public function getX2()
@@ -47,6 +49,7 @@ class SVGLine extends SVGNode
     public function setX2($x2)
     {
         $this->x2 = $x2;
+        return $this;
     }
 
     public function getY2()
@@ -57,6 +60,7 @@ class SVGLine extends SVGNode
     public function setY2($y2)
     {
         $this->y2 = $y2;
+        return $this;
     }
 
     public function toXMLString()

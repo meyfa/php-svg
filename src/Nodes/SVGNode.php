@@ -24,11 +24,13 @@ abstract class SVGNode
     public function setStyle($name, $value)
     {
         $this->styles[$name] = $value;
+        return $this;
     }
 
     public function removeStyle($name)
     {
         unset($this->styles[$name]);
+        return $this;
     }
 
     public function getComputedStyle($name)
@@ -56,11 +58,13 @@ abstract class SVGNode
     public function setAttribute($name, $value)
     {
         $this->attributes[$name] = $value;
+        return $this;
     }
 
     public function removeAttribute($name)
     {
         unset($this->attributes[$name]);
+        return $this;
     }
 
     protected function addAttributesToXMLString(&$xmlString)
