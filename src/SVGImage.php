@@ -2,17 +2,28 @@
 
 namespace JangoBrick\SVG;
 
+use JangoBrick\SVG\Nodes\Shapes\SVGCircle;
+use JangoBrick\SVG\Nodes\Shapes\SVGEllipse;
+use JangoBrick\SVG\Nodes\Shapes\SVGLine;
+use JangoBrick\SVG\Nodes\Shapes\SVGPath;
+use JangoBrick\SVG\Nodes\Shapes\SVGPolygon;
+use JangoBrick\SVG\Nodes\Shapes\SVGPolyline;
+use JangoBrick\SVG\Nodes\Shapes\SVGRect;
 use JangoBrick\SVG\Nodes\Structures\SVGDocumentFragment;
+use JangoBrick\SVG\Nodes\Structures\SVGGroup;
 
 class SVGImage
 {
     private $document;
 
-    public function __construct($width, $height, $namespaces = ['http://www.w3.org/2000/svg'])
+    public function __construct($width, $height, $namespaces = array('xmlns' => 'http://www.w3.org/2000/svg'))
     {
         $this->document   = new SVGDocumentFragment(true, $width, $height, $namespaces); // root doc
     }
 
+    /**
+     * @return SVGDocumentFragment
+     */
     public function getDocument()
     {
         return $this->document;
@@ -121,7 +132,7 @@ class SVGImage
         } elseif ($type === 'polygon' || $type === 'polyline') {
             $element = $type === 'polygon' ? new SVGPolygon() : new SVGPolyline();
 
-            $points = isset($node['points']) ? preg_split('/[\\s,]+/', $node['points']) : [];
+            $points = isset($node['points']) ? preg_split('/[\\s,]+/', $node['points']) : array();
             for ($i = 0, $n = floor(count($points) / 2); $i < $n; ++$i) {
                 $element->addPoint($points[$i * 2], $points[$i * 2 + 1]);
             }
@@ -135,13 +146,13 @@ class SVGImage
         }
 
         $attributes        = $node->attributes();
-        $ignoredAttributes = [
+        $ignoredAttributes = array(
             'x', 'y', 'width', 'height',
             'x1', 'y1', 'x2', 'y2',
             'cx', 'cy', 'r', 'rx', 'ry',
             'points',
             'style',
-        ];
+        );
         foreach ($attributes as $attribute => $value) {
             if (in_array($attribute, $ignoredAttributes)) {
                 continue;
@@ -165,7 +176,7 @@ class SVGImage
     private static function parseStyles($styles)
     {
         $styles = preg_split('/\s*;\s*/', $styles);
-        $arr    = [];
+        $arr    = array();
 
         foreach ($styles as $style) {
             if (($style = trim($style)) === '') {

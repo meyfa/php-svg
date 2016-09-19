@@ -12,8 +12,8 @@ abstract class SVGNode
 
     public function __construct()
     {
-        $this->styles = [];
-        $this->attributes = [];
+        $this->styles = array();
+        $this->attributes = array();
     }
 
     public function getStyle($name)

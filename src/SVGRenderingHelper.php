@@ -14,12 +14,12 @@ class SVGRenderingHelper
         $this->imageWidth  = $imageWidth;
         $this->imageHeight = $imageHeight;
 
-        $this->state = [
+        $this->state = array(
             'x'       => 0,
             'y'       => 0,
             'opacity' => 1,
-        ];
-        $this->stateStack = [&$this->state];
+        );
+        $this->stateStack = array(&$this->state);
     }
 
     public function getWidth()
@@ -41,14 +41,13 @@ class SVGRenderingHelper
     public function push()
     {
         // create copy
-        $this->state        = $this->state;
         $this->stateStack[] = $this->state;
     }
 
     public function pop()
     {
         if (count($this->stateStack) === 1) {
-            throw new RuntimeException('No more states to pop');
+            throw new \RuntimeException('No more states to pop');
         }
         $this->state = array_pop($this->stateStack);
     }
@@ -226,12 +225,9 @@ class SVGRenderingHelper
     {
         $tPrev = 0.0;
         $prev  = $p0;
-        $poly  = [$p0[0], $p0[1]];
+        $poly  = array($p0[0], $p0[1]);
 
         while ($tPrev < 1) {
-            if ($tPrev + $step > 1.0) {
-                $step = 1 - $tPrev;
-            }
             $step  = 0.1;
             $point = self::_cubicBezier($p0, $p1, $p2, $p3, $tPrev + $step);
             $dist  = self::_pointSqDist($prev, $point);
@@ -268,7 +264,7 @@ class SVGRenderingHelper
         $b1y = $ti * $a1y + $t * $a2y;
 
         // last step: line between points from step 3, result
-        return [$ti * $b0x + $t * $b1x, $ti * $b0y + $t * $b1y];
+        return array($ti * $b0x + $t * $b1x, $ti * $b0y + $t * $b1y);
     }
 
     // $p0 start, $p1 control point, $p2 end
@@ -282,12 +278,9 @@ class SVGRenderingHelper
     {
         $tPrev = 0.0;
         $prev  = $p0;
-        $poly  = [$p0[0], $p0[1]];
+        $poly  = array($p0[0], $p0[1]);
 
         while ($tPrev < 1) {
-            if ($tPrev + $step > 1.0) {
-                $step = 1 - $tPrev;
-            }
             $step  = 0.1;
             $point = self::_quadraticBezier($p0, $p1, $p2, $tPrev + $step);
             $dist  = self::_pointSqDist($prev, $point);
@@ -309,10 +302,10 @@ class SVGRenderingHelper
     {
         $ti = 1 - $t;
 
-        return [
+        return array(
             $ti * $ti * $p0[0] + 2 * $ti * $t * $p1[0] + $t * $t * $p2[0],
             $ti * $ti * $p0[1] + 2 * $ti * $t * $p1[1] + $t * $t * $p2[1],
-        ];
+        );
     }
 
     private static function _pointSqDist($p1, $p2)

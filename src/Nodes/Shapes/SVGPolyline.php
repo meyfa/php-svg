@@ -10,7 +10,7 @@ class SVGPolyline extends SVGNode
 {
     private $points;
 
-    public function __construct($points = [])
+    public function __construct($points = array())
     {
         $this->points = $points;
         parent::__construct();
@@ -19,7 +19,7 @@ class SVGPolyline extends SVGNode
     public function addPoint($a, $b = null)
     {
         if (!is_array($a)) {
-            $a = [$a, $b];
+            $a = array($a, $b);
         }
 
         $this->points[] = $a;
@@ -92,7 +92,7 @@ class SVGPolyline extends SVGNode
         // original (document fragment) width for unit parsing
         $ow = $rh->getWidth() / $scaleX;
 
-        $p  = [];
+        $p  = array();
         $np = count($this->points);
 
         for ($i = 0; $i < $np; ++$i) {

@@ -9,7 +9,7 @@ final class SVG
     // takes strings like 10px or 12.5% and returns length to render
     public static function convertUnit($unit, $viewLength)
     {
-        $matches = [];
+        $matches = array();
         $match   = preg_match('/^([+-]?\\d*\\.?\\d*)(px|%)?$/', $unit, $matches);
 
         if (!$match) {
@@ -46,7 +46,7 @@ final class SVG
     // expects it to be like that.
     public static function parseColor($color, $argb_int = false)
     {
-        $matches = [];
+        $matches = array();
 
         $r = 0;
         $g = 0;
@@ -81,6 +81,6 @@ final class SVG
             return ($a << 24) + ($r << 16) + ($g << 8) + ($b);
         }
 
-        return [$r, $g, $b, $a];
+        return array($r, $g, $b, $a);
     }
 }

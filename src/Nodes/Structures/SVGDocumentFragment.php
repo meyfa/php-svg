@@ -7,18 +7,18 @@ use JangoBrick\SVG\SVGRenderingHelper;
 
 class SVGDocumentFragment extends SVGNodeContainer
 {
-    private static $INITIAL_STYLES = [
+    private static $INITIAL_STYLES = array(
         'fill'          => '#000000',
         'stroke'        => 'none',
         'stroke-width'  => 1,
         'opacity'       => 1,
-    ];
+    );
 
     protected $x, $y, $width, $height;
     private $root;
     private $namespaces;
 
-    public function __construct($root = false, $width = '100%', $height = '100%', $namespaces = [])
+    public function __construct($root = false, $width = '100%', $height = '100%', $namespaces = array())
     {
         parent::__construct();
 
@@ -83,7 +83,7 @@ class SVGDocumentFragment extends SVGNodeContainer
         }
 
         if ($this->root) {
-            $styles = [];
+            $styles = array();
             // filter styles to not include initial/default ones
             foreach ($this->styles as $style => $value) {
                 if (!isset(self::$INITIAL_STYLES[$style]) || self::$INITIAL_STYLES[$style] !== $value) {

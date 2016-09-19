@@ -52,7 +52,7 @@ class SVGPath extends SVGNode
 
         // start of polygon construction
 
-        $polys       = [];
+        $polys       = array();
         $currentPoly = null;
 
         $x      = 0;
@@ -60,7 +60,7 @@ class SVGPath extends SVGNode
         $startX = null;
         $startY = null;
 
-        $matches = [];
+        $matches = array();
         preg_match_all('/[MLHVCQAZ][^MLHVCQAZ]*/i', $this->d, $matches, PREG_SET_ORDER);
 
         foreach ($matches as $match) {
@@ -85,10 +85,10 @@ class SVGPath extends SVGNode
                     if (!empty($currentPoly)) {
                         $polys[] = $currentPoly;
                     }
-                    $currentPoly = [
+                    $currentPoly = array(
                         ($offsetX + $x) * $scaleX,
                         ($offsetY + $y) * $scaleY,
-                    ];
+                    );
                 }
             } elseif ($command === 'm') {
                 // moveto relative
@@ -106,10 +106,10 @@ class SVGPath extends SVGNode
                     if (!empty($currentPoly)) {
                         $polys[] = $currentPoly;
                     }
-                    $currentPoly = [
+                    $currentPoly = array(
                         ($offsetX + $x) * $scaleX,
                         ($offsetY + $y) * $scaleY,
-                    ];
+                    );
                 }
             } elseif ($command === 'L') {
                 // lineto absolute
@@ -221,10 +221,10 @@ class SVGPath extends SVGNode
 
                     $currentPoly = array_merge($currentPoly,
                         SVGRenderingHelper::approximateCubicBezier(
-                            [$p0x, $p0y],
-                            [$p1x, $p1y],
-                            [$p2x, $p2y],
-                            [$p3x, $p3y]
+                            array($p0x, $p0y),
+                            array($p1x, $p1y),
+                            array($p2x, $p2y),
+                            array($p3x, $p3y)
                         )
                     );
 
@@ -256,10 +256,10 @@ class SVGPath extends SVGNode
 
                     $currentPoly = array_merge($currentPoly,
                         SVGRenderingHelper::approximateCubicBezier(
-                            [$p0x, $p0y],
-                            [$p1x, $p1y],
-                            [$p2x, $p2y],
-                            [$p3x, $p3y]
+                            array($p0x, $p0y),
+                            array($p1x, $p1y),
+                            array($p2x, $p2y),
+                            array($p3x, $p3y)
                         )
                     );
 
@@ -288,9 +288,9 @@ class SVGPath extends SVGNode
 
                     $currentPoly = array_merge($currentPoly,
                         SVGRenderingHelper::approximateQuadraticBezier(
-                            [$p0x, $p0y],
-                            [$p1x, $p1y],
-                            [$p2x, $p2y]
+                            array($p0x, $p0y),
+                            array($p1x, $p1y),
+                            array($p2x, $p2y)
                         )
                     );
 
@@ -319,9 +319,9 @@ class SVGPath extends SVGNode
 
                     $currentPoly = array_merge($currentPoly,
                         SVGRenderingHelper::approximateQuadraticBezier(
-                            [$p0x, $p0y],
-                            [$p1x, $p1y],
-                            [$p2x, $p2y]
+                            array($p0x, $p0y),
+                            array($p1x, $p1y),
+                            array($p2x, $p2y)
                         )
                     );
 
