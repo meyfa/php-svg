@@ -21,10 +21,12 @@ abstract class SVGNode {
 
     public function setStyle($name, $value) {
         $this->styles[$name] = $value;
+        return $this;
     }
 
     public function removeStyle($name) {
         unset($this->styles[$name]);
+        return $this;
     }
 
 

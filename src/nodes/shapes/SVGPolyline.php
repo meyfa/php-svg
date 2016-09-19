@@ -26,6 +26,7 @@ class SVGPolyline extends SVGNode {
 
     public function removePoint($index) {
         array_splice($this->points, $index, 1);
+        return $this;
     }
 
 
@@ -48,6 +49,7 @@ class SVGPolyline extends SVGNode {
 
     public function setPoint($index, $point) {
         $this->points[$index] = $point;
+        return $this;
     }
 
 

@@ -21,11 +21,13 @@ class SVGPolygon extends SVGNode {
         }
 
         $this->points[] = $a;
+        return $this;
 
     }
 
     public function removePoint($index) {
         array_splice($this->points, $index, 1);
+        return $this;
     }
 
 
@@ -48,6 +50,7 @@ class SVGPolygon extends SVGNode {
 
     public function setPoint($index, $point) {
         $this->points[$index] = $point;
+        return $this;
     }
 
 
