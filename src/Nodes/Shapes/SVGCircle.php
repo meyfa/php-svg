@@ -1,95 +1,78 @@
 <?php
 
-class SVGEllipse extends SVGNode {
+namespace JangoBrick\SVG\Nodes\Shapes;
 
-    private $cx, $cy, $rx, $ry;
+use JangoBrick\SVG\Nodes\SVGNode;
+use JangoBrick\SVG\SVG;
+use JangoBrick\SVG\SVGRenderingHelper;
 
+class SVGCircle extends SVGNode
+{
+    private $cx, $cy, $r;
 
-
-    public function __construct($cx, $cy, $rx, $ry) {
+    public function __construct($cx, $cy, $r)
+    {
         $this->cx = $cx;
         $this->cy = $cy;
-        $this->rx = $rx;
-        $this->ry = $ry;
+        $this->r  = $r;
+        parent::__construct();
     }
 
-
-
-
-
-    public function getCenterX() {
+    public function getCenterX()
+    {
         return $this->cx;
     }
 
-    public function setCenterX($cx) {
+    public function setCenterX($cx)
+    {
         $this->cx = $cx;
     }
 
-
-
-    public function getCenterY() {
+    public function getCenterY()
+    {
         return $this->cy;
     }
 
-    public function setCenterY($cy) {
+    public function setCenterY($cy)
+    {
         $this->cy = $cy;
     }
 
-
-
-
-
-    public function getRadiusX() {
-        return $this->rx;
+    public function getRadius()
+    {
+        return $this->r;
     }
 
-    public function setRadiusX($rx) {
-        $this->rx = $rx;
+    public function setRadius($r)
+    {
+        $this->r = $r;
     }
 
-
-
-    public function getRadiusY() {
-        return $this->ry;
-    }
-
-    public function setRadiusY($ry) {
-        $this->ry = $ry;
-    }
-
-
-
-
-
-    public function toXMLString() {
-
-        $s  = '<ellipse';
+    public function toXMLString()
+    {
+        $s = '<circle';
 
         $s .= ' cx="'.$this->cx.'"';
         $s .= ' cy="'.$this->cy.'"';
-        $s .= ' rx="'.$this->rx.'"';
-        $s .= ' ry="'.$this->ry.'"';
+        $s .= ' r="'.$this->r.'"';
 
         if (!empty($this->styles)) {
             $s .= ' style="';
             foreach ($this->styles as $style => $value) {
-                $s .= $style . ': ' . $value . '; ';
+                $s .= $style.': '.$value.'; ';
             }
             $s .= '"';
         }
 
+        $this->addAttributesToXMLString($s);
+
         $s .= ' />';
 
         return $s;
-
     }
 
-
-
-
-
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
-
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0)
+    {
         $rh->push();
 
         $opacity = $this->getStyle('opacity');
@@ -103,8 +86,8 @@ class SVGEllipse extends SVGNode {
 
         $cx = ($offsetX + $this->cx) * $scaleX;
         $cy = ($offsetY + $this->cy) * $scaleY;
-        $rx = ($this->rx) * $scaleX;
-        $ry = ($this->ry) * $scaleY;
+        $rx = ($this->r) * $scaleX;
+        $ry = ($this->r) * $scaleY;
 
         $fill = $this->getComputedStyle('fill');
         if (isset($fill) && $fill !== 'none') {
@@ -120,7 +103,5 @@ class SVGEllipse extends SVGNode {
         }
 
         $rh->pop();
-
     }
-
 }

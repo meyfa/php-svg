@@ -1,92 +1,86 @@
 <?php
 
-class SVGPolyline extends SVGNode {
+namespace JangoBrick\SVG\Nodes\Shapes;
 
+use JangoBrick\SVG\Nodes\SVGNode;
+use JangoBrick\SVG\SVG;
+use JangoBrick\SVG\SVGRenderingHelper;
+
+class SVGPolygon extends SVGNode
+{
     private $points;
 
-
-
-    public function __construct($points = array()) {
+    public function __construct($points = array())
+    {
         $this->points = $points;
+        parent::__construct();
     }
 
-
-
-
-
-    public function addPoint($a, $b = null) {
-
+    public function addPoint($a, $b = null)
+    {
         if (!is_array($a)) {
             $a = array($a, $b);
         }
 
         $this->points[] = $a;
-
     }
 
-    public function removePoint($index) {
+    public function removePoint($index)
+    {
         array_splice($this->points, $index, 1);
     }
 
-
-
-    public function countPoints() {
+    public function countPoints()
+    {
         return count($this->points);
     }
 
-
-
-    public function getPoints() {
+    public function getPoints()
+    {
         return $this->points;
     }
 
-    public function getPoint($index) {
+    public function getPoint($index)
+    {
         return $this->points[$index];
     }
 
-
-
-    public function setPoint($index, $point) {
+    public function setPoint($index, $point)
+    {
         $this->points[$index] = $point;
     }
 
-
-
-
-
-    public function toXMLString() {
-
-        $s  = '<polyline';
+    public function toXMLString()
+    {
+        $s  = '<polygon';
 
         $s .= ' points="';
-        for ($i=0, $n=count($this->points); $i<$n; $i++) {
+        for ($i = 0, $n = count($this->points); $i < $n; ++$i) {
             $point = $this->points[$i];
-            if ($i > 0)
+            if ($i > 0) {
                 $s .= ' ';
-            $s .= $point[0] . ',' . $point[1];
+            }
+            $s .= $point[0].','.$point[1];
         }
         $s .= '"';
 
         if (!empty($this->styles)) {
             $s .= ' style="';
             foreach ($this->styles as $style => $value) {
-                $s .= $style . ': ' . $value . '; ';
+                $s .= $style.': '.$value.'; ';
             }
             $s .= '"';
         }
 
+        $this->addAttributesToXMLString($s);
+
         $s .= ' />';
 
         return $s;
-
     }
 
-
-
-
-
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
-
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0)
+    {
         $rh->push();
 
         $opacity = $this->getStyle('opacity');
@@ -98,13 +92,13 @@ class SVGPolyline extends SVGNode {
         // original (document fragment) width for unit parsing
         $ow = $rh->getWidth() / $scaleX;
 
-        $p = array();
+        $p  = array();
         $np = count($this->points);
 
-        for ($i=0; $i<$np; $i++) {
+        for ($i = 0; $i < $np; ++$i) {
             $point = $this->points[$i];
-            $p[] = ($offsetX + $point[0]) * $scaleX;
-            $p[] = ($offsetY + $point[1]) * $scaleY;
+            $p[]   = ($offsetX + $point[0]) * $scaleX;
+            $p[]   = ($offsetY + $point[1]) * $scaleY;
         }
 
         $fill = $this->getComputedStyle('fill');
@@ -117,11 +111,9 @@ class SVGPolyline extends SVGNode {
         if (isset($stroke) && $stroke !== 'none') {
             $strokeColor = SVG::parseColor($stroke, true);
             $rh->setStrokeWidth(SVG::convertUnit($this->getComputedStyle('stroke-width'), $ow) * $scaleX);
-            $rh->drawPolyline($p, $np, $strokeColor);
+            $rh->drawPolygon($p, $np, $strokeColor);
         }
 
         $rh->pop();
-
     }
-
 }

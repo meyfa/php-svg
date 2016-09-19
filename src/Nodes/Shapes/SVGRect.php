@@ -1,68 +1,66 @@
 <?php
 
-class SVGRect extends SVGNode {
+namespace JangoBrick\SVG\Nodes\Shapes;
 
+use JangoBrick\SVG\Nodes\SVGNode;
+use JangoBrick\SVG\SVG;
+use JangoBrick\SVG\SVGRenderingHelper;
+
+class SVGRect extends SVGNode
+{
     protected $x, $y, $width, $height;
 
-
-
-    public function __construct($x, $y, $width, $height) {
-        $this->x = $x;
-        $this->y = $y;
-        $this->width = $width;
+    public function __construct($x, $y, $width, $height)
+    {
+        $this->x      = $x;
+        $this->y      = $y;
+        $this->width  = $width;
         $this->height = $height;
+        parent::__construct();
     }
 
-
-
-
-
-    public function getX() {
+    public function getX()
+    {
         return $this->x;
     }
 
-    public function setX($x) {
+    public function setX($x)
+    {
         $this->x = $x;
     }
 
-
-
-    public function getY() {
+    public function getY()
+    {
         return $this->y;
     }
 
-    public function setY($y) {
+    public function setY($y)
+    {
         $this->y = $y;
     }
 
-
-
-
-
-    public function getWidth() {
+    public function getWidth()
+    {
         return $this->width;
     }
 
-    public function setWidth($width) {
+    public function setWidth($width)
+    {
         $this->width = $width;
     }
 
-
-
-    public function getHeight() {
+    public function getHeight()
+    {
         return $this->height;
     }
 
-    public function setHeight($height) {
+    public function setHeight($height)
+    {
         $this->height = $height;
     }
 
-
-
-
-
-    public function toXMLString() {
-
+    public function toXMLString()
+    {
         $s  = '<rect';
 
         $s .= ' x="'.$this->x.'"';
@@ -73,23 +71,20 @@ class SVGRect extends SVGNode {
         if (!empty($this->styles)) {
             $s .= ' style="';
             foreach ($this->styles as $style => $value) {
-                $s .= $style . ': ' . $value . '; ';
+                $s .= $style.': '.$value.'; ';
             }
             $s .= '"';
         }
 
+        $this->addAttributesToXMLString($s);
+
         $s .= ' />';
 
         return $s;
-
     }
 
-
-
-
-
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0) {
-
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0)
+    {
         $rh->push();
 
         $opacity = $this->getStyle('opacity');
@@ -120,7 +115,5 @@ class SVGRect extends SVGNode {
         }
 
         $rh->pop();
-
     }
-
 }
