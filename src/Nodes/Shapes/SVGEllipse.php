@@ -27,6 +27,7 @@ class SVGEllipse extends SVGNode
     public function setCenterX($cx)
     {
         $this->cx = $cx;
+        return $this;
     }
 
     public function getCenterY()
@@ -37,6 +38,7 @@ class SVGEllipse extends SVGNode
     public function setCenterY($cy)
     {
         $this->cy = $cy;
+        return $this;
     }
 
     public function getRadiusX()
@@ -47,6 +49,7 @@ class SVGEllipse extends SVGNode
     public function setRadiusX($rx)
     {
         $this->rx = $rx;
+        return $this;
     }
 
     public function getRadiusY()
@@ -57,6 +60,7 @@ class SVGEllipse extends SVGNode
     public function setRadiusY($ry)
     {
         $this->ry = $ry;
+        return $this;
     }
 
     public function toXMLString()

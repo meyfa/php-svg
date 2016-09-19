@@ -46,6 +46,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     public function setWidth($width)
     {
         $this->width = $width;
+        return $this;
     }
 
     public function getHeight()
@@ -56,6 +57,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     public function setHeight($height)
     {
         $this->height = $height;
+        return $this;
     }
 
     public function toXMLString()

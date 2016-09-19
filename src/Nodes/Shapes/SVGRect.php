@@ -27,6 +27,7 @@ class SVGRect extends SVGNode
     public function setX($x)
     {
         $this->x = $x;
+        return $this;
     }
 
     public function getY()
@@ -37,6 +38,7 @@ class SVGRect extends SVGNode
     public function setY($y)
     {
         $this->y = $y;
+        return $this;
     }
 
     public function getWidth()
@@ -47,6 +49,7 @@ class SVGRect extends SVGNode
     public function setWidth($width)
     {
         $this->width = $width;
+        return $this;
     }
 
     public function getHeight()
@@ -57,6 +60,7 @@ class SVGRect extends SVGNode
     public function setHeight($height)
     {
         $this->height = $height;
+        return $this;
     }
 
     public function toXMLString()

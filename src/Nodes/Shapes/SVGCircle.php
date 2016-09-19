@@ -26,6 +26,7 @@ class SVGCircle extends SVGNode
     public function setCenterX($cx)
     {
         $this->cx = $cx;
+        return $this;
     }
 
     public function getCenterY()
@@ -36,6 +37,7 @@ class SVGCircle extends SVGNode
     public function setCenterY($cy)
     {
         $this->cy = $cy;
+        return $this;
     }
 
     public function getRadius()
@@ -46,6 +48,7 @@ class SVGCircle extends SVGNode
     public function setRadius($r)
     {
         $this->r = $r;
+        return $this;
     }
 
     public function toXMLString()
