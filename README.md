@@ -1,4 +1,5 @@
 # php-svg
+
 This is a vector graphics library for PHP, which surely is a broad
 specification. That is due to the fact that the goal of this project is to
 offer features in three different, big areas:
@@ -27,6 +28,16 @@ In case you decide to contribute, please honor these things:
 
 
 
+## Installation
+
+This package is available through Composer/Packagist:
+
+```
+$ composer require jangobrick/php-svg
+```
+
+
+
 ## Getting Started
 
 ### Creating an image
@@ -35,7 +46,10 @@ The following code generates a SVG with a blue square, sets the Content-Type
 header and echoes it:
 
 ```php
-include 'php-svg/SVG.php';
+<?php
+
+use JangoBrick\SVG\SVGImage;
+use JangoBrick\SVG\Nodes\Shapes\SVGRect;
 
 // image with 100x100 viewport
 $image = new SVGImage(100, 100);
@@ -57,17 +71,21 @@ convert it to a raster image, you simply call `toRasterImage($width, $height)`
 on it. Example:
 
 ```php
-include 'php-svg/SVG.php';
+<?php
+
+use JangoBrick\SVG\SVGImage;
+use JangoBrick\SVG\Nodes\Shapes\SVGCircle;
 
 $image = new SVGImage(100, 100);
 $doc = $image->getDocument();
 
 // circle with radius 20 and green border, center at (50, 50)
-$circle = new SVGCircle(50, 50, 20);
-$circle->setStyle('fill', 'none');
-$circle->setStyle('stroke', '#0F0');
-$circle->setStyle('stroke-width', '2px');
-$doc->addChild($circle);
+$doc->addChild(
+    (new SVGCircle(50, 50, 20))
+        ->setStyle('fill', 'none')
+        ->setStyle('stroke', '#0F0')
+        ->setStyle('stroke-width', '2px')
+);
 
 // rasterize to a 200x200 image, i.e. the original SVG size scaled by 2
 $rasterImage = $image->toRasterImage(200, 200);
@@ -82,7 +100,9 @@ You can load SVG images both from strings and from files. This example loads one
 from a string, moves the contained rectangle and echoes the new SVG:
 
 ```php
-include 'php-svg/SVG.php';
+<?php
+
+use JangoBrick\SVG\SVGImage;
 
 $svg  = '<svg width="100" height="100">';
 $svg .= '<rect width="50" height="50" fill="#00F" />';
@@ -92,8 +112,7 @@ $image = SVGImage::fromString($svg);
 $doc = $image->getDocument();
 
 $rect = $doc->getChild(0);
-$rect->setX(25);
-$rect->setY(25);
+$rect->setX(25)->setY(25);
 
 header('Content-Type: image/svg+xml');
 echo $image;
