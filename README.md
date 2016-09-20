@@ -28,13 +28,37 @@ In case you decide to contribute, please honor these things:
 
 
 
+---
+
+
+
 ## Installation
+
+### Composer (recommended)
 
 This package is available through Composer/Packagist:
 
 ```
 $ composer require jangobrick/php-svg
 ```
+
+### Manual
+
+[Download](https://github.com/JangoBrick/php-svg/zipball/master) this repo,
+or the [latest release](https://github.com/JangoBrick/php-svg/releases),
+and put it somewhere in your project. Then do:
+
+```php
+<?php
+require_once __DIR__.'/<path_where_you_put_it>/autoloader.php';
+```
+
+The rest works exactly the same as with Composer, just without things like nice
+version management.
+
+
+
+---
 
 
 
