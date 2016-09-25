@@ -59,14 +59,7 @@ class SVGCircle extends SVGNode
         $s .= ' cy="'.$this->cy.'"';
         $s .= ' r="'.$this->r.'"';
 
-        if (!empty($this->styles)) {
-            $s .= ' style="';
-            foreach ($this->styles as $style => $value) {
-                $s .= $style.': '.$value.'; ';
-            }
-            $s .= '"';
-        }
-
+        $this->addStylesToXMLString($s);
         $this->addAttributesToXMLString($s);
 
         $s .= ' />';

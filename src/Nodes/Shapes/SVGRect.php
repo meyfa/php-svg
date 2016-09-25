@@ -72,14 +72,7 @@ class SVGRect extends SVGNode
         $s .= ' width="'.$this->width.'"';
         $s .= ' height="'.$this->height.'"';
 
-        if (!empty($this->styles)) {
-            $s .= ' style="';
-            foreach ($this->styles as $style => $value) {
-                $s .= $style.': '.$value.'; ';
-            }
-            $s .= '"';
-        }
-
+        $this->addStylesToXMLString($s);
         $this->addAttributesToXMLString($s);
 
         $s .= ' />';

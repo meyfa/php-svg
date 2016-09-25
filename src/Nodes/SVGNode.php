@@ -67,6 +67,17 @@ abstract class SVGNode
         return $this;
     }
 
+    protected function addStylesToXMLString(&$xmlString)
+    {
+        if (!empty($this->styles)) {
+            $xmlString .= ' style="';
+            foreach ($this->styles as $style => $value) {
+                $xmlString .= $style.': '.$value.'; ';
+            }
+            $xmlString .= '"';
+        }
+    }
+
     protected function addAttributesToXMLString(&$xmlString)
     {
         if (!empty($this->attributes)) {

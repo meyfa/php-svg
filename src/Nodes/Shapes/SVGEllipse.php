@@ -72,14 +72,7 @@ class SVGEllipse extends SVGNode
         $s .= ' rx="'.$this->rx.'"';
         $s .= ' ry="'.$this->ry.'"';
 
-        if (!empty($this->styles)) {
-            $s .= ' style="';
-            foreach ($this->styles as $style => $value) {
-                $s .= $style.': '.$value.'; ';
-            }
-            $s .= '"';
-        }
-
+        $this->addStylesToXMLString($s);
         $this->addAttributesToXMLString($s);
 
         $s .= ' />';

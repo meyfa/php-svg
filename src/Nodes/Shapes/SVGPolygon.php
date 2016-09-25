@@ -67,14 +67,7 @@ class SVGPolygon extends SVGNode
         }
         $s .= '"';
 
-        if (!empty($this->styles)) {
-            $s .= ' style="';
-            foreach ($this->styles as $style => $value) {
-                $s .= $style.': '.$value.'; ';
-            }
-            $s .= '"';
-        }
-
+        $this->addStylesToXMLString($s);
         $this->addAttributesToXMLString($s);
 
         $s .= ' />';

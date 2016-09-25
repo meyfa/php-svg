@@ -16,13 +16,7 @@ class SVGGroup extends SVGNodeContainer
     {
         $s  = '<g';
 
-        if (!empty($this->styles)) {
-            $s .= ' style="';
-            foreach ($this->styles as $style => $value) {
-                $s .= $style.': '.$value.'; ';
-            }
-            $s .= '"';
-        }
+        $this->addStylesToXMLString($s);
 
         $s .= '>';
 

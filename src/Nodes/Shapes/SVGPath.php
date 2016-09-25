@@ -22,14 +22,7 @@ class SVGPath extends SVGNode
 
         $s .= ' d="'.$this->d.'"';
 
-        if (!empty($this->styles)) {
-            $s .= ' style="';
-            foreach ($this->styles as $style => $value) {
-                $s .= $style.': '.$value.'; ';
-            }
-            $s .= '"';
-        }
-
+        $this->addStylesToXMLString($s);
         $this->addAttributesToXMLString($s);
 
         $s .= ' />';

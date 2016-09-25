@@ -72,14 +72,7 @@ class SVGLine extends SVGNode
         $s .= ' x2="'.$this->x2.'"';
         $s .= ' y2="'.$this->y2.'"';
 
-        if (!empty($this->styles)) {
-            $s .= ' style="';
-            foreach ($this->styles as $style => $value) {
-                $s .= $style.': '.$value.'; ';
-            }
-            $s .= '"';
-        }
-
+        $this->addStylesToXMLString($s);
         $this->addAttributesToXMLString($s);
 
         $s .= ' />';
