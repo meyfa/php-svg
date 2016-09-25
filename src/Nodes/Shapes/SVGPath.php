@@ -12,8 +12,9 @@ class SVGPath extends SVGNode
 
     public function __construct($d)
     {
-        $this->d = $d;
         parent::__construct();
+
+        $this->d = $d;
     }
 
     public function toXMLString()

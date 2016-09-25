@@ -12,10 +12,11 @@ class SVGCircle extends SVGNode
 
     public function __construct($cx, $cy, $r)
     {
+        parent::__construct();
+
         $this->cx = $cx;
         $this->cy = $cy;
         $this->r  = $r;
-        parent::__construct();
     }
 
     public function getCenterX()

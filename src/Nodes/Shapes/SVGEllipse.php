@@ -12,11 +12,12 @@ class SVGEllipse extends SVGNode
 
     public function __construct($cx, $cy, $rx, $ry)
     {
+        parent::__construct();
+
         $this->cx = $cx;
         $this->cy = $cy;
         $this->rx = $rx;
         $this->ry = $ry;
-        parent::__construct();
     }
 
     public function getCenterX()

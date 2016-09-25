@@ -12,11 +12,12 @@ class SVGRect extends SVGNode
 
     public function __construct($x, $y, $width, $height)
     {
+        parent::__construct();
+
         $this->x      = $x;
         $this->y      = $y;
         $this->width  = $width;
         $this->height = $height;
-        parent::__construct();
     }
 
     public function getX()

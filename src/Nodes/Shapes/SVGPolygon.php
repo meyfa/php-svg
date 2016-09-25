@@ -12,8 +12,9 @@ class SVGPolygon extends SVGNode
 
     public function __construct($points = array())
     {
-        $this->points = $points;
         parent::__construct();
+
+        $this->points = $points;
     }
 
     public function addPoint($a, $b = null)
