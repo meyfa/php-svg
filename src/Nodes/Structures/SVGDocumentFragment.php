@@ -104,11 +104,7 @@ class SVGDocumentFragment extends SVGNodeContainer
             $s .= '"';
         }
 
-        if (!empty($this->attributes)) {
-            foreach ($this->attributes as $attributeName => $attributeValue) {
-                $s .= ' '.$attributeName.'="'.$attributeValue.'"';
-            }
-        }
+        $this->addAttributesToXMLString($s);
 
         $s .= '>';
 
