@@ -29,14 +29,14 @@ final class SVG
     }
 
     // regex for #FFFFFF etc
-    private static $COLOR_HEX_6 = '/^#([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})$/i';
+    const COLOR_HEX_6 = '/^#([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})$/i';
     // regex for #FFF etc
-    private static $COLOR_HEX_3 = '/^#([0-9A-F])([0-9A-F])([0-9A-F])$/i';
+    const COLOR_HEX_3 = '/^#([0-9A-F])([0-9A-F])([0-9A-F])$/i';
 
     // regex for rgb(255, 255, 255) etc
-    private static $COLOR_RGB = '/^rgb\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
+    const COLOR_RGB = '/^rgb\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
     // regex for rgba(255, 255, 255, 0.5) etc
-    private static $COLOR_RGBA = '/^rgba\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
+    const COLOR_RGBA = '/^rgba\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
 
     // takes any form of SVG color string and returns, depending on the second argument:
     // - FALSE (default): RGBA array
@@ -53,19 +53,19 @@ final class SVG
         $b = 0;
         $a = 0;
 
-        if (preg_match(self::$COLOR_HEX_6, $color, $matches)) {
+        if (preg_match(self::COLOR_HEX_6, $color, $matches)) {
             $r = hexdec($matches[1]);
             $g = hexdec($matches[2]);
             $b = hexdec($matches[3]);
-        } elseif (preg_match(self::$COLOR_HEX_3, $color, $matches)) {
+        } elseif (preg_match(self::COLOR_HEX_3, $color, $matches)) {
             $r = hexdec($matches[1].$matches[1]);
             $g = hexdec($matches[2].$matches[2]);
             $b = hexdec($matches[3].$matches[3]);
-        } elseif (preg_match(self::$COLOR_RGB, $color, $matches)) {
+        } elseif (preg_match(self::COLOR_RGB, $color, $matches)) {
             $r = intval($matches[1]);
             $g = intval($matches[2]);
             $b = intval($matches[3]);
-        } elseif (preg_match(self::$COLOR_RGBA, $color, $matches)) {
+        } elseif (preg_match(self::COLOR_RGBA, $color, $matches)) {
             $r = intval($matches[1]);
             $g = intval($matches[2]);
             $b = intval($matches[3]);
