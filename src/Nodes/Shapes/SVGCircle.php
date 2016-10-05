@@ -68,7 +68,7 @@ class SVGCircle extends SVGNode
         return $s;
     }
 
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0)
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY)
     {
         $rh->push();
 
@@ -81,10 +81,10 @@ class SVGCircle extends SVGNode
         // original (document fragment) width for unit parsing
         $ow = $rh->getWidth() / $scaleX;
 
-        $cx = ($offsetX + $this->cx) * $scaleX;
-        $cy = ($offsetY + $this->cy) * $scaleY;
-        $rx = ($this->r) * $scaleX;
-        $ry = ($this->r) * $scaleY;
+        $cx = $this->cx * $scaleX;
+        $cy = $this->cy * $scaleY;
+        $rx = $this->r * $scaleX;
+        $ry = $this->r * $scaleY;
 
         $fill = $this->getComputedStyle('fill');
         if (isset($fill) && $fill !== 'none') {

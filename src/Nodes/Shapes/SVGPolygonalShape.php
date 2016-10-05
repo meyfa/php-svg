@@ -78,7 +78,7 @@ abstract class SVGPolygonalShape extends SVGNode
         return $s;
     }
 
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0)
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY)
     {
         $rh->push();
 
@@ -96,8 +96,8 @@ abstract class SVGPolygonalShape extends SVGNode
 
         for ($i = 0; $i < $np; ++$i) {
             $point = $this->points[$i];
-            $p[]   = ($offsetX + $point[0]) * $scaleX;
-            $p[]   = ($offsetY + $point[1]) * $scaleY;
+            $p[]   = $point[0] * $scaleX;
+            $p[]   = $point[1] * $scaleY;
         }
 
         $fill = $this->getComputedStyle('fill');

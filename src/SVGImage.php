@@ -50,7 +50,7 @@ class SVGImage
 
         $scaleX = $width / $this->document->getWidth();
         $scaleY = $height / $this->document->getHeight();
-        $this->document->draw($rh, $scaleX, $scaleY, 0, 0);
+        $this->document->draw($rh, $scaleX, $scaleY);
 
         return $out;
     }

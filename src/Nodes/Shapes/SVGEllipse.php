@@ -81,7 +81,7 @@ class SVGEllipse extends SVGNode
         return $s;
     }
 
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0)
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY)
     {
         $rh->push();
 
@@ -94,10 +94,10 @@ class SVGEllipse extends SVGNode
         // original (document fragment) width for unit parsing
         $ow = $rh->getWidth() / $scaleX;
 
-        $cx = ($offsetX + $this->cx) * $scaleX;
-        $cy = ($offsetY + $this->cy) * $scaleY;
-        $rx = ($this->rx) * $scaleX;
-        $ry = ($this->ry) * $scaleY;
+        $cx = $this->cx * $scaleX;
+        $cy = $this->cy * $scaleY;
+        $rx = $this->rx * $scaleX;
+        $ry = $this->ry * $scaleY;
 
         $fill = $this->getComputedStyle('fill');
         if (isset($fill) && $fill !== 'none') {

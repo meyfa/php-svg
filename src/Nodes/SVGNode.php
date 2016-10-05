@@ -89,7 +89,7 @@ abstract class SVGNode
 
     abstract public function toXMLString();
 
-    abstract public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0);
+    abstract public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY);
 
     public function __toString()
     {

@@ -118,14 +118,20 @@ class SVGDocumentFragment extends SVGNodeContainer
         return $s;
     }
 
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0)
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY)
     {
-        $offsetX += $this->x;
-        $offsetY += $this->y;
+        if (!$this->root) {
+            $rh->push();
+            $rh->translate($this->x * $scaleX, $this->y * $scaleY);
+        }
 
         for ($i = 0, $n = $this->countChildren(); $i < $n; ++$i) {
             $child = $this->getChild($i);
-            $child->draw($rh, $scaleX, $scaleY, $offsetX, $offsetY);
+            $child->draw($rh, $scaleX, $scaleY);
+        }
+
+        if (!$this->root) {
+            $rh->pop();
         }
     }
 }

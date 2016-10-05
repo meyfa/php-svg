@@ -81,7 +81,7 @@ class SVGLine extends SVGNode
         return $s;
     }
 
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0)
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY)
     {
         $rh->push();
 
@@ -94,10 +94,10 @@ class SVGLine extends SVGNode
         // original (document fragment) width for unit parsing
         $ow = $rh->getWidth() / $scaleX;
 
-        $x1 = ($offsetX + $this->x1) * $scaleX;
-        $y1 = ($offsetY + $this->y1) * $scaleY;
-        $x2 = ($offsetX + $this->x2) * $scaleX;
-        $y2 = ($offsetY + $this->y2) * $scaleY;
+        $x1 = $this->x1 * $scaleX;
+        $y1 = $this->y1 * $scaleY;
+        $x2 = $this->x2 * $scaleX;
+        $y2 = $this->y2 * $scaleY;
 
         $stroke = $this->getComputedStyle('stroke');
         if (isset($stroke) && $stroke !== 'none') {

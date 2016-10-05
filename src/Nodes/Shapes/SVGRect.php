@@ -81,7 +81,7 @@ class SVGRect extends SVGNode
         return $s;
     }
 
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0)
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY)
     {
         $rh->push();
 
@@ -94,10 +94,10 @@ class SVGRect extends SVGNode
         // original (document fragment) width for unit parsing
         $ow = $rh->getWidth() / $scaleX;
 
-        $x = ($offsetX + $this->x) * $scaleX;
-        $y = ($offsetY + $this->y) * $scaleY;
-        $w = ($this->width) * $scaleX;
-        $h = ($this->height) * $scaleY;
+        $x = $this->x * $scaleX;
+        $y = $this->y * $scaleY;
+        $w = $this->width * $scaleX;
+        $h = $this->height * $scaleY;
 
         $fill = $this->getComputedStyle('fill');
         if (isset($fill) && $fill !== 'none') {

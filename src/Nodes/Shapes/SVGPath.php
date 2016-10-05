@@ -31,7 +31,7 @@ class SVGPath extends SVGNode
         return $s;
     }
 
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0)
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY)
     {
         $rh->push();
 
@@ -79,10 +79,7 @@ class SVGPath extends SVGNode
                     if (!empty($currentPoly)) {
                         $polys[] = $currentPoly;
                     }
-                    $currentPoly = array(
-                        ($offsetX + $x) * $scaleX,
-                        ($offsetY + $y) * $scaleY,
-                    );
+                    $currentPoly = array($x * $scaleX, $y * $scaleY);
                 }
             } elseif ($command === 'm') {
                 // moveto relative
@@ -100,10 +97,7 @@ class SVGPath extends SVGNode
                     if (!empty($currentPoly)) {
                         $polys[] = $currentPoly;
                     }
-                    $currentPoly = array(
-                        ($offsetX + $x) * $scaleX,
-                        ($offsetY + $y) * $scaleY,
-                    );
+                    $currentPoly = array($x * $scaleX, $y * $scaleY);
                 }
             } elseif ($command === 'L') {
                 // lineto absolute
@@ -115,8 +109,8 @@ class SVGPath extends SVGNode
 
                     $x             = floatval($args[0]);
                     $y             = floatval($args[1]);
-                    $currentPoly[] = ($offsetX + $x) * $scaleX;
-                    $currentPoly[] = ($offsetY + $y) * $scaleY;
+                    $currentPoly[] = $x * $scaleX;
+                    $currentPoly[] = $y * $scaleY;
                 }
             } elseif ($command === 'l') {
                 // lineto relative
@@ -128,8 +122,8 @@ class SVGPath extends SVGNode
 
                     $x += floatval($args[0]);
                     $y += floatval($args[1]);
-                    $currentPoly[] = ($offsetX + $x) * $scaleX;
-                    $currentPoly[] = ($offsetY + $y) * $scaleY;
+                    $currentPoly[] = $x * $scaleX;
+                    $currentPoly[] = $y * $scaleY;
                 }
             } elseif ($command === 'H') {
                 // lineto horizontal absolute
@@ -140,8 +134,8 @@ class SVGPath extends SVGNode
 
                 foreach ($args as $arg) {
                     $x             = floatval($arg);
-                    $currentPoly[] = ($offsetX + $x) * $scaleX;
-                    $currentPoly[] = ($offsetY + $y) * $scaleY;
+                    $currentPoly[] = $x * $scaleX;
+                    $currentPoly[] = $y * $scaleY;
                 }
             } elseif ($command === 'h') {
                 // lineto horizontal relative
@@ -152,8 +146,8 @@ class SVGPath extends SVGNode
 
                 foreach ($args as $arg) {
                     $x += floatval($arg);
-                    $currentPoly[] = ($offsetX + $x) * $scaleX;
-                    $currentPoly[] = ($offsetY + $y) * $scaleY;
+                    $currentPoly[] = $x * $scaleX;
+                    $currentPoly[] = $y * $scaleY;
                 }
             } elseif ($command === 'V') {
                 // lineto vertical absolute
@@ -164,8 +158,8 @@ class SVGPath extends SVGNode
 
                 foreach ($args as $arg) {
                     $y             = floatval($arg);
-                    $currentPoly[] = ($offsetX + $x) * $scaleX;
-                    $currentPoly[] = ($offsetY + $y) * $scaleY;
+                    $currentPoly[] = $x * $scaleX;
+                    $currentPoly[] = $y * $scaleY;
                 }
             } elseif ($command === 'v') {
                 // lineto vertical relative
@@ -176,8 +170,8 @@ class SVGPath extends SVGNode
 
                 foreach ($args as $arg) {
                     $y += floatval($arg);
-                    $currentPoly[] = ($offsetX + $x) * $scaleX;
-                    $currentPoly[] = ($offsetY + $y) * $scaleY;
+                    $currentPoly[] = $x * $scaleX;
+                    $currentPoly[] = $y * $scaleY;
                 }
             } elseif ($command === 'Z' || $command === 'z') {
                 // end
@@ -188,8 +182,8 @@ class SVGPath extends SVGNode
 
                 $x             = $startX !== null ? $startX : 0;
                 $y             = $startY !== null ? $startY : 0;
-                $currentPoly[] = ($offsetX + $x) * $scaleX;
-                $currentPoly[] = ($offsetY + $y) * $scaleY;
+                $currentPoly[] = $x * $scaleX;
+                $currentPoly[] = $y * $scaleY;
             } elseif ($command === 'C') {
                 // curveto cubic absolute
 
@@ -199,19 +193,19 @@ class SVGPath extends SVGNode
                     }
 
                     // start point
-                    $p0x = ($offsetX + $x) * $scaleX;
-                    $p0y = ($offsetY + $y) * $scaleY;
+                    $p0x = $x * $scaleX;
+                    $p0y = $y * $scaleY;
                     // first control point
-                    $p1x = ($offsetX + floatval($args[0])) * $scaleX;
-                    $p1y = ($offsetY + floatval($args[1])) * $scaleY;
+                    $p1x = floatval($args[0]) * $scaleX;
+                    $p1y = floatval($args[1]) * $scaleY;
                     // second control point
-                    $p2x = ($offsetX + floatval($args[2])) * $scaleX;
-                    $p2y = ($offsetY + floatval($args[3])) * $scaleY;
+                    $p2x = floatval($args[2]) * $scaleX;
+                    $p2y = floatval($args[3]) * $scaleY;
                     // final point
                     $nx  = floatval($args[4]);
                     $ny  = floatval($args[5]);
-                    $p3x = ($offsetX + $nx) * $scaleX;
-                    $p3y = ($offsetY + $ny) * $scaleY;
+                    $p3x = $nx * $scaleX;
+                    $p3y = $ny * $scaleY;
 
                     $currentPoly = array_merge($currentPoly,
                         SVGRenderingHelper::approximateCubicBezier(
@@ -234,19 +228,19 @@ class SVGPath extends SVGNode
                     }
 
                     // start point
-                    $p0x = ($offsetX + $x) * $scaleX;
-                    $p0y = ($offsetY + $y) * $scaleY;
+                    $p0x = ($x) * $scaleX;
+                    $p0y = ($y) * $scaleY;
                     // first control point
-                    $p1x = ($offsetX + $x + floatval($args[0])) * $scaleX;
-                    $p1y = ($offsetY + $y + floatval($args[1])) * $scaleY;
+                    $p1x = ($x + floatval($args[0])) * $scaleX;
+                    $p1y = ($y + floatval($args[1])) * $scaleY;
                     // second control point
-                    $p2x = ($offsetX + $x + floatval($args[2])) * $scaleX;
-                    $p2y = ($offsetY + $y + floatval($args[3])) * $scaleY;
+                    $p2x = ($x + floatval($args[2])) * $scaleX;
+                    $p2y = ($y + floatval($args[3])) * $scaleY;
                     // final point
                     $nx  = $x + floatval($args[4]);
                     $ny  = $y + floatval($args[5]);
-                    $p3x = ($offsetX + $nx) * $scaleX;
-                    $p3y = ($offsetY + $ny) * $scaleY;
+                    $p3x = ($nx) * $scaleX;
+                    $p3y = ($ny) * $scaleY;
 
                     $currentPoly = array_merge($currentPoly,
                         SVGRenderingHelper::approximateCubicBezier(
@@ -269,16 +263,16 @@ class SVGPath extends SVGNode
                     }
 
                     // start point
-                    $p0x = ($offsetX + $x) * $scaleX;
-                    $p0y = ($offsetY + $y) * $scaleY;
+                    $p0x = $x * $scaleX;
+                    $p0y = $y * $scaleY;
                     // control point
-                    $p1x = ($offsetX + floatval($args[0])) * $scaleX;
-                    $p1y = ($offsetY + floatval($args[1])) * $scaleY;
+                    $p1x = floatval($args[0]) * $scaleX;
+                    $p1y = floatval($args[1]) * $scaleY;
                     // final point
                     $nx  = floatval($args[2]);
                     $ny  = floatval($args[3]);
-                    $p2x = ($offsetX + $nx) * $scaleX;
-                    $p2y = ($offsetY + $ny) * $scaleY;
+                    $p2x = $nx * $scaleX;
+                    $p2y = $ny * $scaleY;
 
                     $currentPoly = array_merge($currentPoly,
                         SVGRenderingHelper::approximateQuadraticBezier(
@@ -300,16 +294,16 @@ class SVGPath extends SVGNode
                     }
 
                     // start point
-                    $p0x = ($offsetX + $x) * $scaleX;
-                    $p0y = ($offsetY + $y) * $scaleY;
+                    $p0x = $x * $scaleX;
+                    $p0y = $y * $scaleY;
                     // control point
-                    $p1x = ($offsetX + $x + floatval($args[0])) * $scaleX;
-                    $p1y = ($offsetY + $y + floatval($args[1])) * $scaleY;
+                    $p1x = ($x + floatval($args[0])) * $scaleX;
+                    $p1y = ($y + floatval($args[1])) * $scaleY;
                     // final point
                     $nx  = $x + floatval($args[2]);
                     $ny  = $y + floatval($args[3]);
-                    $p2x = ($offsetX + $nx) * $scaleX;
-                    $p2y = ($offsetY + $ny) * $scaleY;
+                    $p2x = $nx * $scaleX;
+                    $p2y = $ny * $scaleY;
 
                     $currentPoly = array_merge($currentPoly,
                         SVGRenderingHelper::approximateQuadraticBezier(
