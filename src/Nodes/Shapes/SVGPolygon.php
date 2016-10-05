@@ -11,7 +11,8 @@ class SVGPolygon extends SVGPolygonalShape
         parent::__construct('polygon', $points);
     }
 
-    protected function drawOutline(SVGRenderingHelper $rh, $points, $numPoints, $strokeColor) {
+    protected function drawOutline(SVGRenderingHelper $rh, $points, $numPoints, $strokeColor)
+    {
         $rh->drawPolygon($points, $numPoints, $strokeColor);
     }
 }
