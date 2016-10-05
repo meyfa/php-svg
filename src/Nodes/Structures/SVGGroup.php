@@ -31,7 +31,7 @@ class SVGGroup extends SVGNodeContainer
         return $s;
     }
 
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY, $offsetX = 0, $offsetY = 0)
+    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY)
     {
 
         // cannot inherit opacity, so getStyle instead of getComputedStyle
@@ -46,13 +46,13 @@ class SVGGroup extends SVGNodeContainer
             $buffer = $rh->createBuffer();
             for ($i = 0, $n = $this->countChildren(); $i < $n; ++$i) {
                 $child = $this->getChild($i);
-                $child->draw($buffer, $scaleX, $scaleY, $offsetX, $offsetY);
+                $child->draw($buffer, $scaleX, $scaleY);
             }
             $rh->drawBuffer($buffer, $opacity);
         } else {
             for ($i = 0, $n = $this->countChildren(); $i < $n; ++$i) {
                 $child = $this->getChild($i);
-                $child->draw($rh, $scaleX, $scaleY, $offsetX, $offsetY);
+                $child->draw($rh, $scaleX, $scaleY);
             }
         }
     }
