@@ -13,12 +13,8 @@ abstract class SVGNodeContainer extends SVGNode
         $this->children = array();
     }
 
-    public function addChild($node)
+    public function addChild(SVGNode $node)
     {
-        if (!($node instanceof SVGNode)) {
-            return false;
-        }
-
         if ($node === $this) {
             return false;
         }
