@@ -132,9 +132,11 @@ class SVGImage
         } elseif ($type === 'polygon' || $type === 'polyline') {
             $node = ($type === 'polygon') ? new SVGPolygon() : new SVGPolyline();
 
-            $points = isset($element['points']) ? preg_split('/[\\s,]+/', $element['points']) : array();
-            for ($i = 0, $n = floor(count($points) / 2); $i < $n; ++$i) {
-                $node->addPoint($points[$i * 2], $points[$i * 2 + 1]);
+            if (isset($element['points'])) {
+                $points = preg_split('/[\\s,]+/', $element['points']);
+                for ($i = 0, $n = count($points); $i < $n; $i += 2) {
+                    $node->addPoint($points[$i], $points[$i + 1]);
+                }
             }
         } elseif ($type === 'path') {
             $d    = isset($element['d']) ? $element['d'] : '';
