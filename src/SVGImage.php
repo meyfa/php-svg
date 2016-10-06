@@ -151,6 +151,7 @@ class SVGImage
             'x1', 'y1', 'x2', 'y2',
             'cx', 'cy', 'r', 'rx', 'ry',
             'points',
+            'd',
             'style',
         );
         foreach ($attributes as $attribute => $value) {
