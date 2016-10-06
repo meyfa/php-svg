@@ -74,8 +74,13 @@ abstract class SVGNode
         }
 
         $xmlString .= ' style="';
+        $prependSemicolon = false;
         foreach ($this->styles as $style => $value) {
-            $xmlString .= $style.': '.$value.'; ';
+            if ($prependSemicolon) {
+                $xmlString .= '; ';
+            }
+            $prependSemicolon = true;
+            $xmlString .= $style.': '.$value;
         }
         $xmlString .= '"';
     }
