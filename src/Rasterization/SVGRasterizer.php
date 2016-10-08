@@ -7,6 +7,7 @@ use JangoBrick\SVG\Nodes\SVGNode;
 class SVGRasterizer
 {
     private static $renderers;
+    private static $pathParser;
 
     private $docWidth, $docHeight;
     private $width, $height;
@@ -55,6 +56,8 @@ class SVGRasterizer
             'ellipse'   => new Renderers\SVGEllipseRenderer(),
             'polygon'   => new Renderers\SVGPolygonRenderer(),
         );
+
+        self::$pathParser       = new Path\SVGPathParser();
     }
 
     private static function getRenderer($id)
@@ -63,6 +66,11 @@ class SVGRasterizer
             throw new \InvalidArgumentException("no such renderer: ".$id);
         }
         return self::$renderers[$id];
+    }
+
+    public function getPathParser()
+    {
+        return self::$pathParser;
     }
 
 
