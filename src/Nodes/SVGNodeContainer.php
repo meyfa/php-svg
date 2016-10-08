@@ -2,6 +2,8 @@
 
 namespace JangoBrick\SVG\Nodes;
 
+use JangoBrick\SVG\Rasterization\SVGRasterizer;
+
 abstract class SVGNodeContainer extends SVGNode
 {
     protected $children;
@@ -62,5 +64,12 @@ abstract class SVGNodeContainer extends SVGNode
     public function getChild($index)
     {
         return $this->children[$index];
+    }
+
+    public function rasterize(SVGRasterizer $rasterizer)
+    {
+        foreach ($this->children as $child) {
+            $child->rasterize($rasterizer);
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace JangoBrick\SVG\Nodes;
 
-use JangoBrick\SVG\SVGRenderingHelper;
+use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
 abstract class SVGNode
 {
@@ -103,10 +103,10 @@ abstract class SVGNode
 
     abstract public function toXMLString();
 
-    abstract public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY);
-
     public function __toString()
     {
         return $this->toXMLString();
     }
+
+    abstract public function rasterize(SVGRasterizer $rasterizer);
 }

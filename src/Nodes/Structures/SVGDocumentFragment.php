@@ -3,7 +3,6 @@
 namespace JangoBrick\SVG\Nodes\Structures;
 
 use JangoBrick\SVG\Nodes\SVGNodeContainer;
-use JangoBrick\SVG\SVGRenderingHelper;
 
 class SVGDocumentFragment extends SVGNodeContainer
 {
@@ -116,22 +115,5 @@ class SVGDocumentFragment extends SVGNodeContainer
         $s .= '</svg>';
 
         return $s;
-    }
-
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY)
-    {
-        if (!$this->root) {
-            $rh->push();
-            $rh->translate($this->x * $scaleX, $this->y * $scaleY);
-        }
-
-        for ($i = 0, $n = $this->countChildren(); $i < $n; ++$i) {
-            $child = $this->getChild($i);
-            $child->draw($rh, $scaleX, $scaleY);
-        }
-
-        if (!$this->root) {
-            $rh->pop();
-        }
     }
 }
