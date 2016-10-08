@@ -16,6 +16,9 @@ class SVGLineRenderer extends SVGRenderer
         );
     }
 
+    /**
+     * @SuppressWarnings("unused")
+     */
     protected function renderFill($image, array $params, $color)
     {
         // can't fill
