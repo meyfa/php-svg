@@ -53,6 +53,7 @@ class SVGRasterizer
             'rect'      => new Renderers\SVGRectRenderer(),
             'line'      => new Renderers\SVGLineRenderer(),
             'ellipse'   => new Renderers\SVGEllipseRenderer(),
+            'polygon'   => new Renderers\SVGPolygonRenderer(),
         );
     }
 
