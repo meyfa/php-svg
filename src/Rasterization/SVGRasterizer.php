@@ -25,6 +25,8 @@ class SVGRasterizer
         $this->scaleY = $height / $docHeight;
 
         $this->outImage = self::createImage($width, $height);
+
+        self::createDependencies();
     }
 
     private static function createImage($width, $height)
@@ -41,6 +43,17 @@ class SVGRasterizer
 
 
 
+    private static function createDependencies()
+    {
+        if (isset(self::$renderers)) {
+            return;
+        }
+
+        self::$renderers = array(
+            'rect'      => new Renderers\SVGRectRenderer(),
+        );
+    }
+
     private static function getRenderer($id)
     {
         if (!isset(self::$renderers[$id])) {
@@ -48,6 +61,8 @@ class SVGRasterizer
         }
         return self::$renderers[$id];
     }
+
+
 
     public function render($rendererId, array $params, SVGNode $context)
     {
