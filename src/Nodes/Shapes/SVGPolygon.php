@@ -2,7 +2,7 @@
 
 namespace JangoBrick\SVG\Nodes\Shapes;
 
-use JangoBrick\SVG\SVGRenderingHelper;
+use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
 class SVGPolygon extends SVGPolygonalShape
 {
@@ -11,8 +11,11 @@ class SVGPolygon extends SVGPolygonalShape
         parent::__construct('polygon', $points);
     }
 
-    protected function drawOutline(SVGRenderingHelper $rh, $points, $numPoints, $strokeColor)
+    public function rasterize(SVGRasterizer $rasterizer)
     {
-        $rh->drawPolygon($points, $numPoints, $strokeColor);
+        $rasterizer->render('polygon', array(
+            'open'      => false,
+            'points'    => $this->getPoints(),
+        ), $this);
     }
 }

@@ -11,6 +11,7 @@ use JangoBrick\SVG\Nodes\Shapes\SVGPolyline;
 use JangoBrick\SVG\Nodes\Shapes\SVGRect;
 use JangoBrick\SVG\Nodes\Structures\SVGDocumentFragment;
 use JangoBrick\SVG\Nodes\Structures\SVGGroup;
+use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
 class SVGImage
 {
@@ -39,20 +40,13 @@ class SVGImage
 
     public function toRasterImage($width, $height)
     {
-        $out = imagecreatetruecolor($width, $height);
+        $docWidth  = $this->document->getWidth();
+        $docHeight = $this->document->getHeight();
 
-        imagealphablending($out, true);
-        imagesavealpha($out, true);
+        $rasterizer = new SVGRasterizer($docWidth, $docHeight, $width, $height);
+        $this->document->rasterize($rasterizer);
 
-        imagefill($out, 0, 0, 0x7F000000);
-
-        $rh = new SVGRenderingHelper($out, $width, $height);
-
-        $scaleX = $width / $this->document->getWidth();
-        $scaleY = $height / $this->document->getHeight();
-        $this->document->draw($rh, $scaleX, $scaleY);
-
-        return $out;
+        return $rasterizer->getImage();
     }
 
     public function __toString()

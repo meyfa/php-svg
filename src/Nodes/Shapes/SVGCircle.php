@@ -3,8 +3,7 @@
 namespace JangoBrick\SVG\Nodes\Shapes;
 
 use JangoBrick\SVG\Nodes\SVGNode;
-use JangoBrick\SVG\SVG;
-use JangoBrick\SVG\SVGRenderingHelper;
+use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
 class SVGCircle extends SVGNode
 {
@@ -68,37 +67,13 @@ class SVGCircle extends SVGNode
         return $s;
     }
 
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY)
+    public function rasterize(SVGRasterizer $rasterizer)
     {
-        $rh->push();
-
-        $opacity = $this->getStyle('opacity');
-        if (isset($opacity) && is_numeric($opacity)) {
-            $opacity = floatval($opacity);
-            $rh->scaleOpacity($opacity);
-        }
-
-        // original (document fragment) width for unit parsing
-        $ow = $rh->getWidth() / $scaleX;
-
-        $cx = $this->cx * $scaleX;
-        $cy = $this->cy * $scaleY;
-        $rx = $this->r * $scaleX;
-        $ry = $this->r * $scaleY;
-
-        $fill = $this->getComputedStyle('fill');
-        if (isset($fill) && $fill !== 'none') {
-            $fillColor = SVG::parseColor($fill, true);
-            $rh->fillEllipse($cx, $cy, $rx, $ry, $fillColor);
-        }
-
-        $stroke = $this->getComputedStyle('stroke');
-        if (isset($stroke) && $stroke !== 'none') {
-            $strokeColor = SVG::parseColor($stroke, true);
-            $rh->setStrokeWidth(SVG::convertUnit($this->getComputedStyle('stroke-width'), $ow) * $scaleX);
-            $rh->drawEllipse($cx, $cy, $rx, $ry, $strokeColor);
-        }
-
-        $rh->pop();
+        $rasterizer->render('ellipse', array(
+            'cx'    => $this->cx,
+            'cy'    => $this->cy,
+            'rx'    => $this->r,
+            'ry'    => $this->r,
+        ), $this);
     }
 }

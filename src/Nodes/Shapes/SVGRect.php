@@ -3,8 +3,7 @@
 namespace JangoBrick\SVG\Nodes\Shapes;
 
 use JangoBrick\SVG\Nodes\SVGNode;
-use JangoBrick\SVG\SVG;
-use JangoBrick\SVG\SVGRenderingHelper;
+use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
 class SVGRect extends SVGNode
 {
@@ -81,37 +80,13 @@ class SVGRect extends SVGNode
         return $s;
     }
 
-    public function draw(SVGRenderingHelper $rh, $scaleX, $scaleY)
+    public function rasterize(SVGRasterizer $rasterizer)
     {
-        $rh->push();
-
-        $opacity = $this->getStyle('opacity');
-        if (isset($opacity) && is_numeric($opacity)) {
-            $opacity = floatval($opacity);
-            $rh->scaleOpacity($opacity);
-        }
-
-        // original (document fragment) width for unit parsing
-        $ow = $rh->getWidth() / $scaleX;
-
-        $x = $this->x * $scaleX;
-        $y = $this->y * $scaleY;
-        $w = $this->width * $scaleX;
-        $h = $this->height * $scaleY;
-
-        $fill = $this->getComputedStyle('fill');
-        if (isset($fill) && $fill !== 'none') {
-            $fillColor = SVG::parseColor($fill, true);
-            $rh->fillRect($x, $y, $w, $h, $fillColor);
-        }
-
-        $stroke = $this->getComputedStyle('stroke');
-        if (isset($stroke) && $stroke !== 'none') {
-            $strokeColor = SVG::parseColor($stroke, true);
-            $rh->setStrokeWidth(SVG::convertUnit($this->getComputedStyle('stroke-width'), $ow) * $scaleX);
-            $rh->drawRect($x, $y, $w, $h, $strokeColor);
-        }
-
-        $rh->pop();
+        $rasterizer->render('rect', array(
+            'x'         => $this->x,
+            'y'         => $this->y,
+            'width'     => $this->width,
+            'height'    => $this->height,
+        ), $this);
     }
 }
