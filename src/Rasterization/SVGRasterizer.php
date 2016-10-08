@@ -8,6 +8,7 @@ class SVGRasterizer
 {
     private static $renderers;
     private static $pathParser;
+    private static $pathApproximator;
 
     private $docWidth, $docHeight;
     private $width, $height;
@@ -58,6 +59,7 @@ class SVGRasterizer
         );
 
         self::$pathParser       = new Path\SVGPathParser();
+        self::$pathApproximator = new Path\SVGPathApproximator();
     }
 
     private static function getRenderer($id)
@@ -71,6 +73,11 @@ class SVGRasterizer
     public function getPathParser()
     {
         return self::$pathParser;
+    }
+
+    public function getPathApproximator()
+    {
+        return self::$pathApproximator;
     }
 
 
