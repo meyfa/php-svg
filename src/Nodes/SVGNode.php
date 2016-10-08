@@ -16,6 +16,11 @@ abstract class SVGNode
         $this->attributes = array();
     }
 
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
     public function getStyle($name)
     {
         return isset($this->styles[$name]) ? $this->styles[$name] : null;
