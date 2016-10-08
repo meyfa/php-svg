@@ -52,6 +52,7 @@ class SVGRasterizer
         self::$renderers = array(
             'rect'      => new Renderers\SVGRectRenderer(),
             'line'      => new Renderers\SVGLineRenderer(),
+            'ellipse'   => new Renderers\SVGEllipseRenderer(),
         );
     }
 
