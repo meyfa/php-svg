@@ -17,7 +17,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     private $root;
     private $namespaces;
 
-    public function __construct($root = false, $width = '100%', $height = '100%', $namespaces = array())
+    public function __construct($root = false, $width = '100%', $height = '100%', array $namespaces = array())
     {
         parent::__construct();
 
@@ -64,6 +64,7 @@ class SVGDocumentFragment extends SVGNodeContainer
         $s  = '<svg';
 
         if ($this->root) {
+            $s .= ' xmlns="http://www.w3.org/2000/svg"';
             foreach ($this->namespaces as $namespace => $uri) {
                 $s .= ' '. $namespace.'="'.$uri.'"';
             }

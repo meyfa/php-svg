@@ -17,9 +17,9 @@ class SVGImage
 {
     private $document;
 
-    public function __construct($width, $height, $namespaces = array('xmlns' => 'http://www.w3.org/2000/svg'))
+    public function __construct($width, $height, array $namespaces = array())
     {
-        $this->document   = new SVGDocumentFragment(true, $width, $height, $namespaces); // root doc
+        $this->document = new SVGDocumentFragment(true, $width, $height, $namespaces);
     }
 
     /**
