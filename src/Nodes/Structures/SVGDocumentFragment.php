@@ -66,6 +66,9 @@ class SVGDocumentFragment extends SVGNodeContainer
         if ($this->root) {
             $s .= ' xmlns="http://www.w3.org/2000/svg"';
             foreach ($this->namespaces as $namespace => $uri) {
+                if (substr($namespace, 0, 6) !== 'xmlns:') {
+                    $namespace = 'xmlns:'.$namespace;
+                }
                 $s .= ' '. $namespace.'="'.$uri.'"';
             }
         } else {
