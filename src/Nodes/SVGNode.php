@@ -6,14 +6,21 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
 abstract class SVGNode
 {
+    private $name;
     protected $parent;
     protected $styles;
     protected $attributes;
 
-    public function __construct()
+    public function __construct($name)
     {
-        $this->styles = array();
+        $this->name       = $name;
+        $this->styles     = array();
         $this->attributes = array();
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 
     public function getParent()

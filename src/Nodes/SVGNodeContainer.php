@@ -8,9 +8,9 @@ abstract class SVGNodeContainer extends SVGNode
 {
     protected $children;
 
-    public function __construct()
+    public function __construct($name)
     {
-        parent::__construct();
+        parent::__construct($name);
 
         $this->children = array();
     }

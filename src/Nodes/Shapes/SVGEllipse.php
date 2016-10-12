@@ -11,7 +11,7 @@ class SVGEllipse extends SVGNode
 
     public function __construct($cx, $cy, $rx, $ry)
     {
-        parent::__construct();
+        parent::__construct('ellipse');
 
         $this->cx = $cx;
         $this->cy = $cy;

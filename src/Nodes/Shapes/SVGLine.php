@@ -11,7 +11,7 @@ class SVGLine extends SVGNode
 
     public function __construct($x1, $y1, $x2, $y2)
     {
-        parent::__construct();
+        parent::__construct('line');
 
         $this->x1 = $x1;
         $this->y1 = $y1;

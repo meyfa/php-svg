@@ -11,7 +11,7 @@ class SVGPath extends SVGNode
 
     public function __construct($d)
     {
-        parent::__construct();
+        parent::__construct('path');
 
         $this->d = $d;
     }

@@ -6,14 +6,12 @@ use JangoBrick\SVG\Nodes\SVGNode;
 
 abstract class SVGPolygonalShape extends SVGNode
 {
-    private $tagName;
     private $points;
 
-    public function __construct($tagName, $points)
+    public function __construct($name, $points)
     {
-        parent::__construct();
+        parent::__construct($name);
 
-        $this->tagName = $tagName;
         $this->points = $points;
     }
 
@@ -56,7 +54,7 @@ abstract class SVGPolygonalShape extends SVGNode
 
     public function toXMLString()
     {
-        $s  = '<'.$this->tagName;
+        $s  = '<'.$this->getName();
 
         $s .= ' points="';
         for ($i = 0, $n = count($this->points); $i < $n; ++$i) {

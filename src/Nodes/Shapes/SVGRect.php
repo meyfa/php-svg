@@ -11,7 +11,7 @@ class SVGRect extends SVGNode
 
     public function __construct($x, $y, $width, $height)
     {
-        parent::__construct();
+        parent::__construct('rect');
 
         $this->x      = $x;
         $this->y      = $y;

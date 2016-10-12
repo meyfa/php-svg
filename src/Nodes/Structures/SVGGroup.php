@@ -8,7 +8,7 @@ class SVGGroup extends SVGNodeContainer
 {
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct('g');
     }
 
     public function toXMLString()

@@ -11,7 +11,7 @@ class SVGCircle extends SVGNode
 
     public function __construct($cx, $cy, $r)
     {
-        parent::__construct();
+        parent::__construct('circle');
 
         $this->cx = $cx;
         $this->cy = $cy;
