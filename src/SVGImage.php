@@ -179,8 +179,8 @@ class SVGImage
             if (($style = trim($style)) === '') {
                 continue;
             }
-            $style_spl          = preg_split('/\s*:\s*/', $style);
-            $arr[$style_spl[0]] = $style_spl[1];
+            $split          = preg_split('/\s*:\s*/', $style);
+            $arr[$split[0]] = $split[1];
         }
 
         return $arr;
