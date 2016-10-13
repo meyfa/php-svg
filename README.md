@@ -1,5 +1,7 @@
 # php-svg
 
+[![Code Climate](https://codeclimate.com/github/JangoBrick/php-svg/badges/gpa.svg)](https://codeclimate.com/github/JangoBrick/php-svg)
+
 This is a vector graphics library for PHP, which surely is a broad
 specification. That is due to the fact that the goal of this project is to
 offer features in three different, big areas:
