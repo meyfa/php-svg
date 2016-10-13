@@ -52,25 +52,20 @@ abstract class SVGPolygonalShape extends SVGNode
         return $this;
     }
 
-    public function toXMLString()
+    public function getSerializableAttributes()
     {
-        $s  = '<'.$this->getName();
+        $attrs = parent::getSerializableAttributes();
 
-        $s .= ' points="';
+        $points = '';
         for ($i = 0, $n = count($this->points); $i < $n; ++$i) {
             $point = $this->points[$i];
             if ($i > 0) {
-                $s .= ' ';
+                $points .= ' ';
             }
-            $s .= $point[0].','.$point[1];
+            $points .= $point[0].','.$point[1];
         }
-        $s .= '"';
+        $attrs['points'] = $points;
 
-        $this->addStylesToXMLString($s);
-        $this->addAttributesToXMLString($s);
-
-        $s .= ' />';
-
-        return $s;
+        return $attrs;
     }
 }

@@ -59,65 +59,51 @@ class SVGDocumentFragment extends SVGNodeContainer
         return $this;
     }
 
-    public function toXMLString()
+    public function getSerializableAttributes()
     {
-        $s  = '<svg';
+        $attrs = parent::getSerializableAttributes();
 
         if ($this->root) {
-            $s .= ' xmlns="http://www.w3.org/2000/svg"';
+            $attrs['xmlns'] = 'http://www.w3.org/2000/svg';
             foreach ($this->namespaces as $namespace => $uri) {
                 if (substr($namespace, 0, 6) !== 'xmlns:') {
                     $namespace = 'xmlns:'.$namespace;
                 }
-                $s .= ' '. $namespace.'="'.$uri.'"';
+                $attrs[$namespace] = $uri;
             }
         } else {
             if ($this->x != 0) {
-                $s .= ' x="'.$this->x.'"';
+                $attrs['x'] = $this->x;
             }
             if ($this->y != 0) {
-                $s .= ' y="'.$this->y.'"';
+                $attrs['x'] = $this->y;
             }
         }
 
         if ($this->width != '100%') {
-            $s .= ' width="'.$this->width.'"';
+            $attrs['width'] = $this->width;
         }
         if ($this->height != '100%') {
-            $s .= ' height="'.$this->height.'"';
+            $attrs['height'] = $this->height;
         }
 
-        if ($this->root) {
-            $styles = array();
-            // filter styles to not include initial/default ones
-            foreach ($this->styles as $style => $value) {
-                if (!isset(self::$initialStyles[$style]) || self::$initialStyles[$style] !== $value) {
-                    $styles[$style] = $value;
-                }
+        return $attrs;
+    }
+
+    public function getSerializableStyles()
+    {
+        if (!$this->root) {
+            return parent::getSerializableStyles();
+        }
+
+        $styles = array();
+        // filter styles to not include initial/default ones
+        foreach ($this->styles as $style => $value) {
+            if (!isset(self::$initialStyles[$style]) || self::$initialStyles[$style] !== $value) {
+                $styles[$style] = $value;
             }
-        } else {
-            $styles = $this->styles;
         }
 
-        if (!empty($styles)) {
-            $s .= ' style="';
-            foreach ($styles as $style => $value) {
-                $s .= $style.': '.$value.'; ';
-            }
-            $s .= '"';
-        }
-
-        $this->addAttributesToXMLString($s);
-
-        $s .= '>';
-
-        for ($i = 0, $n = $this->countChildren(); $i < $n; ++$i) {
-            $child = $this->getChild($i);
-            $s .= $child->toXMLString();
-        }
-
-        $s .= '</svg>';
-
-        return $s;
+        return $styles;
     }
 }

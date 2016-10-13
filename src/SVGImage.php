@@ -12,6 +12,7 @@ use JangoBrick\SVG\Nodes\Shapes\SVGRect;
 use JangoBrick\SVG\Nodes\Structures\SVGDocumentFragment;
 use JangoBrick\SVG\Nodes\Structures\SVGGroup;
 use JangoBrick\SVG\Rasterization\SVGRasterizer;
+use JangoBrick\SVG\Writing\SVGWriter;
 
 class SVGImage
 {
@@ -32,10 +33,10 @@ class SVGImage
 
     public function toXMLString()
     {
-        $s  = '<?xml version="1.0" encoding="utf-8"?>';
-        $s .= $this->document;
+        $writer = new SVGWriter();
+        $writer->writeNode($this->document);
 
-        return $s;
+        return $writer->getString();
     }
 
     public function toRasterImage($width, $height)

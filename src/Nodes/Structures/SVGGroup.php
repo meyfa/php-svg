@@ -10,23 +10,4 @@ class SVGGroup extends SVGNodeContainer
     {
         parent::__construct('g');
     }
-
-    public function toXMLString()
-    {
-        $s  = '<g';
-
-        $this->addStylesToXMLString($s);
-        $this->addAttributesToXMLString($s);
-
-        $s .= '>';
-
-        for ($i = 0, $n = $this->countChildren(); $i < $n; ++$i) {
-            $child = $this->getChild($i);
-            $s .= $child->toXMLString();
-        }
-
-        $s .= '</g>';
-
-        return $s;
-    }
 }

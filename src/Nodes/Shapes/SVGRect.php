@@ -63,21 +63,16 @@ class SVGRect extends SVGNode
         return $this;
     }
 
-    public function toXMLString()
+    public function getSerializableAttributes()
     {
-        $s  = '<rect';
+        $attrs = parent::getSerializableAttributes();
 
-        $s .= ' x="'.$this->x.'"';
-        $s .= ' y="'.$this->y.'"';
-        $s .= ' width="'.$this->width.'"';
-        $s .= ' height="'.$this->height.'"';
+        $attrs['x'] = $this->x;
+        $attrs['y'] = $this->y;
+        $attrs['width'] = $this->width;
+        $attrs['height'] = $this->height;
 
-        $this->addStylesToXMLString($s);
-        $this->addAttributesToXMLString($s);
-
-        $s .= ' />';
-
-        return $s;
+        return $attrs;
     }
 
     public function rasterize(SVGRasterizer $rasterizer)

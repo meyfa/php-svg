@@ -63,21 +63,16 @@ class SVGEllipse extends SVGNode
         return $this;
     }
 
-    public function toXMLString()
+    public function getSerializableAttributes()
     {
-        $s  = '<ellipse';
+        $attrs = parent::getSerializableAttributes();
 
-        $s .= ' cx="'.$this->cx.'"';
-        $s .= ' cy="'.$this->cy.'"';
-        $s .= ' rx="'.$this->rx.'"';
-        $s .= ' ry="'.$this->ry.'"';
+        $attrs['cx'] = $this->cx;
+        $attrs['cy'] = $this->cy;
+        $attrs['rx'] = $this->rx;
+        $attrs['ry'] = $this->ry;
 
-        $this->addStylesToXMLString($s);
-        $this->addAttributesToXMLString($s);
-
-        $s .= ' />';
-
-        return $s;
+        return $attrs;
     }
 
     public function rasterize(SVGRasterizer $rasterizer)

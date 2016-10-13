@@ -51,20 +51,15 @@ class SVGCircle extends SVGNode
         return $this;
     }
 
-    public function toXMLString()
+    public function getSerializableAttributes()
     {
-        $s = '<circle';
+        $attrs = parent::getSerializableAttributes();
 
-        $s .= ' cx="'.$this->cx.'"';
-        $s .= ' cy="'.$this->cy.'"';
-        $s .= ' r="'.$this->r.'"';
+        $attrs['cx'] = $this->cx;
+        $attrs['cy'] = $this->cy;
+        $attrs['r']  = $this->r;
 
-        $this->addStylesToXMLString($s);
-        $this->addAttributesToXMLString($s);
-
-        $s .= ' />';
-
-        return $s;
+        return $attrs;
     }
 
     public function rasterize(SVGRasterizer $rasterizer)

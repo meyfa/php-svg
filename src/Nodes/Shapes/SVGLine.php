@@ -63,21 +63,16 @@ class SVGLine extends SVGNode
         return $this;
     }
 
-    public function toXMLString()
+    public function getSerializableAttributes()
     {
-        $s  = '<line';
+        $attrs = parent::getSerializableAttributes();
 
-        $s .= ' x1="'.$this->x1.'"';
-        $s .= ' y1="'.$this->y1.'"';
-        $s .= ' x2="'.$this->x2.'"';
-        $s .= ' y2="'.$this->y2.'"';
+        $attrs['x1'] = $this->x1;
+        $attrs['y1'] = $this->y1;
+        $attrs['x2'] = $this->x2;
+        $attrs['y2'] = $this->y2;
 
-        $this->addStylesToXMLString($s);
-        $this->addAttributesToXMLString($s);
-
-        $s .= ' />';
-
-        return $s;
+        return $attrs;
     }
 
     public function rasterize(SVGRasterizer $rasterizer)

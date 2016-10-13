@@ -16,18 +16,13 @@ class SVGPath extends SVGNode
         $this->d = $d;
     }
 
-    public function toXMLString()
+    public function getSerializableAttributes()
     {
-        $s  = '<path';
+        $attrs = parent::getSerializableAttributes();
 
-        $s .= ' d="'.$this->d.'"';
+        $attrs['d'] = $this->d;
 
-        $this->addStylesToXMLString($s);
-        $this->addAttributesToXMLString($s);
-
-        $s .= ' />';
-
-        return $s;
+        return $attrs;
     }
 
     public function rasterize(SVGRasterizer $rasterizer)

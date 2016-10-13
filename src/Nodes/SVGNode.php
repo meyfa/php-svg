@@ -79,40 +79,14 @@ abstract class SVGNode
         return $this;
     }
 
-    protected function addStylesToXMLString(&$xmlString)
+    public function getSerializableAttributes()
     {
-        if (empty($this->styles)) {
-            return;
-        }
-
-        $xmlString .= ' style="';
-        $prependSemicolon = false;
-        foreach ($this->styles as $style => $value) {
-            if ($prependSemicolon) {
-                $xmlString .= '; ';
-            }
-            $prependSemicolon = true;
-            $xmlString .= $style.': '.$value;
-        }
-        $xmlString .= '"';
+        return $this->attributes;
     }
 
-    protected function addAttributesToXMLString(&$xmlString)
+    public function getSerializableStyles()
     {
-        if (empty($this->attributes)) {
-            return;
-        }
-
-        foreach ($this->attributes as $attributeName => $attributeValue) {
-            $xmlString .= ' '.$attributeName.'="'.$attributeValue.'"';
-        }
-    }
-
-    abstract public function toXMLString();
-
-    public function __toString()
-    {
-        return $this->toXMLString();
+        return $this->styles;
     }
 
     abstract public function rasterize(SVGRasterizer $rasterizer);
