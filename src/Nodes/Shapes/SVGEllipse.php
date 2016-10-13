@@ -19,6 +19,19 @@ class SVGEllipse extends SVGNode
         $this->ry = $ry;
     }
 
+    /**
+     * @SuppressWarnings("NPath")
+     */
+    public static function constructFromAttributes($attrs)
+    {
+        $cx = isset($attrs['cx']) ? $attrs['cx'] : '';
+        $cy = isset($attrs['cy']) ? $attrs['cy'] : '';
+        $rx = isset($attrs['rx']) ? $attrs['rx'] : '';
+        $ry = isset($attrs['ry']) ? $attrs['ry'] : '';
+
+        return new self($cx, $cy, $rx, $ry);
+    }
+
     public function getCenterX()
     {
         return $this->cx;

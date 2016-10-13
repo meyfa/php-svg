@@ -15,6 +15,23 @@ abstract class SVGPolygonalShape extends SVGNode
         $this->points = $points;
     }
 
+    public static function constructFromAttributes($attrs)
+    {
+        $points = array();
+
+        if (isset($attrs['points'])) {
+            $coords = preg_split('/[\\s,]+/', $attrs['points']);
+            for ($i = 0, $n = count($coords); $i < $n; $i += 2) {
+                $points[] = array(
+                    floatval($coords[$i]),
+                    floatval($coords[$i + 1]),
+                );
+            }
+        }
+
+        return new static($points);
+    }
+
     public function addPoint($a, $b = null)
     {
         if (!is_array($a)) {

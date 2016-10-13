@@ -19,6 +19,19 @@ class SVGLine extends SVGNode
         $this->y2 = $y2;
     }
 
+    /**
+     * @SuppressWarnings("NPath")
+     */
+    public static function constructFromAttributes($attrs)
+    {
+        $x1 = isset($attrs['x1']) ? $attrs['x1'] : '';
+        $y1 = isset($attrs['y1']) ? $attrs['y1'] : '';
+        $x2 = isset($attrs['x2']) ? $attrs['x2'] : '';
+        $y2 = isset($attrs['y2']) ? $attrs['y2'] : '';
+
+        return new self($x1, $y1, $x2, $y2);
+    }
+
     public function getX1()
     {
         return $this->x1;

@@ -16,6 +16,13 @@ class SVGPath extends SVGNode
         $this->d = $d;
     }
 
+    public static function constructFromAttributes($attrs)
+    {
+        $d = isset($attrs['d']) ? $attrs['d'] : '';
+
+        return new self($d);
+    }
+
     public function getSerializableAttributes()
     {
         $attrs = parent::getSerializableAttributes();

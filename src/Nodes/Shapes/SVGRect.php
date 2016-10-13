@@ -19,6 +19,19 @@ class SVGRect extends SVGNode
         $this->height = $height;
     }
 
+    /**
+     * @SuppressWarnings("NPath")
+     */
+    public static function constructFromAttributes($attrs)
+    {
+        $x = isset($attrs['x']) ? $attrs['x'] : 0;
+        $y = isset($attrs['y']) ? $attrs['y'] : 0;
+        $w = isset($attrs['width']) ? $attrs['width'] : 0;
+        $h = isset($attrs['height']) ? $attrs['height'] : 0;
+
+        return new self($x, $y, $w, $h);
+    }
+
     public function getX()
     {
         return $this->x;

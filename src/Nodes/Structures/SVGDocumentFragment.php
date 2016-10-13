@@ -32,6 +32,14 @@ class SVGDocumentFragment extends SVGNodeContainer
         }
     }
 
+    /**
+     * @SuppressWarnings("unused")
+     */
+    public static function constructFromAttributes($attrs)
+    {
+        return new self(false);
+    }
+
     public function isRoot()
     {
         return $this->root;

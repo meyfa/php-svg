@@ -18,6 +18,14 @@ abstract class SVGNode
         $this->attributes = array();
     }
 
+    /**
+     * @SuppressWarnings("unused")
+     */
+    public static function constructFromAttributes($attrs)
+    {
+        throw new \Exception(get_called_class().' does not implement '.__FUNCTION__.'!');
+    }
+
     public function getName()
     {
         return $this->name;

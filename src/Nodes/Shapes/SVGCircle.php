@@ -18,6 +18,15 @@ class SVGCircle extends SVGNode
         $this->r  = $r;
     }
 
+    public static function constructFromAttributes($attrs)
+    {
+        $cx = isset($attrs['cx']) ? $attrs['cx'] : '';
+        $cy = isset($attrs['cy']) ? $attrs['cy'] : '';
+        $r  = isset($attrs['r']) ? $attrs['r'] : '';
+
+        return new self($cx, $cy, $r);
+    }
+
     public function getCenterX()
     {
         return $this->cx;
