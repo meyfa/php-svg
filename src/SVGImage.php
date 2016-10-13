@@ -26,14 +26,6 @@ class SVGImage
         return $this->document;
     }
 
-    public function toXMLString()
-    {
-        $writer = new SVGWriter();
-        $writer->writeNode($this->document);
-
-        return $writer->getString();
-    }
-
     public function toRasterImage($width, $height)
     {
         $docWidth  = $this->document->getWidth();
@@ -48,6 +40,14 @@ class SVGImage
     public function __toString()
     {
         return $this->toXMLString();
+    }
+
+    public function toXMLString()
+    {
+        $writer = new SVGWriter();
+        $writer->writeNode($this->document);
+
+        return $writer->getString();
     }
 
     public static function fromString($string)
