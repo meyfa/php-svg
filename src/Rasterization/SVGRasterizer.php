@@ -84,8 +84,8 @@ class SVGRasterizer
 
     public function render($rendererId, array $params, SVGNode $context)
     {
-        return (self::getRenderer($rendererId))
-            ->render($this, $params, $context);
+        $renderer = self::getRenderer($rendererId);
+        return $renderer->render($this, $params, $context);
     }
 
 
