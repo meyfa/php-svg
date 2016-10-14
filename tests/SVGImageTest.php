@@ -1,7 +1,6 @@
 <?php
 
 use JangoBrick\SVG\SVGImage;
-use JangoBrick\SVG\Nodes\Structures\SVGDocumentFragment;
 
 class SVGImageTest extends PHPUnit_Framework_TestCase
 {
@@ -19,7 +18,8 @@ class SVGImageTest extends PHPUnit_Framework_TestCase
         $image = SVGImage::fromString($this->xml);
 
         $doc = $image->getDocument();
-        $this->assertInstanceOf(SVGDocumentFragment::class, $doc);
+        $docFragClass = '\JangoBrick\SVG\Nodes\Structures\SVGDocumentFragment';
+        $this->assertInstanceOf($docFragClass, $doc);
     }
 
     public function testToRasterImage()
