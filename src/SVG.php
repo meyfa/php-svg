@@ -38,20 +38,23 @@ final class SVG
     // regex for rgba(255, 255, 255, 0.5) etc
     const COLOR_RGBA = '/^rgba\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
 
-    // takes any form of SVG color string and returns, depending on the second argument:
-    // - FALSE (default): RGBA array
-    //   R: 0-255; G: 0-255; B: 0-255; A: 0-127 (0 -> opaque, 127 = transparent)
-    // - TRUE: ARGB integer that can directly be drawn with GD
-    // The alpha range is halved and inverted because of the GD library, which
-    // expects it to be like that.
-    public static function parseColor($color, $argb_int = false)
+    /**
+     * Converts any valid SVG color string into an array of RGBA components.
+     *
+     * All of the components are ints 0-255.
+     *
+     * @param string $color The color string to convert, as specified in SVG.
+     *
+     * @return int[] The color converted to RGBA components.
+     */
+    public static function parseColor($color)
     {
         $matches = array();
 
         $r = 0;
         $g = 0;
         $b = 0;
-        $a = 0;
+        $a = 255;
 
         if (preg_match(self::COLOR_HEX_6, $color, $matches)) {
             $r = hexdec($matches[1]);
@@ -69,17 +72,13 @@ final class SVG
             $r = intval($matches[1]);
             $g = intval($matches[2]);
             $b = intval($matches[3]);
-            $a = 127 - intval(floatval($matches[4]) * 127);
+            $a = intval(floatval($matches[4]) * 255);
         }
 
         $r = min(max($r, 0), 255);
         $g = min(max($g, 0), 255);
         $b = min(max($b, 0), 255);
-        $a = min(max($a, 0), 127);
-
-        if ($argb_int) {
-            return ($a << 24) + ($r << 16) + ($g << 8) + ($b);
-        }
+        $a = min(max($a, 0), 255);
 
         return array($r, $g, $b, $a);
     }

@@ -35,13 +35,11 @@ abstract class SVGRenderer
 
     private static function prepareColor($color, SVGNode $context)
     {
-        $color = SVG::parseColor($color, true);
+        $color = SVG::parseColor($color);
+        $rgb   = ($color[0] << 16) + ($color[1] << 8) + ($color[2]);
 
-        $alphaFactor = self::calculateTotalOpacity($context);
-
-        $rgb = $color & 0x00FFFFFF;
-        $a   = ($color & 0xFF000000) >> 24;
-        $a   = 0x7F - 0x7F * $alphaFactor + $a * $alphaFactor;
+        $a = 127 - intval($color[3] * 127 / 255);
+        $a = $a * self::calculateTotalOpacity($context);
 
         return $rgb | ($a << 24);
     }
