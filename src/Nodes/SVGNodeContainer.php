@@ -37,14 +37,8 @@ abstract class SVGNodeContainer extends SVGNode
 
     public function removeChild($nodeOrIndex)
     {
-        if (is_int($nodeOrIndex)) {
-            $index = $nodeOrIndex;
-        } elseif ($nodeOrIndex instanceof SVGNode) {
-            $index = array_search($nodeOrIndex, $this->children, true);
-            if ($index === false) {
-                return false;
-            }
-        } else {
+        $index = $this->resolveChildIndex($nodeOrIndex);
+        if ($index === false) {
             return false;
         }
 
@@ -54,6 +48,17 @@ abstract class SVGNodeContainer extends SVGNode
         array_splice($this->children, $index, 1);
 
         return true;
+    }
+
+    private function resolveChildIndex($nodeOrIndex)
+    {
+        if (is_int($nodeOrIndex)) {
+            return $nodeOrIndex;
+        } elseif ($nodeOrIndex instanceof SVGNode) {
+            return array_search($nodeOrIndex, $this->children, true);
+        }
+
+        return false;
     }
 
     public function countChildren()
