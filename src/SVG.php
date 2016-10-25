@@ -2,11 +2,30 @@
 
 namespace JangoBrick\SVG;
 
-// class with helper methods
-
+/**
+ * This class contains general helper methods for understanding SVG files.
+ */
 final class SVG
 {
-    // takes strings like 10px or 12.5% and returns length to render
+    /** RegEx string for #FFFFFF etc */
+    const COLOR_HEX_6 = '/^#([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})$/i';
+    /** RegEx string for #FFF etc */
+    const COLOR_HEX_3 = '/^#([0-9A-F])([0-9A-F])([0-9A-F])$/i';
+
+    /** RegEx string for rgb(255, 255, 255) etc */
+    const COLOR_RGB = '/^rgb\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
+    /** RegEx string for rgba(255, 255, 255, 0.5) etc */
+    const COLOR_RGBA = '/^rgba\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
+
+    /**
+     * Converts any valid SVG length string into an absolute pixel length,
+     * using the given canvas width.
+     *
+     * @param string $unit       The SVG length string to convert.
+     * @param int    $viewLength The canvas width to use as reference length.
+     *
+     * @return float The absolute length in pixels the given string denotes.
+     */
     public static function convertUnit($unit, $viewLength)
     {
         $matches = array();
@@ -27,16 +46,6 @@ final class SVG
 
         return;
     }
-
-    // regex for #FFFFFF etc
-    const COLOR_HEX_6 = '/^#([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})$/i';
-    // regex for #FFF etc
-    const COLOR_HEX_3 = '/^#([0-9A-F])([0-9A-F])([0-9A-F])$/i';
-
-    // regex for rgb(255, 255, 255) etc
-    const COLOR_RGB = '/^rgb\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
-    // regex for rgba(255, 255, 255, 0.5) etc
-    const COLOR_RGBA = '/^rgba\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
 
     /**
      * Converts any valid SVG color string into an array of RGBA components.
