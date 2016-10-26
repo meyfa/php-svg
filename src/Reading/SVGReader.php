@@ -6,6 +6,10 @@ use JangoBrick\SVG\SVGImage;
 use JangoBrick\SVG\Nodes\SVGNode;
 use JangoBrick\SVG\Nodes\SVGNodeContainer;
 
+/**
+ * This class is used to read XML strings or files and turn them into instances
+ * of SVGImage by parsing the document tree.
+ */
 class SVGReader
 {
     /**
@@ -70,18 +74,42 @@ class SVGReader
         'text-anchor', 'writing-mode',
     );
 
+    /**
+     * Parses the given string as XML and turns it into an instance of SVGImage.
+     *
+     * @param string $string The XML string to parse.
+     *
+     * @return SVGImage An image object representing the parse result.
+     */
     public function parseString($string)
     {
         $xml = simplexml_load_string($string);
         return $this->parseXML($xml);
     }
 
+    /**
+     * Parses the file at the given path/URL as XML and turns it into an
+     * instance of SVGImage.
+     *
+     * The path can be on the local file system, or a URL on the network.
+     *
+     * @param string $filename The path or URL of the file to parse.
+     *
+     * @return SVGImage An image object representing the parse result.
+     */
     public function parseFile($filename)
     {
         $xml = simplexml_load_file($filename);
         return $this->parseXML($xml);
     }
 
+    /**
+     * Parses the given XML document into an instance of SVGImage.
+     *
+     * @param \SimpleXMLElement $xml The root node of the SVG document to parse.
+     *
+     * @return SVGImage An image object representing the parse result.
+     */
     public function parseXML(\SimpleXMLElement $xml)
     {
         $name = $xml->getName();
@@ -102,6 +130,16 @@ class SVGReader
         return $img;
     }
 
+    /**
+     * Finds out the image dimensions from the given root node.
+     *
+     * The given node MUST be the root!
+     * Behavior when passing any other is unspecified.
+     *
+     * @param \SimpleXMLElement $svgXML The root node of an SVG document.
+     *
+     * @return float[] The image dimensions. d[0] = width, d[1] = height.
+     */
     private function getDimensions(\SimpleXMLElement $svgXml)
     {
         return array(
@@ -110,6 +148,22 @@ class SVGReader
         );
     }
 
+    /**
+     * Iterates over all XML attributes and applies them to the given node.
+     *
+     * Since styles in SVG can also be expressed with attributes, this method
+     * checks the name of each attribute and, if it matches that of a style,
+     * applies it as a style instead.
+     * For a list of attributes considered styles, see self::$styleAttributes.
+     *
+     * Some names are ignored (e.g. 'style' or shape properties like 'points').
+     * For a list of ignored attributes, see self::$ignoredAttributes.
+     *
+     * @param SVGNode           $node The node to apply the attributes to.
+     * @param \SimpleXMLElement $xml  The attribute source.
+     *
+     * @return void
+     */
     private function applyAttributes(SVGNode $node, \SimpleXMLElement $xml)
     {
         foreach ($xml->attributes() as $key => $value) {
@@ -124,6 +178,18 @@ class SVGReader
         }
     }
 
+    /**
+     * Parses the 'style' attribute (if it exists) and applies all styles to the
+     * given node.
+     *
+     * This method does NOT handle styles expressed as attributes (stroke="").
+     * For that, see applyAttributes().
+     *
+     * @param SVGNode           $node The node to apply the styles to.
+     * @param \SimpleXMLElement $xml  The attribute source.
+     *
+     * @return void
+     */
     private function applyStyles(SVGNode $node, \SimpleXMLElement $xml)
     {
         if (!isset($xml['style'])) {
@@ -136,6 +202,13 @@ class SVGReader
         }
     }
 
+    /**
+     * Parses a string of CSS declarations into an associative array.
+     *
+     * @param string $string The CSS declarations.
+     *
+     * @return string[] An associative array of all declarations.
+     */
     private function parseStyles($string)
     {
         $declarations = preg_split('/\s*;\s*/', $string);
@@ -154,6 +227,15 @@ class SVGReader
         return $styles;
     }
 
+    /**
+     * Iterates over all children, parses them into library class instances,
+     * and adds them to the given node container.
+     *
+     * @param SVGNodeContainer  $node The node to add the children to.
+     * @param \SimpleXMLElement $xml  The XML node containing the children.
+     *
+     * @return void
+     */
     private function addChildren(SVGNodeContainer $node, \SimpleXMLElement $xml)
     {
         foreach ($xml->children() as $child) {
@@ -165,6 +247,14 @@ class SVGReader
         }
     }
 
+    /**
+     * Parses the given XML element into an instance of a SVGNode subclass.
+     * Passing an element of unknown type will return false.
+     *
+     * @param \SimpleXMLElement $xml The XML element to parse.
+     *
+     * @return SVGNode|false The parsed node, or false if type unknown.
+     */
     private function parseNode(\SimpleXMLElement $xml)
     {
         $type = $xml->getName();
