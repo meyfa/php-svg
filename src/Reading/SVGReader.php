@@ -9,6 +9,8 @@ use JangoBrick\SVG\Nodes\SVGNodeContainer;
 /**
  * This class is used to read XML strings or files and turn them into instances
  * of SVGImage by parsing the document tree.
+ *
+ * In contrast to SVGWriter, a single instance can perform any number of reads.
  */
 class SVGReader
 {
