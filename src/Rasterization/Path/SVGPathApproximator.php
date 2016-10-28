@@ -131,7 +131,7 @@ class SVGPathApproximator
         $p2 = array($args[2], $args[3]);
         $p3 = array($args[4], $args[5]);
 
-        if ($id === 'q') {
+        if ($id === 'c') {
             $p1[0] += $p0[0];
             $p1[1] += $p0[1];
 
