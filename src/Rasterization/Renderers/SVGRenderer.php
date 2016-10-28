@@ -32,7 +32,7 @@ abstract class SVGRenderer
      *
      * @param SVGRasterizer $rasterizer The rasterizer to render to.
      * @param mixed[]       $options    Associative array of renderer options.
-     * @param SVGNode $context    The SVGNode that serves as drawing context.
+     * @param SVGNode       $context    The SVGNode serving as the context.
      *
      * @return void
      */
