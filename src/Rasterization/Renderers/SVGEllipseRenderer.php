@@ -4,6 +4,15 @@ namespace JangoBrick\SVG\Rasterization\Renderers;
 
 use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
+/**
+ * This renderer can draw ellipses (and circles).
+ *
+ * Options:
+ * - float cx: x coordinate of center point
+ * - float cy: y coordinate of center point
+ * - float rx: radius along x-axis
+ * - float ry: radius along y-axis
+ */
 class SVGEllipseRenderer extends SVGRenderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)

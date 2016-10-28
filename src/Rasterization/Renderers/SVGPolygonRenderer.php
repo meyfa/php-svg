@@ -4,6 +4,14 @@ namespace JangoBrick\SVG\Rasterization\Renderers;
 
 use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
+/**
+ * This renderer can draw polygons and polylines.
+ * The points are provided as arrays with 2 entries: 0 => x coord, 1 => y coord.
+ *
+ * Options:
+ * - bool open: if true, leaves first and last point disconnected (-> polyline)
+ * - array[] points: array of coordinate tuples (i.e., array of array of float)
+ */
 class SVGPolygonRenderer extends SVGRenderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)

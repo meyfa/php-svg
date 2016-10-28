@@ -4,6 +4,15 @@ namespace JangoBrick\SVG\Rasterization\Renderers;
 
 use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
+/**
+ * This renderer can draw rectangles.
+ *
+ * Options:
+ * - float x: the x coordinate of the upper left corner
+ * - float y: the y coordinate of the upper left corner
+ * - float width: the width
+ * - float height: the height
+ */
 class SVGRectRenderer extends SVGRenderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)

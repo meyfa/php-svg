@@ -4,6 +4,15 @@ namespace JangoBrick\SVG\Rasterization\Renderers;
 
 use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
+/**
+ * This renderer can draw straight lines. Filling is not supported.
+ *
+ * Options:
+ * - float x1: first x coordinate
+ * - float y1: first y coordinate
+ * - float x2: second x coordinate
+ * - float y2: second y coordinate
+ */
 class SVGLineRenderer extends SVGRenderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
