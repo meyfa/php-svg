@@ -2,8 +2,15 @@
 
 namespace JangoBrick\SVG\Rasterization\Path;
 
+/**
+ * This class can convert SVG path description strings into arrays of distinct
+ * commands + their arguments.
+ */
 class SVGPathParser
 {
+    /**
+     * @var int[] $commandLengths A map of command ids to their argument counts.
+     */
     private static $commandLengths = array(
         'M' => 2,   'm' => 2,   // MoveTo
         'L' => 2,   'l' => 2,   // LineTo
@@ -15,6 +22,17 @@ class SVGPathParser
         'Z' => 0,   'z' => 0,   // ClosePath
     );
 
+    /**
+     * Parses a path description into a consecutive array of commands.
+     *
+     * The commands themselves are associative arrays with 2 keys:
+     * - string 'id': the command's id, e.g. 'M' or 'c' or ...
+     * - float[] 'args': consecutive array of command arguments
+     *
+     * @param string $description The SVG path description to parse.
+     *
+     * @return array[] An array of commands (structure: see above).
+     */
     public function parse($description)
     {
         $commands = array();
@@ -38,6 +56,16 @@ class SVGPathParser
         return $commands;
     }
 
+    /**
+     * Groups the given argument chain into sets and constructs a command array
+     * for every set, which is then pushed to the given array reference.
+     *
+     * @param string   $id       The command id that the arguments belong to.
+     * @param string[] $args     All of the arguments following the command.
+     * @param array[]  $commands The array to add all parsed commands to.
+     *
+     * @return bool Whether the command is known AND the arg count is correct.
+     */
     private function parseCommandChain($id, array $args, array &$commands)
     {
         if (!isset(self::$commandLengths[$id])) {

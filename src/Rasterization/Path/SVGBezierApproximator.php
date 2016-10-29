@@ -2,8 +2,26 @@
 
 namespace JangoBrick\SVG\Rasterization\Path;
 
+/**
+ * This class can approximate quadratic and cubic Bézier curves by calculating
+ * a series of points on them (converting them to polylines).
+ */
 class SVGBezierApproximator
 {
+    /**
+     * Approximates a quadratic Bézier curve given the start point, a control
+     * point, and the end point.
+     *
+     * All of the points, both input and output, are provided as arrays with
+     * floats where [0 => x coordinate, 1 => y coordinate].
+     *
+     * @param float[] $p0       The start point.
+     * @param float[] $p1       The control point.
+     * @param float[] $p2       The end point.
+     * @param float   $accuracy Maximum squared distance between two points.
+     *
+     * @return array[] An approximation for the curve, as an array of points.
+     */
     public function quadratic($p0, $p1, $p2, $accuracy = 1)
     {
         $t      = 0;
@@ -26,6 +44,21 @@ class SVGBezierApproximator
         return $points;
     }
 
+    /**
+     * Approximates a cubic Bézier curve given the start point, two control
+     * points, and the end point.
+     *
+     * All of the points, both input and output, are provided as arrays with
+     * floats where [0 => x coordinate, 1 => y coordinate].
+     *
+     * @param float[] $p0       The start point.
+     * @param float[] $p1       The first control point.
+     * @param float[] $p2       The second control point.
+     * @param float[] $p3       The end point.
+     * @param float   $accuracy Maximum squared distance between two points.
+     *
+     * @return array[] An approximation for the curve, as an array of points.
+     */
     public function cubic($p0, $p1, $p2, $p3, $accuracy = 1)
     {
         $t      = 0;
@@ -50,6 +83,17 @@ class SVGBezierApproximator
 
 
 
+    /**
+     * Calculates a single point on the quadratic Bézier curve, using $t as its
+     * parameter.
+     *
+     * @param float[] $p0 The curve's start point.
+     * @param float[] $p1 The curve's control point.
+     * @param float[] $p2 The curve's end point.
+     * @param float   $t  The function parameter (distance from start; 0..1).
+     *
+     * @return float[] The point on the curve (0 => x, 1 => y).
+     */
     private static function calculateQuadratic($p0, $p1, $p2, $t)
     {
         $ti = 1 - $t;
@@ -60,6 +104,18 @@ class SVGBezierApproximator
         );
     }
 
+    /**
+     * Calculates a single point on the cubic Bézier curve, using $t as its
+     * parameter.
+     *
+     * @param float[] $p0 The curve's start point.
+     * @param float[] $p1 The curve's first control point.
+     * @param float[] $p2 The curve's second control point.
+     * @param float[] $p3 The curve's end point.
+     * @param float   $t  The function parameter (distance from start; 0..1).
+     *
+     * @return float[] The point on the curve (0 => x, 1 => y).
+     */
     private static function calculateCubic($p0, $p1, $p2, $p3, $t)
     {
         $ti = 1 - $t;
@@ -87,6 +143,16 @@ class SVGBezierApproximator
 
 
 
+    /**
+     * Calculates the squared distance between two points.
+     *
+     * The squared distance is defined as d = (x1 - x0)^2 + (y1 - y0)^2.
+     *
+     * @param float[] $p1 The first point (0 => x, 1 => y).
+     * @param float[] $p2 The second point (0 => x, 1 => y).
+     *
+     * @return float The squared distance between the two points.
+     */
     private static function getDistanceSquared($p1, $p2)
     {
         $dx = $p2[0] - $p1[0];
