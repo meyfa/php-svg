@@ -4,10 +4,19 @@ namespace JangoBrick\SVG\Nodes\Shapes;
 
 use JangoBrick\SVG\Nodes\SVGNode;
 
+/**
+ * This is the base class for polygons and polylines.
+ * Offers methods for manipulating the list of points.
+ */
 abstract class SVGPolygonalShape extends SVGNode
 {
+    /** @var array[] $points List of points (float 2-tuples). */
     private $points;
 
+    /**
+     * @param string  $name   The tag name.
+     * @param array[] $points Array of points (float 2-tuples).
+     */
     public function __construct($name, $points)
     {
         parent::__construct($name);
@@ -32,6 +41,17 @@ abstract class SVGPolygonalShape extends SVGNode
         return new static($points);
     }
 
+
+
+    /**
+     * Appends a new point to the end of this shape. The point can be given
+     * either as a 2-tuple (1 param) or as separate x and y (2 params).
+     *
+     * @param float|float[] $a The point as an array, or its x coordinate.
+     * @param float|null    $b The point's y coordinate, if not given as array.
+     *
+     * @return $this This node instance, for call chaining.
+     */
     public function addPoint($a, $b = null)
     {
         if (!is_array($a)) {
@@ -42,32 +62,60 @@ abstract class SVGPolygonalShape extends SVGNode
         return $this;
     }
 
+    /**
+     * Removes the point at the given index from this shape.
+     *
+     * @param int $index The index of the point to remove.
+     *
+     * @return $this This node instance, for call chaining.
+     */
     public function removePoint($index)
     {
         array_splice($this->points, $index, 1);
         return $this;
     }
 
+    /**
+     * @return int The number of points in this shape.
+     */
     public function countPoints()
     {
         return count($this->points);
     }
 
+    /**
+     * @return array[] All points in this shape (array of float 2-tuples).
+     */
     public function getPoints()
     {
         return $this->points;
     }
 
+    /**
+     * @param int $index The index of the point to get.
+     *
+     * @return float[] The point at the given index (0 => x, 1 => y).
+     */
     public function getPoint($index)
     {
         return $this->points[$index];
     }
 
+    /**
+     * Replaces the point at the given index with a different one.
+     *
+     * @param int     $index The index of the point to set.
+     * @param float[] $point The new point.
+     *
+     * @return $this This node instance, for call chaining.
+     */
     public function setPoint($index, $point)
     {
         $this->points[$index] = $point;
         return $this;
     }
+
+
 
     public function getSerializableAttributes()
     {

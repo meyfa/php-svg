@@ -5,10 +5,17 @@ namespace JangoBrick\SVG\Nodes\Shapes;
 use JangoBrick\SVG\Nodes\SVGNode;
 use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
+/**
+ * Represents the SVG tag 'path'.
+ */
 class SVGPath extends SVGNode
 {
+    /** @var string $d The path description. */
     private $d;
 
+    /**
+     * @param string $d The path description.
+     */
     public function __construct($d)
     {
         parent::__construct('path');
@@ -23,6 +30,8 @@ class SVGPath extends SVGNode
         return new self($d);
     }
 
+
+
     public function getSerializableAttributes()
     {
         $attrs = parent::getSerializableAttributes();
@@ -31,6 +40,8 @@ class SVGPath extends SVGNode
 
         return $attrs;
     }
+
+
 
     public function rasterize(SVGRasterizer $rasterizer)
     {

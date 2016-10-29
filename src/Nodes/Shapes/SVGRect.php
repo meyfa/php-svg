@@ -5,10 +5,20 @@ namespace JangoBrick\SVG\Nodes\Shapes;
 use JangoBrick\SVG\Nodes\SVGNode;
 use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
+/**
+ * Represents the SVG tag 'rect'.
+ * Has the special attributes x, y, width, height.
+ */
 class SVGRect extends SVGNode
 {
     protected $x, $y, $width, $height;
 
+    /**
+     * @param string $x      The x coordinate of the upper left corner.
+     * @param string $y      The y coordinate of the upper left corner.
+     * @param string $width  The width.
+     * @param string $height The height.
+     */
     public function __construct($x, $y, $width, $height)
     {
         parent::__construct('rect');
@@ -20,6 +30,7 @@ class SVGRect extends SVGNode
     }
 
     /**
+     * @inheritDoc
      * @SuppressWarnings("NPath")
      */
     public static function constructFromAttributes($attrs)
@@ -32,49 +43,91 @@ class SVGRect extends SVGNode
         return new self($x, $y, $w, $h);
     }
 
+
+
+    /**
+     * @return The x coordinate of the upper left corner.
+     */
     public function getX()
     {
         return $this->x;
     }
 
+    /**
+     * Sets the x coordinate of the upper left corner.
+     *
+     * @param string $x The new coordinate.
+     *
+     * @return $this This node instance, for call chaining.
+     */
     public function setX($x)
     {
         $this->x = $x;
         return $this;
     }
 
+    /**
+     * @return The y coordinate of the upper left corner.
+     */
     public function getY()
     {
         return $this->y;
     }
 
+    /**
+     * Sets the y coordinate of the upper left corner.
+     *
+     * @param string $y The new coordinate.
+     *
+     * @return $this This node instance, for call chaining.
+     */
     public function setY($y)
     {
         $this->y = $y;
         return $this;
     }
 
+
+
+    /**
+     * @return The width.
+     */
     public function getWidth()
     {
         return $this->width;
     }
 
+    /**
+     * @param string $width The new width.
+     *
+     * @return $this This node instance, for call chaining.
+     */
     public function setWidth($width)
     {
         $this->width = $width;
         return $this;
     }
 
+    /**
+     * @return The height.
+     */
     public function getHeight()
     {
         return $this->height;
     }
 
+    /**
+     * @param string $height The new height.
+     *
+     * @return $this This node instance, for call chaining.
+     */
     public function setHeight($height)
     {
         $this->height = $height;
         return $this;
     }
+
+
 
     public function getSerializableAttributes()
     {
@@ -87,6 +140,8 @@ class SVGRect extends SVGNode
 
         return $attrs;
     }
+
+
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
