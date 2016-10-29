@@ -69,7 +69,7 @@ version management.
 
 ### Creating an image
 
-The following code generates a SVG with a blue square, sets the Content-Type
+The following code generates an SVG with a blue square, sets the Content-Type
 header and echoes it:
 
 ```php
