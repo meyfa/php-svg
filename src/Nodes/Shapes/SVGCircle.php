@@ -11,6 +11,11 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
  */
 class SVGCircle extends SVGNode
 {
+    /**
+     * @var string $cx The center's x coordinate.
+     * @var string $cy The center's y coordinate.
+     * @var string $rx The radius.
+     */
     private $cx, $cy, $r;
 
     /**

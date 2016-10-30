@@ -11,6 +11,12 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
  */
 class SVGEllipse extends SVGNode
 {
+    /**
+     * @var string $cx The center's x coordinate.
+     * @var string $cy The center's y coordinate.
+     * @var string $rx The radius along the x-axis.
+     * @var string $ry The radius along the y-axis.
+     */
     private $cx, $cy, $rx, $ry;
 
     /**

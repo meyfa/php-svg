@@ -11,6 +11,12 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
  */
 class SVGRect extends SVGNode
 {
+    /**
+     * @var string $x      The x coordinate of the upper left corner.
+     * @var string $y      The y coordinate of the upper left corner.
+     * @var string $width  The width.
+     * @var string $height The height.
+     */
     protected $x, $y, $width, $height;
 
     /**

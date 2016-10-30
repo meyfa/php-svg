@@ -16,13 +16,29 @@ use JangoBrick\SVG\Nodes\SVGNode;
  */
 class SVGRasterizer
 {
+    /** @var Renderers\SVGRenderer[] $renderers Map of shapes to renderers. */
     private static $renderers;
+    /** @var Path\SVGPathParser The singleton path parser. */
     private static $pathParser;
+    /** @var Path\SVGPathApproximator The singleton path approximator. */
     private static $pathApproximator;
 
+    /**
+     * @var int $docWidth  The original SVG document width, in pixels.
+     * @var int $docHeight The original SVG document height, in pixels.
+     */
     private $docWidth, $docHeight;
+    /**
+     * @var int $width  The output image width, in pixels.
+     * @var int $height The output image height, in pixels.
+     */
     private $width, $height;
+    /**
+     * @var float $scaleX The factor by which output is scaled on the x-axis.
+     * @var float $scaleY The factor by which output is scaled on the y-axis.
+     */
     private $scaleX, $scaleY;
+    /** @var resource $outImage The output image as a GD resource. */
     private $outImage;
 
     /**

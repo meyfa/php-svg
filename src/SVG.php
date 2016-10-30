@@ -7,14 +7,14 @@ namespace JangoBrick\SVG;
  */
 final class SVG
 {
-    /** RegEx string for #FFFFFF etc */
+    /** @var string COLOR_HEX_6 A RegEx for #FFFFFF etc */
     const COLOR_HEX_6 = '/^#([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})$/i';
-    /** RegEx string for #FFF etc */
+    /** @var string COLOR_HEX_3 A RegEx for #FFF etc */
     const COLOR_HEX_3 = '/^#([0-9A-F])([0-9A-F])([0-9A-F])$/i';
 
-    /** RegEx string for rgb(255, 255, 255) etc */
+    /** @var string COLOR_RGB A RegEx for rgb(255, 255, 255) etc */
     const COLOR_RGB = '/^rgb\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
-    /** RegEx string for rgba(255, 255, 255, 0.5) etc */
+    /** @var string COLOR_RGBA A RegEx for rgba(255, 255, 255, 0.5) etc */
     const COLOR_RGBA = '/^rgba\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
 
     /**

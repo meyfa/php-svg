@@ -11,6 +11,12 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
  */
 class SVGLine extends SVGNode
 {
+    /**
+     * @var string $x1 The first point's x coordinate.
+     * @var string $y1 The first point's y coordinate.
+     * @var string $x2 The second point's x coordinate.
+     * @var string $y2 The second point's y coordinate.
+     */
     private $x1, $y1, $x2, $y2;
 
     /**

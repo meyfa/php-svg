@@ -15,9 +15,8 @@ use JangoBrick\SVG\Nodes\SVGNodeContainer;
 class SVGReader
 {
     /**
-     * Associative array mapping node names (e.g. 'rect') to fully-qualified
-     * class names (e.g. 'JangoBrick\\SVG\\Nodes\\Shapes\\SVGRect').
-     */
+    * @var string[] $nodeTypes Map of tag names to fully-qualified class names.
+    */
     private static $nodeTypes = array(
         'svg'       => 'JangoBrick\\SVG\\Nodes\\Structures\\SVGDocumentFragment',
         'g'         => 'JangoBrick\\SVG\\Nodes\\Structures\\SVGGroup',
@@ -30,8 +29,8 @@ class SVGReader
         'path'      => 'JangoBrick\\SVG\\Nodes\\Shapes\\SVGPath',
     );
     /**
-     * Array of attributes to ignore because they are dealt with elsewhere.
-     */
+    * @var string[] $ignoredAttributes Ignored attribs dealt with elsewhere.
+    */
     private static $ignoredAttributes = array(
         'x', 'y', 'width', 'height',
         'x1', 'y1', 'x2', 'y2',
@@ -40,8 +39,8 @@ class SVGReader
         'style',
     );
     /**
-     * Array of attributes that are to be interpreted as styles.
-     * Comes from https://www.w3.org/TR/SVG/styling.html.
+     * @var string[] @styleAttributes Attributes to be interpreted as styles.
+     * List comes from https://www.w3.org/TR/SVG/styling.html.
      */
     private static $styleAttributes = array(
         // DEFINED IN BOTH CSS2 AND SVG

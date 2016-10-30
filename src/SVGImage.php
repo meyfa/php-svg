@@ -13,8 +13,10 @@ use JangoBrick\SVG\Writing\SVGWriter;
  */
 class SVGImage
 {
+    /** @var SVGReader $reader The singleton reader used by this class. */
     private static $reader;
 
+    /** @var SVGDocumentFragment $document This image's root `svg` node/tag. */
     private $document;
 
     /**

@@ -11,6 +11,7 @@ use JangoBrick\SVG\Nodes\SVGNodeContainer;
  */
 class SVGWriter
 {
+    /** @var string $outString The XML output string being written */
     private $outString;
 
     public function __construct()
