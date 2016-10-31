@@ -18,15 +18,15 @@ class SVGReader
     * @var string[] $nodeTypes Map of tag names to fully-qualified class names.
     */
     private static $nodeTypes = array(
-        'svg'       => 'JangoBrick\\SVG\\Nodes\\Structures\\SVGDocumentFragment',
-        'g'         => 'JangoBrick\\SVG\\Nodes\\Structures\\SVGGroup',
-        'rect'      => 'JangoBrick\\SVG\\Nodes\\Shapes\\SVGRect',
-        'circle'    => 'JangoBrick\\SVG\\Nodes\\Shapes\\SVGCircle',
-        'ellipse'   => 'JangoBrick\\SVG\\Nodes\\Shapes\\SVGEllipse',
-        'line'      => 'JangoBrick\\SVG\\Nodes\\Shapes\\SVGLine',
-        'polygon'   => 'JangoBrick\\SVG\\Nodes\\Shapes\\SVGPolygon',
-        'polyline'  => 'JangoBrick\\SVG\\Nodes\\Shapes\\SVGPolyline',
-        'path'      => 'JangoBrick\\SVG\\Nodes\\Shapes\\SVGPath',
+        'svg'       => 'JangoBrick\SVG\Nodes\Structures\SVGDocumentFragment',
+        'g'         => 'JangoBrick\SVG\Nodes\Structures\SVGGroup',
+        'rect'      => 'JangoBrick\SVG\Nodes\Shapes\SVGRect',
+        'circle'    => 'JangoBrick\SVG\Nodes\Shapes\SVGCircle',
+        'ellipse'   => 'JangoBrick\SVG\Nodes\Shapes\SVGEllipse',
+        'line'      => 'JangoBrick\SVG\Nodes\Shapes\SVGLine',
+        'polygon'   => 'JangoBrick\SVG\Nodes\Shapes\SVGPolygon',
+        'polyline'  => 'JangoBrick\SVG\Nodes\Shapes\SVGPolyline',
+        'path'      => 'JangoBrick\SVG\Nodes\Shapes\SVGPath',
     );
     /**
     * @var string[] $ignoredAttributes Ignored attribs dealt with elsewhere.

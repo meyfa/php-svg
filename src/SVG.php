@@ -13,9 +13,9 @@ final class SVG
     const COLOR_HEX_3 = '/^#([0-9A-F])([0-9A-F])([0-9A-F])$/i';
 
     /** @var string COLOR_RGB A RegEx for rgb(255, 255, 255) etc */
-    const COLOR_RGB = '/^rgb\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
+    const COLOR_RGB = '/^rgb\(([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*)\)$/';
     /** @var string COLOR_RGBA A RegEx for rgba(255, 255, 255, 0.5) etc */
-    const COLOR_RGBA = '/^rgba\\(([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\s*,\\s*([+-]?\\d*\\.?\\d*)\\)$/';
+    const COLOR_RGBA = '/^rgba\(([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*)\)$/';
 
     /**
      * Converts any valid SVG length string into an absolute pixel length,
@@ -29,7 +29,7 @@ final class SVG
     public static function convertUnit($unit, $viewLength)
     {
         $matches = array();
-        $match   = preg_match('/^([+-]?\\d*\\.?\\d*)(px|%)?$/', $unit, $matches);
+        $match   = preg_match('/^([+-]?\d*\.?\d*)(px|%)?$/', $unit, $matches);
 
         if (!$match) {
             return false;
