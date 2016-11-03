@@ -50,13 +50,40 @@ class SVGRectRenderer extends SVGRenderer
         $y2 = $params['y2'];
 
         // imagerectangle draws left and right side 1px thicker than it should,
-        // so we draw four lines instead
+        // and drawing 4 lines instead doesn't work either because of
+        // unpredictable positioning as well as overlaps,
+        // so we draw four filled rectangles instead
 
-        // TODO: remove overlaps, so that transparency works better
+        $halfStrokeFloor = floor($strokeWidth / 2);
+        $halfStrokeCeil  = ceil($strokeWidth / 2);
 
-        imageline($image, $x1, $y1, $x2, $y1, $color); // top
-        imageline($image, $x1, $y2, $x2, $y2, $color); // bottom
-        imageline($image, $x1, $y1, $x1, $y2, $color); // left
-        imageline($image, $x2, $y1, $x2, $y2, $color); // right
+        // top
+        imagefilledrectangle(
+            $image,
+            $x1 - $halfStrokeFloor,     $y1 - $halfStrokeFloor,
+            $x2 + $halfStrokeFloor,     $y1 + $halfStrokeCeil - 1,
+            $color
+        );
+        // bottom
+        imagefilledrectangle(
+            $image,
+            $x1 - $halfStrokeFloor,     $y2 - $halfStrokeCeil + 1,
+            $x2 + $halfStrokeFloor,     $y2 + $halfStrokeFloor,
+            $color
+        );
+        // left
+        imagefilledrectangle(
+            $image,
+            $x1 - $halfStrokeFloor,     $y1 + $halfStrokeCeil,
+            $x1 + $halfStrokeCeil - 1,  $y2 - $halfStrokeCeil,
+            $color
+        );
+        // right
+        imagefilledrectangle(
+            $image,
+            $x2 - $halfStrokeCeil + 1,  $y1 + $halfStrokeCeil,
+            $x2 + $halfStrokeFloor,     $y2 - $halfStrokeCeil,
+            $color
+        );
     }
 }
