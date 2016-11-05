@@ -28,16 +28,12 @@ abstract class SVGNodeContainer extends SVGNode
      *
      * @param SVGNode $node The node to add to this container's children.
      *
-     * @return bool Whether the action was valid and the child list changed.
+     * @return $this This node instance, for call chaining.
      */
     public function addChild(SVGNode $node)
     {
-        if ($node === $this) {
-            return false;
-        }
-
-        if ($node->parent === $this) {
-            return false;
+        if ($node === $this || $node->parent === $this) {
+            return $this;
         }
 
         if (isset($node->parent)) {
@@ -47,7 +43,7 @@ abstract class SVGNodeContainer extends SVGNode
         $this->children[] = $node;
         $node->parent     = $this;
 
-        return true;
+        return $this;
     }
 
     /**
@@ -56,13 +52,13 @@ abstract class SVGNodeContainer extends SVGNode
      *
      * @param SVGNode|int $nodeOrIndex The node (or respective index) to remove.
      *
-     * @return bool Whether the action was valid and the child list changed.
+     * @return $this This node instance, for call chaining.
      */
     public function removeChild($nodeOrIndex)
     {
         $index = $this->resolveChildIndex($nodeOrIndex);
         if ($index === false) {
-            return false;
+            return $this;
         }
 
         $node         = $this->children[$index];
@@ -70,7 +66,7 @@ abstract class SVGNodeContainer extends SVGNode
 
         array_splice($this->children, $index, 1);
 
-        return true;
+        return $this;
     }
 
     /**
