@@ -29,16 +29,6 @@ class SVGReader
         'path'      => 'JangoBrick\SVG\Nodes\Shapes\SVGPath',
     );
     /**
-    * @var string[] $ignoredAttributes Ignored attribs dealt with elsewhere.
-    */
-    private static $ignoredAttributes = array(
-        'x', 'y', 'width', 'height',
-        'x1', 'y1', 'x2', 'y2',
-        'cx', 'cy', 'r', 'rx', 'ry',
-        'points', 'd',
-        'style',
-    );
-    /**
      * @var string[] @styleAttributes Attributes to be interpreted as styles.
      * List comes from https://www.w3.org/TR/SVG/styling.html.
      */
@@ -154,11 +144,9 @@ class SVGReader
      *
      * Since styles in SVG can also be expressed with attributes, this method
      * checks the name of each attribute and, if it matches that of a style,
-     * applies it as a style instead.
-     * For a list of attributes considered styles, see self::$styleAttributes.
+     * applies it as a style instead. The actual 'style' attribute is ignored.
      *
-     * Some names are ignored (e.g. 'style' or shape properties like 'points').
-     * For a list of ignored attributes, see self::$ignoredAttributes.
+     * For a list of attributes considered styles, see self::$styleAttributes.
      *
      * @param SVGNode           $node The node to apply the attributes to.
      * @param \SimpleXMLElement $xml  The attribute source.
@@ -168,7 +156,7 @@ class SVGReader
     private function applyAttributes(SVGNode $node, \SimpleXMLElement $xml)
     {
         foreach ($xml->attributes() as $key => $value) {
-            if (in_array($key, self::$ignoredAttributes)) {
+            if ($key === 'style') {
                 continue;
             }
             if (in_array($key, self::$styleAttributes)) {

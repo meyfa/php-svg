@@ -15,13 +15,4 @@ class SVGGroup extends SVGNodeContainer
     {
         parent::__construct();
     }
-
-    /**
-     * @inheritDoc
-     * @SuppressWarnings("unused")
-     */
-    public static function constructFromAttributes($attrs)
-    {
-        return new self();
-    }
 }
