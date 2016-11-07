@@ -10,6 +10,8 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
  */
 class SVGPath extends SVGNode
 {
+    const TAG_NAME = 'path';
+
     /** @var string $d The path description. */
     private $d;
 
@@ -18,7 +20,7 @@ class SVGPath extends SVGNode
      */
     public function __construct($d)
     {
-        parent::__construct('path');
+        parent::__construct();
 
         $this->d = $d;
     }

@@ -11,6 +11,8 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
  */
 class SVGLine extends SVGNode
 {
+    const TAG_NAME = 'line';
+
     /**
      * @var string $x1 The first point's x coordinate.
      * @var string $y1 The first point's y coordinate.
@@ -27,7 +29,7 @@ class SVGLine extends SVGNode
      */
     public function __construct($x1, $y1, $x2, $y2)
     {
-        parent::__construct('line');
+        parent::__construct();
 
         $this->x1 = $x1;
         $this->y1 = $y1;

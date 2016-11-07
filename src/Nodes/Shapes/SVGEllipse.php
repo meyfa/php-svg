@@ -11,6 +11,8 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
  */
 class SVGEllipse extends SVGNode
 {
+    const TAG_NAME = 'ellipse';
+
     /**
      * @var string $cx The center's x coordinate.
      * @var string $cy The center's y coordinate.
@@ -27,7 +29,7 @@ class SVGEllipse extends SVGNode
      */
     public function __construct($cx, $cy, $rx, $ry)
     {
-        parent::__construct('ellipse');
+        parent::__construct();
 
         $this->cx = $cx;
         $this->cy = $cy;

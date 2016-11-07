@@ -11,6 +11,8 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
  */
 class SVGRect extends SVGNode
 {
+    const TAG_NAME = 'rect';
+
     /**
      * @var string $x      The x coordinate of the upper left corner.
      * @var string $y      The y coordinate of the upper left corner.
@@ -27,7 +29,7 @@ class SVGRect extends SVGNode
      */
     public function __construct($x, $y, $width, $height)
     {
-        parent::__construct('rect');
+        parent::__construct();
 
         $this->x      = $x;
         $this->y      = $y;

@@ -9,9 +9,11 @@ use JangoBrick\SVG\Nodes\SVGNodeContainer;
  */
 class SVGGroup extends SVGNodeContainer
 {
+    const TAG_NAME = 'g';
+
     public function __construct()
     {
-        parent::__construct('g');
+        parent::__construct();
     }
 
     /**

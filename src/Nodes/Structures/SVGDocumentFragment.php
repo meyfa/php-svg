@@ -10,6 +10,8 @@ use JangoBrick\SVG\Nodes\SVGNodeContainer;
  */
 class SVGDocumentFragment extends SVGNodeContainer
 {
+    const TAG_NAME = 'svg';
+
     /** @var mixed[] $initialStyles A map of style keys to their defaults. */
     private static $initialStyles = array(
         'fill'          => '#000000',
@@ -38,7 +40,7 @@ class SVGDocumentFragment extends SVGNodeContainer
      */
     public function __construct($root = false, $width = '100%', $height = '100%', array $namespaces = array())
     {
-        parent::__construct('svg');
+        parent::__construct();
 
         $this->root = (bool) $root;
         $this->namespaces = $namespaces;
