@@ -14,12 +14,11 @@ abstract class SVGPolygonalShape extends SVGNode
     private $points;
 
     /**
-     * @param string  $name   The tag name.
      * @param array[] $points Array of points (float 2-tuples).
      */
-    public function __construct($name, $points)
+    public function __construct($points)
     {
-        parent::__construct($name);
+        parent::__construct();
 
         $this->points = $points;
     }

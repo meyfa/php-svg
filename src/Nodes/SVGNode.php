@@ -10,8 +10,6 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
  */
 abstract class SVGNode
 {
-    /** @var string $name The tag name. */
-    private $name;
     /** @var SVGNodeContainer $parent The parent node. */
     protected $parent;
     /** @var string[] $styles This node's set of explicit style declarations. */
@@ -19,12 +17,8 @@ abstract class SVGNode
     /** @var string[] $attributes This node's set of attributes. */
     protected $attributes;
 
-    /**
-     * @param string $name The tag name.
-     */
-    public function __construct($name)
+    public function __construct()
     {
-        $this->name       = $name;
         $this->styles     = array();
         $this->attributes = array();
     }
@@ -52,7 +46,7 @@ abstract class SVGNode
      */
     public function getName()
     {
-        return $this->name;
+        return static::TAG_NAME;
     }
 
     /**

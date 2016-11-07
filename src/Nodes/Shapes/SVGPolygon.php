@@ -10,12 +10,14 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
  */
 class SVGPolygon extends SVGPolygonalShape
 {
+    const TAG_NAME = 'polygon';
+
     /**
      * @param array[] $points Array of points (float 2-tuples).
      */
     public function __construct($points = array())
     {
-        parent::__construct('polygon', $points);
+        parent::__construct($points);
     }
 
     public function rasterize(SVGRasterizer $rasterizer)

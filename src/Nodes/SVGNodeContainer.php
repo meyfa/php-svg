@@ -12,12 +12,9 @@ abstract class SVGNodeContainer extends SVGNode
     /** @var SVGNode[] $children This node's child nodes. */
     protected $children;
 
-    /**
-     * @param string $name The tag name.
-     */
-    public function __construct($name)
+    public function __construct()
     {
-        parent::__construct($name);
+        parent::__construct();
 
         $this->children = array();
     }

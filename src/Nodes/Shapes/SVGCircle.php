@@ -11,6 +11,8 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
  */
 class SVGCircle extends SVGNode
 {
+    const TAG_NAME = 'circle';
+
     /**
      * @var string $cx The center's x coordinate.
      * @var string $cy The center's y coordinate.
@@ -25,7 +27,7 @@ class SVGCircle extends SVGNode
      */
     public function __construct($cx, $cy, $r)
     {
-        parent::__construct('circle');
+        parent::__construct();
 
         $this->cx = $cx;
         $this->cy = $cy;
