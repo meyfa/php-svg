@@ -25,18 +25,20 @@ abstract class SVGNode
 
     /**
      * Factory function for this class, which accepts an associative array of
-     * attributes instead of parameters in the exact order (like `__construct`).
+     * strings instead of parameters in the correct order (like `__construct`).
+     *
+     * By default, simply invokes the constructor with no arguments. Subclasses
+     * may choose to override this if they require special behavior.
      *
      * @param string[] $attrs The attribute array (or array-like object; e.g. \SimpleXMLElement).
      *
      * @return static A new instance of the class this was called on.
-     * @throws \Exception If not overridden by subclass (should never occurr).
      *
      * @SuppressWarnings("unused")
      */
     public static function constructFromAttributes($attrs)
     {
-        throw new \Exception(get_called_class().' does not implement '.__FUNCTION__.'!');
+        return new static();
     }
 
 
@@ -150,6 +152,25 @@ abstract class SVGNode
     {
         $this->attributes[$name] = $value;
         return $this;
+    }
+
+    /**
+     * Defines an attribute, if and only if a non-null value is given; otherwise
+     * behaves like `setAttribute(...)`.
+     *
+     * This is useful for initializing attributes in constructors.
+     *
+     * @param string      $name  The name of the attribute to set.
+     * @param string|null $value The new attribute value.
+     *
+     * @return $this This node instance, for call chaining.
+     */
+    protected function setAttributeOptional($name, $value = null)
+    {
+        if (!isset($value)) {
+            return;
+        }
+        return $this->setAttribute($name, $value);
     }
 
     /**

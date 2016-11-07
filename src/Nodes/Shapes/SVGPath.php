@@ -12,42 +12,23 @@ class SVGPath extends SVGNode
 {
     const TAG_NAME = 'path';
 
-    /** @var string $d The path description. */
-    private $d;
-
     /**
-     * @param string $d The path description.
+     * @param string|null $d The path description.
      */
-    public function __construct($d)
+    public function __construct($d = null)
     {
         parent::__construct();
 
-        $this->d = $d;
-    }
-
-    public static function constructFromAttributes($attrs)
-    {
-        $d = isset($attrs['d']) ? $attrs['d'] : '';
-
-        return new self($d);
-    }
-
-
-
-    public function getSerializableAttributes()
-    {
-        $attrs = parent::getSerializableAttributes();
-
-        $attrs['d'] = $this->d;
-
-        return $attrs;
+        $this->setAttributeOptional($d);
     }
 
 
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
-        $commands = $rasterizer->getPathParser()->parse($this->d);
+        $d = $this->getAttribute('d');
+
+        $commands = $rasterizer->getPathParser()->parse($d);
         $subpaths = $rasterizer->getPathApproximator()->approximate($commands);
 
         foreach ($subpaths as $subpath) {

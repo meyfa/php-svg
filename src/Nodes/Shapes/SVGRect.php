@@ -14,51 +14,29 @@ class SVGRect extends SVGNode
     const TAG_NAME = 'rect';
 
     /**
-     * @var string $x      The x coordinate of the upper left corner.
-     * @var string $y      The y coordinate of the upper left corner.
-     * @var string $width  The width.
-     * @var string $height The height.
+     * @param string|null $x      The x coordinate of the upper left corner.
+     * @param string|null $y      The y coordinate of the upper left corner.
+     * @param string|null $width  The width.
+     * @param string|null $height The height.
      */
-    protected $x, $y, $width, $height;
-
-    /**
-     * @param string $x      The x coordinate of the upper left corner.
-     * @param string $y      The y coordinate of the upper left corner.
-     * @param string $width  The width.
-     * @param string $height The height.
-     */
-    public function __construct($x, $y, $width, $height)
+    public function __construct($x = null, $y = null, $width = null, $height = null)
     {
         parent::__construct();
 
-        $this->x      = $x;
-        $this->y      = $y;
-        $this->width  = $width;
-        $this->height = $height;
-    }
-
-    /**
-     * @inheritDoc
-     * @SuppressWarnings("NPath")
-     */
-    public static function constructFromAttributes($attrs)
-    {
-        $x = isset($attrs['x']) ? $attrs['x'] : 0;
-        $y = isset($attrs['y']) ? $attrs['y'] : 0;
-        $w = isset($attrs['width']) ? $attrs['width'] : 0;
-        $h = isset($attrs['height']) ? $attrs['height'] : 0;
-
-        return new self($x, $y, $w, $h);
+        $this->setAttributeOptional('x', $x);
+        $this->setAttributeOptional('y', $y);
+        $this->setAttributeOptional('width', $width);
+        $this->setAttributeOptional('height', $height);
     }
 
 
 
     /**
-     * @return The x coordinate of the upper left corner.
+     * @return string The x coordinate of the upper left corner.
      */
     public function getX()
     {
-        return $this->x;
+        return $this->getAttribute('x');
     }
 
     /**
@@ -70,16 +48,15 @@ class SVGRect extends SVGNode
      */
     public function setX($x)
     {
-        $this->x = $x;
-        return $this;
+        return $this->setAttribute('x', $x);
     }
 
     /**
-     * @return The y coordinate of the upper left corner.
+     * @return string The y coordinate of the upper left corner.
      */
     public function getY()
     {
-        return $this->y;
+        return $this->getAttribute('y');
     }
 
     /**
@@ -91,18 +68,17 @@ class SVGRect extends SVGNode
      */
     public function setY($y)
     {
-        $this->y = $y;
-        return $this;
+        return $this->setAttribute('y', $y);
     }
 
 
 
     /**
-     * @return The width.
+     * @return string The width.
      */
     public function getWidth()
     {
-        return $this->width;
+        return $this->getAttribute('width');
     }
 
     /**
@@ -112,16 +88,15 @@ class SVGRect extends SVGNode
      */
     public function setWidth($width)
     {
-        $this->width = $width;
-        return $this;
+        return $this->setAttribute('width', $width);
     }
 
     /**
-     * @return The height.
+     * @return string The height.
      */
     public function getHeight()
     {
-        return $this->height;
+        return $this->getAttribute('height');
     }
 
     /**
@@ -131,22 +106,7 @@ class SVGRect extends SVGNode
      */
     public function setHeight($height)
     {
-        $this->height = $height;
-        return $this;
-    }
-
-
-
-    public function getSerializableAttributes()
-    {
-        $attrs = parent::getSerializableAttributes();
-
-        $attrs['x'] = $this->x;
-        $attrs['y'] = $this->y;
-        $attrs['width'] = $this->width;
-        $attrs['height'] = $this->height;
-
-        return $attrs;
+        return $this->setAttribute('width', $height);
     }
 
 
@@ -154,10 +114,10 @@ class SVGRect extends SVGNode
     public function rasterize(SVGRasterizer $rasterizer)
     {
         $rasterizer->render('rect', array(
-            'x'         => $this->x,
-            'y'         => $this->y,
-            'width'     => $this->width,
-            'height'    => $this->height,
+            'x'         => $this->getX(),
+            'y'         => $this->getY(),
+            'width'     => $this->getWidth(),
+            'height'    => $this->getHeight(),
         ), $this);
     }
 }

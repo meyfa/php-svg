@@ -14,33 +14,17 @@ class SVGCircle extends SVGNode
     const TAG_NAME = 'circle';
 
     /**
-     * @var string $cx The center's x coordinate.
-     * @var string $cy The center's y coordinate.
-     * @var string $rx The radius.
+     * @param string|null $cx The center's x coordinate.
+     * @param string|null $cy The center's y coordinate.
+     * @param string|null $r  The radius.
      */
-    private $cx, $cy, $r;
-
-    /**
-     * @param string $cx The center's x coordinate.
-     * @param string $cy The center's y coordinate.
-     * @param string $rx The radius.
-     */
-    public function __construct($cx, $cy, $r)
+    public function __construct($cx = null, $cy = null, $r = null)
     {
         parent::__construct();
 
-        $this->cx = $cx;
-        $this->cy = $cy;
-        $this->r  = $r;
-    }
-
-    public static function constructFromAttributes($attrs)
-    {
-        $cx = isset($attrs['cx']) ? $attrs['cx'] : '';
-        $cy = isset($attrs['cy']) ? $attrs['cy'] : '';
-        $r  = isset($attrs['r']) ? $attrs['r'] : '';
-
-        return new self($cx, $cy, $r);
+        $this->setAttributeOptional('cx', $cx);
+        $this->setAttributeOptional('cy', $cy);
+        $this->setAttributeOptional('r', $r);
     }
 
 
@@ -50,7 +34,7 @@ class SVGCircle extends SVGNode
      */
     public function getCenterX()
     {
-        return $this->cx;
+        return $this->getAttribute('cx');
     }
 
     /**
@@ -62,8 +46,7 @@ class SVGCircle extends SVGNode
      */
     public function setCenterX($cx)
     {
-        $this->cx = $cx;
-        return $this;
+        return $this->setAttribute('cx', $cx);
     }
 
     /**
@@ -71,7 +54,7 @@ class SVGCircle extends SVGNode
      */
     public function getCenterY()
     {
-        return $this->cy;
+        return $this->getAttribute('cy');
     }
 
     /**
@@ -83,8 +66,7 @@ class SVGCircle extends SVGNode
      */
     public function setCenterY($cy)
     {
-        $this->cy = $cy;
-        return $this;
+        return $this->setAttribute('cy', $cy);
     }
 
 
@@ -94,7 +76,7 @@ class SVGCircle extends SVGNode
      */
     public function getRadius()
     {
-        return $this->r;
+        return $this->getAttribute('r');
     }
 
     /**
@@ -106,32 +88,19 @@ class SVGCircle extends SVGNode
      */
     public function setRadius($r)
     {
-        $this->r = $r;
-        return $this;
-    }
-
-
-
-    public function getSerializableAttributes()
-    {
-        $attrs = parent::getSerializableAttributes();
-
-        $attrs['cx'] = $this->cx;
-        $attrs['cy'] = $this->cy;
-        $attrs['r']  = $this->r;
-
-        return $attrs;
+        return $this->setAttribute('r', $r);
     }
 
 
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
+        $r = $this->getRadius();
         $rasterizer->render('ellipse', array(
-            'cx'    => $this->cx,
-            'cy'    => $this->cy,
-            'rx'    => $this->r,
-            'ry'    => $this->r,
+            'cx'    => $this->getCenterX(),
+            'cy'    => $this->getCenterY(),
+            'rx'    => $r,
+            'ry'    => $r,
         ), $this);
     }
 }
