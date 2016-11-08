@@ -22,11 +22,32 @@ class SVGPath extends SVGNode
         $this->setAttributeOptional($d);
     }
 
+    /**
+     * @return string The path description string.
+     */
+    public function getDescription()
+    {
+        return $this->getAttribute('d');
+    }
 
+    /**
+     * Sets the path description string.
+     *
+     * @param string $d The new description.
+     *
+     * @return $this This node instance, for call chaining.
+     */
+    public function setDescription($d)
+    {
+        return $this->setAttribute('d', $d);
+    }
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
-        $d = $this->getAttribute('d');
+        $d = $this->getDescription();
+        if (!isset($d)) {
+            return;
+        }
 
         $commands = $rasterizer->getPathParser()->parse($d);
         $subpaths = $rasterizer->getPathApproximator()->approximate($commands);
