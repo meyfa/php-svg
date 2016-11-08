@@ -42,7 +42,7 @@ class SVGLine extends SVGNode
     /**
      * Sets the first point's x coordinate.
      *
-     * @param string The new coordinate.
+     * @param string $x1 The new coordinate.
      *
      * @return $this This node instance, for call chaining.
      */
@@ -62,7 +62,7 @@ class SVGLine extends SVGNode
     /**
      * Sets the first point's y coordinate.
      *
-     * @param string The new coordinate.
+     * @param string $y1 The new coordinate.
      *
      * @return $this This node instance, for call chaining.
      */
@@ -84,7 +84,7 @@ class SVGLine extends SVGNode
     /**
      * Sets the second point's x coordinate.
      *
-     * @param string The new coordinate.
+     * @param string $x2 The new coordinate.
      *
      * @return $this This node instance, for call chaining.
      */
@@ -104,7 +104,7 @@ class SVGLine extends SVGNode
     /**
      * Sets the second point's y coordinate.
      *
-     * @param string The new coordinate.
+     * @param string $y2 The new coordinate.
      *
      * @return $this This node instance, for call chaining.
      */
