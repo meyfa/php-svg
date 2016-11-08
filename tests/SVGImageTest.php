@@ -9,7 +9,7 @@ class SVGImageTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->xml  = '<?xml version="1.0" encoding="utf-8"?>';
-        $this->xml .= '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10">';
+        $this->xml .= '<svg width="10" height="10" xmlns="http://www.w3.org/2000/svg">';
         $this->xml .= '</svg>';
     }
 
