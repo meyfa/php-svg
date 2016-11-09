@@ -108,8 +108,9 @@ class SVGPolygonBuilder
     /**
      * Appends a point with RELATIVE coordinates to the end of this polygon.
      *
-     * The coordinates are resolved against the current position. For more info,
-     * see `getPosition()`.
+     * The coordinates are resolved against the current position.
+     *
+     * @see SVGPolygonBuilder::getPosition() For more info on relative points.
      *
      * @param float $x The point's relative x coordinate.
      * @param float $y The point's relative y coordinate.

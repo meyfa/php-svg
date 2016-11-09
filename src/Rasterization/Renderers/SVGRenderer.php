@@ -168,8 +168,10 @@ abstract class SVGRenderer
      * Doing nothing is valid behavior if the shape can't be filled
      * (for example, a line).
      *
+     * @see SVGRenderer::prepareRenderParams() For info on the params array.
+     *
      * @param resource $image  The image resource to render to.
-     * @param mixed[]  $params The render params, see `prepareRenderParams()`.
+     * @param mixed[]  $params The render params.
      * @param int      $color  The color (a GD int) to fill the shape with.
      *
      * @return void
@@ -180,8 +182,10 @@ abstract class SVGRenderer
      * Renders the shape's outline in the given color, using the params array
      * obtained from the prepare method.
      *
+     * @see SVGRenderer::prepareRenderParams() For info on the params array.
+     *
      * @param resource $image  The image resource to render to.
-     * @param mixed[]  $params The render params, see `prepareRenderParams()`.
+     * @param mixed[]  $params The render params.
      * @param int      $color  The color (a GD int) to outline the shape with.
      * @param float    $strokeWidth  The stroke's thickness, in pixels.
      *

@@ -87,11 +87,11 @@ class SVGPathApproximator
      * Traces/approximates a path known to be continuous which is described by
      * the given array of commands.
      *
-     * For input data format, see `approximate()`.
-     *
      * The return value is a single array of approximated points. In addition,
      * the final x and y coordinates are stored in their respective reference
      * parameters.
+     *
+     * @see SVGPathApproximator::approximate() For an input format description.
      *
      * @param array[] $cmds The commands (assoc. arrays; see above).
      * @param float   $posX The current x position.

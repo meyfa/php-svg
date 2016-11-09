@@ -62,7 +62,7 @@ class SVGImage
     }
 
     /**
-     * @see toXMLString()
+     * @see SVGImage::toXMLString() For the implementation (this is a wrapper).
      */
     public function __toString()
     {

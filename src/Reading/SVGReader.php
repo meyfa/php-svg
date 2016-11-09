@@ -146,7 +146,7 @@ class SVGReader
      * checks the name of each attribute and, if it matches that of a style,
      * applies it as a style instead. The actual 'style' attribute is ignored.
      *
-     * For a list of attributes considered styles, see self::$styleAttributes.
+     * @see SVGReader::$styleAttributes The attributes considered styles.
      *
      * @param SVGNode           $node The node to apply the attributes to.
      * @param \SimpleXMLElement $xml  The attribute source.
@@ -172,7 +172,7 @@ class SVGReader
      * given node.
      *
      * This method does NOT handle styles expressed as attributes (stroke="").
-     * For that, see applyAttributes().
+     * @see SVGReader::applyAttributes() For styles expressed as attributes.
      *
      * @param SVGNode           $node The node to apply the styles to.
      * @param \SimpleXMLElement $xml  The attribute source.
