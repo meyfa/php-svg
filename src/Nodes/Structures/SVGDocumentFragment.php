@@ -40,10 +40,6 @@ class SVGDocumentFragment extends SVGNodeContainer
 
         $this->setAttributeOptional('width', $width);
         $this->setAttributeOptional('height', $height);
-
-        foreach (self::$initialStyles as $style => $value) {
-            $this->setStyle($style, $value);
-        }
     }
 
     /**
@@ -98,6 +94,20 @@ class SVGDocumentFragment extends SVGNodeContainer
 
 
 
+    public function getComputedStyle($name)
+    {
+        // return either explicit declarations ...
+        $style = parent::getComputedStyle($name);
+        if (isset($style) || !isset(self::$initialStyles[$name])) {
+            return $style;
+        }
+
+        // ... or the default one.
+        return self::$initialStyles[$name];
+    }
+
+
+
     public function getSerializableAttributes()
     {
         $attrs = parent::getSerializableAttributes();
@@ -120,22 +130,5 @@ class SVGDocumentFragment extends SVGNodeContainer
         }
 
         return $attrs;
-    }
-
-    public function getSerializableStyles()
-    {
-        if (!$this->root) {
-            return parent::getSerializableStyles();
-        }
-
-        $styles = array();
-        // filter styles to not include initial/default ones
-        foreach ($this->styles as $style => $value) {
-            if (!isset(self::$initialStyles[$style]) || self::$initialStyles[$style] !== $value) {
-                $styles[$style] = $value;
-            }
-        }
-
-        return $styles;
     }
 }
