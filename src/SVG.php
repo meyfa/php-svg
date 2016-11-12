@@ -36,7 +36,7 @@ final class SVG
         }
 
         $num  = floatval($matches[1]);
-        $unit = $matches[2];
+        $unit = isset($matches[2]) ? $matches[2] : null;
 
         if ($unit === 'px' || $unit === null) {
             return $num;

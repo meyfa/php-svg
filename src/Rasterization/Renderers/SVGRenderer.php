@@ -53,7 +53,7 @@ abstract class SVGRenderer
         if (isset($stroke) && $stroke !== 'none') {
             $stroke      = self::prepareColor($stroke, $context);
             $strokeWidth = $context->getComputedStyle('stroke-width');
-            $strokeWidth = self::prepareLength($strokeWidth, $rasterizer);
+            $strokeWidth = self::prepareLengthX($strokeWidth, $rasterizer);
 
             $this->renderStroke($image, $params, $stroke, $strokeWidth);
         }
@@ -128,19 +128,35 @@ abstract class SVGRenderer
 
 
     /**
-     * Parses the length string and multiplies it with the rasterizer's scale.
+     * Parses the length string in relation to the rasterizer's X dimension.
      *
-     * @param string        $len        The CSS length string.
-     * @param SVGRasterizer $rasterizer The rasterizer for scaling the length.
+     * @param string        $len The CSS length string.
+     * @param SVGRasterizer $ras The rasterizer for scaling the length.
      *
      * @return float The parsed and scaled length, in pixels.
      */
-    private static function prepareLength($len, SVGRasterizer $rasterizer)
+    protected static function prepareLengthX($len, SVGRasterizer $ras)
     {
-        $docWidth = $rasterizer->getDocumentWidth();
-        $scaleX   = $rasterizer->getScaleX();
+        $doc   = $ras->getDocumentWidth();
+        $scale = $ras->getScaleX();
 
-        return SVG::convertUnit($len, $docWidth) * $scaleX;
+        return SVG::convertUnit($len, $doc) * $scale;
+    }
+
+    /**
+     * Parses the length string in relation to the rasterizer's Y dimension.
+     *
+     * @param string        $len The CSS length string.
+     * @param SVGRasterizer $ras The rasterizer for scaling the length.
+     *
+     * @return float The parsed and scaled length, in pixels.
+     */
+    protected static function prepareLengthY($len, SVGRasterizer $ras)
+    {
+        $doc   = $ras->getDocumentWidth();
+        $scale = $ras->getScaleY();
+
+        return SVG::convertUnit($len, $doc) * $scale;
     }
 
 

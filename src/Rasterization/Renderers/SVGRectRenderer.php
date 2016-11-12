@@ -17,10 +17,10 @@ class SVGRectRenderer extends SVGRenderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
-        $x1 = $options['x'] * $rasterizer->getScaleX();
-        $y1 = $options['y'] * $rasterizer->getScaleY();
-        $w  = $options['width'] * $rasterizer->getScaleX();
-        $h  = $options['height'] * $rasterizer->getScaleY();
+        $x1 = self::prepareLengthX($options['x'], $rasterizer);
+        $y1 = self::prepareLengthY($options['y'], $rasterizer);
+        $w  = self::prepareLengthX($options['width'], $rasterizer);
+        $h  = self::prepareLengthY($options['height'], $rasterizer);
 
         return array(
             'x1' => $x1,

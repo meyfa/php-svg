@@ -18,10 +18,10 @@ class SVGEllipseRenderer extends SVGRenderer
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
         return array(
-            'cx'        => $options['cx'] * $rasterizer->getScaleX(),
-            'cy'        => $options['cy'] * $rasterizer->getScaleY(),
-            'width'     => $options['rx'] * 2 * $rasterizer->getScaleX(),
-            'height'    => $options['ry'] * 2 * $rasterizer->getScaleY(),
+            'cx'        => self::prepareLengthX($options['cx'], $rasterizer),
+            'cy'        => self::prepareLengthY($options['cy'], $rasterizer),
+            'width'     => self::prepareLengthX($options['rx'], $rasterizer) * 2,
+            'height'    => self::prepareLengthY($options['ry'], $rasterizer) * 2,
         );
     }
 

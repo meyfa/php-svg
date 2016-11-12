@@ -18,10 +18,10 @@ class SVGLineRenderer extends SVGRenderer
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
         return array(
-            'x1' => $options['x1'] * $rasterizer->getScaleX(),
-            'y1' => $options['y1'] * $rasterizer->getScaleY(),
-            'x2' => $options['x2'] * $rasterizer->getScaleX(),
-            'y2' => $options['y2'] * $rasterizer->getScaleY(),
+            'x1' => self::prepareLengthX($options['x1'], $rasterizer),
+            'y1' => self::prepareLengthY($options['y1'], $rasterizer),
+            'x2' => self::prepareLengthX($options['x2'], $rasterizer),
+            'y2' => self::prepareLengthY($options['y2'], $rasterizer),
         );
     }
 
