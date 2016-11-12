@@ -102,6 +102,7 @@ final class SVG
      * @see https://www.w3.org/TR/SVG11/types.html#ColorKeywords For the source.
      */
     private static $namedColors = array(
+        'transparent'           => array(  0,   0,   0,   0),
         'aliceblue'             => array(240, 248, 255, 255),
         'antiquewhite'          => array(250, 235, 215, 255),
         'aqua'                  => array(  0, 255, 255, 255),
