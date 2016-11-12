@@ -2,7 +2,7 @@
     "name": "jangobrick/php-svg",
     "homepage": "https://github.com/JangoBrick/php-svg",
     "type": "library",
-    "description": "Generate SVG files with PHP",
+    "description": "Read, edit, write, and render SVG files with PHP",
     "keywords": ["svg"],
     "license": "MIT",
     "authors": [
