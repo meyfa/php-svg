@@ -12,10 +12,10 @@ final class SVG
     /** @var string COLOR_HEX_3 A RegEx for #FFF etc */
     const COLOR_HEX_3 = '/^#([0-9A-F])([0-9A-F])([0-9A-F])$/i';
 
-    /** @var string COLOR_RGB A RegEx for rgb(255, 255, 255) etc */
-    const COLOR_RGB = '/^rgb\(([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*)\)$/';
-    /** @var string COLOR_RGBA A RegEx for rgba(255, 255, 255, 0.5) etc */
-    const COLOR_RGBA = '/^rgba\(([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*)\)$/';
+    /** @var string COLOR_RGB A RegEx for rgb(255, 255, 255) etc (with percentage support) */
+    const COLOR_RGB = '/^rgb\(([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*%?)\)$/';
+    /** @var string COLOR_RGBA A RegEx for rgba(255, 255, 255, 0.5) etc (with percentage support) */
+    const COLOR_RGBA = '/^rgba\(([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*)\)$/';
 
     /**
      * Converts any valid SVG length string into an absolute pixel length,
@@ -82,13 +82,13 @@ final class SVG
             $g = hexdec($matches[2].$matches[2]);
             $b = hexdec($matches[3].$matches[3]);
         } elseif (preg_match(self::COLOR_RGB, $color, $matches)) {
-            $r = intval($matches[1]);
-            $g = intval($matches[2]);
-            $b = intval($matches[3]);
+            $r = self::parseRGBComponent($matches[1]);
+            $g = self::parseRGBComponent($matches[2]);
+            $b = self::parseRGBComponent($matches[3]);
         } elseif (preg_match(self::COLOR_RGBA, $color, $matches)) {
-            $r = intval($matches[1]);
-            $g = intval($matches[2]);
-            $b = intval($matches[3]);
+            $r = self::parseRGBComponent($matches[1]);
+            $g = self::parseRGBComponent($matches[2]);
+            $b = self::parseRGBComponent($matches[3]);
             $a = intval(floatval($matches[4]) * 255);
         }
 
@@ -98,6 +98,24 @@ final class SVG
         $a = min(max($a, 0), 255);
 
         return array($r, $g, $b, $a);
+    }
+
+    /**
+     * Converts the provided component string (either percentage or number)
+     * into a color component int (0 - 255).
+     *
+     * @param string $component The component string.
+     *
+     * @return int The parsed component int (0 - 255).
+     */
+    private static function parseRGBComponent($component)
+    {
+        $matches = array();
+        if (preg_match('/^([+-]?\d*\.?\d*)%$/', $component, $matches)) {
+            return intval(floatval($matches[1]) * (255 / 100));
+        }
+
+        return intval($component);
     }
 
     /**
