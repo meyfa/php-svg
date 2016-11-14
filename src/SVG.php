@@ -38,16 +38,16 @@ final class SVG
         $num  = floatval($matches[1]);
         $unit = isset($matches[2]) ? $matches[2] : null;
 
-        if ($unit === 'px' || $unit === null) {
-            return $num;
-        } elseif ($unit === 'pt') {
-            // 12pt == 16px, so ratio = 12/16 = 0.75
-            return $num / 0.75;
-        } elseif ($unit === '%') {
-            return ($num / 100) * $viewLength;
+        switch ($unit) {
+            case 'pt':
+                // 12pt == 16px, so ratio = 12/16 = 0.75
+                return $num / 0.75;
+            case '%':
+                return ($num / 100) * $viewLength;
+            case 'px':
+            default:
+                return $num;
         }
-
-        return;
     }
 
     /**
