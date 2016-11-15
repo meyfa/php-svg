@@ -117,6 +117,10 @@ class SVGEllipse extends SVGNode
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
+        if ($this->getComputedStyle('display') === 'none') {
+            return;
+        }
+
         $rasterizer->render('ellipse', array(
             'cx'    => $this->getCenterX(),
             'cy'    => $this->getCenterY(),

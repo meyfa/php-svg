@@ -103,6 +103,10 @@ abstract class SVGNodeContainer extends SVGNode
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
+        if ($this->getComputedStyle('display') === 'none') {
+            return;
+        }
+
         foreach ($this->children as $child) {
             $child->rasterize($rasterizer);
         }

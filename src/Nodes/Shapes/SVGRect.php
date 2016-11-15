@@ -113,6 +113,10 @@ class SVGRect extends SVGNode
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
+        if ($this->getComputedStyle('display') === 'none') {
+            return;
+        }
+
         $rasterizer->render('rect', array(
             'x'         => $this->getX(),
             'y'         => $this->getY(),

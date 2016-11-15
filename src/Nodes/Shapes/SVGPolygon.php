@@ -22,6 +22,10 @@ class SVGPolygon extends SVGPolygonalShape
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
+        if ($this->getComputedStyle('display') === 'none') {
+            return;
+        }
+
         $rasterizer->render('polygon', array(
             'open'      => false,
             'points'    => $this->getPoints(),

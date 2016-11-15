@@ -44,6 +44,10 @@ class SVGPath extends SVGNode
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
+        if ($this->getComputedStyle('display') === 'none') {
+            return;
+        }
+
         $d = $this->getDescription();
         if (!isset($d)) {
             return;

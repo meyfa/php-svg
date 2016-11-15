@@ -117,6 +117,10 @@ class SVGLine extends SVGNode
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
+        if ($this->getComputedStyle('display') === 'none') {
+            return;
+        }
+
         $rasterizer->render('line', array(
             'x1'    => $this->getX1(),
             'y1'    => $this->getY1(),
