@@ -121,6 +121,11 @@ class SVGEllipse extends SVGNode
             return;
         }
 
+        $visibility = $this->getComputedStyle('visibility');
+        if ($visibility === 'hidden' || $visibility === 'collapse') {
+            return;
+        }
+
         $rasterizer->render('ellipse', array(
             'cx'    => $this->getCenterX(),
             'cy'    => $this->getCenterY(),

@@ -48,6 +48,11 @@ class SVGPath extends SVGNode
             return;
         }
 
+        $visibility = $this->getComputedStyle('visibility');
+        if ($visibility === 'hidden' || $visibility === 'collapse') {
+            return;
+        }
+
         $d = $this->getDescription();
         if (!isset($d)) {
             return;

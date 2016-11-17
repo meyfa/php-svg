@@ -117,6 +117,11 @@ class SVGRect extends SVGNode
             return;
         }
 
+        $visibility = $this->getComputedStyle('visibility');
+        if ($visibility === 'hidden' || $visibility === 'collapse') {
+            return;
+        }
+
         $rasterizer->render('rect', array(
             'x'         => $this->getX(),
             'y'         => $this->getY(),

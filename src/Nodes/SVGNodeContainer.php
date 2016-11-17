@@ -107,6 +107,8 @@ abstract class SVGNodeContainer extends SVGNode
             return;
         }
 
+        // 'visibility' can be overridden -> only applied in shape nodes.
+
         foreach ($this->children as $child) {
             $child->rasterize($rasterizer);
         }

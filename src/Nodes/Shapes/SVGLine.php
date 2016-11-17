@@ -121,6 +121,11 @@ class SVGLine extends SVGNode
             return;
         }
 
+        $visibility = $this->getComputedStyle('visibility');
+        if ($visibility === 'hidden' || $visibility === 'collapse') {
+            return;
+        }
+
         $rasterizer->render('line', array(
             'x1'    => $this->getX1(),
             'y1'    => $this->getY1(),

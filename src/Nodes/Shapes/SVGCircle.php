@@ -99,6 +99,11 @@ class SVGCircle extends SVGNode
             return;
         }
 
+        $visibility = $this->getComputedStyle('visibility');
+        if ($visibility === 'hidden' || $visibility === 'collapse') {
+            return;
+        }
+
         $r = $this->getRadius();
         $rasterizer->render('ellipse', array(
             'cx'    => $this->getCenterX(),

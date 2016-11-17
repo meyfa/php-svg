@@ -26,6 +26,11 @@ class SVGPolygon extends SVGPolygonalShape
             return;
         }
 
+        $visibility = $this->getComputedStyle('visibility');
+        if ($visibility === 'hidden' || $visibility === 'collapse') {
+            return;
+        }
+
         $rasterizer->render('polygon', array(
             'open'      => false,
             'points'    => $this->getPoints(),
