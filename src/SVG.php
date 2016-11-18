@@ -17,6 +17,11 @@ final class SVG
     /** @var string COLOR_RGBA A RegEx for rgba(255, 255, 255, 0.5) etc (with percentage support) */
     const COLOR_RGBA = '/^rgba\(([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*)\)$/';
 
+    /** @var string COLOR_HSL A RegEx for hsl(240, 100%, 100%) etc */
+    const COLOR_HSL = '/^hsl\(([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*%)\s*,\s*([+-]?\d*\.?\d*%)\)$/';
+    /** @var string COLOR_HSLA A RegEx for hsla(240, 100%, 100%, 0.5) etc */
+    const COLOR_HSLA = '/^hsla\(([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*%)\s*,\s*([+-]?\d*\.?\d*%)\s*,\s*([+-]?\d*\.?\d*)\)$/';
+
     /**
      * Converts any valid SVG length string into an absolute pixel length,
      * using the given canvas width.
@@ -90,6 +95,19 @@ final class SVG
             $g = self::parseRGBComponent($matches[2]);
             $b = self::parseRGBComponent($matches[3]);
             $a = intval(floatval($matches[4]) * 255);
+        } elseif (preg_match(self::COLOR_HSL, $color, $matches)) {
+            $h = floatval($matches[1]);
+            $s = floatval($matches[2]) / 100;
+            $l = floatval($matches[3]) / 100;
+
+            list($r, $g, $b) = self::convertHSLtoRGB($h, $s, $l);
+        } elseif (preg_match(self::COLOR_HSLA, $color, $matches)) {
+            $h = floatval($matches[1]);
+            $s = floatval($matches[2]) / 100;
+            $l = floatval($matches[3]) / 100;
+            $a = intval(floatval($matches[4]) * 255);
+
+            list($r, $g, $b) = self::convertHSLtoRGB($h, $s, $l);
         }
 
         $r = min(max($r, 0), 255);
@@ -116,6 +134,73 @@ final class SVG
         }
 
         return intval($component);
+    }
+
+    /**
+     * Takes three arguments H (0 - 360), S (0 - 1), L (0 - 1) and converts them
+     * to RGB components (0 - 255).
+     *
+     * @param float $h The hue.
+     * @param float $s The saturation.
+     * @param float $l The lightness.
+     *
+     * @return int[] An RGB array with values ranging from 0 - 255 each.
+     */
+    private static function convertHSLtoRGB($h, $s, $l)
+    {
+        $h = $h % 360;
+        if ($h < 0) {
+            $h += 360;
+        }
+        $s = min(max($s, 0), 1);
+        $l = min(max($l, 0), 1);
+
+        if ($s == 0) {
+            // shortcut if grayscale
+            return array(intval($l * 255), intval($l * 255), intval($l * 255));
+        }
+
+        // compute intermediates
+        $m2 = ($l <= 0.5) ? ($l * (1 + $s)) : ($l + $s - $l * $s);
+        $m1 = 2 * $l - $m2;
+
+        // convert intermediates + hue to components
+        $r = self::convertHSLHueToRGBComponent($m1, $m2, $h + 120);
+        $g = self::convertHSLHueToRGBComponent($m1, $m2, $h);
+        $b = self::convertHSLHueToRGBComponent($m1, $m2, $h - 120);
+
+        return array($r, $g, $b);
+    }
+
+    /**
+     * Takes the two intermediate values from `convertHSLtoRGB()` and the hue,
+     * and computes the component's value.
+     *
+     * @param float $m1  Intermediate 1.
+     * @param float $m2  Intermediate 2.
+     * @param float $hue The hue, adapted to the component (0 - 360).
+     *
+     * @return int The component's value (0 - 255).
+     */
+    private static function convertHSLHueToRGBComponent($m1, $m2, $hue)
+    {
+        if ($hue < 0) {
+            $hue += 360;
+        } elseif ($hue > 360) {
+            $hue -= 360;
+        }
+
+        $v = $m1;
+
+        if ($hue < 60) {
+            $v = $m1 + ($m2 - $m1) * $hue / 60;
+        } elseif ($hue < 180) {
+            $v = $m2;
+        } elseif ($hue < 240) {
+            $v = $m1 + ($m2 - $m1) * (240 - $hue) / 60;
+        }
+
+        return intval($v * 255);
     }
 
     /**
