@@ -148,7 +148,7 @@ final class SVG
      */
     private static function convertHSLtoRGB($h, $s, $l)
     {
-        $h = $h % 360;
+        $h = fmod($h, 360);
         if ($h < 0) {
             $h += 360;
         }
