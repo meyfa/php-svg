@@ -34,6 +34,10 @@ class SVGPolygonRenderer extends SVGRenderer
 
     protected function renderFill($image, array $params, $color)
     {
+        if ($params['numpoints'] < 3) {
+            return;
+        }
+
         // somehow imagesetthickness() affects the polygon drawing. reset to 0.
         imagesetthickness($image, 0);
         imagefilledpolygon($image, $params['points'], $params['numpoints'], $color);
