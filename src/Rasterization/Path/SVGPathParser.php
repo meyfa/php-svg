@@ -38,14 +38,11 @@ class SVGPathParser
         $commands = array();
 
         $matches = array();
-        preg_match_all('/[MLHVCQAZ][^MLHVCQAZ]*/i', $description, $matches);
+        preg_match_all('/([MLHVCQAZ])([^MLHVCQAZ]*)/i', $description, $matches, PREG_SET_ORDER);
 
-        foreach ($matches[0] as $match) {
-            $match = trim($match);
-
-            $id   = substr($match, 0, 1);
-            $args = trim(substr($match, 1));
-            $args = empty($args) ? array() : preg_split('/[\s,]+/', $args);
+        foreach ($matches as $match) {
+            $id   = $match[1];
+            $args = $this->splitArguments($match[2]);
 
             $success = $this->parseCommandChain($id, $args, $commands);
             if (!$success) {
@@ -54,6 +51,26 @@ class SVGPathParser
         }
 
         return $commands;
+    }
+
+    /**
+     * Splits the given arguments string into an array of strings.
+     *
+     * @param string $str The string to split.
+     *
+     * @return string[] The splitted arguments.
+     */
+    private function splitArguments($str)
+    {
+        $str = trim($str);
+
+        $args = array();
+        if (!empty($str)) {
+            preg_match_all('/[+-]?(\d*\.\d+|\d+)(e[+-]?\d+)?/', $str, $args);
+            $args = $args[0];
+        }
+
+        return $args;
     }
 
     /**
