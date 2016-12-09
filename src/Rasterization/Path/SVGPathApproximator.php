@@ -18,14 +18,15 @@ class SVGPathApproximator
         'V' => 'lineToVertical',    'v' => 'lineToVertical',
         'C' => 'curveToCubic',      'c' => 'curveToCubic',
         'Q' => 'curveToQuadratic',  'q' => 'curveToQuadratic',
-        //TODO implement ArcTo
+        'A' => 'arcTo',             'a' => 'arcTo',
         'Z' => 'closePath',         'z' => 'closePath',
     );
 
     /**
      * @var SVGBezierApproximator $bezier The singleton bezier approximator.
+     * @var SVGArcApproximator    $arc    The singleton arc approximator.
      */
-    private static $bezier;
+    private static $bezier, $arc;
 
     public function __construct()
     {
@@ -33,6 +34,7 @@ class SVGPathApproximator
             return;
         }
         self::$bezier = new SVGBezierApproximator();
+        self::$arc    = new SVGArcApproximator();
     }
 
 
@@ -260,6 +262,39 @@ class SVGPathApproximator
         }
 
         $approx = self::$bezier->quadratic($p0, $p1, $p2);
+        $builder->addPoints($approx);
+    }
+
+    /**
+     * Approximation function for ArcTo (A and a).
+     *
+     * @param string            $id      The actual id used (for abs. vs. rel.).
+     * @param float[]           $args    The arguments provided to the command.
+     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     *
+     * @return void
+     *
+     * @SuppressWarnings("unused")
+     */
+    private function arcTo($id, $args, SVGPolygonBuilder $builder)
+    {
+        // start point, end point
+        $p0 = $builder->getPosition();
+        $p1 = array($args[5], $args[6]);
+        // radiuses, rotation
+        $rx = $args[0];
+        $ry = $args[1];
+        $xa = deg2rad($args[2]);
+        // large arc flag, sweep flag
+        $fa = (bool) $args[3];
+        $fs = (bool) $args[4];
+
+        if ($id === 'a') {
+            $p1[0] += $p0[0];
+            $p1[1] += $p0[1];
+        }
+
+        $approx = self::$arc->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
         $builder->addPoints($approx);
     }
 
