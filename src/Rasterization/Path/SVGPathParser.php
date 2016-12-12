@@ -40,7 +40,7 @@ class SVGPathParser
         $commands = array();
 
         $matches = array();
-        preg_match_all('/([MLHVCSQAZ])([^MLHVCSQAZ]*)/i', $description, $matches, PREG_SET_ORDER);
+        preg_match_all('/([MLHVCSQTAZ])([^MLHVCSQTAZ]*)/i', $description, $matches, PREG_SET_ORDER);
 
         foreach ($matches as $match) {
             $id   = $match[1];
