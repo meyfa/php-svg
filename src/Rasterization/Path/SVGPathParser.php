@@ -17,7 +17,9 @@ class SVGPathParser
         'H' => 1,   'h' => 1,   // LineToHorizontal
         'V' => 1,   'v' => 1,   // LineToVertical
         'C' => 6,   'c' => 6,   // CurveToCubic
+        'S' => 4,   's' => 4,   // CurveToCubicSmooth
         'Q' => 4,   'q' => 4,   // CurveToQuadratic
+        'T' => 2,   't' => 2,   // CurveToQuadraticSmooth
         'A' => 7,   'a' => 7,   // ArcTo
         'Z' => 0,   'z' => 0,   // ClosePath
     );
@@ -38,7 +40,7 @@ class SVGPathParser
         $commands = array();
 
         $matches = array();
-        preg_match_all('/([MLHVCQAZ])([^MLHVCQAZ]*)/i', $description, $matches, PREG_SET_ORDER);
+        preg_match_all('/([MLHVCSQAZ])([^MLHVCSQAZ]*)/i', $description, $matches, PREG_SET_ORDER);
 
         foreach ($matches as $match) {
             $id   = $match[1];

@@ -12,14 +12,16 @@ class SVGPathApproximator
      * @var string[] $commands A map of command ids to approximation functions.
      */
     private static $commands = array(
-        'M' => 'moveTo',            'm' => 'moveTo',
-        'L' => 'lineTo',            'l' => 'lineTo',
-        'H' => 'lineToHorizontal',  'h' => 'lineToHorizontal',
-        'V' => 'lineToVertical',    'v' => 'lineToVertical',
-        'C' => 'curveToCubic',      'c' => 'curveToCubic',
-        'Q' => 'curveToQuadratic',  'q' => 'curveToQuadratic',
-        'A' => 'arcTo',             'a' => 'arcTo',
-        'Z' => 'closePath',         'z' => 'closePath',
+        'M' => 'moveTo',                    'm' => 'moveTo',
+        'L' => 'lineTo',                    'l' => 'lineTo',
+        'H' => 'lineToHorizontal',          'h' => 'lineToHorizontal',
+        'V' => 'lineToVertical',            'v' => 'lineToVertical',
+        'C' => 'curveToCubic',              'c' => 'curveToCubic',
+        'S' => 'curveToCubicSmooth',        's' => 'curveToCubicSmooth',
+        'Q' => 'curveToQuadratic',          'q' => 'curveToQuadratic',
+        'T' => 'curveToQuadraticSmooth',    't' => 'curveToQuadraticSmooth',
+        'A' => 'arcTo',                     'a' => 'arcTo',
+        'Z' => 'closePath',                 'z' => 'closePath',
     );
 
     /**
@@ -27,6 +29,13 @@ class SVGPathApproximator
      * @var SVGArcApproximator    $arc    The singleton arc approximator.
      */
     private static $bezier, $arc;
+
+    /**
+     * @var string  $previousCommand The id of the last computed command.
+     * @var float[] $cubicOld        2nd control point of last C or S command.
+     * @var float[] $quadraticOld    Control point of last Q or T command.
+     */
+    private $previousCommand, $cubicOld, $quadraticOld;
 
     public function __construct()
     {
@@ -112,6 +121,7 @@ class SVGPathApproximator
             }
             $funcName = self::$commands[$id];
             $this->$funcName($id, $cmd['args'], $builder);
+            $this->previousCommand = $id;
         }
 
         $pos  = $builder->getPosition();
@@ -119,6 +129,24 @@ class SVGPathApproximator
         $posY = $pos[1];
 
         return $builder->build();
+    }
+
+
+
+    /**
+     * Calculates the reflection of $p relative to $r. Returns a point.
+     *
+     * @param float[] $p The point to be reflected (x, y).
+     * @param float[] $r The point that $p is reflected relative to (x, y).
+     *
+     * @return float[] The reflected point (x, y).
+     */
+    private static function reflectPoint($p, $r)
+    {
+        return array(
+            2 * $r[0] - $p[0],
+            2 * $r[1] - $p[1],
+        );
     }
 
 
@@ -234,6 +262,46 @@ class SVGPathApproximator
 
         $approx = self::$bezier->cubic($p0, $p1, $p2, $p3);
         $builder->addPoints($approx);
+
+        $this->cubicOld = $p2;
+    }
+
+    /**
+     * Approximation function for CurveToCubicSmooth (S and s).
+     *
+     * @param string            $id      The actual id used (for abs. vs. rel.).
+     * @param float[]           $args    The arguments provided to the command.
+     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     *
+     * @return void
+     *
+     * @SuppressWarnings("unused")
+     */
+    private function curveToCubicSmooth($id, $args, SVGPolygonBuilder $builder)
+    {
+        $p0 = $builder->getPosition();
+        $p1 = $p0; // first control point defaults to current point
+        $p2 = array($args[0], $args[1]);
+        $p3 = array($args[2], $args[3]);
+
+        if ($id === 's') {
+            $p2[0] += $p0[0];
+            $p2[1] += $p0[1];
+
+            $p3[0] += $p0[0];
+            $p3[1] += $p0[1];
+        }
+
+        // calculate first control point
+        $prev = strtolower($this->previousCommand);
+        if ($prev === 'c' || $prev === 's') {
+            $p1 = self::reflectPoint($this->cubicOld, $p0);
+        }
+
+        $approx = self::$bezier->cubic($p0, $p1, $p2, $p3);
+        $builder->addPoints($approx);
+
+        $this->cubicOld = $p2;
     }
 
     /**
@@ -263,6 +331,42 @@ class SVGPathApproximator
 
         $approx = self::$bezier->quadratic($p0, $p1, $p2);
         $builder->addPoints($approx);
+
+        $this->quadraticOld = $p1;
+    }
+
+    /**
+     * Approximation function for CurveToQuadraticSmooth (T and t).
+     *
+     * @param string            $id      The actual id used (for abs. vs. rel.).
+     * @param float[]           $args    The arguments provided to the command.
+     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     *
+     * @return void
+     *
+     * @SuppressWarnings("unused")
+     */
+    private function curveToQuadraticSmooth($id, $args, SVGPolygonBuilder $builder)
+    {
+        $p0 = $builder->getPosition();
+        $p1 = $p0; // control point defaults to current point
+        $p2 = array($args[0], $args[1]);
+
+        if ($id === 't') {
+            $p2[0] += $p0[0];
+            $p2[1] += $p0[1];
+        }
+
+        // calculate control point
+        $prev = strtolower($this->previousCommand);
+        if ($prev === 'q' || $prev === 't') {
+            $p1 = self::reflectPoint($this->quadraticOld, $p0);
+        }
+
+        $approx = self::$bezier->quadratic($p0, $p1, $p2);
+        $builder->addPoints($approx);
+
+        $this->quadraticOld = $p1;
     }
 
     /**
