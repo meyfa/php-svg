@@ -34,7 +34,7 @@ final class SVG
     public static function convertUnit($unit, $viewLength)
     {
         $matches = array();
-        $match   = preg_match('/^([+-]?\d*\.?\d*)(px|pt|%)?$/', $unit, $matches);
+        $match   = preg_match('/^([+-]?\d*\.?\d*)(px|pt|pc|cm|mm|in|%)?$/', $unit, $matches);
 
         if (!$match) {
             return false;
@@ -47,6 +47,18 @@ final class SVG
             case 'pt':
                 // 12pt == 16px, so ratio = 12/16 = 0.75
                 return $num / 0.75;
+            case 'pc':
+                // 1pc == 12pt == 16px
+                return $num * 16;
+            case 'cm':
+                // 2.54cm == 1in == 96px, so ratio = 2.54/96
+                return $num / (2.54 / 96);
+            case 'mm':
+                // 25.4mm == 1in == 96px, so ratio = 25.4/96
+                return $num / (25.4 / 96);
+            case 'in':
+                // 1in == 96px
+                return $num * 96;
             case '%':
                 return ($num / 100) * $viewLength;
             case 'px':
