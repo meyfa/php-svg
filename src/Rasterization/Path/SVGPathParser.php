@@ -39,8 +39,9 @@ class SVGPathParser
     {
         $commands = array();
 
-        $matches = array();
-        preg_match_all('/([MLHVCSQTAZ])([^MLHVCSQTAZ]*)/i', $description, $matches, PREG_SET_ORDER);
+        $matches  = array();
+        $idString = implode('', array_keys(self::$commandLengths));
+        preg_match_all('/(['.$idString.'])([^'.$idString.']*)/', $description, $matches, PREG_SET_ORDER);
 
         foreach ($matches as $match) {
             $id   = $match[1];
