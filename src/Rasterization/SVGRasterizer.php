@@ -233,6 +233,34 @@ class SVGRasterizer
 
 
     /**
+     * @return float The amount by which renderers must offset their drawings
+     *               on the x-axis (not to be scaled).
+     */
+    public function getOffsetX()
+    {
+        if ($this->viewBox && !empty($this->viewBox)) {
+            $scale = $this->height / $this->viewBox[2];
+            return -($this->viewBox[0] * $scale);
+        }
+        return 0;
+    }
+
+    /**
+     * @return float The amount by which renderers must offset their drawings
+     *               on the y-axis (not to be scaled).
+     */
+    public function getOffsetY()
+    {
+        if ($this->viewBox && !empty($this->viewBox)) {
+            $scale = $this->height / $this->viewBox[3];
+            return -($this->viewBox[1] * $scale);
+        }
+        return 0;
+    }
+
+
+
+    /**
      * @return resource The GD image resource this rasterizer is operating on.
      */
     public function getImage()

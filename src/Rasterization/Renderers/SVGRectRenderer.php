@@ -17,8 +17,8 @@ class SVGRectRenderer extends SVGRenderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
-        $x1 = self::prepareLengthX($options['x'], $rasterizer);
-        $y1 = self::prepareLengthY($options['y'], $rasterizer);
+        $x1 = self::prepareLengthX($options['x'], $rasterizer) + $rasterizer->getOffsetX();
+        $y1 = self::prepareLengthY($options['y'], $rasterizer) + $rasterizer->getOffsetY();
         $w  = self::prepareLengthX($options['width'], $rasterizer);
         $h  = self::prepareLengthY($options['height'], $rasterizer);
 
