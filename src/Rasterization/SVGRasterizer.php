@@ -211,11 +211,10 @@ class SVGRasterizer
      */
     public function getScaleX()
     {
-        $vbWidth = $this->docWidth;
-        if ($this->viewBox && !empty($this->viewBox)) {
-            $vbWidth = $this->viewBox[2];
+        if (!empty($this->viewBox)) {
+            return $this->getDocumentWidth() / $this->viewBox[2];
         }
-        return $this->width / $vbWidth;
+        return $this->width / $this->getDocumentWidth();
     }
 
     /**
@@ -223,11 +222,10 @@ class SVGRasterizer
      */
     public function getScaleY()
     {
-        $vbHeight = $this->docHeight;
-        if ($this->viewBox && !empty($this->viewBox)) {
-            $vbHeight = $this->viewBox[3];
+        if (!empty($this->viewBox)) {
+            return $this->getDocumentHeight() / $this->viewBox[3];
         }
-        return $this->height / $vbHeight;
+        return $this->height / $this->getDocumentHeight();
     }
 
 
@@ -238,8 +236,8 @@ class SVGRasterizer
      */
     public function getOffsetX()
     {
-        if ($this->viewBox && !empty($this->viewBox)) {
-            $scale = $this->height / $this->viewBox[2];
+        if (!empty($this->viewBox)) {
+            $scale = $this->getDocumentWidth() / $this->viewBox[2];
             return -($this->viewBox[0] * $scale);
         }
         return 0;
@@ -251,8 +249,8 @@ class SVGRasterizer
      */
     public function getOffsetY()
     {
-        if ($this->viewBox && !empty($this->viewBox)) {
-            $scale = $this->height / $this->viewBox[3];
+        if (!empty($this->viewBox)) {
+            $scale = $this->getDocumentHeight() / $this->viewBox[3];
             return -($this->viewBox[1] * $scale);
         }
         return 0;
