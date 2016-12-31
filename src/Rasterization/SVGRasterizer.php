@@ -29,34 +29,33 @@ class SVGRasterizer
      */
     private $docWidth, $docHeight;
     /**
+     * @var float[] The document's viewBox (x, y, w, h).
+     */
+    private $viewBox;
+    /**
      * @var int $width  The output image width, in pixels.
      * @var int $height The output image height, in pixels.
      */
     private $width, $height;
-    /**
-     * @var float $scaleX The factor by which output is scaled on the x-axis.
-     * @var float $scaleY The factor by which output is scaled on the y-axis.
-     */
-    private $scaleX, $scaleY;
     /** @var resource $outImage The output image as a GD resource. */
     private $outImage;
 
     /**
-     * @param int $docWidth  The original SVG document width, in pixels.
-     * @param int $docHeight The original SVG document height, in pixels.
-     * @param int $width     The output image width, in pixels.
-     * @param int $height    The output image height, in pixels.
+     * @param int $docWidth    The original SVG document width, in pixels.
+     * @param int $docHeight   The original SVG document height, in pixels.
+     * @param float[] $viewBox The document's viewBox.
+     * @param int $width       The output image width, in pixels.
+     * @param int $height      The output image height, in pixels.
      */
-    public function __construct($docWidth, $docHeight, $width, $height)
+    public function __construct($docWidth, $docHeight, $viewBox, $width, $height)
     {
         $this->docWidth  = $docWidth;
         $this->docHeight = $docHeight;
 
+        $this->viewBox = $viewBox;
+
         $this->width  = $width;
         $this->height = $height;
-
-        $this->scaleX = $width / $docWidth;
-        $this->scaleY = $height / $docHeight;
 
         $this->outImage = self::createImage($width, $height);
 
@@ -212,7 +211,11 @@ class SVGRasterizer
      */
     public function getScaleX()
     {
-        return $this->scaleX;
+        $vbWidth = $this->docWidth;
+        if ($this->viewBox && !empty($this->viewBox)) {
+            $vbWidth = $this->viewBox[2];
+        }
+        return $this->width / $vbWidth;
     }
 
     /**
@@ -220,7 +223,11 @@ class SVGRasterizer
      */
     public function getScaleY()
     {
-        return $this->scaleY;
+        $vbHeight = $this->docHeight;
+        if ($this->viewBox && !empty($this->viewBox)) {
+            $vbHeight = $this->viewBox[3];
+        }
+        return $this->height / $vbHeight;
     }
 
 
