@@ -2,6 +2,7 @@
 
 namespace JangoBrick\SVG\Rasterization;
 
+use JangoBrick\SVG\SVG;
 use JangoBrick\SVG\Nodes\SVGNode;
 
 /**
@@ -175,7 +176,7 @@ class SVGRasterizer
      */
     public function getDocumentWidth()
     {
-        return $this->docWidth;
+        return SVG::convertUnit($this->docWidth, $this->width);
     }
 
     /**
@@ -183,7 +184,7 @@ class SVGRasterizer
      */
     public function getDocumentHeight()
     {
-        return $this->docHeight;
+        return SVG::convertUnit($this->docHeight, $this->height);
     }
 
 
