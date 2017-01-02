@@ -206,7 +206,7 @@ class SVGRasterizer
      */
     public function getDocumentWidth()
     {
-        return SVG::convertUnit($this->docWidth, $this->width);
+        return SVG::convertUnit($this->docWidth ?: '100%', $this->width);
     }
 
     /**
@@ -214,7 +214,7 @@ class SVGRasterizer
      */
     public function getDocumentHeight()
     {
-        return SVG::convertUnit($this->docHeight, $this->height);
+        return SVG::convertUnit($this->docHeight ?: '100%', $this->height);
     }
 
 
