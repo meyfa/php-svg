@@ -14,6 +14,8 @@ use JangoBrick\SVG\Nodes\SVGNode;
  * drawing.
  * Note that renderers DO NOT correspond 1:1 to node types (e.g. there is no
  * renderer 'circle', but 'ellipse' with equal radiuses is used).
+ * 
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class SVGRasterizer
 {

@@ -46,9 +46,9 @@ class SVGImg extends SVGNode
     {
         if (!empty($href = $this->getAttribute('xlink:href'))) {
             return $href;
-        } else {
-            return $this->getAttribute('href');
         }
+
+        return $this->getAttribute('href');
     }
 
     /**

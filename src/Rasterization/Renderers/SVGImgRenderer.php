@@ -60,6 +60,8 @@ class SVGImgRenderer extends SVGRenderer
      * @param resource $image  The image resource to render to
      * @param mixed[]  $params The render params
      * @param int      $color  The color (a GD int) to fill the shape with
+     *
+     * @SuppressWarnings(PHPMD)
      */
     protected function renderFill($image, array $params, $color)
     {
@@ -116,6 +118,8 @@ class SVGImgRenderer extends SVGRenderer
      * @param mixed[]  $params      The render params
      * @param int      $color       The color (a GD int) to outline the shape with
      * @param float    $strokeWidth The stroke's thickness, in pixels
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
