@@ -172,9 +172,9 @@ abstract class SVGNodeContainer extends SVGNode
     public function getContainerStyleForNodePattern($pattern)
     {
         if ($pattern === null) {
-            return [];
+            return array();
         }
-        $nodeStyles = [];
+        $nodeStyles = array();
         if (!empty($this->parent)) {
             $nodeStyles = $this->parent->getContainerStyleForNodePattern($pattern);
         }
