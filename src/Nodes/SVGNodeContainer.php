@@ -2,7 +2,9 @@
 
 namespace JangoBrick\SVG\Nodes;
 
+use JangoBrick\SVG\Nodes\Structures\SVGStyle;
 use JangoBrick\SVG\Rasterization\SVGRasterizer;
+use JangoBrick\SVG\Utilities\SVGStyleParser;
 
 /**
  * Represents an SVG image element that contains child elements.
@@ -12,10 +14,17 @@ abstract class SVGNodeContainer extends SVGNode
     /** @var SVGNode[] $children This node's child nodes. */
     protected $children;
 
+    /**
+     * @var [] $globalStyles for this node and its child nodes
+     * it's a 2D array containing the selector as key and an array of styles as value.
+     */
+    protected $containerStyles;
+
     public function __construct()
     {
         parent::__construct();
 
+        $this->containerStyles = array();
         $this->children = array();
     }
 
@@ -39,6 +48,11 @@ abstract class SVGNodeContainer extends SVGNode
 
         $this->children[] = $node;
         $node->parent     = $this;
+
+        if ($node instanceof SVGStyle) {
+            // if node is SVGStyle then add rules to container's style
+            $this->addContainerStyle($node);
+        }
 
         return $this;
     }
@@ -101,6 +115,24 @@ abstract class SVGNodeContainer extends SVGNode
         return $this->children[$index];
     }
 
+    /**
+     * Adds the SVGStyle element rules to container's styles.
+     *
+     * @param SVGStyle $styleNode The style node to add rules from.
+     *
+     * @return $this This node instance, for call chaining.
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function addContainerStyle(SVGStyle $styleNode)
+    {
+        $newStyles = SVGStyleParser::parseCss($styleNode->getCss());
+        $this->containerStyles = array_merge($this->containerStyles, $newStyles);
+
+        return $this;
+    }
+
+
     public function rasterize(SVGRasterizer $rasterizer)
     {
         if ($this->getComputedStyle('display') === 'none') {
@@ -112,5 +144,59 @@ abstract class SVGNodeContainer extends SVGNode
         foreach ($this->children as $child) {
             $child->rasterize($rasterizer);
         }
+    }
+
+    /**
+     * Returns a node's 'global' style rules.
+     *
+     * @param SVGNode $node The node for which we need to obtain.
+     * its container style rules.
+     *
+     * @return array The style rules to be applied.
+     */
+    public function getContainerStyleForNode(SVGNode $node)
+    {
+        $pattern = $node->getIdAndClassPattern();
+
+        return $this->getContainerStyleForNodePattern($pattern);
+    }
+
+    /**
+     * Returns a style rules provided a given a node's id and class pattern.
+     *
+     * @param $pattern The node's id and class pattern for which we need to obtain
+     * its container style rules.
+     *
+     * @return array The style rules to be applied.
+     */
+    public function getContainerStyleForNodePattern($pattern)
+    {
+        if ($pattern === null) {
+            return array();
+        }
+        $nodeStyles = array();
+        if (!empty($this->parent)) {
+            $nodeStyles = $this->parent->getContainerStyleForNodePattern($pattern);
+        }
+        $keys = $this->pregGrepStyle($pattern);
+        foreach ($keys as $key) {
+            $nodeStyles = array_merge($nodeStyles, $this->containerStyles[$key]);
+        }
+
+        return $nodeStyles;
+    }
+
+    /**
+     * Returns the array consisting of the keys of the style rules that match the given pattern.
+     *
+     * @param $pattern The pattern to search for, as a string
+     *
+     * @return array The matches array
+     */
+    private function pregGrepStyle($pattern)
+    {
+        $matches = preg_grep($pattern, array_keys($this->containerStyles));
+
+        return $matches;
     }
 }
