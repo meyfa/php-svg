@@ -136,6 +136,7 @@ class SVGRasterizer
             'line'      => new Renderers\SVGLineRenderer(),
             'ellipse'   => new Renderers\SVGEllipseRenderer(),
             'polygon'   => new Renderers\SVGPolygonRenderer(),
+            'image'     => new Renderers\SVGImgRenderer(),
         );
 
         self::$pathParser       = new Path\SVGPathParser();
