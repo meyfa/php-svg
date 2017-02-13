@@ -39,13 +39,13 @@ class SVGImgRenderer extends SVGRenderer
         $w = self::prepareLengthX($options['width'], $rasterizer);
         $h = self::prepareLengthY($options['height'], $rasterizer);
 
-        return [
+        return array(
             'href' => $options['href'],
             'x' => $x,
             'y' => $y,
             'width' => $w,
             'height' => $h,
-        ];
+        );
     }
 
     /**
