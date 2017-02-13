@@ -5,6 +5,8 @@ namespace JangoBrick\SVG\Reading;
 use JangoBrick\SVG\SVGImage;
 use JangoBrick\SVG\Nodes\SVGNode;
 use JangoBrick\SVG\Nodes\SVGNodeContainer;
+use JangoBrick\SVG\Utilities\SVGAttrParser;
+use JangoBrick\SVG\Utilities\SVGStyleParser;
 
 /**
  * This class is used to read XML strings or files and turn them into instances
@@ -20,6 +22,7 @@ class SVGReader
     private static $nodeTypes = array(
         'svg'       => 'JangoBrick\SVG\Nodes\Structures\SVGDocumentFragment',
         'g'         => 'JangoBrick\SVG\Nodes\Structures\SVGGroup',
+        'style'     => 'JangoBrick\SVG\Nodes\Structures\SVGStyle',
         'rect'      => 'JangoBrick\SVG\Nodes\Shapes\SVGRect',
         'circle'    => 'JangoBrick\SVG\Nodes\Shapes\SVGCircle',
         'ellipse'   => 'JangoBrick\SVG\Nodes\Shapes\SVGEllipse',
@@ -64,6 +67,8 @@ class SVGReader
         'glyph-orientation-horizontal', 'glyph-orientation-vertical', 'kerning',
         'text-anchor', 'writing-mode',
     );
+
+    private $styles = [];
 
     /**
      * Parses the given string as XML and turns it into an instance of SVGImage.
@@ -127,15 +132,24 @@ class SVGReader
      * The given node MUST be the root!
      * Behavior when passing any other is unspecified.
      *
-     * @param \SimpleXMLElement $svgXML The root node of an SVG document.
+     * @param \SimpleXMLElement $svgXml The root node of an SVG document.
      *
      * @return float[] The image dimensions. d[0] = width, d[1] = height.
      */
     private function getDimensions(\SimpleXMLElement $svgXml)
     {
+        $width = floatval($svgXml['width']);
+        $height = floatval($svgXml['height']);
+        // If width and height are not defined, get dimensions from viewBox
+        if (empty($width) && empty($height)) {
+            $viewBox = SVGAttrParser::parseViewBox($svgXml['viewBox']);
+            $width = $viewBox[2];
+            $height = $viewBox[3];
+        }
+
         return array(
-            floatval($svgXml['width']),
-            floatval($svgXml['height']),
+            $width,
+            $height,
         );
     }
 
@@ -185,35 +199,10 @@ class SVGReader
             return;
         }
 
-        $styles = $this->parseStyles($xml['style']);
+        $styles = SVGStyleParser::parseStyles($xml['style']);
         foreach ($styles as $key => $value) {
             $node->setStyle($key, $value);
         }
-    }
-
-    /**
-     * Parses a string of CSS declarations into an associative array.
-     *
-     * @param string $string The CSS declarations.
-     *
-     * @return string[] An associative array of all declarations.
-     */
-    private function parseStyles($string)
-    {
-        $declarations = preg_split('/\s*;\s*/', $string);
-
-        $styles = array();
-
-        foreach ($declarations as $declaration) {
-            $declaration = trim($declaration);
-            if ($declaration === '') {
-                continue;
-            }
-            $split             = preg_split('/\s*:\s*/', $declaration);
-            $styles[$split[0]] = $split[1];
-        }
-
-        return $styles;
     }
 
     /**
