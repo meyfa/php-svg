@@ -86,6 +86,8 @@ class SVGStyle extends SVGNode
     }
 
     /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @param SVGRasterizer $rasterizer
      */
     public function rasterize(SVGRasterizer $rasterizer)

@@ -13,6 +13,8 @@ use JangoBrick\SVG\Utilities\SVGStyleParser;
  * of SVGImage by parsing the document tree.
  *
  * In contrast to SVGWriter, a single instance can perform any number of reads.
+ *
+ * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class SVGReader
 {
@@ -67,8 +69,6 @@ class SVGReader
         'glyph-orientation-horizontal', 'glyph-orientation-vertical', 'kerning',
         'text-anchor', 'writing-mode',
     );
-
-    private $styles = [];
 
     /**
      * Parses the given string as XML and turns it into an instance of SVGImage.

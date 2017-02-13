@@ -39,6 +39,8 @@ abstract class SVGStyleParser
     /**
      * Parses css content into an associative array.
      *
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     *
      * @param string $css The CSS style rules.
      *
      * @return string[][] A 2D associative array of all selectors and its style declarations.
