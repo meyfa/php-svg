@@ -14,6 +14,8 @@ use JangoBrick\SVG\Nodes\SVGNode;
  * drawing.
  * Note that renderers DO NOT correspond 1:1 to node types (e.g. there is no
  * renderer 'circle', but 'ellipse' with equal radiuses is used).
+ * 
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class SVGRasterizer
 {
@@ -58,7 +60,7 @@ class SVGRasterizer
         $this->width  = $width;
         $this->height = $height;
 
-        $this->outImage = self::createImage($width, $height);
+        $this->outImage = self::createImage($width , $height);
 
         self::createDependencies();
     }
@@ -136,6 +138,7 @@ class SVGRasterizer
             'line'      => new Renderers\SVGLineRenderer(),
             'ellipse'   => new Renderers\SVGEllipseRenderer(),
             'polygon'   => new Renderers\SVGPolygonRenderer(),
+            'image'     => new Renderers\SVGImgRenderer(),
         );
 
         self::$pathParser       = new Path\SVGPathParser();
@@ -243,7 +246,7 @@ class SVGRasterizer
     public function getScaleX()
     {
         if (!empty($this->viewBox)) {
-            return $this->getDocumentWidth() / $this->viewBox[2];
+            return $this->width / $this->viewBox[2];
         }
         return $this->width / $this->getDocumentWidth();
     }
@@ -254,12 +257,11 @@ class SVGRasterizer
     public function getScaleY()
     {
         if (!empty($this->viewBox)) {
-            return $this->getDocumentHeight() / $this->viewBox[3];
+            return $this->height / $this->viewBox[3];
         }
+
         return $this->height / $this->getDocumentHeight();
     }
-
-
 
     /**
      * @return float The amount by which renderers must offset their drawings
@@ -268,7 +270,7 @@ class SVGRasterizer
     public function getOffsetX()
     {
         if (!empty($this->viewBox)) {
-            $scale = $this->getDocumentWidth() / $this->viewBox[2];
+            $scale = $this->getScaleX();
             return -($this->viewBox[0] * $scale);
         }
         return 0;
@@ -281,13 +283,11 @@ class SVGRasterizer
     public function getOffsetY()
     {
         if (!empty($this->viewBox)) {
-            $scale = $this->getDocumentHeight() / $this->viewBox[3];
+            $scale = $this->getScaleY();
             return -($this->viewBox[1] * $scale);
         }
         return 0;
     }
-
-
 
     /**
      * Applies final processing steps to the output image. It is then returned.
@@ -300,10 +300,7 @@ class SVGRasterizer
             return $this->outImage;
         }
 
-        $width  = $this->getDocumentWidth();
-        $height = $this->getDocumentHeight();
-
-        $this->outImage = self::clipImage($this->outImage, 0, 0, $width, $height);
+        $this->outImage = self::clipImage($this->outImage, 0, 0, $this->width, $this->height);
 
         return $this->outImage;
     }
@@ -314,5 +311,17 @@ class SVGRasterizer
     public function getImage()
     {
         return $this->outImage;
+    }
+
+    public function setViewBox($viewBox)
+    {
+        $this->viewBox = $viewBox;
+
+        return $this;
+    }
+
+    public function getViewBox()
+    {
+        return $this->viewBox;
     }
 }
