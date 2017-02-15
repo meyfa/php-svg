@@ -56,10 +56,7 @@ class SVGImage
         $docHeight = $this->document->getHeight();
 
         $viewBox     = null;
-        $viewBoxAttr = $this->document->getAttribute('viewBox');
-        if ($viewBoxAttr) {
-            $viewBox = array_map('floatval', explode(' ', $viewBoxAttr));
-        }
+        $viewBox = $this->document->getViewBox();
 
         $rasterizer = new SVGRasterizer($docWidth, $docHeight, $viewBox, $width, $height);
         $this->document->rasterize($rasterizer);

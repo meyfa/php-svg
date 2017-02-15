@@ -2,6 +2,7 @@
 
 namespace JangoBrick\SVG\Writing;
 
+use JangoBrick\SVG\Nodes\Structures\SVGStyle;
 use JangoBrick\SVG\Nodes\SVGNode;
 use JangoBrick\SVG\Nodes\SVGNodeContainer;
 
@@ -48,12 +49,19 @@ class SVGWriter
         $this->appendAttributes($node->getSerializableAttributes());
         $this->appendStyles($node->getSerializableStyles());
 
-        if (!($node instanceof SVGNodeContainer)) {
+        if (!($node instanceof SVGNodeContainer) && !($node instanceof SVGStyle)) {
             $this->outString .= ' />';
             return;
         }
 
         $this->outString .= '>';
+        if ($node instanceof SVGStyle) {
+            $this->writeCdata($node->getCss());
+            $this->outString .= '</'.$node->getName().'>';
+
+            return;
+        }
+
         for ($i = 0, $n = $node->countChildren(); $i < $n; ++$i) {
             $this->writeNode($node->getChild($i));
         }
@@ -114,5 +122,18 @@ class SVGWriter
     private function appendAttribute($attrName, $attrValue)
     {
         $this->outString .= ' '.$attrName.'="'.$attrValue.'"';
+    }
+
+    /**
+     * Appends a cdata content given the $cdata value to the writer's
+     * output.
+     *
+     * @param string $cdata  The content.
+     *
+     * @return void
+     */
+    private function writeCdata($cdata)
+    {
+        $this->outString .= '<![CDATA[' . $cdata . ']]>';
     }
 }

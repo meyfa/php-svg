@@ -91,7 +91,7 @@ abstract class SVGRenderer
      */
     private static function getNodeOpacity(SVGNode $node)
     {
-        $opacity = $node->getStyle('opacity');
+        $opacity = $node->getComputedStyle('opacity');
 
         if (is_numeric($opacity)) {
             return floatval($opacity);

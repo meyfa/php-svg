@@ -3,6 +3,7 @@
 namespace JangoBrick\SVG\Nodes;
 
 use JangoBrick\SVG\Rasterization\SVGRasterizer;
+use JangoBrick\SVG\Utilities\SVGAttrParser;
 
 /**
  * Represents a single element inside an SVG image (in other words, an XML tag).
@@ -110,12 +111,15 @@ abstract class SVGNode
      */
     public function getComputedStyle($name)
     {
-        $style = null;
+        $style = $this->getStyle($name);
 
-        if (isset($this->styles[$name])) {
-            $style = $this->styles[$name];
+        // If no immediate style then get style from container/global style rules
+        if ($style === null && isset($this->parent)) {
+            $containerStyles = $this->parent->getContainerStyleForNode($this);
+            $style = isset($containerStyles[$name]) ? $containerStyles[$name] : null;
         }
 
+        // If still no style then get parent's style
         if (($style === null || $style === 'inherit') && isset($this->parent)) {
             return $this->parent->getComputedStyle($name);
         }
@@ -214,7 +218,37 @@ abstract class SVGNode
         return $this->styles;
     }
 
+    /**
+     * Constructs a regex pattern to use as key to retrieve styles for this node from its container
+     *
+     * @return null|string The generated pattern
+     */
+    public function getIdAndClassPattern()
+    {
+        $id = $this->getAttribute('id');
+        $class = $this->getAttribute('class');
+        $pattern = '';
+        if (!empty($id)) {
+            $pattern = "#{$id}|#{$id}";
+        }
+        if (!empty($class)) {
+            $pattern .= empty($pattern)?".{$class}":".{$class}|.{$class}";
+        }
 
+        return empty($pattern) ? null : "/({$pattern})$/";
+    }
+
+    /**
+     * Returns the viewbox array for the current node
+     *
+     * @return array|null The viewbox array containing 4 elements: x, y, width, height
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
+    public function getViewBox()
+    {
+        return SVGAttrParser::parseViewBox($this->getAttribute('viewBox'));
+    }
 
     /**
      * Draws this node to the given rasterizer.
