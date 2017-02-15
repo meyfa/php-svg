@@ -14,6 +14,8 @@ use JangoBrick\SVG\Nodes\SVGNode;
  * drawing.
  * Note that renderers DO NOT correspond 1:1 to node types (e.g. there is no
  * renderer 'circle', but 'ellipse' with equal radiuses is used).
+ *
+ * @SuppressWarnings("coupling") 
  */
 class SVGRasterizer
 {
@@ -136,6 +138,7 @@ class SVGRasterizer
             'line'      => new Renderers\SVGLineRenderer(),
             'ellipse'   => new Renderers\SVGEllipseRenderer(),
             'polygon'   => new Renderers\SVGPolygonRenderer(),
+            'image'     => new Renderers\SVGImageRenderer(),
         );
 
         self::$pathParser       = new Path\SVGPathParser();
