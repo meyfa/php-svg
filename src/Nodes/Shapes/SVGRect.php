@@ -106,7 +106,7 @@ class SVGRect extends SVGNode
      */
     public function setHeight($height)
     {
-        return $this->setAttribute('width', $height);
+        return $this->setAttribute('height', $height);
     }
 
 
