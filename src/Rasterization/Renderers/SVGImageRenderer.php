@@ -28,6 +28,9 @@ class SVGImageRenderer extends SVGRenderer
         );
     }
 
+    /**
+     * @SuppressWarnings("unused")
+     */
     public function render(SVGRasterizer $rasterizer, array $options, SVGNode $context)
     {
         $params = $this->prepareRenderParams($rasterizer, $options);
@@ -46,11 +49,17 @@ class SVGImageRenderer extends SVGRenderer
         }
     }
 
+    /**
+     * @SuppressWarnings("unused")
+     */
     protected function renderFill($image, array $params, $color)
     {
         // implemented in render() override
     }
 
+    /**
+     * @SuppressWarnings("unused")
+     */
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
         // not implemented
@@ -69,6 +78,8 @@ class SVGImageRenderer extends SVGRenderer
      * @param int    $h    The height that the rasterized image should have.
      *
      * @return resource The loaded image.
+     *
+     * @SuppressWarnings("static")
      */
     private function loadImage($href, $w, $h)
     {
