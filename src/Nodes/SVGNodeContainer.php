@@ -158,7 +158,7 @@ abstract class SVGNodeContainer extends SVGNode
     {
         $pattern = $node->getIdAndClassPattern();
 
-        return $this->getContainerStyleForNodePattern($pattern);
+        return $this->getContainerStyleByPattern($pattern);
     }
 
     /**
@@ -169,14 +169,14 @@ abstract class SVGNodeContainer extends SVGNode
      *
      * @return array The style rules to be applied.
      */
-    public function getContainerStyleForNodePattern($pattern)
+    public function getContainerStyleByPattern($pattern)
     {
         if ($pattern === null) {
             return array();
         }
         $nodeStyles = array();
         if (!empty($this->parent)) {
-            $nodeStyles = $this->parent->getContainerStyleForNodePattern($pattern);
+            $nodeStyles = $this->parent->getContainerStyleByPattern($pattern);
         }
         $keys = $this->pregGrepStyle($pattern);
         foreach ($keys as $key) {
@@ -195,8 +195,6 @@ abstract class SVGNodeContainer extends SVGNode
      */
     private function pregGrepStyle($pattern)
     {
-        $matches = preg_grep($pattern, array_keys($this->containerStyles));
-
-        return $matches;
+        return preg_grep($pattern, array_keys($this->containerStyles));
     }
 }

@@ -1,32 +1,56 @@
 <?php
 
-namespace JangoBrick\SVG\Nodes\Shapes;
+namespace JangoBrick\SVG\Nodes\Embedded;
 
 use JangoBrick\SVG\Nodes\SVGNode;
 use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
 /**
- * Represents the SVG tag 'rect'.
- * Has the special attributes x, y, width, height.
+ * Represents the SVG tag 'image'.
+ * Has the special attributes xlink:href, x, y, width, height.
  */
-class SVGRect extends SVGNode
+class SVGImageElement extends SVGNode
 {
-    const TAG_NAME = 'rect';
+    const TAG_NAME = 'image';
 
     /**
+     * @param string|null $href   The image path, URL or URI.
      * @param string|null $x      The x coordinate of the upper left corner.
      * @param string|null $y      The y coordinate of the upper left corner.
      * @param string|null $width  The width.
      * @param string|null $height The height.
      */
-    public function __construct($x = null, $y = null, $width = null, $height = null)
+    public function __construct($href = null, $x = null, $y = null, $width = null, $height = null)
     {
         parent::__construct();
 
+        $this->setAttributeOptional('xlink:href', $href);
         $this->setAttributeOptional('x', $x);
         $this->setAttributeOptional('y', $y);
         $this->setAttributeOptional('width', $width);
         $this->setAttributeOptional('height', $height);
+    }
+
+
+
+    /**
+     * @return string The image path, URL or URI.
+     */
+    public function getHref()
+    {
+        return $this->getAttribute('xlink:href') ?: $this->getAttribute('href');
+    }
+
+    /**
+     * Sets this image's path, URL or URI.
+     *
+     * @param string $href The new image hyperreference.
+     *
+     * @return $this This node instance, for call chaining.
+     */
+    public function setHref($href)
+    {
+        return $this->setAttribute('xlink:href', $href);
     }
 
 
@@ -122,7 +146,8 @@ class SVGRect extends SVGNode
             return;
         }
 
-        $rasterizer->render('rect', array(
+        $rasterizer->render('image', array(
+            'href'      => $this->getHref(),
             'x'         => $this->getX(),
             'y'         => $this->getY(),
             'width'     => $this->getWidth(),

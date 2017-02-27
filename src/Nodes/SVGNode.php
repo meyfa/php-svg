@@ -3,7 +3,7 @@
 namespace JangoBrick\SVG\Nodes;
 
 use JangoBrick\SVG\Rasterization\SVGRasterizer;
-use JangoBrick\SVG\Utilities\SVGAttrParser;
+use JangoBrick\SVG\Reading\SVGAttrParser;
 
 /**
  * Represents a single element inside an SVG image (in other words, an XML tag).

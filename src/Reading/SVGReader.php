@@ -5,7 +5,6 @@ namespace JangoBrick\SVG\Reading;
 use JangoBrick\SVG\SVGImage;
 use JangoBrick\SVG\Nodes\SVGNode;
 use JangoBrick\SVG\Nodes\SVGNodeContainer;
-use JangoBrick\SVG\Utilities\SVGAttrParser;
 use JangoBrick\SVG\Utilities\SVGStyleParser;
 
 /**
@@ -32,6 +31,7 @@ class SVGReader
         'polygon'   => 'JangoBrick\SVG\Nodes\Shapes\SVGPolygon',
         'polyline'  => 'JangoBrick\SVG\Nodes\Shapes\SVGPolyline',
         'path'      => 'JangoBrick\SVG\Nodes\Shapes\SVGPath',
+        'image'     => 'JangoBrick\SVG\Nodes\Embedded\SVGImageElement',
     );
     /**
      * @var string[] @styleAttributes Attributes to be interpreted as styles.
