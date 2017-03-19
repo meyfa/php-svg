@@ -3,6 +3,7 @@
 namespace JangoBrick\SVG\Nodes\Structures;
 
 use JangoBrick\SVG\Nodes\SVGNodeContainer;
+use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'svg'. This is the root node for every image.
@@ -24,7 +25,6 @@ class SVGDocumentFragment extends SVGNodeContainer
     private $root;
     /** @var string[] $namespaces A map of custom namespaces to their URIs. */
     private $namespaces;
-
     /**
      * @param bool        $root       Whether this is the root document.
      * @param string|null $width      The declared width.
@@ -92,8 +92,6 @@ class SVGDocumentFragment extends SVGNodeContainer
         return $this->setAttribute('height', $height);
     }
 
-
-
     public function getComputedStyle($name)
     {
         // return either explicit declarations ...
@@ -106,7 +104,37 @@ class SVGDocumentFragment extends SVGNodeContainer
         return self::$initialStyles[$name];
     }
 
-
+    /**
+     * Draws this node to the given rasterizer.
+     *
+     * @param SVGRasterizer $rasterizer The rasterizer to draw to.
+     *
+     * @return void
+     */
+    public function rasterize(SVGRasterizer $rasterizer)
+    {
+        // For every svg node create a new rasterizer with corresponding properties
+        // for width, height, viewBox, document width and document height
+        $svgWidth = $this->getWidth();
+        $svgHeight = $this->getHeight();
+        $svgViewBox  = $this->getScaledViewBox(
+            $rasterizer->getDocumentWidth()/$svgWidth,
+            $rasterizer->getDocumentHeight()/$svgHeight
+        );
+        $svgRasterizer = new SVGRasterizer(
+            $svgWidth,
+            $svgHeight,
+            $svgViewBox,
+            $rasterizer->getWidth(),
+            $rasterizer->getHeight()
+        );
+        // Rasterize the svg and its children
+        parent::rasterize($svgRasterizer);
+        $img = $svgRasterizer->finish();
+        // Copy rasterized image to parent's image
+        imagecopy($rasterizer->getImage(), $img, 0, 0, 0, 0, $svgRasterizer->getWidth(), $svgRasterizer->getHeight());
+        imagedestroy($img);
+    }
 
     public function getSerializableAttributes()
     {
@@ -114,6 +142,7 @@ class SVGDocumentFragment extends SVGNodeContainer
 
         if ($this->root) {
             $attrs['xmlns'] = 'http://www.w3.org/2000/svg';
+            $attrs['xmlns:xlink'] = 'http://www.w3.org/1999/xlink';
             foreach ($this->namespaces as $namespace => $uri) {
                 if (substr($namespace, 0, 6) !== 'xmlns:') {
                     $namespace = 'xmlns:'.$namespace;
@@ -130,5 +159,26 @@ class SVGDocumentFragment extends SVGNodeContainer
         }
 
         return $attrs;
+    }
+
+    /**
+     * Returns viewbox properties having scaled the by the given values
+     *
+     * @param $scaleX Scale for width
+     *
+     * @param $scaleY Scale for height
+     *
+     * @return array|null The scaled viewbox array
+     */
+    private function getScaledViewBox($scaleX, $scaleY)
+    {
+        $viewBox = $this->getViewBox();
+        if (empty($viewBox)) {
+            return $viewBox;
+        }
+        $viewBox[2] *= $scaleX;
+        $viewBox[3] *= $scaleY;
+
+        return $viewBox;
     }
 }
