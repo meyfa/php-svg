@@ -15,8 +15,7 @@ abstract class SVGNodeContainer extends SVGNode
     protected $children;
 
     /**
-     * @var [] $globalStyles for this node and its child nodes
-     * it's a 2D array containing the selector as key and an array of styles as value.
+     * @var string[] $globalStyles A 2D array mapping CSS selectors to values.
      */
     protected $containerStyles;
 
@@ -152,7 +151,7 @@ abstract class SVGNodeContainer extends SVGNode
      * @param SVGNode $node The node for which we need to obtain.
      * its container style rules.
      *
-     * @return array The style rules to be applied.
+     * @return string[] The style rules to be applied.
      */
     public function getContainerStyleForNode(SVGNode $node)
     {
@@ -162,22 +161,23 @@ abstract class SVGNodeContainer extends SVGNode
     }
 
     /**
-     * Returns a style rules provided a given a node's id and class pattern.
+     * Returns style rules for the given node id + class pattern.
      *
-     * @param $pattern The node's id and class pattern for which we need to obtain
-     * its container style rules.
+     * @param string $pattern The node's pattern.
      *
-     * @return array The style rules to be applied.
+     * @return string[] The style rules to be applied.
      */
     public function getContainerStyleByPattern($pattern)
     {
         if ($pattern === null) {
             return array();
         }
+
         $nodeStyles = array();
         if (!empty($this->parent)) {
             $nodeStyles = $this->parent->getContainerStyleByPattern($pattern);
         }
+
         $keys = $this->pregGrepStyle($pattern);
         foreach ($keys as $key) {
             $nodeStyles = array_merge($nodeStyles, $this->containerStyles[$key]);
@@ -187,11 +187,12 @@ abstract class SVGNodeContainer extends SVGNode
     }
 
     /**
-     * Returns the array consisting of the keys of the style rules that match the given pattern.
+     * Returns the array consisting of the keys of the style rules that match
+     * the given pattern.
      *
-     * @param $pattern The pattern to search for, as a string
+     * @param string $pattern The pattern to search for.
      *
-     * @return array The matches array
+     * @return string[] The matches array
      */
     private function pregGrepStyle($pattern)
     {

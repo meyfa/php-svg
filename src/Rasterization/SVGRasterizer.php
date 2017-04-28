@@ -15,7 +15,7 @@ use JangoBrick\SVG\Nodes\SVGNode;
  * Note that renderers DO NOT correspond 1:1 to node types (e.g. there is no
  * renderer 'circle', but 'ellipse' with equal radiuses is used).
  *
- * @SuppressWarnings("coupling") 
+ * @SuppressWarnings("coupling")
  */
 class SVGRasterizer
 {
@@ -60,7 +60,7 @@ class SVGRasterizer
         $this->width  = $width;
         $this->height = $height;
 
-        $this->outImage = self::createImage($width , $height);
+        $this->outImage = self::createImage($width, $height);
 
         self::createDependencies();
     }

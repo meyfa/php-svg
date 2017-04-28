@@ -7,7 +7,7 @@ use JangoBrick\SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'style'.
- * Has the attribute type and the css content.
+ * Has the attribute 'type' and the CSS content.
  */
 class SVGStyle extends SVGNode
 {
@@ -16,8 +16,8 @@ class SVGStyle extends SVGNode
     private $css = '';
 
     /**
-     * @param string $css | '' the css data rules.
-     * @param string $type | 'text/css' the style type attribute.
+     * @param string $css The CSS data rules.
+     * @param string $type The style type attribute.
      */
     public function __construct($css = '', $type = 'text/css')
     {
@@ -35,7 +35,7 @@ class SVGStyle extends SVGNode
     }
 
     /**
-     * @return string The style's type attribute.
+     * @return string The type attribute.
      */
     public function getType()
     {
@@ -43,7 +43,7 @@ class SVGStyle extends SVGNode
     }
 
     /**
-     * @param $type
+     * @param $type The type attribute.
      *
      * @return $this This node instance, for call chaining.
      */
@@ -53,7 +53,7 @@ class SVGStyle extends SVGNode
     }
 
     /**
-     * @return string The style's cdata content.
+     * @return string The CSS content.
      */
     public function getCss()
     {
@@ -61,7 +61,7 @@ class SVGStyle extends SVGNode
     }
 
     /**
-     * Sets the cdata content for the style
+     * Sets the CSS content.
      *
      * @param $css The new cdata content
      *
@@ -81,7 +81,7 @@ class SVGStyle extends SVGNode
      */
     public function rasterize(SVGRasterizer $rasterizer)
     {
-        // Nothing to rasterize. All properties passed through container's global styles
-        return;
+        // Nothing to rasterize.
+        // All properties passed through container's global styles.
     }
 }

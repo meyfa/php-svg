@@ -3,7 +3,7 @@
 namespace JangoBrick\SVG\Utilities;
 
 /**
- * This is a utility class used to parse css and style rules.
+ * This is a utility class used to parse CSS rules.
  */
 abstract class SVGStyleParser
 {
@@ -23,7 +23,6 @@ abstract class SVGStyleParser
 
         $declarations = preg_split('/\s*;\s*/', $string);
 
-
         foreach ($declarations as $declaration) {
             $declaration = trim($declaration);
             if ($declaration === '') {
@@ -37,17 +36,20 @@ abstract class SVGStyleParser
     }
 
     /**
-     * Parses css content into an associative array.
+     * Parses CSS content into an associative 2D array of all selectors and
+     * their respective style declarations.
      *
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      *
      * @param string $css The CSS style rules.
      *
-     * @return string[][] A 2D associative array of all selectors and its style declarations.
+     * @return string[][] A 2D associative array with style declarations.
      */
-    public static function parseCss($css) {
+    public static function parseCss($css)
+    {
         $result = [];
-        preg_match_all( '/(?ims)([a-z0-9\s\,\.\:#_\-@^*()\[\]\"\'=]+)\{([^\}]*)\}/', $css, $arr);
+        preg_match_all('/(?ims)([a-z0-9\s\,\.\:#_\-@^*()\[\]\"\'=]+)\{([^\}]*)\}/', $css, $arr);
+
         foreach ($arr[0] as $i => $x) {
             $selectors = explode(',', trim($arr[1][$i]));
             if (in_array($selectors[0], ['@font-face', '@keyframes', '@media'])) {

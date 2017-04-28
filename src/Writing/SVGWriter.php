@@ -125,10 +125,9 @@ class SVGWriter
     }
 
     /**
-     * Appends a cdata content given the $cdata value to the writer's
-     * output.
+     * Appends CDATA content given the $cdata value to the writer's output.
      *
-     * @param string $cdata  The content.
+     * @param string $cdata The content.
      *
      * @return void
      */

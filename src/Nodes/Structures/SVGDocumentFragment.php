@@ -25,6 +25,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     private $root;
     /** @var string[] $namespaces A map of custom namespaces to their URIs. */
     private $namespaces;
+
     /**
      * @param bool        $root       Whether this is the root document.
      * @param string|null $width      The declared width.
@@ -49,8 +50,6 @@ class SVGDocumentFragment extends SVGNodeContainer
     {
         return $this->root;
     }
-
-
 
     /**
      * @return string The declared width of this document.
@@ -162,13 +161,14 @@ class SVGDocumentFragment extends SVGNodeContainer
     }
 
     /**
-     * Returns viewbox properties having scaled the by the given values
+     * Returns a viewBox array (x, y, width, height) with dimensions scaled by
+     * the given values.
      *
-     * @param $scaleX Scale for width
+     * @param $scaleX The horizontal factor.
      *
-     * @param $scaleY Scale for height
+     * @param $scaleY The vertical factor.
      *
-     * @return array|null The scaled viewbox array
+     * @return float[]|null The scaled viewbox array.
      */
     private function getScaledViewBox($scaleX, $scaleY)
     {

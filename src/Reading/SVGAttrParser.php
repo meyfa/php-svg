@@ -3,12 +3,19 @@
 namespace JangoBrick\SVG\Reading;
 
 
+/**
+ * Class with utility methods for parsing attributes such as viewBox.
+ * Meant for static access.
+ */
 abstract class SVGAttrParser
 {
     /**
-     * Parses viewBox attribute to array properties
-     * @param $viewBoxAttr The viewBox attribute string
-     * @return array|null The array containing the viewbox 4 properties x, y, width, height
+     * Parses the given string as a viewBox attribute value, resulting in an
+     * array with float components (x, y, width, height).
+     *
+     * @param string $viewBoxAttr The viewBox attribute string.
+     *
+     * @return float[]|null The parsed array.
      */
     public static function parseViewBox($viewBoxAttr)
     {

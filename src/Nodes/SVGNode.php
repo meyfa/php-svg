@@ -219,29 +219,34 @@ abstract class SVGNode
     }
 
     /**
-     * Constructs a regex pattern to use as key to retrieve styles for this node from its container
+     * Constructs a regex pattern to use as the key to retrieve styles for this
+     * node from its container.
      *
-     * @return null|string The generated pattern
+     * @return string|null The generated pattern.
      */
     public function getIdAndClassPattern()
     {
         $id = $this->getAttribute('id');
         $class = $this->getAttribute('class');
+
         $pattern = '';
         if (!empty($id)) {
-            $pattern = "#{$id}|#{$id}";
+            $pattern = '#'.$id.'|#'.$id;
         }
         if (!empty($class)) {
-            $pattern .= empty($pattern)?".{$class}":".{$class}|.{$class}";
+            if (!empty($pattern)) {
+                $pattern .= '.'.$class.'|';
+            }
+            $pattern .= '.'.$class;
         }
 
-        return empty($pattern) ? null : "/({$pattern})$/";
+        return empty($pattern) ? null : '/('.$pattern.')/';
     }
 
     /**
-     * Returns the viewbox array for the current node
+     * Returns the viewBox array (x, y, width, height) for the current node.
      *
-     * @return array|null The viewbox array containing 4 elements: x, y, width, height
+     * @return float[]|null The viewbox array.
      *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
