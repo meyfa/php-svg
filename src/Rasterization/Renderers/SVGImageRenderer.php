@@ -78,8 +78,6 @@ class SVGImageRenderer extends SVGRenderer
      * @param int    $h    The height that the rasterized image should have.
      *
      * @return resource The loaded image.
-     *
-     * @SuppressWarnings("static")
      */
     private function loadImage($href, $w, $h)
     {

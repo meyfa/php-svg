@@ -12,8 +12,6 @@ use JangoBrick\SVG\Utilities\SVGStyleParser;
  * of SVGImage by parsing the document tree.
  *
  * In contrast to SVGWriter, a single instance can perform any number of reads.
- *
- * @SuppressWarnings(PHPMD.StaticAccess)
  */
 class SVGReader
 {

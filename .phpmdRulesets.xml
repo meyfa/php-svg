@@ -8,11 +8,6 @@
     <rule ref="rulesets/cleancode.xml">
         <exclude name="StaticAccess" />
     </rule>
-    <rule ref="rulesets/cleancode.xml/StaticAccess">
-        <properties>
-            <property name="exceptions" value="\JangoBrick\SVG\SVG" />
-        </properties>
-    </rule>
     <rule ref="rulesets/codesize.xml" />
     <rule ref="rulesets/controversial.xml" />
     <rule ref="rulesets/design.xml" />

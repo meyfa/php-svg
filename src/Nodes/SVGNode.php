@@ -247,8 +247,6 @@ abstract class SVGNode
      * Returns the viewBox array (x, y, width, height) for the current node.
      *
      * @return float[]|null The viewbox array.
-     *
-     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function getViewBox()
     {

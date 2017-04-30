@@ -120,8 +120,6 @@ abstract class SVGNodeContainer extends SVGNode
      * @param SVGStyle $styleNode The style node to add rules from.
      *
      * @return $this This node instance, for call chaining.
-     *
-     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function addContainerStyle(SVGStyle $styleNode)
     {
