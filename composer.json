@@ -1,13 +1,14 @@
 {
-    "name": "jangobrick/php-svg",
-    "homepage": "https://github.com/JangoBrick/php-svg",
+    "name": "meyfa/php-svg",
+    "homepage": "https://github.com/meyfa/php-svg",
     "type": "library",
     "description": "Read, edit, write, and render SVG files with PHP",
     "keywords": ["svg"],
     "license": "MIT",
     "authors": [
         {
-            "name": "JangoBrick"
+            "name": "Fabian Meyer",
+            "homepage": "http://meyfa.net"
         }
     ],
     "require": {

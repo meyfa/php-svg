@@ -1,7 +1,7 @@
 # php-svg
 
-[![Build Status](https://travis-ci.org/JangoBrick/php-svg.svg?branch=master)](https://travis-ci.org/JangoBrick/php-svg)
-[![Code Climate](https://codeclimate.com/github/JangoBrick/php-svg/badges/gpa.svg)](https://codeclimate.com/github/JangoBrick/php-svg)
+[![Build Status](https://travis-ci.org/meyfa/php-svg.svg?branch=master)](https://travis-ci.org/meyfa/php-svg)
+[![Code Climate](https://codeclimate.com/github/meyfa/php-svg/badges/gpa.svg)](https://codeclimate.com/github/meyfa/php-svg)
 
 This is a vector graphics library for PHP, which surely is a broad
 specification. That is due to the fact that the goal of this project is to
@@ -42,13 +42,13 @@ In case you decide to contribute, please honor these things:
 This package is available through Composer/Packagist:
 
 ```
-$ composer require jangobrick/php-svg
+$ composer require meyfa/php-svg
 ```
 
 ### Manual
 
-[Download](https://github.com/JangoBrick/php-svg/zipball/master) this repo,
-or the [latest release](https://github.com/JangoBrick/php-svg/releases),
+[Download](https://github.com/meyfa/php-svg/zipball/master) this repo,
+or the [latest release](https://github.com/meyfa/php-svg/releases),
 and put it somewhere in your project. Then do:
 
 ```php
