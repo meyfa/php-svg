@@ -1,10 +1,10 @@
 <?php
 
-namespace JangoBrick\SVG\Nodes;
+namespace SVG\Nodes;
 
-use JangoBrick\SVG\Nodes\Structures\SVGStyle;
-use JangoBrick\SVG\Rasterization\SVGRasterizer;
-use JangoBrick\SVG\Utilities\SVGStyleParser;
+use SVG\Nodes\Structures\SVGStyle;
+use SVG\Rasterization\SVGRasterizer;
+use SVG\Utilities\SVGStyleParser;
 
 /**
  * Represents an SVG image element that contains child elements.

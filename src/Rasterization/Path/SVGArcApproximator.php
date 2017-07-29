@@ -1,6 +1,6 @@
 <?php
 
-namespace JangoBrick\SVG\Rasterization\Path;
+namespace SVG\Rasterization\Path;
 
 /**
  * This class can approximate elliptical arc segments by calculating a series of

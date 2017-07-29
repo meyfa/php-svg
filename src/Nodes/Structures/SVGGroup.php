@@ -1,8 +1,8 @@
 <?php
 
-namespace JangoBrick\SVG\Nodes\Structures;
+namespace SVG\Nodes\Structures;
 
-use JangoBrick\SVG\Nodes\SVGNodeContainer;
+use SVG\Nodes\SVGNodeContainer;
 
 /**
  * Represents the SVG tag 'g'.

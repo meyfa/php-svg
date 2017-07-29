@@ -1,9 +1,9 @@
 <?php
 
-namespace JangoBrick\SVG\Nodes\Shapes;
+namespace SVG\Nodes\Shapes;
 
-use JangoBrick\SVG\Nodes\SVGNode;
-use JangoBrick\SVG\Rasterization\SVGRasterizer;
+use SVG\Nodes\SVGNode;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'rect'.

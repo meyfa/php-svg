@@ -75,8 +75,8 @@ header and echoes it:
 ```php
 <?php
 
-use JangoBrick\SVG\SVGImage;
-use JangoBrick\SVG\Nodes\Shapes\SVGRect;
+use SVG\SVGImage;
+use SVG\Nodes\Shapes\SVGRect;
 
 // image with 100x100 viewport
 $image = new SVGImage(100, 100);
@@ -100,8 +100,8 @@ on it. Example:
 ```php
 <?php
 
-use JangoBrick\SVG\SVGImage;
-use JangoBrick\SVG\Nodes\Shapes\SVGCircle;
+use SVG\SVGImage;
+use SVG\Nodes\Shapes\SVGCircle;
 
 $image = new SVGImage(100, 100);
 $doc = $image->getDocument();
@@ -129,7 +129,7 @@ from a string, moves the contained rectangle and echoes the new SVG:
 ```php
 <?php
 
-use JangoBrick\SVG\SVGImage;
+use SVG\SVGImage;
 
 $svg  = '<svg width="100" height="100">';
 $svg .= '<rect width="50" height="50" fill="#00F" />';

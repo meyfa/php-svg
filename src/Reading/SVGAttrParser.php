@@ -1,6 +1,6 @@
 <?php
 
-namespace JangoBrick\SVG\Reading;
+namespace SVG\Reading;
 
 
 /**

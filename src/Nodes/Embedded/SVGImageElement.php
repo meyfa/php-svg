@@ -1,9 +1,9 @@
 <?php
 
-namespace JangoBrick\SVG\Nodes\Embedded;
+namespace SVG\Nodes\Embedded;
 
-use JangoBrick\SVG\Nodes\SVGNode;
-use JangoBrick\SVG\Rasterization\SVGRasterizer;
+use SVG\Nodes\SVGNode;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'image'.

@@ -1,8 +1,8 @@
 <?php
 
-namespace JangoBrick\SVG\Nodes\Shapes;
+namespace SVG\Nodes\Shapes;
 
-use JangoBrick\SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNode;
 
 /**
  * This is the base class for polygons and polylines.

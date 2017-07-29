@@ -1,9 +1,9 @@
 <?php
 
-namespace JangoBrick\SVG\Nodes\Structures;
+namespace SVG\Nodes\Structures;
 
-use JangoBrick\SVG\Nodes\SVGNodeContainer;
-use JangoBrick\SVG\Rasterization\SVGRasterizer;
+use SVG\Nodes\SVGNodeContainer;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'svg'. This is the root node for every image.

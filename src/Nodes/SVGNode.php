@@ -1,9 +1,9 @@
 <?php
 
-namespace JangoBrick\SVG\Nodes;
+namespace SVG\Nodes;
 
-use JangoBrick\SVG\Rasterization\SVGRasterizer;
-use JangoBrick\SVG\Reading\SVGAttrParser;
+use SVG\Rasterization\SVGRasterizer;
+use SVG\Reading\SVGAttrParser;
 
 /**
  * Represents a single element inside an SVG image (in other words, an XML tag).

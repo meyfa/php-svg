@@ -1,6 +1,6 @@
 <?php
 
-namespace JangoBrick\SVG\Utilities;
+namespace SVG\Utilities;
 
 /**
  * This is a utility class used to parse CSS rules.

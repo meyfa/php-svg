@@ -1,6 +1,6 @@
 <?php
 
-namespace JangoBrick\SVG\Rasterization\Path;
+namespace SVG\Rasterization\Path;
 
 /**
  * This class can convert SVG path description strings into arrays of distinct

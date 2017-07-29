@@ -1,8 +1,8 @@
 <?php
 
-namespace JangoBrick\SVG\Rasterization\Renderers;
+namespace SVG\Rasterization\Renderers;
 
-use JangoBrick\SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * This renderer can draw straight lines. Filling is not supported.

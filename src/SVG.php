@@ -1,6 +1,6 @@
 <?php
 
-namespace JangoBrick\SVG;
+namespace SVG;
 
 /**
  * This class contains general helper methods for understanding SVG files.

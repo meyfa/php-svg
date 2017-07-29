@@ -1,9 +1,9 @@
 <?php
 
-namespace JangoBrick\SVG\Rasterization\Renderers;
+namespace SVG\Rasterization\Renderers;
 
-use JangoBrick\SVG\Nodes\SVGNode;
-use JangoBrick\SVG\Rasterization\SVGRasterizer;
+use SVG\Nodes\SVGNode;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * This renderer can draw referenced images (from <image> tags).

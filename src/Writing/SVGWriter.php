@@ -1,10 +1,10 @@
 <?php
 
-namespace JangoBrick\SVG\Writing;
+namespace SVG\Writing;
 
-use JangoBrick\SVG\Nodes\Structures\SVGStyle;
-use JangoBrick\SVG\Nodes\SVGNode;
-use JangoBrick\SVG\Nodes\SVGNodeContainer;
+use SVG\Nodes\Structures\SVGStyle;
+use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
 
 /**
  * This class is used for composing ("writing") XML strings from nodes.

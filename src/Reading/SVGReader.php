@@ -1,11 +1,11 @@
 <?php
 
-namespace JangoBrick\SVG\Reading;
+namespace SVG\Reading;
 
-use JangoBrick\SVG\SVGImage;
-use JangoBrick\SVG\Nodes\SVGNode;
-use JangoBrick\SVG\Nodes\SVGNodeContainer;
-use JangoBrick\SVG\Utilities\SVGStyleParser;
+use SVG\SVGImage;
+use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
+use SVG\Utilities\SVGStyleParser;
 
 /**
  * This class is used to read XML strings or files and turn them into instances
@@ -19,17 +19,17 @@ class SVGReader
     * @var string[] $nodeTypes Map of tag names to fully-qualified class names.
     */
     private static $nodeTypes = array(
-        'svg'       => 'JangoBrick\SVG\Nodes\Structures\SVGDocumentFragment',
-        'g'         => 'JangoBrick\SVG\Nodes\Structures\SVGGroup',
-        'style'     => 'JangoBrick\SVG\Nodes\Structures\SVGStyle',
-        'rect'      => 'JangoBrick\SVG\Nodes\Shapes\SVGRect',
-        'circle'    => 'JangoBrick\SVG\Nodes\Shapes\SVGCircle',
-        'ellipse'   => 'JangoBrick\SVG\Nodes\Shapes\SVGEllipse',
-        'line'      => 'JangoBrick\SVG\Nodes\Shapes\SVGLine',
-        'polygon'   => 'JangoBrick\SVG\Nodes\Shapes\SVGPolygon',
-        'polyline'  => 'JangoBrick\SVG\Nodes\Shapes\SVGPolyline',
-        'path'      => 'JangoBrick\SVG\Nodes\Shapes\SVGPath',
-        'image'     => 'JangoBrick\SVG\Nodes\Embedded\SVGImageElement',
+        'svg'       => 'SVG\Nodes\Structures\SVGDocumentFragment',
+        'g'         => 'SVG\Nodes\Structures\SVGGroup',
+        'style'     => 'SVG\Nodes\Structures\SVGStyle',
+        'rect'      => 'SVG\Nodes\Shapes\SVGRect',
+        'circle'    => 'SVG\Nodes\Shapes\SVGCircle',
+        'ellipse'   => 'SVG\Nodes\Shapes\SVGEllipse',
+        'line'      => 'SVG\Nodes\Shapes\SVGLine',
+        'polygon'   => 'SVG\Nodes\Shapes\SVGPolygon',
+        'polyline'  => 'SVG\Nodes\Shapes\SVGPolyline',
+        'path'      => 'SVG\Nodes\Shapes\SVGPath',
+        'image'     => 'SVG\Nodes\Embedded\SVGImageElement',
     );
     /**
      * @var string[] @styleAttributes Attributes to be interpreted as styles.
