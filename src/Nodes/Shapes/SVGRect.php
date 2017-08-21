@@ -19,7 +19,7 @@ class SVGRect extends SVGNode
      * @param string|null $width  The width.
      * @param string|null $height The height.
      */
-    public function __construct($x = null, $y = null, $width = null, $height = null)
+    public function __construct($x = null, $y = null, $width = null, $height = null, $rx = null, $ry = null)
     {
         parent::__construct();
 
@@ -27,6 +27,8 @@ class SVGRect extends SVGNode
         $this->setAttributeOptional('y', $y);
         $this->setAttributeOptional('width', $width);
         $this->setAttributeOptional('height', $height);
+        $this->setAttributeOptional('rx', $rx);
+        $this->setAttributeOptional('ry', $ry);
     }
 
 
@@ -71,8 +73,6 @@ class SVGRect extends SVGNode
         return $this->setAttribute('y', $y);
     }
 
-
-
     /**
      * @return string The width.
      */
@@ -110,6 +110,47 @@ class SVGRect extends SVGNode
     }
 
 
+    /**
+     * @return string The rx coordinate of the upper left corner.
+     */
+    public function getRX()
+    {
+        return $this->getAttribute('rx');
+    }
+
+    /**
+     * Sets the rx coordinate of the upper left corner.
+     *
+     * @param string $rx The new coordinate.
+     *
+     * @return $this This node instance, for call chaining.
+     */
+    public function setRX($rx)
+    {
+        return $this->setAttribute('rx', $rx);
+    }
+
+    /**
+     * @return string The ry coordinate of the upper left corner.
+     */
+    public function getRY()
+    {
+        return $this->getAttribute('ry');
+    }
+
+    /**
+     * Sets the ry coordinate of the upper left corner.
+     *
+     * @param string $ry The new coordinate.
+     *
+     * @return $this This node instance, for call chaining.
+     */
+    public function setRY($ry)
+    {
+        return $this->setAttribute('ry', $ry);
+    }
+
+
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
@@ -127,6 +168,8 @@ class SVGRect extends SVGNode
             'y'         => $this->getY(),
             'width'     => $this->getWidth(),
             'height'    => $this->getHeight(),
+            'rx'         => $this->getRX(),
+            'ry'         => $this->getRY(),
         ), $this);
     }
 }
