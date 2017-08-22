@@ -12,6 +12,8 @@ use SVG\Rasterization\SVGRasterizer;
  * - float y: the y coordinate of the upper left corner
  * - float width: the width
  * - float height: the height
+ * - float rx: the x radius of the corners.
+ * - float ry: the y radius of the corners.
  */
 class SVGRectRenderer extends SVGRenderer
 {

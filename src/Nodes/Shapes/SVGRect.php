@@ -18,6 +18,8 @@ class SVGRect extends SVGNode
      * @param string|null $y      The y coordinate of the upper left corner.
      * @param string|null $width  The width.
      * @param string|null $height The height.
+     * @param string|null $rx     The x radius of the corners.
+     * @param string|null $ry     The y radius of the corners.
      */
     public function __construct($x = null, $y = null, $width = null, $height = null, $rx = null, $ry = null)
     {
