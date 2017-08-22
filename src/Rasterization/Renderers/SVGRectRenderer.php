@@ -43,7 +43,7 @@ class SVGRectRenderer extends SVGRenderer
         $rx = $params['rx'];
         $ry = $params['ry'];
 
-        if (($rx == 0) && ($ry ===0)) {
+        if (($rx === 0) && ($ry === 0)) {
             imagefilledrectangle(
                 $image,
                 $x1, $y1,
@@ -110,7 +110,7 @@ class SVGRectRenderer extends SVGRenderer
         $halfStrokeFloor = floor($strokeWidth / 2);
         $halfStrokeCeil  = ceil($strokeWidth / 2);
 
-        if (($rx == 0) && ($ry ===0)) {
+        if (($rx === 0) && ($ry === 0)) {
             // top
             imagefilledrectangle(
                 $image,
