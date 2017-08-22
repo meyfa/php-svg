@@ -175,9 +175,8 @@ class SVGRectRenderer extends SVGRenderer
                     $image,
                     $x1 + $rx, $y1 + $ry,
                     $rx*2+$sw, $ry*2+$sw,
-                    180-1, 270+1,
+                    180, 270,
                     $color);
-                // 0x00FF0000);
                 // right-top
                 imagearc(
                     $image,
