@@ -43,16 +43,16 @@ class SVGRectRenderer extends SVGRenderer
         $rx = $params['rx'];
         $ry = $params['ry'];
 
-        if (($rx !== 0) && ($ry !== 0)) {
+        if (($rx !== 0) || ($ry !== 0)) {
             self::renderFillRounded($image, $params, $color);
-        } else {
-            imagefilledrectangle(
-                $image,
-                $x1, $y1,
-                $x2, $y2,
-                $color
-            );
+            return ;
         }
+        imagefilledrectangle(
+            $image,
+            $x1, $y1,
+            $x2, $y2,
+            $color
+        );
     }
 
     private function renderFillRounded($image, array $params, $color) {
@@ -121,38 +121,38 @@ class SVGRectRenderer extends SVGRenderer
         $halfStrokeFloor = floor($strokeWidth / 2);
         $halfStrokeCeil  = ceil($strokeWidth / 2);
 
-        if (($rx !== 0) && ($ry !== 0)) {
+        if (($rx !== 0) || ($ry !== 0)) {
             self::renderStrokeRounded($image, $params, $color, $strokeWidth);
-        } else {
-            // top
-            imagefilledrectangle(
-                $image,
-                $x1 - $halfStrokeFloor,     $y1 - $halfStrokeFloor,
-                $x2 + $halfStrokeFloor,     $y1 + $halfStrokeCeil - 1,
-                $color
-            );
-            // bottom
-            imagefilledrectangle(
-                $image,
-                $x1 - $halfStrokeFloor,     $y2 - $halfStrokeCeil + 1,
-                $x2 + $halfStrokeFloor,     $y2 + $halfStrokeFloor,
-                $color
-            );
-            // left
-            imagefilledrectangle(
-                $image,
-                $x1 - $halfStrokeFloor,     $y1 + $halfStrokeCeil,
-                $x1 + $halfStrokeCeil - 1,  $y2 - $halfStrokeCeil,
-                $color
-            );
-            // right
-            imagefilledrectangle(
-                $image,
-                $x2 - $halfStrokeCeil + 1,  $y1 + $halfStrokeCeil,
-                $x2 + $halfStrokeFloor,     $y2 - $halfStrokeCeil,
-                $color
-            );
+            return ;
         }
+        // top
+        imagefilledrectangle(
+            $image,
+            $x1 - $halfStrokeFloor,     $y1 - $halfStrokeFloor,
+            $x2 + $halfStrokeFloor,     $y1 + $halfStrokeCeil - 1,
+            $color
+        );
+        // bottom
+        imagefilledrectangle(
+            $image,
+            $x1 - $halfStrokeFloor,     $y2 - $halfStrokeCeil + 1,
+            $x2 + $halfStrokeFloor,     $y2 + $halfStrokeFloor,
+            $color
+        );
+        // left
+        imagefilledrectangle(
+            $image,
+            $x1 - $halfStrokeFloor,     $y1 + $halfStrokeCeil,
+            $x1 + $halfStrokeCeil - 1,  $y2 - $halfStrokeCeil,
+            $color
+        );
+        // right
+        imagefilledrectangle(
+            $image,
+            $x2 - $halfStrokeCeil + 1,  $y1 + $halfStrokeCeil,
+            $x2 + $halfStrokeFloor,     $y2 - $halfStrokeCeil,
+            $color
+        );
     }
 
     private function renderStrokeRounded($image, array $params, $color, $strokeWidth) {
