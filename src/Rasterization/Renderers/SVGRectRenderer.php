@@ -43,54 +43,65 @@ class SVGRectRenderer extends SVGRenderer
         $rx = $params['rx'];
         $ry = $params['ry'];
 
-        if (($rx === 0) && ($ry === 0)) {
+        if (($rx !== 0) && ($ry !== 0)) {
+            self::renderFillRounded($image, $params, $color);
+        } else {
             imagefilledrectangle(
                 $image,
                 $x1, $y1,
                 $x2, $y2,
                 $color
             );
-        } else {
-            imagefilledrectangle(
-                $image,
-                $x1 + $rx, $y1,
-                $x2 - $rx, $y2,
-                $color
-            );
-            imagefilledrectangle(
-                $image,
-                $x1, $y1 + $ry,
-                $x2, $y2 - $ry,
-                $color
-            );
-
-            // left-top
-            imagefilledellipse(
-                $image,
-                $x1 + $rx, $y1 + $ry,
-                $rx*2, $ry*2,
-                $color);
-            // right-top
-            imagefilledellipse(
-                $image,
-                $x2 - $rx, $y1 + $ry,
-                $rx*2, $ry*2,
-                $color);
-            // left-bottom
-            imagefilledellipse(
-                $image,
-                $x1 + $rx, $y2 - $ry,
-                $rx*2, $ry*2,
-                $color);
-            // right-bottom
-            imagefilledellipse(
-                $image,
-                $x2 - $rx, $y2 - $ry,
-                $rx*2, $ry*2,
-                $color);
         }
     }
 
+    private function renderFillRounded($image, array $params, $color) {
+        $x1 = $params['x1'];
+        $y1 = $params['y1'];
+        $x2 = $params['x2'];
+        $y2 = $params['y2'];
+        $rx = $params['rx'];
+        $ry = $params['ry'];
+
+        imagefilledrectangle(
+            $image,
+            $x1 + $rx, $y1,
+            $x2 - $rx, $y2,
+            $color
+        );
+        imagefilledrectangle(
+            $image,
+            $x1, $y1 + $ry,
+            $x2, $y2 - $ry,
+            $color
+        );
+        
+        // left-top
+        imagefilledellipse(
+            $image,
+            $x1 + $rx, $y1 + $ry,
+            $rx*2, $ry*2,
+            $color);
+        // right-top
+        imagefilledellipse(
+            $image,
+            $x2 - $rx, $y1 + $ry,
+            $rx*2, $ry*2,
+            $color);
+        // left-bottom
+        imagefilledellipse(
+            $image,
+            $x1 + $rx, $y2 - $ry,
+            $rx*2, $ry*2,
+            $color);
+        // right-bottom
+        imagefilledellipse(
+            $image,
+            $x2 - $rx, $y2 - $ry,
+            $rx*2, $ry*2,
+            $color);
+    }
+    
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
         imagesetthickness($image, $strokeWidth);
@@ -110,7 +121,9 @@ class SVGRectRenderer extends SVGRenderer
         $halfStrokeFloor = floor($strokeWidth / 2);
         $halfStrokeCeil  = ceil($strokeWidth / 2);
 
-        if (($rx === 0) && ($ry === 0)) {
+        if (($rx !== 0) && ($ry !== 0)) {
+            self::renderStrokeRounded($image, $params, $color, $strokeWidth);
+        } else {
             // top
             imagefilledrectangle(
                 $image,
@@ -139,66 +152,78 @@ class SVGRectRenderer extends SVGRenderer
                 $x2 + $halfStrokeFloor,     $y2 - $halfStrokeCeil,
                 $color
             );
-        } else {
-            // top
-            imagefilledrectangle(
+        }
+    }
+
+    private function renderStrokeRounded($image, array $params, $color, $strokeWidth) {
+        $x1 = $params['x1'];
+        $y1 = $params['y1'];
+        $x2 = $params['x2'];
+        $y2 = $params['y2'];
+        $rx = $params['rx'];
+        $ry = $params['ry'];
+
+        $halfStrokeFloor = floor($strokeWidth / 2);
+        $halfStrokeCeil  = ceil($strokeWidth / 2);
+
+        // top
+        imagefilledrectangle(
+            $image,
+            $x1 - $halfStrokeFloor + $rx*1.5,  $y1 - $halfStrokeFloor,
+            $x2 + $halfStrokeFloor - $rx*1.5,  $y1 + $halfStrokeCeil - 1,
+            $color
+        );
+        // bottom
+        imagefilledrectangle(
+            $image,
+            $x1 - $halfStrokeFloor + $rx*1.5,  $y2 - $halfStrokeCeil + 1,
+            $x2 + $halfStrokeFloor - $rx*1.5,  $y2 + $halfStrokeFloor,
+            $color
+        );
+        // left
+        imagefilledrectangle(
+            $image,
+            $x1 - $halfStrokeFloor,     $y1 + $halfStrokeCeil + $ry/2,
+            $x1 + $halfStrokeCeil - 1,  $y2 - $halfStrokeCeil - $ry/2,
+            $color
+        );
+        // right
+        imagefilledrectangle(
+            $image,
+            $x2 - $halfStrokeCeil + 1,  $y1 + $halfStrokeCeil + $ry/2,
+            $x2 + $halfStrokeFloor,     $y2 - $halfStrokeCeil - $ry/2,
+            $color
+        );
+        imagesetthickness($image, 1.5);
+        for ($sw = $strokeWidth  ; $sw >= -$halfStrokeCeil; $sw --) {
+            // left-top
+            imagearc(
                 $image,
-                $x1 - $halfStrokeFloor + $rx*1.5,     $y1 - $halfStrokeFloor,
-                $x2 + $halfStrokeFloor - $rx*1.5,     $y1 + $halfStrokeCeil - 1,
-                $color
-            );
-            // bottom
-            imagefilledrectangle(
+                $x1 + $rx, $y1 + $ry,
+                $rx*2+$sw, $ry*2+$sw,
+                180, 270,
+                $color);
+            // right-top
+            imagearc(
                 $image,
-                $x1 - $halfStrokeFloor + $rx*1.5,     $y2 - $halfStrokeCeil + 1,
-                $x2 + $halfStrokeFloor - $rx*1.5,     $y2 + $halfStrokeFloor,
-                $color
-            );
-            // left
-            imagefilledrectangle(
+                $x2 - $rx, $y1 + $ry,
+                $rx*2+$sw, $ry*2+$sw,
+                270, 360,
+                $color);
+            // left-bottom
+            imagearc(
                 $image,
-                $x1 - $halfStrokeFloor,     $y1 + $halfStrokeCeil + $ry/2,
-                $x1 + $halfStrokeCeil - 1,  $y2 - $halfStrokeCeil - $ry/2,
-                $color
-            );
-            // right
-            imagefilledrectangle(
+                $x1 + $rx, $y2 - $ry,
+                $rx*2+$sw, $ry*2+$sw,
+                90,180,
+                $color);
+            // right-bottom
+            imagearc(
                 $image,
-                $x2 - $halfStrokeCeil + 1,  $y1 + $halfStrokeCeil + $ry/2,
-                $x2 + $halfStrokeFloor,     $y2 - $halfStrokeCeil - $ry/2,
-                $color
-            );
-            imagesetthickness($image, 1.5);
-            for ($sw = $strokeWidth  ; $sw >= -$halfStrokeCeil; $sw --) {
-                // left-top
-                imagearc(
-                    $image,
-                    $x1 + $rx, $y1 + $ry,
-                    $rx*2+$sw, $ry*2+$sw,
-                    180, 270,
-                    $color);
-                // right-top
-                imagearc(
-                    $image,
-                    $x2 - $rx, $y1 + $ry,
-                    $rx*2+$sw, $ry*2+$sw,
-                    270, 360,
-                    $color);
-                // left-bottom
-                imagearc(
-                    $image,
-                    $x1 + $rx, $y2 - $ry,
-                    $rx*2+$sw, $ry*2+$sw,
-                    90,180,
-                    $color);
-                // right-bottom
-                imagearc(
-                    $image,
-                    $x2 - $rx, $y2 - $ry,
-                    $rx*2+$sw, $ry*2+$sw,
-                    0, 90,
-                    $color);
-            }
+                $x2 - $rx, $y2 - $ry,
+                $rx*2+$sw, $ry*2+$sw,
+                0, 90,
+                $color);
         }
     }
 }
