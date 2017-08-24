@@ -170,8 +170,8 @@ class SVGRect extends SVGNode
             'y'         => $this->getY(),
             'width'     => $this->getWidth(),
             'height'    => $this->getHeight(),
-            'rx'         => $this->getRX(),
-            'ry'         => $this->getRY(),
+            'rx'        => $this->getRX(),
+            'ry'        => $this->getRY(),
         ), $this);
     }
 }
