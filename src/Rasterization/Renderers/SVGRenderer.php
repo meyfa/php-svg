@@ -75,8 +75,8 @@ abstract class SVGRenderer
         $color = SVG::parseColor($color);
         $rgb   = ($color[0] << 16) + ($color[1] << 8) + ($color[2]);
 
-        $a = 127 - intval($color[3] * 127 / 255);
-        $a = $a * self::calculateTotalOpacity($context);
+        $opacity = self::calculateTotalOpacity($context);
+        $a = 127 - $opacity * intval($color[3] * 127 / 255);
 
         return $rgb | ($a << 24);
     }
