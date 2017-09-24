@@ -114,6 +114,13 @@ class SVGPathParser
                 'id'    => $id,
                 'args'  => array_map('floatval', $subArgs),
             );
+            // If a MoveTo command is followed by additional coordinate pairs,
+            // those are interpreted as implicit LineTo commands
+            if ($id === 'M') {
+                $id = 'L';
+            } elseif ($id === 'm') {
+                $id = 'l';
+            }
         }
 
         return true;
