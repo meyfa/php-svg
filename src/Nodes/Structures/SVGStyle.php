@@ -1,6 +1,6 @@
 <?php
-namespace SVG\Nodes\Structures;
 
+namespace SVG\Nodes\Structures;
 
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
