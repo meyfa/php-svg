@@ -21,6 +21,7 @@ class SVGReader
     private static $nodeTypes = array(
         'svg'       => 'SVG\Nodes\Structures\SVGDocumentFragment',
         'g'         => 'SVG\Nodes\Structures\SVGGroup',
+        'defs'      => 'SVG\Nodes\Structures\SVGDefs',
         'style'     => 'SVG\Nodes\Structures\SVGStyle',
         'rect'      => 'SVG\Nodes\Shapes\SVGRect',
         'circle'    => 'SVG\Nodes\Shapes\SVGCircle',
