@@ -77,26 +77,11 @@ class SVGRectRenderer extends SVGRenderer
         // draws 3 non-overlapping rectangles so that transparency is preserved
 
         // full vertical area
-        imagefilledrectangle(
-            $image,
-            $x1 + $rx, $y1,
-            $x2 - $rx, $y2,
-            $color
-        );
+        imagefilledrectangle($image, $x1 + $rx, $y1, $x2 - $rx, $y2, $color);
         // left side
-        imagefilledrectangle(
-            $image,
-            $x1, $y1 + $ry,
-            $x1 + $rx - 1, $y2 - $ry,
-            $color
-        );
+        imagefilledrectangle($image, $x1, $y1 + $ry, $x1 + $rx - 1, $y2 - $ry, $color);
         // right side
-        imagefilledrectangle(
-            $image,
-            $x2 - $rx + 1, $y1 + $ry,
-            $x2, $y2 - $ry,
-            $color
-        );
+        imagefilledrectangle($image, $x2 - $rx + 1, $y1 + $ry, $x2, $y2 - $ry, $color);
 
         // prepares a separate image containing the corners ellipse, which is
         // then copied onto $image at the corner positions
@@ -105,12 +90,8 @@ class SVGRectRenderer extends SVGRenderer
         imagealphablending($corners, true);
         imagesavealpha($corners, true);
         imagefill($corners, 0, 0, 0x7F000000);
-        imagefilledellipse(
-            $corners,
-            $rx, $ry,
-            $rx * 2, $ry * 2,
-            $color
-        );
+
+        imagefilledellipse($corners, $rx, $ry, $rx * 2, $ry * 2, $color);
 
         // left-top
         imagecopy($image, $corners, $x1, $y1, 0, 0, $rx, $ry);
@@ -220,38 +201,16 @@ class SVGRectRenderer extends SVGRenderer
         imagesetthickness($image, 1);
 
         for ($sw = -$halfStrokeFloor; $sw < $halfStrokeCeil; ++$sw) {
+            $arcW = $rx * 2 + 1 + $sw * 2;
+            $arcH = $ry * 2 + 1 + $sw * 2;
             // left-top
-            imagearc(
-                $image,
-                $x1 + $rx, $y1 + $ry,
-                $rx * 2 + 1 + $sw * 2, $ry * 2 + 1 + $sw * 2,
-                180, 270,
-                $color
-            );
+            imagearc($image, $x1 + $rx, $y1 + $ry, $arcW, $arcH, 180, 270, $color);
             // right-top
-            imagearc(
-                $image,
-                $x2 - $rx, $y1 + $ry,
-                $rx * 2 + 1 + $sw * 2, $ry * 2 + 1 + $sw * 2,
-                270, 360,
-                $color
-            );
+            imagearc($image, $x2 - $rx, $y1 + $ry, $arcW, $arcH, 270, 360, $color);
             // left-bottom
-            imagearc(
-                $image,
-                $x1 + $rx, $y2 - $ry,
-                $rx * 2 + 1 + $sw * 2, $ry * 2 + 1 + $sw * 2,
-                90, 180,
-                $color
-            );
+            imagearc($image, $x1 + $rx, $y2 - $ry, $arcW, $arcH, 90, 180, $color);
             // right-bottom
-            imagearc(
-                $image,
-                $x2 - $rx, $y2 - $ry,
-                $rx * 2 + 1 + $sw * 2, $ry * 2 + 1 + $sw * 2,
-                0, 90,
-                $color
-            );
+            imagearc($image, $x2 - $rx, $y2 - $ry, $arcW, $arcH, 0, 90, $color);
         }
     }
 }
