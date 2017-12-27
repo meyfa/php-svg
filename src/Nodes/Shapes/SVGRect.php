@@ -7,7 +7,7 @@ use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'rect'.
- * Has the special attributes x, y, width, height.
+ * Has the special attributes x, y, width, height, rx, ry.
  */
 class SVGRect extends SVGNode
 {
@@ -71,8 +71,6 @@ class SVGRect extends SVGNode
         return $this->setAttribute('y', $y);
     }
 
-
-
     /**
      * @return string The width.
      */
@@ -111,6 +109,48 @@ class SVGRect extends SVGNode
 
 
 
+    /**
+     * @return string The x radius of the corners.
+     */
+    public function getRX()
+    {
+        return $this->getAttribute('rx');
+    }
+
+    /**
+     * Sets the x radius of the corners.
+     *
+     * @param string $rx The new radius.
+     *
+     * @return $this This node instance, for call chaining.
+     */
+    public function setRX($rx)
+    {
+        return $this->setAttribute('rx', $rx);
+    }
+
+    /**
+     * @return string The y radius of the corners.
+     */
+    public function getRY()
+    {
+        return $this->getAttribute('ry');
+    }
+
+    /**
+     * Sets the y radius of the corners.
+     *
+     * @param string $ry The new radius.
+     *
+     * @return $this This node instance, for call chaining.
+     */
+    public function setRY($ry)
+    {
+        return $this->setAttribute('ry', $ry);
+    }
+
+
+
     public function rasterize(SVGRasterizer $rasterizer)
     {
         if ($this->getComputedStyle('display') === 'none') {
@@ -127,6 +167,8 @@ class SVGRect extends SVGNode
             'y'         => $this->getY(),
             'width'     => $this->getWidth(),
             'height'    => $this->getHeight(),
+            'rx'        => $this->getRX(),
+            'ry'        => $this->getRY(),
         ), $this);
     }
 }
