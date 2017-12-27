@@ -74,59 +74,71 @@ class SVGRectRenderer extends SVGRenderer
         $rx = $params['rx'];
         $ry = $params['ry'];
 
+        // draws 3 non-overlapping rectangles so that transparency is preserved
+
+        // full vertical area
         imagefilledrectangle(
             $image,
             $x1 + $rx, $y1,
             $x2 - $rx, $y2,
             $color
         );
+        // left side
         imagefilledrectangle(
             $image,
             $x1, $y1 + $ry,
+            $x1 + $rx - 1, $y2 - $ry,
+            $color
+        );
+        // right side
+        imagefilledrectangle(
+            $image,
+            $x2 - $rx + 1, $y1 + $ry,
             $x2, $y2 - $ry,
             $color
         );
 
+        // prepares a separate image containing the corners ellipse, which is
+        // then copied onto $image at the corner positions
+
+        $corners = imagecreatetruecolor($rx * 2 + 1, $ry * 2 + 1);
+        imagealphablending($corners, true);
+        imagesavealpha($corners, true);
+        imagefill($corners, 0, 0, 0x7F000000);
+        imagefilledellipse(
+            $corners,
+            $rx, $ry,
+            $rx * 2, $ry * 2,
+            $color
+        );
+
+        imagepng($corners, 'corners.png', 9);
+
         // left-top
-        imagefilledellipse(
-            $image,
-            $x1 + $rx, $y1 + $ry,
-            $rx*2, $ry*2,
-            $color
-        );
+        imagecopy($image, $corners, $x1, $y1, 0, 0, $rx, $ry);
         // right-top
-        imagefilledellipse(
-            $image,
-            $x2 - $rx, $y1 + $ry,
-            $rx*2, $ry*2,
-            $color
-        );
+        imagecopy($image, $corners, $x2 - $rx + 1, $y1, $rx + 1, 0, $rx, $ry);
         // left-bottom
-        imagefilledellipse(
-            $image,
-            $x1 + $rx, $y2 - $ry,
-            $rx*2, $ry*2,
-            $color
-        );
+        imagecopy($image, $corners, $x1, $y2 - $ry + 1, 0, $ry + 1, $rx, $ry);
         // right-bottom
-        imagefilledellipse(
-            $image,
-            $x2 - $rx, $y2 - $ry,
-            $rx*2, $ry*2,
-            $color
-        );
+        imagecopy($image, $corners, $x2 - $rx + 1, $y2 - $ry + 1, $rx + 1, $ry + 1, $rx, $ry);
+
+        imagedestroy($corners);
     }
 
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
         imagesetthickness($image, $strokeWidth);
 
+        if ($params['rx'] !== 0 || $params['ry'] !== 0) {
+            self::renderStrokeRounded($image, $params, $color, $strokeWidth);
+            return;
+        }
+
         $x1 = $params['x1'];
         $y1 = $params['y1'];
         $x2 = $params['x2'];
         $y2 = $params['y2'];
-        $rx = $params['rx'];
-        $ry = $params['ry'];
 
         // imagerectangle draws left and right side 1px thicker than it should,
         // and drawing 4 lines instead doesn't work either because of
@@ -136,10 +148,6 @@ class SVGRectRenderer extends SVGRenderer
         $halfStrokeFloor = floor($strokeWidth / 2);
         $halfStrokeCeil  = ceil($strokeWidth / 2);
 
-        if (($rx !== 0) || ($ry !== 0)) {
-            self::renderStrokeRounded($image, $params, $color, $strokeWidth);
-            return ;
-        }
         // top
         imagefilledrectangle(
             $image,
