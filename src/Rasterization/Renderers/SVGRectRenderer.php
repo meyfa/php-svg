@@ -193,40 +193,40 @@ class SVGRectRenderer extends SVGRenderer
         // top
         imagefilledrectangle(
             $image,
-            $x1 - $halfStrokeFloor + $rx*1.5,  $y1 - $halfStrokeFloor,
-            $x2 + $halfStrokeFloor - $rx*1.5,  $y1 + $halfStrokeCeil - 1,
+            $x1 + $rx + 1,  $y1 - $halfStrokeFloor,
+            $x2 - $rx - 1,  $y1 + $halfStrokeCeil - 1,
             $color
         );
         // bottom
         imagefilledrectangle(
             $image,
-            $x1 - $halfStrokeFloor + $rx*1.5,  $y2 - $halfStrokeCeil + 1,
-            $x2 + $halfStrokeFloor - $rx*1.5,  $y2 + $halfStrokeFloor,
+            $x1 + $rx + 1,  $y2 - $halfStrokeCeil + 1,
+            $x2 - $rx - 1,  $y2 + $halfStrokeFloor,
             $color
         );
         // left
         imagefilledrectangle(
             $image,
-            $x1 - $halfStrokeFloor,     $y1 + $halfStrokeCeil + $ry/2,
-            $x1 + $halfStrokeCeil - 1,  $y2 - $halfStrokeCeil - $ry/2,
+            $x1 - $halfStrokeFloor,     $y1 + $ry + 1,
+            $x1 + $halfStrokeCeil - 1,  $y2 - $ry - 1,
             $color
         );
         // right
         imagefilledrectangle(
             $image,
-            $x2 - $halfStrokeCeil + 1,  $y1 + $halfStrokeCeil + $ry/2,
-            $x2 + $halfStrokeFloor,     $y2 - $halfStrokeCeil - $ry/2,
+            $x2 - $halfStrokeCeil + 1,  $y1 + $ry + 1,
+            $x2 + $halfStrokeFloor,     $y2 - $ry - 1,
             $color
         );
 
         imagesetthickness($image, 1.5);
 
-        for ($sw = $strokeWidth; $sw >= -$halfStrokeCeil; --$sw) {
+        for ($sw = -$halfStrokeFloor; $sw < $halfStrokeCeil; ++$sw) {
             // left-top
             imagearc(
                 $image,
                 $x1 + $rx, $y1 + $ry,
-                $rx*2+$sw, $ry*2+$sw,
+                $rx * 2 + 1 + $sw * 2, $ry * 2 + 1 + $sw * 2,
                 180, 270,
                 $color
             );
@@ -234,7 +234,7 @@ class SVGRectRenderer extends SVGRenderer
             imagearc(
                 $image,
                 $x2 - $rx, $y1 + $ry,
-                $rx*2+$sw, $ry*2+$sw,
+                $rx * 2 + 1 + $sw * 2, $ry * 2 + 1 + $sw * 2,
                 270, 360,
                 $color
             );
@@ -242,15 +242,15 @@ class SVGRectRenderer extends SVGRenderer
             imagearc(
                 $image,
                 $x1 + $rx, $y2 - $ry,
-                $rx*2+$sw, $ry*2+$sw,
-                90,180,
+                $rx * 2 + 1 + $sw * 2, $ry * 2 + 1 + $sw * 2,
+                90, 180,
                 $color
             );
             // right-bottom
             imagearc(
                 $image,
                 $x2 - $rx, $y2 - $ry,
-                $rx*2+$sw, $ry*2+$sw,
+                $rx * 2 + 1 + $sw * 2, $ry * 2 + 1 + $sw * 2,
                 0, 90,
                 $color
             );
