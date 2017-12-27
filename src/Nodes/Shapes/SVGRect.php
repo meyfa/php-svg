@@ -7,7 +7,7 @@ use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'rect'.
- * Has the special attributes x, y, width, height.
+ * Has the special attributes x, y, width, height, rx, ry.
  */
 class SVGRect extends SVGNode
 {
@@ -112,6 +112,7 @@ class SVGRect extends SVGNode
     }
 
 
+
     /**
      * @return string The x radius of the corners.
      */
@@ -123,7 +124,7 @@ class SVGRect extends SVGNode
     /**
      * Sets the x radius of the corners.
      *
-     * @param string $rx The new coordinate.
+     * @param string $rx The new radius.
      *
      * @return $this This node instance, for call chaining.
      */
@@ -143,7 +144,7 @@ class SVGRect extends SVGNode
     /**
      * Sets the y radius of the corners.
      *
-     * @param string $ry The new coordinate.
+     * @param string $ry The new radius.
      *
      * @return $this This node instance, for call chaining.
      */
