@@ -23,16 +23,30 @@ class SVGRectRenderer extends SVGRenderer
         $y1 = self::prepareLengthY($options['y'], $rasterizer) + $rasterizer->getOffsetY();
         $w  = self::prepareLengthX($options['width'], $rasterizer);
         $h  = self::prepareLengthY($options['height'], $rasterizer);
-        $rx = self::prepareLengthX($options['rx'], $rasterizer);
-        $ry = self::prepareLengthY($options['ry'], $rasterizer);
+
+        // corner radiuses may at least be (width-1)/2 pixels long.
+        // anything larger than that and the circles start expanding beyond
+        // the rectangle.
+        $rx = empty($options['rx']) ? 0 : self::prepareLengthX($options['rx'], $rasterizer);
+        if ($rx < 0) {
+            $rx = 0;
+        } elseif ($rx > ($w - 1) / 2) {
+            $rx = floor(($w - 1) / 2);
+        }
+        $ry = empty($options['ry']) ? 0 : self::prepareLengthY($options['ry'], $rasterizer);
+        if ($ry < 0) {
+            $ry = 0;
+        } elseif ($ry > ($h - 1) / 2) {
+            $ry = floor(($h - 1) / 2);
+        }
 
         return array(
             'x1' => $x1,
             'y1' => $y1,
             'x2' => $x1 + $w - 1,
             'y2' => $y1 + $h - 1,
-            'rx' => $rx - 1,
-            'ry' => $ry - 1,
+            'rx' => $rx,
+            'ry' => $ry,
         );
     }
 
@@ -78,25 +92,29 @@ class SVGRectRenderer extends SVGRenderer
             $image,
             $x1 + $rx, $y1 + $ry,
             $rx*2, $ry*2,
-            $color);
+            $color
+        );
         // right-top
         imagefilledellipse(
             $image,
             $x2 - $rx, $y1 + $ry,
             $rx*2, $ry*2,
-            $color);
+            $color
+        );
         // left-bottom
         imagefilledellipse(
             $image,
             $x1 + $rx, $y2 - $ry,
             $rx*2, $ry*2,
-            $color);
+            $color
+        );
         // right-bottom
         imagefilledellipse(
             $image,
             $x2 - $rx, $y2 - $ry,
             $rx*2, $ry*2,
-            $color);
+            $color
+        );
     }
 
     protected function renderStroke($image, array $params, $color, $strokeWidth)
