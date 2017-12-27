@@ -219,7 +219,7 @@ class SVGRectRenderer extends SVGRenderer
             $color
         );
 
-        imagesetthickness($image, 1.5);
+        imagesetthickness($image, 1);
 
         for ($sw = -$halfStrokeFloor; $sw < $halfStrokeCeil; ++$sw) {
             // left-top
