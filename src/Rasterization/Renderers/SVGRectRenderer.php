@@ -112,8 +112,6 @@ class SVGRectRenderer extends SVGRenderer
             $color
         );
 
-        imagepng($corners, 'corners.png', 9);
-
         // left-top
         imagecopy($image, $corners, $x1, $y1, 0, 0, $rx, $ry);
         // right-top
