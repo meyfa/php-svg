@@ -75,15 +75,21 @@ abstract class SVGNode
     }
 
     /**
-     * Defines a style on this node.
+     * Defines a style on this node. A value of null or the empty string will
+     * unset the property.
      *
-     * @param string $name  The name of the style to set.
-     * @param string $value The new style value.
+     * @param string      $name  The name of the style to set.
+     * @param string|null $value The new style value.
      *
      * @return $this This node instance, for call chaining.
      */
     public function setStyle($name, $value)
     {
+        $value = (string) $value;
+        if (strlen($value) === 0) {
+            unset($this->styles[$name]);
+            return $this;
+        }
         $this->styles[$name] = $value;
         return $this;
     }
@@ -145,16 +151,21 @@ abstract class SVGNode
     }
 
     /**
-     * Defines an attribute on this node.
+     * Defines an attribute on this node. A value of null will unset the
+     * attribute. Note that the empty string is perfectly valid.
      *
-     * @param string $name  The name of the attribute to set.
-     * @param string $value The new attribute value.
+     * @param string      $name  The name of the attribute to set.
+     * @param string|null $value The new attribute value.
      *
      * @return $this This node instance, for call chaining.
      */
     public function setAttribute($name, $value)
     {
-        $this->attributes[$name] = $value;
+        if (!isset($value)) {
+            unset($this->attributes[$name]);
+            return $this;
+        }
+        $this->attributes[$name] = (string) $value;
         return $this;
     }
 
