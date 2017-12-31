@@ -2,6 +2,9 @@
 
 use SVG\SVGImage;
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class SVGImageTest extends PHPUnit_Framework_TestCase
 {
     private $xml;
@@ -40,9 +43,6 @@ class SVGImageTest extends PHPUnit_Framework_TestCase
         $this->assertSame(100, imagesy($rasterImage));
     }
 
-    /**
-     * @SuppressWarnings("camelCase")
-     */
     public function test__toString()
     {
         $image = new SVGImage(10, 10);

@@ -7,6 +7,9 @@ class SVGNodeContainerSubclass extends SVGNodeContainer
     const TAG_NAME = 'test_subclass';
 }
 
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 class SVGNodeContainerTest extends PHPUnit_Framework_TestCase
 {
     public function testAddChild()
