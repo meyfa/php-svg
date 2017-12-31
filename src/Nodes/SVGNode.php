@@ -170,25 +170,6 @@ abstract class SVGNode
     }
 
     /**
-     * Defines an attribute, if and only if a non-null value is given; otherwise
-     * behaves like `setAttribute(...)`.
-     *
-     * This is useful for initializing attributes in constructors.
-     *
-     * @param string      $name  The name of the attribute to set.
-     * @param string|null $value The new attribute value.
-     *
-     * @return $this This node instance, for call chaining.
-     */
-    protected function setAttributeOptional($name, $value = null)
-    {
-        if (!isset($value)) {
-            return;
-        }
-        return $this->setAttribute($name, $value);
-    }
-
-    /**
      * Removes an attribute from this node's set of attributes.
      *
      * @param string $name The name of the attribute to remove.

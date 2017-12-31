@@ -39,8 +39,8 @@ class SVGDocumentFragment extends SVGNodeContainer
         $this->root = (bool) $root;
         $this->namespaces = $namespaces;
 
-        $this->setAttributeOptional('width', $width);
-        $this->setAttributeOptional('height', $height);
+        $this->setAttribute('width', $width);
+        $this->setAttribute('height', $height);
     }
 
     /**

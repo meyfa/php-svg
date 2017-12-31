@@ -23,10 +23,10 @@ class SVGEllipse extends SVGNode
     {
         parent::__construct();
 
-        $this->setAttributeOptional('cx', $cx);
-        $this->setAttributeOptional('cy', $cy);
-        $this->setAttributeOptional('rx', $rx);
-        $this->setAttributeOptional('ry', $ry);
+        $this->setAttribute('cx', $cx);
+        $this->setAttribute('cy', $cy);
+        $this->setAttribute('rx', $rx);
+        $this->setAttribute('ry', $ry);
     }
 
 

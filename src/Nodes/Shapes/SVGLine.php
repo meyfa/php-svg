@@ -23,10 +23,10 @@ class SVGLine extends SVGNode
     {
         parent::__construct();
 
-        $this->setAttributeOptional('x1', $x1);
-        $this->setAttributeOptional('y1', $y1);
-        $this->setAttributeOptional('x2', $x2);
-        $this->setAttributeOptional('y2', $y2);
+        $this->setAttribute('x1', $x1);
+        $this->setAttribute('y1', $y1);
+        $this->setAttribute('x2', $x2);
+        $this->setAttribute('y2', $y2);
     }
 
 

@@ -24,11 +24,11 @@ class SVGImageElement extends SVGNode
     {
         parent::__construct();
 
-        $this->setAttributeOptional('xlink:href', $href);
-        $this->setAttributeOptional('x', $x);
-        $this->setAttributeOptional('y', $y);
-        $this->setAttributeOptional('width', $width);
-        $this->setAttributeOptional('height', $height);
+        $this->setAttribute('xlink:href', $href);
+        $this->setAttribute('x', $x);
+        $this->setAttribute('y', $y);
+        $this->setAttribute('width', $width);
+        $this->setAttribute('height', $height);
     }
 
 

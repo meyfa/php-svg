@@ -19,7 +19,7 @@ class SVGPath extends SVGNode
     {
         parent::__construct();
 
-        $this->setAttributeOptional('d', $d);
+        $this->setAttribute('d', $d);
     }
 
     /**

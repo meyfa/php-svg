@@ -24,7 +24,7 @@ class SVGStyle extends SVGNode
         parent::__construct();
 
         $this->css = $css;
-        $this->setAttributeOptional('type', $type);
+        $this->setAttribute('type', $type);
     }
 
     public static function constructFromAttributes($attr)
