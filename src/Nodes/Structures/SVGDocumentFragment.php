@@ -17,8 +17,8 @@ class SVGDocumentFragment extends SVGNodeContainer
     private static $initialStyles = array(
         'fill'          => '#000000',
         'stroke'        => 'none',
-        'stroke-width'  => 1,
-        'opacity'       => 1,
+        'stroke-width'  => '1',
+        'opacity'       => '1',
     );
 
     /** @var bool $root Whether this is the root document. */
@@ -143,7 +143,7 @@ class SVGDocumentFragment extends SVGNodeContainer
             $attrs['xmlns'] = 'http://www.w3.org/2000/svg';
             $attrs['xmlns:xlink'] = 'http://www.w3.org/1999/xlink';
             foreach ($this->namespaces as $namespace => $uri) {
-                if (substr($namespace, 0, 6) !== 'xmlns:') {
+                if ($namespace !== 'xmlns' && substr($namespace, 0, 6) !== 'xmlns:') {
                     $namespace = 'xmlns:'.$namespace;
                 }
                 $attrs[$namespace] = $uri;

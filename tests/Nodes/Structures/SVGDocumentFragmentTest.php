@@ -127,10 +127,13 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
             'xmlns:bar' => 'test-ns-bar',
         ), $obj->getSerializableAttributes());
 
-        // should not prefix and include additional 'xmlns' namespace
+        // should override 'xmlns' unprefixed when provided
         $obj = new SVGDocumentFragment(true, null, null, array(
-            'xmlns' => 'http://www.w3.org/2000/svg',
+            'xmlns' => 'xmlns-override',
         ));
-        $this->assertArrayNotHasKey('xmlns:xmlns', $obj->getSerializableAttributes());
+        $this->assertSame(array(
+            'xmlns' => 'xmlns-override',
+            'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
+        ), $obj->getSerializableAttributes());
     }
 }
