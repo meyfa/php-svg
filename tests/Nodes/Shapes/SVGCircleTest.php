@@ -11,11 +11,11 @@ use SVG\Nodes\Shapes\SVGCircle;
     {
         // should not set any attributes by default
         $obj = new SVGCircle();
-        $this->assertEquals(array(), $obj->getSerializableAttributes());
+        $this->assertSame(array(), $obj->getSerializableAttributes());
 
         // should set attributes when provided
         $obj = new SVGCircle(37, 42, 100);
-        $this->assertEquals(array(
+        $this->assertSame(array(
             'cx' => '37',
             'cy' => '42',
             'r' => '100',
@@ -86,8 +86,8 @@ use SVG\Nodes\Shapes\SVGCircle;
 
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
-            $this->equalTo('ellipse'),
-            $this->equalTo(array(
+            $this->identicalTo('ellipse'),
+            $this->identicalTo(array(
                 'cx' => '37',
                 'cy' => '42',
                 'rx' => '100',

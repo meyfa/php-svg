@@ -11,11 +11,11 @@ use SVG\Nodes\Shapes\SVGLine;
     {
         // should not set any attributes by default
         $obj = new SVGLine();
-        $this->assertEquals(array(), $obj->getSerializableAttributes());
+        $this->assertSame(array(), $obj->getSerializableAttributes());
 
         // should set attributes when provided
         $obj = new SVGLine(11, 12, 13, 14);
-        $this->assertEquals(array(
+        $this->assertSame(array(
             'x1' => '11',
             'y1' => '12',
             'x2' => '13',
@@ -105,8 +105,8 @@ use SVG\Nodes\Shapes\SVGLine;
 
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
-            $this->equalTo('line'),
-            $this->equalTo(array(
+            $this->identicalTo('line'),
+            $this->identicalTo(array(
                 'x1' => '11',
                 'y1' => '12',
                 'x2' => '13',

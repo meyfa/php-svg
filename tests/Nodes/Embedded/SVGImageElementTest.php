@@ -11,11 +11,11 @@ use SVG\Nodes\Embedded\SVGImageElement;
     {
         // should not set any attributes by default
         $obj = new SVGImageElement();
-        $this->assertEquals(array(), $obj->getSerializableAttributes());
+        $this->assertSame(array(), $obj->getSerializableAttributes());
 
         // should set attributes when provided
         $obj = new SVGImageElement('test-href', 10, 10, 100, 100);
-        $this->assertEquals(array(
+        $this->assertSame(array(
             'xlink:href' => 'test-href',
             'x' => '10',
             'y' => '10',
@@ -39,7 +39,7 @@ use SVG\Nodes\Embedded\SVGImageElement;
 
         // should return null when no href available
         $obj = new SVGImageElement();
-        $this->assertSame(null, $obj->getHref());
+        $this->assertNull($obj->getHref());
     }
 
     public function testSetHref()
@@ -133,8 +133,8 @@ use SVG\Nodes\Embedded\SVGImageElement;
 
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
-            $this->equalTo('image'),
-            $this->equalTo(array(
+            $this->identicalTo('image'),
+            $this->identicalTo(array(
                 'href' => 'test-href',
                 'x' => '10',
                 'y' => '10',

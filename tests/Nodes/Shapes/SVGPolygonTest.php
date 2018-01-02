@@ -11,7 +11,7 @@ use SVG\Nodes\Shapes\SVGPolygon;
     {
         // should set empty points by default
         $obj = new SVGPolygon();
-        $this->assertEquals(array(), $obj->getPoints());
+        $this->assertSame(array(), $obj->getPoints());
 
         // should set points when provided
         $points = array(
@@ -19,7 +19,7 @@ use SVG\Nodes\Shapes\SVGPolygon;
             array(37, 37),
         );
         $obj = new SVGPolygon($points);
-        $this->assertEquals($points, $obj->getPoints());
+        $this->assertSame($points, $obj->getPoints());
     }
 
     public function testRasterize()
@@ -37,8 +37,8 @@ use SVG\Nodes\Shapes\SVGPolygon;
 
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
-            $this->equalTo('polygon'),
-            $this->equalTo(array(
+            $this->identicalTo('polygon'),
+            $this->identicalTo(array(
                 'open' => false,
                 'points' => $points,
             )),

@@ -24,11 +24,11 @@ use SVG\Nodes\Shapes\SVGPath;
     {
         // should not set any attributes by default
         $obj = new SVGPath();
-        $this->assertEquals(array(), $obj->getSerializableAttributes());
+        $this->assertSame(array(), $obj->getSerializableAttributes());
 
         // should set attributes when provided
         $obj = new SVGPath(self::$sampleDescription);
-        $this->assertEquals(array(
+        $this->assertSame(array(
             'd' => self::$sampleDescription,
         ), $obj->getSerializableAttributes());
     }
@@ -72,28 +72,28 @@ use SVG\Nodes\Shapes\SVGPath;
 
         // should call path parser with description attribute
         $pathParser->expects($this->any())->method('parse')->with(
-            $this->equalTo(self::$sampleDescription)
+            $this->identicalTo(self::$sampleDescription)
         )->willReturn(self::$sampleParse);
 
         // should call path approximator with parser's return value
         $pathApproximator->expects($this->any())->method('approximate')->with(
-            $this->equalTo(self::$sampleParse)
+            $this->identicalTo(self::$sampleParse)
         )->willReturn(self::$sampleApproximate);
 
         // should call image renderer with correct options
         // (once for every subpath)
         $rast->expects($this->exactly(2))->method('render')->withConsecutive(
             array(
-                $this->equalTo('polygon'),
-                $this->equalTo(array(
+                $this->identicalTo('polygon'),
+                $this->identicalTo(array(
                     'open' => true,
                     'points' => self::$sampleApproximate[0],
                 )),
                 $this->identicalTo($obj)
             ),
             array(
-                $this->equalTo('polygon'),
-                $this->equalTo(array(
+                $this->identicalTo('polygon'),
+                $this->identicalTo(array(
                     'open' => true,
                     'points' => self::$sampleApproximate[1],
                 )),

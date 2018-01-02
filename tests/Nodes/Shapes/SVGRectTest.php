@@ -11,11 +11,11 @@ use SVG\Nodes\Shapes\SVGRect;
     {
         // should not set any attributes by default
         $obj = new SVGRect();
-        $this->assertEquals(array(), $obj->getSerializableAttributes());
+        $this->assertSame(array(), $obj->getSerializableAttributes());
 
         // should set attributes when provided
         $obj = new SVGRect(37, 42, 100, 200);
-        $this->assertEquals(array(
+        $this->assertSame(array(
             'x' => '37',
             'y' => '42',
             'width' => '100',
@@ -143,8 +143,8 @@ use SVG\Nodes\Shapes\SVGRect;
 
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
-            $this->equalTo('rect'),
-            $this->equalTo(array(
+            $this->identicalTo('rect'),
+            $this->identicalTo(array(
                 'x' => '37',
                 'y' => '42',
                 'width' => '100',

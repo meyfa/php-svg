@@ -58,7 +58,7 @@ class SVGNodeContainerTest extends PHPUnit_Framework_TestCase
         $this->assertSame(0, $obj->countChildren());
 
         // should set child's parent to null
-        $this->assertSame(null, $child->getParent());
+        $this->assertNull($child->getParent());
     }
 
     public function testRasterize()

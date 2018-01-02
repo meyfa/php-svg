@@ -40,7 +40,7 @@ class SVGNodeTest extends PHPUnit_Framework_TestCase
         $obj = new SVGNodeSubclass();
 
         // should return null for undefined properties
-        $this->assertSame(null, $obj->getStyle('fill'));
+        $this->assertNull($obj->getStyle('fill'));
     }
 
     public function testSetStyle()
@@ -53,11 +53,11 @@ class SVGNodeTest extends PHPUnit_Framework_TestCase
 
         // should unset properties when given null
         $obj->setStyle('fill', null);
-        $this->assertSame(null, $obj->getStyle('fill'));
+        $this->assertNull($obj->getStyle('fill'));
 
         // should unset properties when given ''
         $obj->setStyle('fill', '');
-        $this->assertSame(null, $obj->getStyle('fill'));
+        $this->assertNull($obj->getStyle('fill'));
 
         // should convert value to a string
         $obj->setStyle('width', 42);
@@ -75,7 +75,7 @@ class SVGNodeTest extends PHPUnit_Framework_TestCase
         // should remove the property
         $obj->setStyle('fill', '#FFFFFF');
         $obj->removeStyle('fill');
-        $this->assertSame(null, $obj->getStyle('fill'));
+        $this->assertNull($obj->getStyle('fill'));
     }
 
     public function testGetAttribute()
@@ -83,7 +83,7 @@ class SVGNodeTest extends PHPUnit_Framework_TestCase
         $obj = new SVGNodeSubclass();
 
         // should return null for undefined properties
-        $this->assertSame(null, $obj->getAttribute('x'));
+        $this->assertNull($obj->getAttribute('x'));
     }
 
     public function testSetAttribute()
@@ -96,7 +96,7 @@ class SVGNodeTest extends PHPUnit_Framework_TestCase
 
         // should unset properties when given null
         $obj->setAttribute('x', null);
-        $this->assertSame(null, $obj->getAttribute('x'));
+        $this->assertNull($obj->getAttribute('x'));
 
         // should not unset properties when given ''
         $obj->setAttribute('x', '');
@@ -118,7 +118,7 @@ class SVGNodeTest extends PHPUnit_Framework_TestCase
         // should remove the property
         $obj->setAttribute('x', '100%');
         $obj->removeAttribute('x');
-        $this->assertSame(null, $obj->getAttribute('x'));
+        $this->assertNull($obj->getAttribute('x'));
     }
 
     public function testGetSerializableAttributes()
@@ -129,7 +129,7 @@ class SVGNodeTest extends PHPUnit_Framework_TestCase
         $obj->setAttribute('x', 0);
         $obj->setAttribute('y', 0);
         $obj->setAttribute('width', '100%');
-        $this->assertEquals(array(
+        $this->assertSame(array(
             'x' => '0',
             'y' => '0',
             'width' => '100%',
@@ -143,7 +143,7 @@ class SVGNodeTest extends PHPUnit_Framework_TestCase
         // should return previously defined properties
         $obj->setStyle('fill', '#FFFFFF');
         $obj->setStyle('width', 42);
-        $this->assertEquals(array(
+        $this->assertSame(array(
             'fill' => '#FFFFFF',
             'width' => '42',
         ), $obj->getSerializableStyles());

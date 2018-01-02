@@ -32,20 +32,20 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
             array(37, 37),
         );
         $obj = new SVGPolygonalShapeSubclass($points);
-        $this->assertEquals($points, $obj->getPoints());
+        $this->assertSame($points, $obj->getPoints());
     }
 
     public function testConstructFromAttributes()
     {
         // should set empty points by default
         $obj = SVGPolygonalShapeSubclass::constructFromAttributes(array());
-        $this->assertEquals(0, $obj->countPoints());
+        $this->assertSame(0, $obj->countPoints());
 
         // should set points when provided
         $obj = SVGPolygonalShapeSubclass::constructFromAttributes(array(
             'points' => '1,1 2,2 3,3',
         ));
-        $this->assertEquals(3, $obj->countPoints());
+        $this->assertSame(3, $obj->countPoints());
     }
 
     public function testAddPoint()
@@ -54,13 +54,13 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
 
         // should support 2 floats
         $obj->addPoint(42.5, 42.5);
-        $this->assertEquals(array(
+        $this->assertSame(array(
             array(42.5, 42.5),
         ), $obj->getPoints());
 
         // should support an array
         $obj->addPoint(array(37, 37));
-        $this->assertEquals(array(
+        $this->assertSame(array(
             array(42.5, 42.5),
             array(37, 37),
         ), $obj->getPoints());
@@ -75,12 +75,12 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
 
         // should remove points by index
         $obj->removePoint(0);
-        $this->assertEquals(array(
+        $this->assertSame(array(
             array(37, 37),
         ), $obj->getPoints());
 
         $obj->removePoint(0);
-        $this->assertEquals(array(), $obj->getPoints());
+        $this->assertSame(array(), $obj->getPoints());
     }
 
     public function testSetPoint()
@@ -92,7 +92,7 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
 
         // should replace the point at the given index
         $obj->setPoint(1, array(100, 100));
-        $this->assertEquals(array(
+        $this->assertSame(array(
             array(42.5, 42.5),
             array(100, 100),
         ), $obj->getPoints());
@@ -115,6 +115,6 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
         $this->assertArrayHasKey('points', $attrs);
 
         // should stringify correctly
-        $this->assertEquals('42.5,43.5 37,38', $attrs['points']);
+        $this->assertSame('42.5,43.5 37,38', $attrs['points']);
     }
 }
