@@ -31,6 +31,11 @@ class SVGRasterizerTest extends PHPUnit_Framework_TestCase
         $obj = new SVGRasterizer('50%', '50%', null, 100, 200);
         $this->assertEquals(50, $obj->getDocumentWidth());
         imagedestroy($obj->getImage());
+
+        // should use '100%' by default
+        $obj = new SVGRasterizer(null, null, null, 100, 200);
+        $this->assertEquals(100, $obj->getDocumentWidth());
+        imagedestroy($obj->getImage());
     }
 
     public function testGetDocumentHeight()
@@ -38,6 +43,11 @@ class SVGRasterizerTest extends PHPUnit_Framework_TestCase
         // should return parsed unit relative to target size
         $obj = new SVGRasterizer('50%', '50%', null, 100, 200);
         $this->assertEquals(100, $obj->getDocumentHeight());
+        imagedestroy($obj->getImage());
+
+        // should use '100%' by default
+        $obj = new SVGRasterizer(null, null, null, 100, 200);
+        $this->assertEquals(200, $obj->getDocumentHeight());
         imagedestroy($obj->getImage());
     }
 
