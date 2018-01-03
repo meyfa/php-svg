@@ -89,8 +89,11 @@ class SVGPolygonBuilder
     /**
      * Appends a point with ABSOLUTE coordinates to the end of this polygon.
      *
-     * @param float $x The point's absolute x coordinate.
-     * @param float $y The point's absolute y coordinate.
+     * Provide null for a coordinate to use the current position for that
+     * coordinate.
+     *
+     * @param float|null $x The point's absolute x coordinate.
+     * @param float|null $y The point's absolute y coordinate.
      *
      * @return void
      */
@@ -109,21 +112,19 @@ class SVGPolygonBuilder
      * Appends a point with RELATIVE coordinates to the end of this polygon.
      *
      * The coordinates are resolved against the current position.
+     * Providing null for a coordinate is the same as providing a value of 0.
      *
      * @see SVGPolygonBuilder::getPosition() For more info on relative points.
      *
-     * @param float $x The point's relative x coordinate.
-     * @param float $y The point's relative y coordinate.
+     * @param float|null $x The point's relative x coordinate.
+     * @param float|null $y The point's relative y coordinate.
      *
      * @return void
      */
     public function addPointRelative($x, $y)
     {
-        $x = $x ?: 0;
-        $y = $y ?: 0;
-
-        $this->posX += $x;
-        $this->posY += $y;
+        $this->posX += $x ?: 0;
+        $this->posY += $y ?: 0;
 
         $this->points[] = array($this->posX, $this->posY);
     }
