@@ -44,18 +44,18 @@ class SVGRasterizer
     private $outImage;
 
     /**
-     * @param int $docWidth    The original SVG document width, in pixels.
-     * @param int $docHeight   The original SVG document height, in pixels.
-     * @param float[] $viewBox The document's viewBox.
-     * @param int $width       The output image width, in pixels.
-     * @param int $height      The output image height, in pixels.
+     * @param string $docWidth  The original SVG document width, as a string.
+     * @param string $docHeight The original SVG document height, as a string.
+     * @param float[] $viewBox  The document's viewBox.
+     * @param int $width        The output image width, in pixels.
+     * @param int $height       The output image height, in pixels.
      */
     public function __construct($docWidth, $docHeight, $viewBox, $width, $height)
     {
         $this->docWidth  = $docWidth;
         $this->docHeight = $docHeight;
 
-        $this->viewBox = $viewBox;
+        $this->viewBox = empty($viewBox) ? null : $viewBox;
 
         $this->width  = $width;
         $this->height = $height;
@@ -175,7 +175,7 @@ class SVGRasterizer
 
 
     /**
-     * @return int The original SVG document width, in pixels.
+     * @return float The original SVG document width, in pixels.
      */
     public function getDocumentWidth()
     {
@@ -183,7 +183,7 @@ class SVGRasterizer
     }
 
     /**
-     * @return int The original SVG document height, in pixels.
+     * @return float The original SVG document height, in pixels.
      */
     public function getDocumentHeight()
     {
