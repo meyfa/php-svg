@@ -65,8 +65,6 @@ class SVGRasterizer
         self::createDependencies();
     }
 
-
-
     /**
      * Sets up a new truecolor GD image resource with the given dimensions.
      *
@@ -87,34 +85,6 @@ class SVGRasterizer
         imagefill($img, 0, 0, 0x7F000000);
 
         return $img;
-    }
-
-    /**
-     * Applies a clip to the given image. In other words, ignores everything
-     * outside the given rectangle. Returns a new image.
-     *
-     * @param resource $img The image resource to clip.
-     * @param int      $x1  The rect's start x coordinate.
-     * @param int      $y1  The rect's start y coordinate.
-     * @param int      $x2  The rect's end x coordinate.
-     * @param int      $y2  The rect's end y coordinate.
-     *
-     * @return resource A new image that is clipped.
-     */
-    private static function clipImage($img, $x1, $y1, $x2, $y2)
-    {
-        $imgWidth  = imagesx($img);
-        $imgHeight = imagesy($img);
-
-        $x1 = min(max($x1, 0), $imgWidth);
-        $y1 = min(max($y1, 0), $imgHeight);
-        $x2 = min(max($x2, 0), $imgWidth);
-        $y2 = min(max($y2, 0), $imgHeight);
-
-        $newImg = self::createImage($imgWidth, $imgHeight);
-        imagecopy($newImg, $img, $x1, $y1, $x1, $y1, ($x2 - $x1), ($y2 - $y1));
-
-        return $newImg;
     }
 
 
@@ -296,12 +266,6 @@ class SVGRasterizer
      */
     public function finish()
     {
-        if (empty($this->viewBox)) {
-            return $this->outImage;
-        }
-
-        $this->outImage = self::clipImage($this->outImage, 0, 0, $this->width, $this->height);
-
         return $this->outImage;
     }
 
