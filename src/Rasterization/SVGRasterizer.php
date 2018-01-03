@@ -260,6 +260,14 @@ class SVGRasterizer
     }
 
     /**
+     * @return float[]|null The document's viewBox.
+     */
+    public function getViewBox()
+    {
+        return $this->viewBox;
+    }
+
+    /**
      * Applies final processing steps to the output image. It is then returned.
      *
      * @return resource The GD image resource this rasterizer is operating on.
@@ -275,17 +283,5 @@ class SVGRasterizer
     public function getImage()
     {
         return $this->outImage;
-    }
-
-    public function setViewBox($viewBox)
-    {
-        $this->viewBox = $viewBox;
-
-        return $this;
-    }
-
-    public function getViewBox()
-    {
-        return $this->viewBox;
     }
 }
