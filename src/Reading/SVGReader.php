@@ -71,10 +71,11 @@ class SVGReader
 
     /**
      * Parses the given string as XML and turns it into an instance of SVGImage.
+     * Returns null when parsing fails.
      *
      * @param string $string The XML string to parse.
      *
-     * @return SVGImage An image object representing the parse result.
+     * @return SVGImage|null An image object representing the parse result.
      */
     public function parseString($string)
     {
@@ -87,10 +88,11 @@ class SVGReader
      * instance of SVGImage.
      *
      * The path can be on the local file system, or a URL on the network.
+     * Returns null when parsing fails.
      *
      * @param string $filename The path or URL of the file to parse.
      *
-     * @return SVGImage An image object representing the parse result.
+     * @return SVGImage|null An image object representing the parse result.
      */
     public function parseFile($filename)
     {
@@ -100,58 +102,33 @@ class SVGReader
 
     /**
      * Parses the given XML document into an instance of SVGImage.
+     * Returns null when parsing fails.
      *
      * @param \SimpleXMLElement $xml The root node of the SVG document to parse.
      *
-     * @return SVGImage An image object representing the parse result.
+     * @return SVGImage|null An image object representing the parse result.
      */
     public function parseXML(\SimpleXMLElement $xml)
     {
         $name = $xml->getName();
         if ($name !== 'svg') {
-            return false;
+            return null;
         }
 
-        $namespaces = array_keys($xml->getNamespaces(true));
+        $width = isset($xml['width']) ? $xml['width'] : null;
+        $height = isset($xml['height']) ? $xml['height'] : null;
+        $namespaces = $xml->getNamespaces(true);
 
-        $dim = $this->getDimensions($xml);
-        $img = new SVGImage($dim[0], $dim[1]);
+        $img = new SVGImage($width, $height, $namespaces);
+
+        $nsKeys = array_keys($namespaces);
 
         $doc = $img->getDocument();
-
-        $this->applyAttributes($doc, $xml, $namespaces);
+        $this->applyAttributes($doc, $xml, $nsKeys);
         $this->applyStyles($doc, $xml);
-
-        $this->addChildren($doc, $xml, $namespaces);
+        $this->addChildren($doc, $xml, $nsKeys);
 
         return $img;
-    }
-
-    /**
-     * Finds out the image dimensions from the given root node.
-     *
-     * The given node MUST be the root!
-     * Behavior when passing any other is unspecified.
-     *
-     * @param \SimpleXMLElement $svgXml The root node of an SVG document.
-     *
-     * @return float[] The image dimensions. d[0] = width, d[1] = height.
-     */
-    private function getDimensions(\SimpleXMLElement $svgXml)
-    {
-        $width = floatval($svgXml['width']);
-        $height = floatval($svgXml['height']);
-        // If width and height are not defined, get dimensions from viewBox
-        if (empty($width) && empty($height)) {
-            $viewBox = SVGAttrParser::parseViewBox($svgXml['viewBox']);
-            $width = $viewBox[2];
-            $height = $viewBox[3];
-        }
-
-        return array(
-            $width,
-            $height,
-        );
     }
 
     /**
