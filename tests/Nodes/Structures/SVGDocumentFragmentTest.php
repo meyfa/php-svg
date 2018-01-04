@@ -135,5 +135,14 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
             'xmlns' => 'xmlns-override',
             'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
         ), $obj->getSerializableAttributes());
+
+        // should treat empty namespace string like 'xmlns'
+        $obj = new SVGDocumentFragment(true, null, null, array(
+            '' => 'xmlns-override',
+        ));
+        $this->assertSame(array(
+            'xmlns' => 'xmlns-override',
+            'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
+        ), $obj->getSerializableAttributes());
     }
 }

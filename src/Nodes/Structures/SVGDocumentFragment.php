@@ -143,6 +143,9 @@ class SVGDocumentFragment extends SVGNodeContainer
             $attrs['xmlns'] = 'http://www.w3.org/2000/svg';
             $attrs['xmlns:xlink'] = 'http://www.w3.org/1999/xlink';
             foreach ($this->namespaces as $namespace => $uri) {
+                if ($namespace === '' && !empty($uri)) {
+                    $namespace = 'xmlns';
+                }
                 if ($namespace !== 'xmlns' && substr($namespace, 0, 6) !== 'xmlns:') {
                     $namespace = 'xmlns:'.$namespace;
                 }
