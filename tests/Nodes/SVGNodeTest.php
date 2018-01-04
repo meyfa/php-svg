@@ -148,4 +148,20 @@ class SVGNodeTest extends PHPUnit_Framework_TestCase
             'width' => '42',
         ), $obj->getSerializableStyles());
     }
+
+    public function testGetViewBox()
+    {
+        $obj = new SVGNodeSubclass();
+
+        // should return null for missing viewBox
+        $this->assertNull($obj->getViewBox());
+
+        // should return null for ill-formed viewBox
+        $obj->setAttribute('viewBox', 'foobar');
+        $this->assertNull($obj->getViewBox());
+
+        // should return float array for well-formed viewBox
+        $obj->setAttribute('viewBox', '37, 42.25, 100 200');
+        $this->assertSame(array(37.0, 42.25, 100.0, 200.0), $obj->getViewBox());
+    }
 }

@@ -3,7 +3,6 @@
 namespace SVG\Nodes;
 
 use SVG\Rasterization\SVGRasterizer;
-use SVG\Reading\SVGAttrParser;
 
 /**
  * Represents a single element inside an SVG image (in other words, an XML tag).
@@ -236,13 +235,24 @@ abstract class SVGNode
     }
 
     /**
-     * Returns the viewBox array (x, y, width, height) for the current node.
+     * Returns the viewBox array (x, y, width, height) for the current node,
+     * if one exists.
      *
      * @return float[]|null The viewbox array.
      */
     public function getViewBox()
     {
-        return SVGAttrParser::parseViewBox($this->getAttribute('viewBox'));
+        $attr = $this->getAttribute('viewBox');
+        if (empty($attr)) {
+            return null;
+        }
+
+        $result = preg_split('/[\s,]+/', $attr);
+        if (count($result) !== 4) {
+            return null;
+        }
+
+        return array_map('floatval', $result);
     }
 
     /**
