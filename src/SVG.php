@@ -7,21 +7,6 @@ namespace SVG;
  */
 final class SVG
 {
-    /** @var string COLOR_HEX_6 A RegEx for #FFFFFF etc */
-    const COLOR_HEX_6 = '/^#([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})$/i';
-    /** @var string COLOR_HEX_3 A RegEx for #FFF etc */
-    const COLOR_HEX_3 = '/^#([0-9A-F])([0-9A-F])([0-9A-F])$/i';
-
-    /** @var string COLOR_RGB A RegEx for rgb(255, 255, 255) etc (with percentage support) */
-    const COLOR_RGB = '/^rgb\(([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*%?)\)$/';
-    /** @var string COLOR_RGBA A RegEx for rgba(255, 255, 255, 0.5) etc (with percentage support) */
-    const COLOR_RGBA = '/^rgba\(([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*%?)\s*,\s*([+-]?\d*\.?\d*)\)$/';
-
-    /** @var string COLOR_HSL A RegEx for hsl(240, 100%, 100%) etc */
-    const COLOR_HSL = '/^hsl\(([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*%)\s*,\s*([+-]?\d*\.?\d*%)\)$/';
-    /** @var string COLOR_HSLA A RegEx for hsla(240, 100%, 100%, 0.5) etc */
-    const COLOR_HSLA = '/^hsla\(([+-]?\d*\.?\d*)\s*,\s*([+-]?\d*\.?\d*%)\s*,\s*([+-]?\d*\.?\d*%)\s*,\s*([+-]?\d*\.?\d*)\)$/';
-
     /**
      * Converts any valid SVG length string into an absolute pixel length,
      * using the given canvas width as reference for percentages.
@@ -57,6 +42,35 @@ final class SVG
     }
 
     /**
+     * Converts an angle (specified with deg, rad, grad, turn, or no unit) into
+     * the corresponding number of degrees. Numbers without a unit default to
+     * degrees. The result is NOT clamped.
+     *
+     * @param string $unit The SVG angle string to convert.
+     *
+     * @return float The angle in degrees the given string denotes.
+     */
+    public static function convertAngleUnit($unit)
+    {
+        $regex = '/^([+-]?\d*\.?\d*)(deg|rad|grad|turn)?$/';
+        if (!preg_match($regex, $unit, $matches) || $matches[1] === '') {
+            return null;
+        }
+
+        $factors = array(
+            'deg'  => (1),          // base unit
+            'rad'  => (180 / M_PI), // 1rad = (180/pi)deg
+            'grad' => (9 / 10),     // 10grad = 9deg
+            'turn' => (360),        // 1turn = 360deg
+        );
+
+        $value = floatval($matches[1]);
+        $unit  = empty($matches[2]) ? 'deg' : $matches[2];
+
+        return $value * $factors[$unit];
+    }
+
+    /**
      * Converts any valid SVG color string into an array of RGBA components.
      *
      * All of the components are ints 0-255.
@@ -72,69 +86,151 @@ final class SVG
             return self::$namedColors[$colorLower];
         }
 
-        $matches = array();
-
-        $r = 0;
-        $g = 0;
-        $b = 0;
-        $a = 255;
-
-        if (preg_match(self::COLOR_HEX_6, $color, $matches)) {
-            $r = hexdec($matches[1]);
-            $g = hexdec($matches[2]);
-            $b = hexdec($matches[3]);
-        } elseif (preg_match(self::COLOR_HEX_3, $color, $matches)) {
-            $r = hexdec($matches[1].$matches[1]);
-            $g = hexdec($matches[2].$matches[2]);
-            $b = hexdec($matches[3].$matches[3]);
-        } elseif (preg_match(self::COLOR_RGB, $color, $matches)) {
-            $r = self::parseRGBComponent($matches[1]);
-            $g = self::parseRGBComponent($matches[2]);
-            $b = self::parseRGBComponent($matches[3]);
-        } elseif (preg_match(self::COLOR_RGBA, $color, $matches)) {
-            $r = self::parseRGBComponent($matches[1]);
-            $g = self::parseRGBComponent($matches[2]);
-            $b = self::parseRGBComponent($matches[3]);
-            $a = intval(floatval($matches[4]) * 255);
-        } elseif (preg_match(self::COLOR_HSL, $color, $matches)) {
-            $h = floatval($matches[1]);
-            $s = floatval($matches[2]) / 100;
-            $l = floatval($matches[3]) / 100;
-
-            list($r, $g, $b) = self::convertHSLtoRGB($h, $s, $l);
-        } elseif (preg_match(self::COLOR_HSLA, $color, $matches)) {
-            $h = floatval($matches[1]);
-            $s = floatval($matches[2]) / 100;
-            $l = floatval($matches[3]) / 100;
-            $a = intval(floatval($matches[4]) * 255);
-
-            list($r, $g, $b) = self::convertHSLtoRGB($h, $s, $l);
+        // pass on to dedicated functions depending on notation
+        if (preg_match('/^#([0-9A-F]+)$/i', $color, $matches)) {
+            list($r, $g, $b, $a) = self::parseHexComponents($matches[1]);
+        } elseif (preg_match('/^rgba?\((.*)\)$/', $color, $matches)) {
+            list($r, $g, $b, $a) = self::parseRGBAComponents($matches[1]);
+        } elseif (preg_match('/^hsla?\((.*)\)$/', $color, $matches)) {
+            list($r, $g, $b, $a) = self::parseHSLAComponents($matches[1]);
         }
 
-        $r = min(max($r, 0), 255);
-        $g = min(max($g, 0), 255);
-        $b = min(max($b, 0), 255);
-        $a = min(max($a, 0), 255);
+        // any illegal component invalidates all components
+        if (!isset($r) || !isset($g) || !isset($b) || !isset($a)) {
+            return array(0, 0, 0, 0);
+        }
+
+        // clamp into integer range 0 - 255
+        $r = min(max(intval($r), 0), 255);
+        $g = min(max(intval($g), 0), 255);
+        $b = min(max(intval($b), 0), 255);
+        $a = min(max(intval($a), 0), 255);
 
         return array($r, $g, $b, $a);
     }
 
     /**
-     * Converts the provided component string (either percentage or number)
-     * into a color component int (0 - 255).
+     * Takes a hex string of length 3, 4, 6 or 8 and converts it into an array
+     * of floating-point RGBA components.
      *
-     * @param string $component The component string.
+     * For strings of invalid length, all components will be null.
      *
-     * @return int The parsed component int (0 - 255).
+     * @param string $str The hexadecimal color string to convert.
+     *
+     * @return float[] The RGBA components (0 - 255).
      */
-    private static function parseRGBComponent($component)
+    private static function parseHexComponents($str)
     {
-        $matches = array();
-        if (preg_match('/^([+-]?\d*\.?\d*)%$/', $component, $matches)) {
-            return intval(floatval($matches[1]) * (255 / 100));
+        $len = strlen($str);
+
+        $r = $g = $b = $a = null;
+
+        if ($len === 6 || $len === 8) {
+            $r = hexdec($str[0].$str[1]);
+            $g = hexdec($str[2].$str[3]);
+            $b = hexdec($str[4].$str[5]);
+            $a = $len === 8 ? hexdec($str[6].$str[7]) : 255;
+        } elseif ($len === 3 || $len == 4) {
+            $r = hexdec($str[0].$str[0]);
+            $g = hexdec($str[1].$str[1]);
+            $b = hexdec($str[2].$str[2]);
+            $a = $len === 4 ? hexdec($str[3].$str[3]) : 255;
         }
 
-        return intval($component);
+        return array($r, $g, $b, $a);
+    }
+
+    /**
+     * Takes a parameter string from the rgba functional notation
+     * (i.e., the 'x' inside 'rgb(x)') and converts it into an array of
+     * floating-point RGBA components.
+     *
+     * If any of the components could not be deduced, that component will be
+     * null. No other component will be influenced.
+     *
+     * @param string $str The parameter string to convert.
+     *
+     * @return float[] The RGBA components.
+     */
+    private static function parseRGBAComponents($str)
+    {
+        $params = preg_split('/(\s*[\/,]\s*)|(\s+)/', trim($str));
+        if (count($params) !== 3 && count($params) !== 4) {
+            return array(null, null, null, null);
+        }
+
+        $r = self::parseRGBAComponent($params[0]);
+        $g = self::parseRGBAComponent($params[1]);
+        $b = self::parseRGBAComponent($params[2]);
+        $a = count($params) < 4 ? 255 : self::parseRGBAComponent($params[3], 1, 255);
+
+        return array($r, $g, $b, $a);
+    }
+
+    /**
+     * Converts a single numeric color component (e.g. '10.5' or '20%') into a
+     * floating-point value.
+     *
+     * The optional base argument represents 100%. It should be set to 255 for
+     * the RGB components and to 1 for the A component.
+     *
+     * The optional scalar argument is the multiplier applied to the result. It
+     * should be set to 1 for the RGB components (since they are already in the
+     * correct final range) and to 255 for the A component (since it would
+     * otherwise be between 0 and 1).
+     *
+     * @param string $str    The component string.
+     * @param int    $base   The base value for percentages.
+     * @param int    $scalar A multiplier for the final value.
+     *
+     * @return float The floating-point converted component.
+     */
+    private static function parseRGBAComponent($str, $base = 255, $scalar = 1)
+    {
+        $regex = '/^([+-]?(?:\d+|\d*\.\d+))(%)?$/';
+        if (!preg_match($regex, $str, $matches)) {
+            return null;
+        }
+        if (isset($matches[2]) && $matches[2] === '%') {
+            return floatval($matches[1]) * $base / 100 * $scalar;
+        }
+        return floatval($matches[1]) * $scalar;
+    }
+
+    /**
+     * Takes a parameter string from the hsla functional notation
+     * (i.e., the 'x' inside 'hsl(x)') and converts it into an array of
+     * floating-point RGBA components.
+     *
+     * If any of the components could not be deduced, that component will be
+     * null. No other component will be influenced.
+     *
+     * @param string $str The parameter string to convert.
+     *
+     * @return float[] The RGBA components.
+     */
+    private static function parseHSLAComponents($str)
+    {
+        // split on delimiters
+        $params = preg_split('/(\s*[\/,]\s*)|(\s+)/', trim($str));
+        if (count($params) !== 3 && count($params) !== 4) {
+            return null;
+        }
+
+        // parse HSL
+        $h = self::convertAngleUnit($params[0]);
+        $s = self::parseRGBAComponent($params[1], 1);
+        $l = self::parseRGBAComponent($params[2], 1);
+
+        // convert HSL to RGB
+        $r = $g = $b = null;
+        if (isset($h) && isset($s) && isset($l)) {
+            list($r, $g, $b) = self::convertHSLtoRGB($h, $s, $l);
+        }
+        // add alpha
+        $a = count($params) < 4 ? 255 : self::parseRGBAComponent($params[3], 1, 255);
+
+        return array($r, $g, $b, $a);
     }
 
     /**
@@ -145,20 +241,16 @@ final class SVG
      * @param float $s The saturation.
      * @param float $l The lightness.
      *
-     * @return int[] An RGB array with values ranging from 0 - 255 each.
+     * @return float[] An RGB array with values ranging from 0 - 255 each.
      */
     private static function convertHSLtoRGB($h, $s, $l)
     {
-        $h = fmod($h, 360);
-        if ($h < 0) {
-            $h += 360;
-        }
         $s = min(max($s, 0), 1);
         $l = min(max($l, 0), 1);
 
         if ($s == 0) {
             // shortcut if grayscale
-            return array(intval($l * 255), intval($l * 255), intval($l * 255));
+            return array($l * 255, $l * 255, $l * 255);
         }
 
         // compute intermediates
@@ -179,16 +271,17 @@ final class SVG
      *
      * @param float $m1  Intermediate 1.
      * @param float $m2  Intermediate 2.
-     * @param float $hue The hue, adapted to the component (0 - 360).
+     * @param float $hue The hue, adapted to the component.
      *
-     * @return int The component's value (0 - 255).
+     * @return float The component's value (0 - 255).
      */
     private static function convertHSLHueToRGBComponent($m1, $m2, $hue)
     {
+        // bring hue into range (fmod assures that 0 <= abs($hue) < 360, while
+        // the next step assures that it's positive)
+        $hue = fmod($hue, 360);
         if ($hue < 0) {
             $hue += 360;
-        } elseif ($hue > 360) {
-            $hue -= 360;
         }
 
         $v = $m1;
@@ -201,7 +294,7 @@ final class SVG
             $v = $m1 + ($m2 - $m1) * (240 - $hue) / 60;
         }
 
-        return intval($v * 255);
+        return $v * 255;
     }
 
     /**
