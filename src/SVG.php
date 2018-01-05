@@ -24,47 +24,36 @@ final class SVG
 
     /**
      * Converts any valid SVG length string into an absolute pixel length,
-     * using the given canvas width.
+     * using the given canvas width as reference for percentages.
+     *
+     * If the string does not denote a valid length unit, null is returned.
      *
      * @param string $unit       The SVG length string to convert.
-     * @param int    $viewLength The canvas width to use as reference length.
+     * @param float  $viewLength The canvas width to use as reference length.
      *
-     * @return float The absolute length in pixels the given string denotes.
+     * @return float|null The absolute pixel number the given string denotes.
      */
     public static function convertUnit($unit, $viewLength)
     {
-        $matches = array();
-        $match   = preg_match('/^([+-]?\d*\.?\d*)(px|pt|pc|cm|mm|in|%)?$/', $unit, $matches);
-
-        if (!$match || $matches[1] === '') {
-            return false;
+        $regex = '/^([+-]?\d*\.?\d*)(px|pt|pc|cm|mm|in|%)?$/';
+        if (!preg_match($regex, $unit, $matches) || $matches[1] === '') {
+            return null;
         }
 
-        $num  = floatval($matches[1]);
-        $unit = isset($matches[2]) ? $matches[2] : null;
+        $factors = array(
+            'px' => (1),                    // base unit
+            'pt' => (16 / 12),              // 12pt = 16px
+            'pc' => (16),                   // 1pc = 16px
+            'in' => (96),                   // 1in = 96px
+            'cm' => (96 / 2.54),            // 1in = 96px, 1in = 2.54cm
+            'mm' => (96 / 25.4),            // 1in = 96px, 1in = 25.4mm
+            '%'  => ($viewLength / 100),    // 1% = 1/100 of viewLength
+        );
 
-        switch ($unit) {
-            case 'pt':
-                // 12pt == 16px, so ratio = 12/16 = 0.75
-                return $num / 0.75;
-            case 'pc':
-                // 1pc == 12pt == 16px
-                return $num * 16;
-            case 'cm':
-                // 2.54cm == 1in == 96px, so ratio = 2.54/96
-                return $num / (2.54 / 96);
-            case 'mm':
-                // 25.4mm == 1in == 96px, so ratio = 25.4/96
-                return $num / (25.4 / 96);
-            case 'in':
-                // 1in == 96px
-                return $num * 96;
-            case '%':
-                return ($num / 100) * $viewLength;
-            case 'px':
-            default:
-                return $num;
-        }
+        $value = floatval($matches[1]);
+        $unit  = empty($matches[2]) ? 'px' : $matches[2];
+
+        return $value * $factors[$unit];
     }
 
     /**
