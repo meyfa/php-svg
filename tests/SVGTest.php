@@ -25,7 +25,7 @@ class SVGTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(16, SVG::convertUnit(16, 100));
 
         // illegal: missing number
-        $this->assertFalse(SVG::convertUnit('px', 100));
-        $this->assertFalse(SVG::convertUnit('', 100));
+        $this->assertNull(SVG::convertUnit('px', 100));
+        $this->assertNull(SVG::convertUnit('', 100));
     }
 }
