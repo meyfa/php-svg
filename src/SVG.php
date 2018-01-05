@@ -36,7 +36,7 @@ final class SVG
         $matches = array();
         $match   = preg_match('/^([+-]?\d*\.?\d*)(px|pt|pc|cm|mm|in|%)?$/', $unit, $matches);
 
-        if (!$match) {
+        if (!$match || $matches[1] === '') {
             return false;
         }
 
