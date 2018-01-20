@@ -11,7 +11,7 @@ class SVGReaderTest extends PHPUnit_Framework_TestCase
     // OF TESTING ONE CLASS METHOD PER TEST METHOD
     // BECAUSE THE CLASS UNDER TEST IS A SINGLE-FEATURE CLASS
 
-    private $xml, $xmlNoViewBox, $xmlNoWH, $xmlUnknown;
+    private $xml, $xmlNoViewBox, $xmlNoWH, $xmlUnknown, $xmlEntities;
 
     public function setUp()
     {
@@ -45,6 +45,12 @@ class SVGReaderTest extends PHPUnit_Framework_TestCase
         $this->xmlUnknown .= '<unknown foo="bar"><baz /></unknown>';
         $this->xmlUnknown .= '<ellipse cx="50" cy="60" rx="10" ry="20" />';
         $this->xmlUnknown .= '</svg>';
+
+        $this->xmlEntities  = '<?xml version="1.0" encoding="utf-8"?>';
+        $this->xmlEntities .= '<svg xmlns="http://www.w3.org/2000/svg">';
+        $this->xmlEntities .= '<style id="&quot; foo&amp;bar&gt;" '.
+            'style="display: &amp;none">&quot; foo&amp;bar&gt;</style>';
+        $this->xmlEntities .= '</svg>';
     }
 
     public function testShouldReturnAnImageOrNull()
@@ -145,5 +151,18 @@ class SVGReaderTest extends PHPUnit_Framework_TestCase
         $this->assertSame(2, $doc->countChildren());
         $this->assertSame('circle', $doc->getChild(0)->getName());
         $this->assertSame('ellipse', $doc->getChild(1)->getName());
+    }
+
+    public function testShouldDecodeEntities()
+    {
+        $result = (new SVGReader())->parseString($this->xmlEntities);
+        $doc = $result->getDocument();
+
+        // should decode entities in attributes
+        $this->assertSame('" foo&bar>', $doc->getChild(0)->getAttribute('id'));
+        $this->assertSame('&none', $doc->getChild(0)->getStyle('display'));
+
+        // should decode entities in style body
+        $this->assertSame('" foo&bar>', $doc->getChild(0)->getCss());
     }
 }

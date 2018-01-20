@@ -121,6 +121,9 @@ class SVGWriter
      */
     private function appendAttribute($attrName, $attrValue)
     {
+        $attrName = htmlspecialchars($attrName, ENT_XML1 | ENT_COMPAT);
+        $attrValue = htmlspecialchars($attrValue, ENT_XML1 | ENT_COMPAT);
+
         $this->outString .= ' '.$attrName.'="'.$attrValue.'"';
     }
 
@@ -133,6 +136,8 @@ class SVGWriter
      */
     private function writeCdata($cdata)
     {
+        $cdata = htmlspecialchars($cdata, ENT_XML1 | ENT_COMPAT);
+
         $this->outString .= '<![CDATA[' . $cdata . ']]>';
     }
 }

@@ -83,4 +83,25 @@ class SVGWriterTest extends PHPUnit_Framework_TestCase
             '<![CDATA[g {display: none;}]]></style>';
         $this->assertEquals($expect, $obj->getString());
     }
+
+    public function testShouldEncodeEntities()
+    {
+        // should encode entities in attributes
+        $obj = new SVGWriter();
+        $obj->writeNode(
+            (new \SVG\Nodes\Structures\SVGGroup())
+                ->setAttribute('id', '" foo&bar>')
+                ->setStyle('content', '" foo&bar>')
+        );
+        $expect = $this->xmlDeclaration.'<g id="&quot; foo&amp;bar&gt;" '.
+            'style="content: &quot; foo&amp;bar&gt;"></g>';
+        $this->assertEquals($expect, $obj->getString());
+
+        // should encode entities in style body
+        $obj = new SVGWriter();
+        $obj->writeNode(new \SVG\Nodes\Structures\SVGStyle('" foo&bar>'));
+        $expect = $this->xmlDeclaration.'<style type="text/css">'.
+            '<![CDATA[&quot; foo&amp;bar&gt;]]></style>';
+        $this->assertEquals($expect, $obj->getString());
+    }
 }
