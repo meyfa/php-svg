@@ -85,15 +85,15 @@ class SVGNodeContainerTest extends PHPUnit_Framework_TestCase
     {
         $obj = new SVGNodeContainerSubclass();
         $obj->addChild(
-            ($root_0 = new \SVG\Nodes\Structures\SVGGroup())->addChild(
+            $root_0 = (new \SVG\Nodes\Structures\SVGGroup())->addChild(
                 $root_0_0 = new \SVG\Nodes\Shapes\SVGLine()
             )->addChild(
                 $root_0_1 = new \SVG\Nodes\Shapes\SVGRect()
             )
         );
         $obj->addChild(
-            ($root_1 = new \SVG\Nodes\Structures\SVGGroup())->addChild(
-                ($root_1_0 = new \SVG\Nodes\Structures\SVGGroup())->addChild(
+            $root_1 = (new \SVG\Nodes\Structures\SVGGroup())->addChild(
+                $root_1_0 = (new \SVG\Nodes\Structures\SVGGroup())->addChild(
                     $root_1_0_0 = new \SVG\Nodes\Shapes\SVGRect()
                 )
             )->addChild(
