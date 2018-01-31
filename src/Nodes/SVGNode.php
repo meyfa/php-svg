@@ -282,4 +282,30 @@ abstract class SVGNode
     {
         return $result;
     }
+
+    /**
+     * Returns all descendants of this node (excluding this node) having the
+     * given class name (or names).
+     *
+     * Example 1: getElementsByClassName('foo')
+     * would return all nodes whose class attribute contains the item 'foo'
+     * (e.g. class="foo", class="a b foo bar", etc)
+     *
+     * Example 2: getElementsByClassName('foo bar')
+     * or alternatively: getElementsByClassName(array('foo', 'bar'))
+     * would return all nodes whose class attribute contains both items
+     * 'foo' and 'bar'
+     * (e.g. class="a b foo qux bar", but not class="foo")
+     *
+     * @param string|string[] $className The class name or names to search for.
+     * @param SVGNode[] $result The array to fill. Can be omitted.
+     *
+     * @return SVGNode[] An array of matching elements.
+     *
+     * @SuppressWarnings("unused")
+     */
+    public function getElementsByClassName($className, array &$result = array())
+    {
+        return $result;
+    }
 }

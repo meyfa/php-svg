@@ -208,4 +208,32 @@ abstract class SVGNodeContainer extends SVGNode
 
         return $result;
     }
+
+    public function getElementsByClassName($className, array &$result = array())
+    {
+        if (!is_array($className)) {
+            $className = preg_split('/\s+/', trim($className));
+        }
+        // shortcut if empty
+        if (empty($className) || $className[0] === '') {
+            return $result;
+        }
+
+        foreach ($this->children as $child) {
+            $class = ' '.$child->getAttribute('class').' ';
+            $allMatch = true;
+            foreach ($className as $cn) {
+                if (strpos($class, ' '.$cn.' ') === false) {
+                    $allMatch = false;
+                    break;
+                }
+            }
+            if ($allMatch) {
+                $result[] = $child;
+            }
+            $child->getElementsByClassName($className, $result);
+        }
+
+        return $result;
+    }
 }

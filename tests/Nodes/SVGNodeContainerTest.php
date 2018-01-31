@@ -116,4 +116,57 @@ class SVGNodeContainerTest extends PHPUnit_Framework_TestCase
             $root_1, $root_1_0, $root_1_0_0, $root_1_1,
         ), $obj->getElementsByTagName('*'));
     }
+
+    public function testGetElementsByClassName()
+    {
+        $obj = (new SVGNodeContainerSubclass());
+        $obj->addChild(
+            $root_0 = (new \SVG\Nodes\Structures\SVGGroup())->addChild(
+                $root_0_0 = new \SVG\Nodes\Shapes\SVGRect()
+            )->addChild(
+                $root_0_1 = new \SVG\Nodes\Shapes\SVGRect()
+            )
+        );
+        $obj->addChild(
+            $root_1 = (new \SVG\Nodes\Structures\SVGGroup())->addChild(
+                $root_1_0 = (new \SVG\Nodes\Structures\SVGGroup())->addChild(
+                    $root_1_0_0 = new \SVG\Nodes\Shapes\SVGRect()
+                )
+            )->addChild(
+                $root_1_1 = new \SVG\Nodes\Shapes\SVGRect()
+            )
+        );
+
+        $obj->setAttribute('class', 'foo bar baz');
+        $root_0->setAttribute('class', 'a');
+        // $root_0_0 left out on purpose
+        $root_0_1->setAttribute('class', 'foo');
+        $root_1->setAttribute('class', ' a  b    foo ');
+        $root_1_0->setAttribute('class', 'foobar');
+        $root_1_0_0->setAttribute('class', 'foo bar');
+        $root_1_1->setAttribute('class', 'bar foo baz');
+
+        // should not return itself
+        $this->assertNotContains(array(),
+            $obj->getElementsByClassName('foo'));
+        $this->assertNotContains(array(),
+            $obj->getElementsByClassName('foo bar baz'));
+        $this->assertNotContains(array(),
+            $obj->getElementsByClassName(array('foo')));
+
+        // should find by single class name
+        $this->assertSame(array(
+            $root_0_1, $root_1, $root_1_0_0, $root_1_1,
+        ), $obj->getElementsByClassName('foo'));
+
+        // should find by multiple class names
+        $this->assertSame(array(
+            $root_1_0_0, $root_1_1,
+        ), $obj->getElementsByClassName('foo  bar '));
+
+        // should work with arrays
+        $this->assertSame(array(
+            $root_1_0_0, $root_1_1,
+        ), $obj->getElementsByClassName(array('foo', 'bar')));
+    }
 }
