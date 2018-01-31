@@ -184,4 +184,34 @@ class SVGDocumentFragment extends SVGNodeContainer
 
         return $viewBox;
     }
+
+    /**
+     * Returns the node with the given id, or null if no such node exists in the
+     * document.
+     *
+     * @param string $id The id to search for.
+     *
+     * @return SVGNode|null The node with the given id if it exists.
+     */
+    public function getElementById($id)
+    {
+        // start with document
+        $stack = array($this);
+
+        while (!empty($stack)) {
+            $elem = array_pop($stack);
+            // check current node
+            if ($elem->getAttribute('id') === $id) {
+                return $elem;
+            }
+            // add children to stack (tree order traversal)
+            if ($elem instanceof SVGNodeContainer) {
+                for ($i = $elem->countChildren() - 1; $i >= 0; --$i) {
+                    array_push($stack, $elem->getChild($i));
+                }
+            }
+        }
+
+        return null;
+    }
 }

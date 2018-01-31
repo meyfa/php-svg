@@ -145,4 +145,45 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
             'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
         ), $obj->getSerializableAttributes());
     }
+
+    public function testGetElementById()
+    {
+        // should return null if not found
+        $obj = new SVGDocumentFragment();
+        $this->assertNull($obj->getElementById('foobar'));
+
+        // should return document fragment if id matches
+        $obj = new SVGDocumentFragment();
+        $obj->setAttribute('id', 'foobar');
+        $this->assertSame($obj, $obj->getElementById('foobar'));
+
+        // should return first matching descendant (tree order)
+        $obj = new SVGDocumentFragment();
+        $obj->addChild(
+            // <container>
+            $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+                // <node />
+                $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+            )->addChild(
+                // <container>
+                $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+                    // <node id="foobar" />
+                    $expected = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+                        ->setAttribute('id', 'foobar')
+                )
+                // </container>
+            )
+            // </container>
+        );
+        $obj->addChild(
+            // <container>
+            $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+                // <node id="foobar" />
+                $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+                    ->setAttribute('id', 'foobar')
+            )
+            // </container>
+        );
+        $this->assertSame($expected, $obj->getElementById('foobar'));
+    }
 }
