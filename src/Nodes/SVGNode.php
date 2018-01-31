@@ -263,4 +263,23 @@ abstract class SVGNode
      * @return void
      */
     abstract public function rasterize(SVGRasterizer $rasterizer);
+
+    /**
+     * Returns all descendants of this node (excluding this node) having the
+     * given tag name. '*' matches all nodes.
+     *
+     * Example: getElementsByTagName('rect')
+     * would return all <rect /> nodes that are descendants of this node.
+     *
+     * @param string $tagName The tag name to search for ('*' to match all).
+     * @param SVGNode[] $result The array to fill. Can be omitted.
+     *
+     * @return SVGNode[] An array of matching elements.
+     *
+     * @SuppressWarnings("unused")
+     */
+    public function getElementsByTagName($tagName, array &$result = array())
+    {
+        return $result;
+    }
 }

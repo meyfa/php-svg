@@ -196,4 +196,16 @@ abstract class SVGNodeContainer extends SVGNode
     {
         return preg_grep($pattern, array_keys($this->containerStyles));
     }
+
+    public function getElementsByTagName($tagName, array &$result = array())
+    {
+        foreach ($this->children as $child) {
+            if ($tagName === '*' || $child->getName() === $tagName) {
+                $result[] = $child;
+            }
+            $child->getElementsByTagName($tagName, $result);
+        }
+
+        return $result;
+    }
 }

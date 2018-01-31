@@ -80,4 +80,40 @@ class SVGNodeContainerTest extends PHPUnit_Framework_TestCase
         $obj->setStyle('display', 'none');
         $obj->rasterize($rast);
     }
+
+    public function testGetElementsByTagName()
+    {
+        $obj = new SVGNodeContainerSubclass();
+        $obj->addChild(
+            ($root_0 = new \SVG\Nodes\Structures\SVGGroup())->addChild(
+                $root_0_0 = new \SVG\Nodes\Shapes\SVGLine()
+            )->addChild(
+                $root_0_1 = new \SVG\Nodes\Shapes\SVGRect()
+            )
+        );
+        $obj->addChild(
+            ($root_1 = new \SVG\Nodes\Structures\SVGGroup())->addChild(
+                ($root_1_0 = new \SVG\Nodes\Structures\SVGGroup())->addChild(
+                    $root_1_0_0 = new \SVG\Nodes\Shapes\SVGRect()
+                )
+            )->addChild(
+                $root_1_1 = new \SVG\Nodes\Shapes\SVGRect()
+            )
+        );
+
+        // should not return itself
+        $this->assertSame(array(), $obj->getElementsByTagName('test_subclass'));
+        $this->assertNotContains($obj, $obj->getElementsByTagName('*'));
+
+        // should return specific tags
+        $this->assertSame(array(
+            $root_0_1, $root_1_0_0, $root_1_1,
+        ), $obj->getElementsByTagName('rect'));
+
+        // should return all descendants for '*'
+        $this->assertSame(array(
+            $root_0, $root_0_0, $root_0_1,
+            $root_1, $root_1_0, $root_1_0_0, $root_1_1,
+        ), $obj->getElementsByTagName('*'));
+    }
 }
