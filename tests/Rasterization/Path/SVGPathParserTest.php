@@ -19,9 +19,12 @@ class SVGPathParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             array('id' => 'M', 'args' => array(10, 10)),
             array('id' => 'l', 'args' => array(10, -10)),
+            array('id' => 'h', 'args' => array(50)),
+            array('id' => 'v', 'args' => array(10)),
+            array('id' => 'l', 'args' => array(7, -7)),
             array('id' => 'h', 'args' => array(0.5)),
             array('id' => 'z', 'args' => array()),
-        ), $obj->parse(' M10,10 l +10 -10 h.5 z '));
+        ), $obj->parse(' M10,10 l +10 -10 h .5e2 v 100e-1 l7-7 h.5 z '));
     }
 
     public function testShouldSupportRepeatedCommands()
