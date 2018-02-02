@@ -57,7 +57,7 @@ class SVGWriter
         $this->outString .= '>';
         if ($node instanceof SVGStyle) {
             $this->writeCdata($node->getCss());
-            $this->outString .= '</'.$node->getName().'>';
+            $this->outString .= $node->getValue().'</'.$node->getName().'>';
 
             return;
         }
@@ -65,7 +65,7 @@ class SVGWriter
         for ($i = 0, $n = $node->countChildren(); $i < $n; ++$i) {
             $this->writeNode($node->getChild($i));
         }
-        $this->outString .= '</'.$node->getName().'>';
+        $this->outString .= $node->getValue().'</'.$node->getName().'>';
     }
 
     /**

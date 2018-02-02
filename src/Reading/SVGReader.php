@@ -31,6 +31,8 @@ class SVGReader
         'polyline'  => 'SVG\Nodes\Shapes\SVGPolyline',
         'path'      => 'SVG\Nodes\Shapes\SVGPath',
         'image'     => 'SVG\Nodes\Embedded\SVGImageElement',
+        'text'      => 'SVG\Nodes\Texts\SVGText',
+        'textPath'  => 'SVG\Nodes\Texts\SVGTextPath',
     );
     /**
      * @var string[] @styleAttributes Attributes to be interpreted as styles.
@@ -205,10 +207,9 @@ class SVGReader
     {
         foreach ($xml->children() as $child) {
             $childNode = $this->parseNode($child, $namespaces);
-            if (!$childNode) {
-                continue;
+            if ($childNode) {
+                $node->addChild($childNode);
             }
-            $node->addChild($childNode);
         }
     }
 
@@ -234,6 +235,7 @@ class SVGReader
 
         $this->applyAttributes($node, $xml, $namespaces);
         $this->applyStyles($node, $xml);
+        $node->setValue($xml);
 
         if ($node instanceof SVGNodeContainer) {
             $this->addChildren($node, $xml, $namespaces);
