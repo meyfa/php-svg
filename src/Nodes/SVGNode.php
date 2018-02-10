@@ -16,11 +16,14 @@ abstract class SVGNode
     protected $styles;
     /** @var string[] $attributes This node's set of attributes. */
     protected $attributes;
+    /** @var string $value This node's value */
+    protected $value;
 
     public function __construct()
     {
         $this->styles     = array();
         $this->attributes = array();
+        $this->value      = '';
     }
 
     /**
@@ -57,6 +60,35 @@ abstract class SVGNode
     public function getParent()
     {
         return $this->parent;
+    }
+
+
+
+    /**
+     * Obtains the value on this node.
+     *
+     * @return string The node's value
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * Defines the value on this node.
+     *
+     * @param string $value The new node's value.
+     *
+     * @return $this This node instance, for call chaining.
+     */
+    public function setValue($value)
+    {
+        if (!isset($value)) {
+            unset($this->value);
+            return $this;
+        }
+        $this->value = (string) $value;
+        return $this;
     }
 
 
