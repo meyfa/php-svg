@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\Shapes\SVGPolygon;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGPolygonTest extends PHPUnit_Framework_TestCase
+ class SVGPolygonTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

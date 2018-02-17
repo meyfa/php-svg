@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\Shapes\SVGPath;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGPathTest extends PHPUnit_Framework_TestCase
+ class SVGPathTest extends \PHPUnit\Framework\TestCase
 {
     private static $sampleDescription = 'M100,100 h20 Z M200,200 h20';
     private static $sampleParse = array(
@@ -49,6 +51,16 @@ use SVG\Nodes\Shapes\SVGPath;
         // should update the attribute
         $obj->setDescription(self::$sampleDescription);
         $this->assertSame(self::$sampleDescription, $obj->getAttribute('d'));
+    }
+
+    public function testRasterizeWithNull()
+    {
+        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $obj = new SVGPath();
+
+        $this->assertNull($obj->rasterize($rast));
     }
 
     public function testRasterize()

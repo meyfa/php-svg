@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\Embedded\SVGImageElement;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGImageElementTest extends PHPUnit_Framework_TestCase
+ class SVGImageElementTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

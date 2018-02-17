@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\Shapes\SVGRect;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGRectTest extends PHPUnit_Framework_TestCase
+ class SVGRectTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

@@ -1,6 +1,9 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\SVGNodeContainer;
+use SVG\Utilities\SVGStyleParser;
 
 class SVGNodeContainerSubclass extends SVGNodeContainer
 {
@@ -10,7 +13,7 @@ class SVGNodeContainerSubclass extends SVGNodeContainer
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGNodeContainerTest extends PHPUnit_Framework_TestCase
+class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
 {
     public function testAddChild()
     {
@@ -168,5 +171,46 @@ class SVGNodeContainerTest extends PHPUnit_Framework_TestCase
         $this->assertSame(array(
             $root_1_0_0, $root_1_1,
         ), $obj->getElementsByClassName(array('foo', 'bar')));
+    }
+
+    public function testParseCssWithMatchedElement()
+    {
+        $result = SVGStyleParser::parseCss('svg {background-color: beige;}');
+
+        $this->assertSame('beige', $result['svg']['background-color']);
+    }
+
+    public function testParseCssWithSkippedElement()
+    {
+        $result = SVGStyleParser::parseCss('@font-face {font-family: "Bitstream Vera Serif Bold";}');
+
+        $this->assertCount(0, $result);
+    }
+
+    public function testGetContainerStyleForNode()
+    {
+        $obj = new SVGNodeContainerSubclass();
+
+        $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $obj->addChild($mockChild);
+
+        $this->assertCount(0, $obj->getContainerStyleForNode($mockChild));
+    }
+
+    public function testGetContainerStyleByPattern()
+    {
+        $obj = new SVGNodeContainerSubclass();
+
+        $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $obj->addChild($mockChild);
+
+        $this->assertCount(0, $obj->getContainerStyleByPattern('/^(\d+)?\.\d+$/'));
+    }
+
+    public function testGetElementsByClassNameWithEmptyClassName()
+    {
+        $obj = (new SVGNodeContainerSubclass());
+
+        $this->assertCount(0, $obj->getElementsByClassName(''));
     }
 }

@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Rasterization\Renderers\SVGRenderer;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGRendererTest extends PHPUnit_Framework_TestCase
+class SVGRendererTest extends \PHPUnit\Framework\TestCase
 {
     public function testRender()
     {

@@ -12,14 +12,20 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.4",
+        "ext-gd": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.5"
+        "phpunit/phpunit": "^4.8"
     },
     "autoload": {
         "psr-4": {
             "SVG\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SVG\\": "tests/"
         }
     }
 }

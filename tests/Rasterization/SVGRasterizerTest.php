@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Rasterization\SVGRasterizer;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGRasterizerTest extends PHPUnit_Framework_TestCase
+class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetPathParser()
     {
@@ -145,5 +147,14 @@ class SVGRasterizerTest extends PHPUnit_Framework_TestCase
         $this->assertSame(200, imagesy($obj->getImage()));
 
         imagedestroy($obj->getImage());
+    }
+
+    public function testRenderWithNoSuchRenderId()
+    {
+        $this->setExpectedException('\InvalidArgumentException');
+
+        $obj = new SVGRasterizer(10, 20, array(), 100, 200);
+        $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $obj->render('invalid_render_id', ['option' => 'value'], $mockChild);
     }
 }

@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\Shapes\SVGPolyline;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGPolylineTest extends PHPUnit_Framework_TestCase
+ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

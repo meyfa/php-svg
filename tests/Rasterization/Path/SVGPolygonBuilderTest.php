@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Rasterization\Path\SVGPolygonBuilder;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGPolygonBuilderTest extends PHPUnit_Framework_TestCase
+class SVGPolygonBuilderTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

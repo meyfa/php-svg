@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\Shapes\SVGEllipse;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGEllipseTest extends PHPUnit_Framework_TestCase
+ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\Shapes\SVGCircle;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGCircleTest extends PHPUnit_Framework_TestCase
+ class SVGCircleTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

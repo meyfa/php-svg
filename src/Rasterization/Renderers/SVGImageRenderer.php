@@ -4,6 +4,7 @@ namespace SVG\Rasterization\Renderers;
 
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\SVGImage;
 
 /**
  * This renderer can draw referenced images (from <image> tags).

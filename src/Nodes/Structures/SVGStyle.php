@@ -49,7 +49,7 @@ class SVGStyle extends SVGNode
      */
     public function setType($type)
     {
-        return $this->setAttribute($type);
+        return $this->setAttribute('type', $type);
     }
 
     /**
