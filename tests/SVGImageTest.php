@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\SVGImage;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGImageTest extends PHPUnit_Framework_TestCase
+class SVGImageTest extends \PHPUnit\Framework\TestCase
 {
     private $xml;
 
@@ -75,5 +77,12 @@ class SVGImageTest extends PHPUnit_Framework_TestCase
         // should have correct width and height
         $this->assertSame('37', $doc->getWidth());
         $this->assertSame('42', $doc->getHeight());
+    }
+
+    public function testFromFile()
+    {
+        $image = SVGImage::fromFile(__DIR__.'/php_test.svg');
+
+        $this->assertInstanceOf('\SVG\SVGImage', $image);
     }
 }

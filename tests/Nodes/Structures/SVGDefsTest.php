@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\Structures\SVGDefs;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGDefsTest extends PHPUnit_Framework_TestCase
+ class SVGDefsTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

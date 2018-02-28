@@ -1,11 +1,14 @@
 <?php
 
+namespace SVG;
+
 use SVG\Reading\SVGReader;
+use SVG\Utilities\SVGStyleParser;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGReaderTest extends PHPUnit_Framework_TestCase
+class SVGReaderTest extends \PHPUnit\Framework\TestCase
 {
     // THE TESTS IN THIS CLASS DO NOT ADHERE TO THE STANDARD LAYOUT
     // OF TESTING ONE CLASS METHOD PER TEST METHOD
@@ -164,5 +167,10 @@ class SVGReaderTest extends PHPUnit_Framework_TestCase
 
         // should decode entities in style body
         $this->assertSame('" foo&bar>', $doc->getChild(0)->getCss());
+    }
+
+    public function testParseStylesWithEmptyString()
+    {
+        $this->assertCount(0, SVGStyleParser::parseStyles(''));
     }
 }

@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\Structures\SVGDocumentFragment;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGDocumentFragmentTest extends PHPUnit_Framework_TestCase
+ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

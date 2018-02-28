@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\SVG;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGTest extends PHPUnit_Framework_TestCase
+class SVGTest extends \PHPUnit\Framework\TestCase
 {
     public function testConvertUnit()
     {

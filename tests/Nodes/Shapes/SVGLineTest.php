@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\Shapes\SVGLine;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGLineTest extends PHPUnit_Framework_TestCase
+ class SVGLineTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

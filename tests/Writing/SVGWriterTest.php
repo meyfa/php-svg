@@ -1,11 +1,13 @@
 <?php
 
+namespace SVG;
+
 use SVG\Writing\SVGWriter;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGWriterTest extends PHPUnit_Framework_TestCase
+class SVGWriterTest extends \PHPUnit\Framework\TestCase
 {
     // THE TESTS IN THIS CLASS DO NOT ADHERE TO THE STANDARD LAYOUT
     // OF TESTING ONE CLASS METHOD PER TEST METHOD

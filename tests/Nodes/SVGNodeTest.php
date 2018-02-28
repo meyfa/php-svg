@@ -1,5 +1,7 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\SVGNode;
 
 class SVGNodeSubclass extends SVGNode
@@ -17,14 +19,14 @@ class SVGNodeSubclass extends SVGNode
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGNodeTest extends PHPUnit_Framework_TestCase
+class SVGNodeTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstructFromAttributes()
     {
         $obj = SVGNodeSubclass::constructFromAttributes(array());
 
         // should construct child class
-        $this->assertInstanceOf('SVGNodeSubclass', $obj);
+        $this->assertInstanceOf('SVG\SVGNodeSubclass', $obj);
     }
 
     public function testGetName()

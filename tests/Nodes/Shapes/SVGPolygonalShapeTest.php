@@ -1,5 +1,7 @@
 <?php
 
+namespace SVG;
+
 use SVG\Nodes\Shapes\SVGPolygonalShape;
 
 /**
@@ -22,7 +24,7 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGPolygonalShapeTest extends PHPUnit_Framework_TestCase
+ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {
@@ -96,6 +98,17 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
             array(42.5, 42.5),
             array(100, 100),
         ), $obj->getPoints());
+    }
+
+    public function testGetPoint()
+    {
+        $obj = new SVGPolygonalShapeSubclass(array(
+            array(42.5, 42.5),
+            array(37, 37),
+        ));
+        $obj->setPoint(1, array(100, 100));
+
+        $this->assertSame(42.5, $obj->getPoint(0)[0]);
     }
 
     public function testGetSerializableAttributes()
