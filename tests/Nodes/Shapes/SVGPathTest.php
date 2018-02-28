@@ -53,16 +53,6 @@ use SVG\Nodes\Shapes\SVGPath;
         $this->assertSame(self::$sampleDescription, $obj->getAttribute('d'));
     }
 
-    public function testRasterizeWithNull()
-    {
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $obj = new SVGPath();
-
-        $this->assertNull($obj->rasterize($rast));
-    }
-
     public function testRasterize()
     {
         $obj = new SVGPath(self::$sampleDescription);
