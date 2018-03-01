@@ -12,9 +12,9 @@ class SVGBezierApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testQuadratic()
     {
         $svgBezier = new SVGBezierApproximator();
-        $p0 = [10.5, 10.5];
-        $p1 = [10.6, 10.6];
-        $p2 = [10.7, 10.7];
+        $p0 = array(10.5, 10.5);
+        $p1 = array(10.6, 10.6);
+        $p2 = array(10.7, 10.7);
         $result = $svgBezier->quadratic($p0, $p1, $p2);
 
         $this->assertCount(12, $result);
@@ -27,10 +27,10 @@ class SVGBezierApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testCubic()
     {
         $svgBezier = new SVGBezierApproximator();
-        $p0 = [10.5, 10.5];
-        $p1 = [10.6, 10.6];
-        $p2 = [10.7, 10.7];
-        $p3 = [10.8, 10.8];
+        $p0 = array(10.5, 10.5);
+        $p1 = array(10.6, 10.6);
+        $p2 = array(10.7, 10.7);
+        $p3 = array(10.8, 10.8);
         $result = $svgBezier->cubic($p0, $p1, $p2, $p3);
 
         $this->assertCount(12, $result);

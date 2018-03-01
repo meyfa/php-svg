@@ -9,11 +9,15 @@ use SVG\Rasterization\Path\SVGArcApproximator;
  */
 class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
 {
+    // THE TESTS IN THIS CLASS DO NOT ADHERE TO THE STANDARD LAYOUT
+    // OF TESTING ONE CLASS METHOD PER TEST METHOD
+    // BECAUSE THE CLASS UNDER TEST IS A SINGLE-FEATURE CLASS
+
     public function testApproximate()
     {
         $approx = new SVGArcApproximator();
-        $p0 = [10.5, 10.5];
-        $p1 = [10.5, 10.5];
+        $p0 = array(10.5, 10.5);
+        $p1 = array(10.5, 10.5);
         $fa = false;
         $fs = false;
         $rx = 10;
@@ -28,8 +32,8 @@ class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testApproximateWithXaIsLessThanZero()
     {
         $approx = new SVGArcApproximator();
-        $p0 = [10.5, 10.5];
-        $p1 = [10.5, 10.5];
+        $p0 = array(10.5, 10.5);
+        $p1 = array(10.5, 10.5);
         $fa = false;
         $fs = false;
         $rx = 10;
@@ -44,8 +48,8 @@ class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testApproximateWithRxAndRyAreZero()
     {
         $approx = new SVGArcApproximator();
-        $p0 = [10.5, 10.5];
-        $p1 = [10.6, 10.6];
+        $p0 = array(10.5, 10.5);
+        $p1 = array(10.6, 10.6);
         $fa = false;
         $fs = false;
         $rx = 0;
@@ -63,8 +67,8 @@ class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testApproximateWithRxAndRyAreNotZero()
     {
         $approx = new SVGArcApproximator();
-        $p0 = [10.5, 10.5];
-        $p1 = [10.6, 10.6];
+        $p0 = array(10.5, 10.5);
+        $p1 = array(10.6, 10.6);
         $fa = false;
         $fs = false;
         $rx = 1;

@@ -12,12 +12,12 @@ class SVGPathApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testApproximate()
     {
         $approx = new SVGPathApproximator();
-        $cmds = [
-            ['id' => 'M', 'args' => [10, 20]],
-            ['id' => 'm', 'args' => [10, 20]],
-            ['id' => 'l', 'args' => [40, 20]],
-            ['id' => 'Z', 'args' => []],
-        ];
+        $cmds = array(
+            array('id' => 'M', 'args' => array(10, 20)),
+            array('id' => 'm', 'args' => array(10, 20)),
+            array('id' => 'l', 'args' => array(40, 20)),
+            array('id' => 'Z', 'args' => array()),
+        );
         $result = $approx->approximate($cmds);
 
         $this->assertSame(10, $result[0][0][0]);

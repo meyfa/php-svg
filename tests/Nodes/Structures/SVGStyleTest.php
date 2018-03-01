@@ -3,7 +3,6 @@
 namespace SVG;
 
 use SVG\Nodes\Structures\SVGStyle;
-use SVG\Rasterization\SVGRasterizer;
 
 /**
  * @SuppressWarnings(PHPMD)
@@ -12,35 +11,40 @@ class SVGStyleTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetType()
     {
-        $svgStyle = new SVGStyle();
+        $obj = new SVGStyle();
 
-        $this->assertInstanceOf('SVG\Nodes\Structures\SVGStyle', $svgStyle->setType('type_attribute'));
+        $type = 'type_attribute';
+        $this->assertInstanceOf('SVG\Nodes\Structures\SVGStyle',
+            $obj->setType($type));
+
+        $this->assertEquals($type, $obj->getAttribute('type'));
     }
 
     public function testGetType()
     {
-        $svgStyle = new SVGStyle();
-        $type = 'type_attribute';
-        $svgStyle->setType($type);
+        $obj = new SVGStyle();
 
-        $this->assertSame($type, $svgStyle->getType());
+        $type = 'type_attribute';
+        $obj->setAttribute('type', $type);
+
+        $this->assertSame($type, $obj->getType());
     }
 
     public function testSetCss()
     {
-        $svgStyle = new SVGStyle();
+        $obj = new SVGStyle();
 
-        $this->assertInstanceOf('SVG\Nodes\Structures\SVGStyle', $svgStyle->setCss('svg {background-color: beige;}'));
+        $this->assertInstanceOf('SVG\Nodes\Structures\SVGStyle',
+            $obj->setCss('svg {background-color: beige;}'));
     }
 
-    public function testRasterize()
+    public function testGetCss()
     {
-        $svgStyle = new SVGStyle();
+        $obj = new SVGStyle();
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $css = 'svg {background-color: beige;}';
+        $obj->setCss($css);
 
-        $this->assertNull($svgStyle->rasterize($rast));
+        $this->assertSame($css, $obj->getCss());
     }
 }

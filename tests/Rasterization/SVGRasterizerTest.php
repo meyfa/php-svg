@@ -155,6 +155,6 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
 
         $obj = new SVGRasterizer(10, 20, array(), 100, 200);
         $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
-        $obj->render('invalid_render_id', ['option' => 'value'], $mockChild);
+        $obj->render('invalid_render_id', array('option' => 'value'), $mockChild);
     }
 }
