@@ -18,6 +18,7 @@ class SVGWriter
     public function __construct()
     {
         $this->outString = '<?xml version="1.0" encoding="utf-8"?>';
+        defined('ENT_XML1') ? ENT_XML1 : define('ENT_XML1', 16);
     }
 
     /**
@@ -120,7 +121,7 @@ class SVGWriter
      * @return void
      */
     private function appendAttribute($attrName, $attrValue)
-    {
+    {   
         $attrName = htmlspecialchars($attrName, ENT_XML1 | ENT_COMPAT);
         $attrValue = htmlspecialchars($attrValue, ENT_XML1 | ENT_COMPAT);
 
