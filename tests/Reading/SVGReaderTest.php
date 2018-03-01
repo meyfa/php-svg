@@ -59,18 +59,20 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
     public function testShouldReturnAnImageOrNull()
     {
         // should return an instance of SVGImage
-        $result = (new SVGReader())->parseString($this->xml);
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($this->xml);
         $this->assertInstanceOf('\SVG\SVGImage', $result);
 
         // should return null when parsing fails
-        $result = (new SVGReader())->parseString('<rect />');
+        $result = $svgReader->parseString('<rect />');
         $this->assertNull($result);
     }
 
     public function testShouldSetAllAttributesAndNamespaces()
     {
         // should retain all document attributes and namespaces
-        $result = (new SVGReader())->parseString($this->xml);
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($this->xml);
         $this->assertEquals(array(
             'xmlns' => 'http://www.w3.org/2000/svg',
             'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
@@ -81,7 +83,8 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         ), $result->getDocument()->getSerializableAttributes());
 
         // should deal with missing viewBox
-        $result = (new SVGReader())->parseString($this->xmlNoViewBox);
+        $svgReader = new SVGReader(); 
+        $result = $svgReader->parseString($this->xmlNoViewBox);
         $this->assertEquals(array(
             'xmlns' => 'http://www.w3.org/2000/svg',
             'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
@@ -90,7 +93,8 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         ), $result->getDocument()->getSerializableAttributes());
 
         // should deal with missing width/height
-        $result = (new SVGReader())->parseString($this->xmlNoWH);
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($this->xmlNoWH);
         $this->assertEquals(array(
             'xmlns' => 'http://www.w3.org/2000/svg',
             'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
@@ -98,7 +102,8 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         ), $result->getDocument()->getSerializableAttributes());
 
         // should set all attributes, including namespace prefixed ones
-        $result = (new SVGReader())->parseString($this->xml);
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($this->xml);
         $rect = $result->getDocument()->getChild(0);
         $this->assertEquals(array(
             'id' => 'testrect',
@@ -109,7 +114,8 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldSetStyles()
     {
-        $result = (new SVGReader())->parseString($this->xml);
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($this->xml);
         $rect = $result->getDocument()->getChild(0);
 
         // should detect style attributes
@@ -124,8 +130,8 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
     public function testShouldRecursivelyAddChildren()
     {
         // should recursively add all child nodes
-
-        $result = (new SVGReader())->parseString($this->xml);
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($this->xml);
         $g = $result->getDocument()->getChild(1);
 
         $this->assertSame(2, $g->countChildren());
@@ -149,7 +155,8 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
     public function testShouldIgnoreUnknownNodes()
     {
         // should skip unknown node types without failing
-        $result = (new SVGReader())->parseString($this->xmlUnknown);
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($this->xmlUnknown);
         $doc = $result->getDocument();
         $this->assertSame(2, $doc->countChildren());
         $this->assertSame('circle', $doc->getChild(0)->getName());
@@ -158,7 +165,8 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldDecodeEntities()
     {
-        $result = (new SVGReader())->parseString($this->xmlEntities);
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($this->xmlEntities);
         $doc = $result->getDocument();
 
         // should decode entities in attributes

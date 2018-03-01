@@ -107,8 +107,9 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
             array(37, 37),
         ));
         $obj->setPoint(1, array(100, 100));
+        $point = $obj->getPoint(0);
 
-        $this->assertSame(42.5, $obj->getPoint(0)[0]);
+        $this->assertSame(42.5, $point[0]);
     }
 
     public function testGetSerializableAttributes()
