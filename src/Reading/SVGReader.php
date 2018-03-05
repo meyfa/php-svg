@@ -33,6 +33,7 @@ class SVGReader
         'image'     => 'SVG\Nodes\Embedded\SVGImageElement',
         'text'      => 'SVG\Nodes\Texts\SVGText',
         'textPath'  => 'SVG\Nodes\Texts\SVGTextPath',
+        'title'     => 'SVG\Nodes\Texts\SVGTitle',
     );
     /**
      * @var string[] @styleAttributes Attributes to be interpreted as styles.
