@@ -13,11 +13,13 @@ use SVG\Nodes\SVGNodeContainer;
 class SVGWriter
 {
     /** @var string $outString The XML output string being written */
-    private $outString;
+    private $outString = '';
 
-    public function __construct()
+    public function __construct($isStandalone = true)
     {
-        $this->outString = '<?xml version="1.0" encoding="utf-8"?>';
+        if ($isStandalone) {
+            $this->outString = '<?xml version="1.0" encoding="utf-8"?>';
+        }
         defined('ENT_XML1') ? ENT_XML1 : define('ENT_XML1', 16);
     }
 
