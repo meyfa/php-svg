@@ -50,23 +50,29 @@ class SVGWriter
         $this->appendAttributes($node->getSerializableAttributes());
         $this->appendStyles($node->getSerializableStyles());
 
-        if (!($node instanceof SVGNodeContainer) && !($node instanceof SVGStyle)) {
-            $this->outString .= ' />';
+        $textContent = htmlspecialchars($node->getValue());
+
+        if ($node instanceof SVGNodeContainer) {
+            $this->outString .= '>';
+            for ($i = 0, $n = $node->countChildren(); $i < $n; ++$i) {
+                $this->writeNode($node->getChild($i));
+            }
+            $this->outString .= $textContent.'</'.$node->getName().'>';
             return;
         }
 
-        $this->outString .= '>';
         if ($node instanceof SVGStyle) {
+            $this->outString .= '>';
             $this->writeCdata($node->getCss());
-            $this->outString .= $node->getValue().'</'.$node->getName().'>';
-
+            $this->outString .= $textContent.'</'.$node->getName().'>';
             return;
         }
 
-        for ($i = 0, $n = $node->countChildren(); $i < $n; ++$i) {
-            $this->writeNode($node->getChild($i));
+        if (!empty($textContent)) {
+            $this->outString .= '>' . $textContent . '</'.$node->getName().'>';
         }
-        $this->outString .= htmlspecialchars($node->getValue()).'</'.$node->getName().'>';
+
+        $this->outString .= ' />';
     }
 
     /**
