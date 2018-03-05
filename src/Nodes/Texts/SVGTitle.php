@@ -14,6 +14,8 @@ class SVGTitle extends SVGNode
      * Dummy implementation
      *
      * @param SVGRasterizer $rasterizer
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function rasterize(SVGRasterizer $rasterizer)
     {
