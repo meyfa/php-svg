@@ -66,7 +66,7 @@ class SVGWriter
         for ($i = 0, $n = $node->countChildren(); $i < $n; ++$i) {
             $this->writeNode($node->getChild($i));
         }
-        $this->outString .= $node->getValue().'</'.$node->getName().'>';
+        $this->outString .= htmlspecialchars($node->getValue()).'</'.$node->getName().'>';
     }
 
     /**
