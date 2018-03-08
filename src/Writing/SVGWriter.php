@@ -70,6 +70,7 @@ class SVGWriter
 
         if (!empty($textContent)) {
             $this->outString .= '>' . $textContent . '</'.$node->getName().'>';
+            return;
         }
 
         $this->outString .= ' />';
