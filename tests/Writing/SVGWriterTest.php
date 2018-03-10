@@ -22,6 +22,13 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($this->xmlDeclaration, $obj->getString());
     }
 
+    public function testShouldSupportStandaloneFalse()
+    {
+        // should not prepend the XML declaration
+        $obj = new SVGWriter(false);
+        $this->assertEquals('', $obj->getString());
+    }
+
     public function testShouldWriteTags()
     {
         // should write opening and closing tags for containers

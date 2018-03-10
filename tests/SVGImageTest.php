@@ -9,14 +9,20 @@ use SVG\SVGImage;
  */
 class SVGImageTest extends \PHPUnit\Framework\TestCase
 {
-    private $xml;
+    private $xml, $xmlNoDeclaration;
 
     public function setUp()
     {
         $this->xml  = '<?xml version="1.0" encoding="utf-8"?>';
-        $this->xml .= '<svg width="37" height="42" xmlns="http://www.w3.org/2000/svg" '.
+        $this->xml .= '<svg width="37" height="42" '.
+            'xmlns="http://www.w3.org/2000/svg" '.
             'xmlns:xlink="http://www.w3.org/1999/xlink">';
         $this->xml .= '</svg>';
+
+        $this->xmlNoDeclaration  = '<svg width="37" height="42" '.
+            'xmlns="http://www.w3.org/2000/svg" '.
+            'xmlns:xlink="http://www.w3.org/1999/xlink">';
+        $this->xmlNoDeclaration .= '</svg>';
     }
 
     public function testGetDocument()
@@ -64,6 +70,9 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
 
         // should return correctly stringified XML
         $this->assertSame($this->xml, $image->toXMLString());
+
+        // should respect standalone=false
+        $this->assertSame($this->xmlNoDeclaration, $image->toXMLString(false));
     }
 
     public function testFromString()
@@ -75,6 +84,13 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\SVG\SVGImage', $image);
 
         // should have correct width and height
+        $this->assertSame('37', $doc->getWidth());
+        $this->assertSame('42', $doc->getHeight());
+
+        // should succeed without xml declaration
+        $image = SVGImage::fromString($this->xmlNoDeclaration);
+        $doc = $image->getDocument();
+        $this->assertInstanceOf('\SVG\SVGImage', $image);
         $this->assertSame('37', $doc->getWidth());
         $this->assertSame('42', $doc->getHeight());
     }
