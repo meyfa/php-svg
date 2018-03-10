@@ -37,6 +37,30 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(SVGNodeSubclass::TAG_NAME, $obj->getName());
     }
 
+    public function testGetValue()
+    {
+        $obj = new SVGNodeSubclass();
+
+        // should return empty string
+        $this->assertSame('', $obj->getValue());
+    }
+
+    public function testSetValue()
+    {
+        $obj = new SVGNodeSubclass();
+
+        // should update value
+        $obj->setValue('hello world');
+        $this->assertSame('hello world', $obj->getValue());
+
+        // should treat null like empty string
+        $obj->setValue(null);
+        $this->assertSame('', $obj->getValue());
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setValue('foo'));
+    }
+
     public function testGetStyle()
     {
         $obj = new SVGNodeSubclass();

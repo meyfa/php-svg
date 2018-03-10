@@ -1,10 +1,11 @@
 <?php
 namespace SVG\Nodes\Texts;
+
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
+
 /**
  * Represents the SVG tag 'title'.
- * Has the attribute 'text'.
  */
 class SVGTitle extends SVGNode
 {

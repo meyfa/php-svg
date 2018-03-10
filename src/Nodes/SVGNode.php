@@ -71,7 +71,7 @@ abstract class SVGNode
      */
     public function getValue()
     {
-        return $this->value;
+        return isset($this->value) ? $this->value : '';
     }
 
     /**

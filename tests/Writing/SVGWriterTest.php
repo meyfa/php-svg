@@ -106,4 +106,41 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
             '<![CDATA[&quot; foo&amp;bar&gt;]]></style>';
         $this->assertEquals($expect, $obj->getString());
     }
+
+    public function testShouldWriteValue()
+    {
+        // should add value before closing tag
+        $obj = new SVGWriter();
+        $svgText = new \SVG\Nodes\Texts\SVGText();
+        $svgText->setValue('hello world');
+        $obj->writeNode($svgText);
+        $expect = $this->xmlDeclaration.'<text>hello world</text>';
+        $this->assertEquals($expect, $obj->getString());
+
+        // should escape HTML entities in value
+        $obj = new SVGWriter();
+        $svgText = new \SVG\Nodes\Texts\SVGText();
+        $svgText->setValue('hello& <world>');
+        $obj->writeNode($svgText);
+        $expect = $this->xmlDeclaration.'<text>hello&amp; &lt;world&gt;</text>';
+        $this->assertEquals($expect, $obj->getString());
+
+        // should add value even for non-containers
+        $obj = new SVGWriter();
+        $svgRect = new \SVG\Nodes\Shapes\SVGRect();
+        $svgRect->setValue('hello world');
+        $obj->writeNode($svgRect);
+        $expect = $this->xmlDeclaration.'<rect>hello world</rect>';
+        $this->assertEquals($expect, $obj->getString());
+
+        // should not add empty value
+        $obj = new SVGWriter();
+        $svgRect = new \SVG\Nodes\Shapes\SVGRect();
+        $svgRect->setValue('');
+        $obj->writeNode($svgRect);
+        $svgRect->setValue(null);
+        $obj->writeNode($svgRect);
+        $expect = $this->xmlDeclaration.'<rect /><rect />';
+        $this->assertEquals($expect, $obj->getString());
+    }
 }

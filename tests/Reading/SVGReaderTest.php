@@ -14,7 +14,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
     // OF TESTING ONE CLASS METHOD PER TEST METHOD
     // BECAUSE THE CLASS UNDER TEST IS A SINGLE-FEATURE CLASS
 
-    private $xml, $xmlNoViewBox, $xmlNoWH, $xmlUnknown, $xmlEntities;
+    private $xml, $xmlNoViewBox, $xmlNoWH, $xmlUnknown, $xmlValue, $xmlEntities;
 
     public function setUp()
     {
@@ -49,10 +49,16 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->xmlUnknown .= '<ellipse cx="50" cy="60" rx="10" ry="20" />';
         $this->xmlUnknown .= '</svg>';
 
+        $this->xmlValue  = '<?xml version="1.0" encoding="utf-8"?>';
+        $this->xmlValue .= '<svg xmlns="http://www.w3.org/2000/svg">';
+        $this->xmlValue .= '<text>hello world</text>';
+        $this->xmlValue .= '</svg>';
+
         $this->xmlEntities  = '<?xml version="1.0" encoding="utf-8"?>';
         $this->xmlEntities .= '<svg xmlns="http://www.w3.org/2000/svg">';
         $this->xmlEntities .= '<style id="&quot; foo&amp;bar&gt;" '.
             'style="display: &amp;none">&quot; foo&amp;bar&gt;</style>';
+        $this->xmlEntities .= '<text>&quot; foo&amp;bar&gt;</text>';
         $this->xmlEntities .= '</svg>';
     }
 
@@ -83,7 +89,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         ), $result->getDocument()->getSerializableAttributes());
 
         // should deal with missing viewBox
-        $svgReader = new SVGReader(); 
+        $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xmlNoViewBox);
         $this->assertEquals(array(
             'xmlns' => 'http://www.w3.org/2000/svg',
@@ -163,6 +169,16 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('ellipse', $doc->getChild(1)->getName());
     }
 
+    public function testShouldSetValue()
+    {
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($this->xmlValue);
+        $doc = $result->getDocument();
+
+        // should set value on nodes
+        $this->assertSame('hello world', $doc->getChild(0)->getValue());
+    }
+
     public function testShouldDecodeEntities()
     {
         $svgReader = new SVGReader();
@@ -175,6 +191,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
 
         // should decode entities in style body
         $this->assertSame('" foo&bar>', $doc->getChild(0)->getCss());
+
+        // should decode entities in value
+        $this->assertSame('" foo&bar>', $doc->getChild(1)->getValue());
     }
 
     public function testParseStylesWithEmptyString()
