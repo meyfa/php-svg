@@ -2,6 +2,7 @@
 
 namespace SVG\Nodes\Structures;
 
+use SVG\SVG;
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
@@ -112,26 +113,33 @@ class SVGDocumentFragment extends SVGNodeContainer
      */
     public function rasterize(SVGRasterizer $rasterizer)
     {
-        // For every svg node create a new rasterizer with corresponding properties
-        // for width, height, viewBox, document width and document height
-        $svgWidth = $this->getWidth();
-        $svgHeight = $this->getHeight();
-        $svgViewBox  = $this->getScaledViewBox(
-            $rasterizer->getDocumentWidth()/$svgWidth,
-            $rasterizer->getDocumentHeight()/$svgHeight
+        if ($this->root) {
+            parent::rasterize($rasterizer);
+            return;
+        }
+
+        // create new rasterizer for nested viewport
+        $subRasterizer = new SVGRasterizer(
+            $this->getWidth(),          // document width
+            $this->getHeight(),         // document height
+            $this->getViewBox(),        // viewBox
+            SVG::convertUnit($this->getWidth() ?: '100%', $rasterizer->getWidth()),
+            SVG::convertUnit($this->getHeight() ?: '100%', $rasterizer->getHeight())
         );
-        $svgRasterizer = new SVGRasterizer(
-            $svgWidth,
-            $svgHeight,
-            $svgViewBox,
-            $rasterizer->getWidth(),
-            $rasterizer->getHeight()
+
+        // perform rasterization as usual
+        parent::rasterize($subRasterizer);
+        $img = $subRasterizer->finish();
+
+        // copy nested viewport onto parent viewport
+        imagecopy(
+            $rasterizer->getImage(),    // destination
+            $img,                       // source
+            0, 0,                       // dst_x, dst_y
+            0, 0,                       // src_x, src_y
+            $subRasterizer->getWidth(), // src_w
+            $subRasterizer->getHeight() // src_h
         );
-        // Rasterize the svg and its children
-        parent::rasterize($svgRasterizer);
-        $img = $svgRasterizer->finish();
-        // Copy rasterized image to parent's image
-        imagecopy($rasterizer->getImage(), $img, 0, 0, 0, 0, $svgRasterizer->getWidth(), $svgRasterizer->getHeight());
         imagedestroy($img);
     }
 
