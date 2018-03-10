@@ -20,7 +20,6 @@ class SVGWriter
         if ($isStandalone) {
             $this->outString = '<?xml version="1.0" encoding="utf-8"?>';
         }
-        defined('ENT_XML1') ? ENT_XML1 : define('ENT_XML1', 16);
     }
 
     /**
@@ -130,9 +129,11 @@ class SVGWriter
      * @return void
      */
     private function appendAttribute($attrName, $attrValue)
-    {   
-        $attrName = htmlspecialchars($attrName, ENT_XML1 | ENT_COMPAT);
-        $attrValue = htmlspecialchars($attrValue, ENT_XML1 | ENT_COMPAT);
+    {
+        $xml1 = defined('ENT_XML1') ? ENT_XML1 : 16;
+
+        $attrName = htmlspecialchars($attrName, $xml1 | ENT_COMPAT);
+        $attrValue = htmlspecialchars($attrValue, $xml1 | ENT_COMPAT);
 
         $this->outString .= ' '.$attrName.'="'.$attrValue.'"';
     }
@@ -146,7 +147,9 @@ class SVGWriter
      */
     private function writeCdata($cdata)
     {
-        $cdata = htmlspecialchars($cdata, ENT_XML1 | ENT_COMPAT);
+        $xml1 = defined('ENT_XML1') ? ENT_XML1 : 16;
+
+        $cdata = htmlspecialchars($cdata, $xml1 | ENT_COMPAT);
 
         $this->outString .= '<![CDATA[' . $cdata . ']]>';
     }
