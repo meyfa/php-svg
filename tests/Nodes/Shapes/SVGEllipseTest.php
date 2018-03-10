@@ -41,6 +41,9 @@ use SVG\Nodes\Shapes\SVGEllipse;
         // should update the attribute
         $obj->setCenterX(42);
         $this->assertSame('42', $obj->getAttribute('cx'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setCenterX(42));
     }
 
     public function testGetCenterY()
@@ -59,6 +62,9 @@ use SVG\Nodes\Shapes\SVGEllipse;
         // should update the attribute
         $obj->setCenterY(42);
         $this->assertSame('42', $obj->getAttribute('cy'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setCenterY(42));
     }
 
     public function testGetRadiusX()
@@ -77,6 +83,9 @@ use SVG\Nodes\Shapes\SVGEllipse;
         // should update the attribute
         $obj->setRadiusX(42);
         $this->assertSame('42', $obj->getAttribute('rx'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setRadiusX(42));
     }
 
     public function testGetRadiusY()
@@ -95,6 +104,9 @@ use SVG\Nodes\Shapes\SVGEllipse;
         // should update the attribute
         $obj->setRadiusY(42);
         $this->assertSame('42', $obj->getAttribute('ry'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setRadiusY(42));
     }
 
     public function testRasterize()

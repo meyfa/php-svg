@@ -40,6 +40,9 @@ use SVG\Nodes\Shapes\SVGCircle;
         // should update the attribute
         $obj->setCenterX(42);
         $this->assertSame('42', $obj->getAttribute('cx'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setCenterX(42));
     }
 
     public function testGetCenterY()
@@ -58,6 +61,9 @@ use SVG\Nodes\Shapes\SVGCircle;
         // should update the attribute
         $obj->setCenterY(42);
         $this->assertSame('42', $obj->getAttribute('cy'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setCenterY(42));
     }
 
     public function testGetRadius()
@@ -76,6 +82,9 @@ use SVG\Nodes\Shapes\SVGCircle;
         // should update the attribute
         $obj->setRadius(42);
         $this->assertSame('42', $obj->getAttribute('r'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setRadius(42));
     }
 
     public function testRasterize()

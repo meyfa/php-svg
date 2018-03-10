@@ -51,6 +51,9 @@ use SVG\Nodes\Shapes\SVGPath;
         // should update the attribute
         $obj->setDescription(self::$sampleDescription);
         $this->assertSame(self::$sampleDescription, $obj->getAttribute('d'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setDescription(self::$sampleDescription));
     }
 
     public function testRasterizeWithNull()

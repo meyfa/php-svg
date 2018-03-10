@@ -40,6 +40,11 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         // should remove the child from its previous parent
         $obj2->addChild($child);
         $this->assertSame(0, $obj->countChildren());
+
+        // should return same instance
+        $this->assertSame($obj, $obj->addChild($child));
+        $this->assertSame($obj, $obj->addChild($child));
+        $this->assertSame($obj, $obj->addChild($obj));
     }
 
     public function testRemoveChild()
@@ -62,6 +67,11 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
 
         // should set child's parent to null
         $this->assertNull($child->getParent());
+
+        // should return same instance
+        $this->assertSame($obj, $obj->removeChild($child));
+        $obj->addChild($child);
+        $this->assertSame($obj, $obj->removeChild($child));
     }
 
     public function testRasterize()

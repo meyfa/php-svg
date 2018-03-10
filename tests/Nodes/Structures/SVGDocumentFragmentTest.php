@@ -46,6 +46,9 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         // should update the attribute
         $obj->setWidth(42);
         $this->assertSame('42', $obj->getAttribute('width'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setWidth(42));
     }
 
     public function testGetHeight()
@@ -64,6 +67,9 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         // should update the attribute
         $obj->setHeight(42);
         $this->assertSame('42', $obj->getAttribute('height'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setHeight(42));
     }
 
     public function testGetComputedStyle()

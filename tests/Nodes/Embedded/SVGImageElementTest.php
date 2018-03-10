@@ -51,6 +51,9 @@ use SVG\Nodes\Embedded\SVGImageElement;
         // should set xlink:href
         $obj->setHref('test-href');
         $this->assertSame('test-href', $obj->getAttribute('xlink:href'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setHref('test-href'));
     }
 
     public function testGetX()
@@ -69,6 +72,9 @@ use SVG\Nodes\Embedded\SVGImageElement;
         // should update the attribute
         $obj->setX(42);
         $this->assertSame('42', $obj->getAttribute('x'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setX(42));
     }
 
     public function testGetY()
@@ -87,6 +93,9 @@ use SVG\Nodes\Embedded\SVGImageElement;
         // should update the attribute
         $obj->setY(42);
         $this->assertSame('42', $obj->getAttribute('y'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setY(42));
     }
 
     public function testGetWidth()
@@ -105,6 +114,9 @@ use SVG\Nodes\Embedded\SVGImageElement;
         // should update the attribute
         $obj->setWidth(42);
         $this->assertSame('42', $obj->getAttribute('width'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setWidth(42));
     }
 
     public function testGetHeight()
@@ -123,6 +135,9 @@ use SVG\Nodes\Embedded\SVGImageElement;
         // should update the attribute
         $obj->setHeight(42);
         $this->assertSame('42', $obj->getAttribute('height'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setHeight(42));
     }
 
     public function testRasterize()

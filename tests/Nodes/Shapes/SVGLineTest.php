@@ -41,6 +41,9 @@ use SVG\Nodes\Shapes\SVGLine;
         // should update the attribute
         $obj->setX1(42);
         $this->assertSame('42', $obj->getAttribute('x1'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setX1(42));
     }
 
     public function testGetY1()
@@ -59,6 +62,9 @@ use SVG\Nodes\Shapes\SVGLine;
         // should update the attribute
         $obj->setY1(42);
         $this->assertSame('42', $obj->getAttribute('y1'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setY1(42));
     }
 
     public function testGetX2()
@@ -77,6 +83,9 @@ use SVG\Nodes\Shapes\SVGLine;
         // should update the attribute
         $obj->setX2(42);
         $this->assertSame('42', $obj->getAttribute('x2'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setX2(42));
     }
 
     public function testGetY2()
@@ -95,6 +104,9 @@ use SVG\Nodes\Shapes\SVGLine;
         // should update the attribute
         $obj->setY2(42);
         $this->assertSame('42', $obj->getAttribute('y2'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setY2(42));
     }
 
     public function testRasterize()

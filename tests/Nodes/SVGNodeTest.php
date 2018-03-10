@@ -37,6 +37,14 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(SVGNodeSubclass::TAG_NAME, $obj->getName());
     }
 
+    public function testGetParent()
+    {
+        $obj = new SVGNodeSubclass();
+
+        // should return null when parentless
+        $this->assertNull($obj->getParent());
+    }
+
     public function testGetValue()
     {
         $obj = new SVGNodeSubclass();
@@ -92,6 +100,10 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         // should not treat 0 as an empty value
         $obj->setStyle('width', 0);
         $this->assertSame('0', $obj->getStyle('width'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setStyle('fill', '#FFF'));
+        $this->assertSame($obj, $obj->setStyle('fill', null));
     }
 
     public function testRemoveStyle()
@@ -102,6 +114,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $obj->setStyle('fill', '#FFFFFF');
         $obj->removeStyle('fill');
         $this->assertNull($obj->getStyle('fill'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->removeStyle('fill'));
     }
 
     public function testGetAttribute()
@@ -135,6 +150,10 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         // should not treat 0 as an empty value
         $obj->setAttribute('x', 0);
         $this->assertSame('0', $obj->getAttribute('x'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setAttribute('x', 42));
+        $this->assertSame($obj, $obj->setAttribute('x', null));
     }
 
     public function testRemoveAttribute()
@@ -145,6 +164,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $obj->setAttribute('x', '100%');
         $obj->removeAttribute('x');
         $this->assertNull($obj->getAttribute('x'));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->removeAttribute('x'));
     }
 
     public function testGetSerializableAttributes()

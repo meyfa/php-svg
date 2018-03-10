@@ -66,6 +66,9 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
             array(42.5, 42.5),
             array(37, 37),
         ), $obj->getPoints());
+
+        // should return same instance
+        $this->assertSame($obj, $obj->addPoint(42, 37));
     }
 
     public function testRemovePoint()
@@ -81,7 +84,9 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
             array(37, 37),
         ), $obj->getPoints());
 
-        $obj->removePoint(0);
+        // should return same instance
+        $this->assertSame($obj, $obj->removePoint(0));
+
         $this->assertSame(array(), $obj->getPoints());
     }
 
@@ -98,6 +103,9 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
             array(42.5, 42.5),
             array(100, 100),
         ), $obj->getPoints());
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setPoint(1, array(200, 200)));
     }
 
     public function testGetPoint()
