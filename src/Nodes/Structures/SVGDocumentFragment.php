@@ -172,28 +172,6 @@ class SVGDocumentFragment extends SVGNodeContainer
     }
 
     /**
-     * Returns a viewBox array (x, y, width, height) with dimensions scaled by
-     * the given values.
-     *
-     * @param $scaleX The horizontal factor.
-     *
-     * @param $scaleY The vertical factor.
-     *
-     * @return float[]|null The scaled viewbox array.
-     */
-    private function getScaledViewBox($scaleX, $scaleY)
-    {
-        $viewBox = $this->getViewBox();
-        if (empty($viewBox)) {
-            return $viewBox;
-        }
-        $viewBox[2] *= $scaleX;
-        $viewBox[3] *= $scaleY;
-
-        return $viewBox;
-    }
-
-    /**
      * Returns the node with the given id, or null if no such node exists in the
      * document.
      *
