@@ -45,7 +45,7 @@ class SVGDocumentFragment extends SVGNodeContainer
      */
     public function isRoot()
     {
-        return empty($this->getParent());
+        return $this->getParent() === null;
     }
 
     /**
