@@ -53,7 +53,7 @@ class SVGRectRenderer extends SVGRenderer
     protected function renderFill($image, array $params, $color)
     {
         if ($params['rx'] !== 0 || $params['ry'] !== 0) {
-            self::renderFillRounded($image, $params, $color);
+            $this->renderFillRounded($image, $params, $color);
             return;
         }
 
@@ -110,7 +110,7 @@ class SVGRectRenderer extends SVGRenderer
         imagesetthickness($image, $strokeWidth);
 
         if ($params['rx'] !== 0 || $params['ry'] !== 0) {
-            self::renderStrokeRounded($image, $params, $color, $strokeWidth);
+            $this->renderStrokeRounded($image, $params, $color, $strokeWidth);
             return;
         }
 
