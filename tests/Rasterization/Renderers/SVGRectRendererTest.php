@@ -129,4 +129,45 @@ class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img,
             new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-fill.png'));
     }
+
+    public function testShouldRenderStrokeRounded()
+    {
+        $obj = new SVGRectRenderer();
+
+        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context->setStyle('fill', 'none');
+        $context->setStyle('stroke', '#FF0000');
+        $context->setStyle('stroke-width', '1px');
+
+        $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
+        $obj->render($rasterizer, array(
+            'x' => '4px', 'y' => '8px',
+            'width' => '20px', 'height' => '16px',
+            'rx' => '10%', 'ry' => '10%',
+        ), $context);
+        $img = $rasterizer->finish();
+
+        $this->assertThat($img,
+            new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-rounded.png'));
+    }
+
+    public function testShouldRenderFillRounded()
+    {
+        $obj = new SVGRectRenderer();
+
+        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context->setStyle('fill', '#FF0000');
+        $context->setStyle('stroke', 'none');
+
+        $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
+        $obj->render($rasterizer, array(
+            'x' => '4px', 'y' => '8px',
+            'width' => '20px', 'height' => '16px',
+            'rx' => '10%', 'ry' => '10%',
+        ), $context);
+        $img = $rasterizer->finish();
+
+        $this->assertThat($img,
+            new GDSimilarityConstraint('./tests/images/renderer-rect-fill-rounded.png'));
+    }
 }
