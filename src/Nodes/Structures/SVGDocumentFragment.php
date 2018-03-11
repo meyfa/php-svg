@@ -22,22 +22,18 @@ class SVGDocumentFragment extends SVGNodeContainer
         'opacity'       => '1',
     );
 
-    /** @var bool $root Whether this is the root document. */
-    private $root;
     /** @var string[] $namespaces A map of custom namespaces to their URIs. */
     private $namespaces;
 
     /**
-     * @param bool        $root       Whether this is the root document.
      * @param string|null $width      The declared width.
      * @param string|null $height     The declared height.
      * @param string[]    $namespaces A map of custom namespaces to their URIs.
      */
-    public function __construct($root = false, $width = null, $height = null, array $namespaces = array())
+    public function __construct($width = null, $height = null, array $namespaces = array())
     {
         parent::__construct();
 
-        $this->root = (bool) $root;
         $this->namespaces = $namespaces;
 
         $this->setAttribute('width', $width);
@@ -49,7 +45,7 @@ class SVGDocumentFragment extends SVGNodeContainer
      */
     public function isRoot()
     {
-        return $this->root;
+        return empty($this->getParent());
     }
 
     /**
@@ -113,7 +109,7 @@ class SVGDocumentFragment extends SVGNodeContainer
      */
     public function rasterize(SVGRasterizer $rasterizer)
     {
-        if ($this->root) {
+        if ($this->isRoot()) {
             parent::rasterize($rasterizer);
             return;
         }
@@ -147,7 +143,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     {
         $attrs = parent::getSerializableAttributes();
 
-        if ($this->root) {
+        if ($this->isRoot()) {
             $attrs['xmlns'] = 'http://www.w3.org/2000/svg';
             $attrs['xmlns:xlink'] = 'http://www.w3.org/1999/xlink';
             foreach ($this->namespaces as $namespace => $uri) {

@@ -13,14 +13,15 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
 {
     public function test__construct()
     {
-        // should not be root or set any attributes by default
+        $container = new \SVG\Nodes\Structures\SVGGroup();
+
+        // should not set any attributes by default
         $obj = new SVGDocumentFragment();
-        $this->assertFalse($obj->isRoot());
+        $container->addChild($obj);
         $this->assertSame(array(), $obj->getSerializableAttributes());
 
-        // should set root, width, height when provided
-        $obj = new SVGDocumentFragment(true, 37, 42);
-        $this->assertTrue($obj->isRoot());
+        // should set width, height when provided
+        $obj = new SVGDocumentFragment(37, 42);
         $this->assertSame('37', $obj->getWidth());
         $this->assertSame('42', $obj->getHeight());
 
@@ -28,8 +29,20 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         $ns = array(
             'xmlns:foobar' => 'foobar-namespace',
         );
-        $obj = new SVGDocumentFragment(true, 37, 42, $ns);
+        $obj = new SVGDocumentFragment(37, 42, $ns);
         $this->assertArraySubset($ns, $obj->getSerializableAttributes());
+    }
+
+    public function testIsRoot()
+    {
+        // should return true by default
+        $obj = new SVGDocumentFragment();
+        $this->assertTrue($obj->isRoot());
+
+        // should return false if added to another container
+        $container = new \SVG\Nodes\Structures\SVGGroup();
+        $container->addChild($obj);
+        $this->assertFalse($obj->isRoot());
     }
 
     public function testGetWidth()
@@ -94,19 +107,24 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
 
     public function testGetSerializableAttributes()
     {
+        $container = new \SVG\Nodes\Structures\SVGGroup();
+
         // should be empty by default
         $obj = new SVGDocumentFragment();
+        $container->addChild($obj);
         $this->assertSame(array(), $obj->getSerializableAttributes());
 
         // should return previously defined properties
         $obj = new SVGDocumentFragment();
+        $container->addChild($obj);
         $obj->setAttribute('id', 'test');
         $this->assertSame(array(
             'id' => 'test',
         ), $obj->getSerializableAttributes());
 
         // should include width and height when set
-        $obj = new SVGDocumentFragment(false, 100, 200);
+        $obj = new SVGDocumentFragment(100, 200);
+        $container->addChild($obj);
         $obj->setHeight(300);
         $this->assertSame(array(
             'width' => '100',
@@ -114,11 +132,12 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         ), $obj->getSerializableAttributes());
 
         // should not include width/height when set to '100%'
-        $obj = new SVGDocumentFragment(false, '100%', '100%');
+        $obj = new SVGDocumentFragment('100%', '100%');
+        $container->addChild($obj);
         $this->assertSame(array(), $obj->getSerializableAttributes());
 
         // should include 'xmlns' and 'xmlns:xlink' namespaces for root
-        $obj = new SVGDocumentFragment(true);
+        $obj = new SVGDocumentFragment();
         $this->assertSame(array(
             'xmlns' => 'http://www.w3.org/2000/svg',
             'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
@@ -129,7 +148,7 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
             'foo' => 'test-ns-foo',
             'xmlns:bar' => 'test-ns-bar',
         );
-        $obj = new SVGDocumentFragment(true, null, null, $ns);
+        $obj = new SVGDocumentFragment(null, null, $ns);
         $this->assertSame(array(
             'xmlns' => 'http://www.w3.org/2000/svg',
             'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
@@ -138,7 +157,7 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         ), $obj->getSerializableAttributes());
 
         // should override 'xmlns' unprefixed when provided
-        $obj = new SVGDocumentFragment(true, null, null, array(
+        $obj = new SVGDocumentFragment(null, null, array(
             'xmlns' => 'xmlns-override',
         ));
         $this->assertSame(array(
@@ -147,7 +166,7 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         ), $obj->getSerializableAttributes());
 
         // should treat empty namespace string like 'xmlns'
-        $obj = new SVGDocumentFragment(true, null, null, array(
+        $obj = new SVGDocumentFragment(null, null, array(
             '' => 'xmlns-override',
         ));
         $this->assertSame(array(
@@ -199,7 +218,7 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
 
     public function testRasterize_empty()
     {
-        $obj = new SVGDocumentFragment(true, '2px', '2px');
+        $obj = new SVGDocumentFragment('2px', '2px');
 
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(
             $obj->getWidth(), $obj->getHeight(),    // doc width, height
@@ -215,7 +234,7 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
 
     public function testRasterize_object_unscaled()
     {
-        $obj = new SVGDocumentFragment(true, '20px', '40px');
+        $obj = new SVGDocumentFragment('20px', '40px');
 
         $rect = new \SVG\Nodes\Shapes\SVGRect('5px', '5px', '10px', '30px');
         $rect->setStyle('fill', '#FF0000');
@@ -235,7 +254,7 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
 
     public function testRasterize_object_scaledUp()
     {
-        $obj = new SVGDocumentFragment(true, '10px', '20px');
+        $obj = new SVGDocumentFragment('10px', '20px');
 
         $rect = new \SVG\Nodes\Shapes\SVGRect('2.5px', '2.5px', '5px', '15px');
         $rect->setStyle('fill', '#FF0000');
@@ -255,7 +274,7 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
 
     public function testRasterize_object_scaledDown()
     {
-        $obj = new SVGDocumentFragment(true, '40px', '80px');
+        $obj = new SVGDocumentFragment('40px', '80px');
 
         $rect = new \SVG\Nodes\Shapes\SVGRect('10px', '10px', '20px', '60px');
         $rect->setStyle('fill', '#FF0000');
@@ -275,7 +294,7 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
 
     public function testRasterize_object_viewBox()
     {
-        $obj = new SVGDocumentFragment(true, '100%', '100%');
+        $obj = new SVGDocumentFragment('100%', '100%');
         $obj->setAttribute('viewBox', '100 100 2 4');
 
         $rect = new \SVG\Nodes\Shapes\SVGRect('100.5px', '100.5px', '1px', '3px');
