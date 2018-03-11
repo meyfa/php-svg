@@ -147,12 +147,7 @@ class SVGDocumentFragment extends SVGNodeContainer
             $attrs['xmlns'] = 'http://www.w3.org/2000/svg';
             $attrs['xmlns:xlink'] = 'http://www.w3.org/1999/xlink';
             foreach ($this->namespaces as $namespace => $uri) {
-                if ($namespace === '' && !empty($uri)) {
-                    $namespace = 'xmlns';
-                }
-                if ($namespace !== 'xmlns' && substr($namespace, 0, 6) !== 'xmlns:') {
-                    $namespace = 'xmlns:'.$namespace;
-                }
+                $namespace = $this->serializeNamespace($namespace);
                 $attrs[$namespace] = $uri;
             }
         }
@@ -165,6 +160,25 @@ class SVGDocumentFragment extends SVGNodeContainer
         }
 
         return $attrs;
+    }
+
+    /**
+     * Converts the given namespace string to standard form, i.e. ensuring that
+     * it either equals 'xmlns' or starts with 'xmlns:'.
+     *
+     * @param string $namespace The namespace string.
+     *
+     * @return string The modified namespace string to be added as attribute.
+     */
+    private function serializeNamespace($namespace)
+    {
+        if ($namespace === '' || $namespace === 'xmlns') {
+            return 'xmlns';
+        }
+        if (substr($namespace, 0, 6) !== 'xmlns:') {
+            return 'xmlns:'.$namespace;
+        }
+        return $namespace;
     }
 
     /**
