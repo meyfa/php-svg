@@ -28,14 +28,16 @@ abstract class SVGNodeContainer extends SVGNode
     }
 
     /**
-     * Adds an SVGNode instance to the end of this container's child list.
-     * Does nothing if it already exists.
+     * Inserts an SVGNode instance at the given index, or, if no index is given,
+     * at the end of the child list.
+     * Does nothing if the node already exists in this container.
      *
-     * @param SVGNode $node The node to add to this container's children.
+     * @param SVGNode $node  The node to add to this container's children.
+     * @param int     $index The position to insert at (optional).
      *
      * @return $this This node instance, for call chaining.
      */
-    public function addChild(SVGNode $node)
+    public function addChild(SVGNode $node, $index = null)
     {
         if ($node === $this || $node->parent === $this) {
             return $this;
@@ -45,8 +47,11 @@ abstract class SVGNodeContainer extends SVGNode
             $node->parent->removeChild($node);
         }
 
-        $this->children[] = $node;
-        $node->parent     = $this;
+        $index = ($index !== null) ? $index : count($this->children);
+
+        // insert and set new parent
+        array_splice($this->children, $index, 0, array($node));
+        $node->parent = $this;
 
         if ($node instanceof SVGStyle) {
             // if node is SVGStyle then add rules to container's style

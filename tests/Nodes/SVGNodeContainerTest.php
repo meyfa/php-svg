@@ -19,7 +19,10 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new SVGNodeContainerSubclass();
         $obj2 = new SVGNodeContainerSubclass();
+
         $child = new SVGNodeContainerSubclass();
+        $child2 = new SVGNodeContainerSubclass();
+        $child3 = new SVGNodeContainerSubclass();
 
         // should add the child
         $obj->addChild($child);
@@ -45,6 +48,14 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->addChild($child));
         $this->assertSame($obj, $obj->addChild($child));
         $this->assertSame($obj, $obj->addChild($obj));
+
+        // should add at the given position
+        $obj->addChild($child, 0);
+        $obj->addChild($child2, 0);
+        $obj->addChild($child3, 2);
+        $this->assertSame($child2, $obj->getChild(0));
+        $this->assertSame($child, $obj->getChild(1));
+        $this->assertSame($child3, $obj->getChild(2));
     }
 
     public function testRemoveChild()
