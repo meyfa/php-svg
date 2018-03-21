@@ -65,13 +65,13 @@ abstract class SVGNodeContainer extends SVGNode
      * Removes a child node, given either as its instance or as the index it's
      * located at, from this container.
      *
-     * @param SVGNode|int $nodeOrIndex The node (or respective index) to remove.
+     * @param SVGNode|int $child The node (or respective index) to remove.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function removeChild($nodeOrIndex)
+    public function removeChild($child)
     {
-        $index = $this->resolveChildIndex($nodeOrIndex);
+        $index = $this->resolveChildIndex($child);
         if ($index === false) {
             return $this;
         }
@@ -80,6 +80,27 @@ abstract class SVGNodeContainer extends SVGNode
         $node->parent = null;
 
         array_splice($this->children, $index, 1);
+
+        return $this;
+    }
+
+    /**
+     * Replaces a child node with another node.
+     *
+     * @param SVGNode|int $child The node (or respective index) to replace.
+     * @param SVGNode     $node  The replacement node.
+     *
+     * @return $this This node instance, for call chaining.
+     */
+    public function setChild($child, SVGNode $node)
+    {
+        $index = $this->resolveChildIndex($child);
+        if ($index === false) {
+            return $this;
+        }
+
+        $this->removeChild($index);
+        $this->addChild($node, $index);
 
         return $this;
     }

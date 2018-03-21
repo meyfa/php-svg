@@ -85,6 +85,35 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->removeChild($child));
     }
 
+    public function testSetChild()
+    {
+        $obj = new SVGNodeContainerSubclass();
+        $obj2 = new SVGNodeContainerSubclass();
+
+        $child = new SVGNodeContainerSubclass();
+        $child2 = new SVGNodeContainerSubclass();
+
+        $obj->addChild($child);
+
+        // should replace by instance
+        $obj->setChild($child, $child2);
+        $this->assertSame(1, $obj->countChildren());
+        $this->assertSame($child2, $obj->getChild(0));
+
+        // should replace by index
+        $obj->setChild(0, $child);
+        $this->assertSame(1, $obj->countChildren());
+        $this->assertSame($child, $obj->getChild(0));
+
+        // should do nothing if instance does not exist
+        $obj->setChild(new SVGNodeContainerSubclass(), $child2);
+        $this->assertSame(1, $obj->countChildren());
+        $this->assertSame($child, $obj->getChild(0));
+
+        // should return same instance
+        $this->assertSame($obj, $obj->setChild(0, $child2));
+    }
+
     public function testRasterize()
     {
         $obj = new SVGNodeContainerSubclass();
