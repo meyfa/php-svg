@@ -158,15 +158,24 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         ), $ellipse->getSerializableAttributes());
     }
 
-    public function testShouldIgnoreUnknownNodes()
+    public function testShouldRetrieveUnknownNodes()
     {
-        // should skip unknown node types without failing
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xmlUnknown);
         $doc = $result->getDocument();
-        $this->assertSame(2, $doc->countChildren());
+
+        // should include unknown nodes
+        $this->assertSame(3, $doc->countChildren());
         $this->assertSame('circle', $doc->getChild(0)->getName());
-        $this->assertSame('ellipse', $doc->getChild(1)->getName());
+        $this->assertSame('unknown', $doc->getChild(1)->getName());
+        $this->assertSame('ellipse', $doc->getChild(2)->getName());
+
+        // should set attributes on unknown nodes
+        $this->assertSame('bar', $doc->getChild(1)->getAttribute('foo'));
+
+        // should include children of unknown nodes
+        $this->assertSame(1, $doc->getChild(1)->countChildren());
+        $this->assertSame('baz', $doc->getChild(1)->getChild(0)->getName());
     }
 
     public function testShouldSetValue()

@@ -5,6 +5,7 @@ namespace SVG\Reading;
 use SVG\SVGImage;
 use SVG\Nodes\SVGNode;
 use SVG\Nodes\SVGNodeContainer;
+use SVG\Nodes\SVGGenericNodeType;
 use SVG\Utilities\SVGStyleParser;
 
 /**
@@ -207,32 +208,31 @@ class SVGReader
         array $namespaces)
     {
         foreach ($xml->children() as $child) {
-            $childNode = $this->parseNode($child, $namespaces);
-            if ($childNode) {
-                $node->addChild($childNode);
-            }
+            $node->addChild($this->parseNode($child, $namespaces));
         }
     }
 
     /**
      * Parses the given XML element into an instance of a SVGNode subclass.
-     * Passing an element of unknown type will return false.
+     * Unknown node types use a generic implementation.
      *
      * @param \SimpleXMLElement $xml        The XML element to parse.
      * @param string[]          $namespaces Array of allowed namespace prefixes.
      *
-     * @return SVGNode|false The parsed node, or false if type unknown.
+     * @return SVGNode The parsed node.
+     *
+     * @SuppressWarnings(PHPMD.ElseExpression)
      */
     private function parseNode(\SimpleXMLElement $xml, array $namespaces)
     {
         $type = $xml->getName();
 
-        if (!isset(self::$nodeTypes[$type])) {
-            return false;
+        if (isset(self::$nodeTypes[$type])) {
+            $call = array(self::$nodeTypes[$type], 'constructFromAttributes');
+            $node = call_user_func($call, $xml);
+        } else {
+            $node = new SVGGenericNodeType($type);
         }
-
-        $call = array(self::$nodeTypes[$type], 'constructFromAttributes');
-        $node = call_user_func($call, $xml);
 
         $this->applyAttributes($node, $xml, $namespaces);
         $this->applyStyles($node, $xml);
