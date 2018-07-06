@@ -42,13 +42,6 @@ abstract class SVGRenderer
 
         $image = $rasterizer->getImage();
 
-        $fill = $context->getComputedStyle('fill');
-        if (isset($fill) && $fill !== 'none') {
-            $fill = self::prepareColor($fill, $context);
-
-            $this->renderFill($image, $params, $fill);
-        }
-
         $stroke = $context->getComputedStyle('stroke');
         if (isset($stroke) && $stroke !== 'none') {
             $stroke      = self::prepareColor($stroke, $context);
@@ -56,6 +49,13 @@ abstract class SVGRenderer
             $strokeWidth = self::prepareLengthX($strokeWidth, $rasterizer);
 
             $this->renderStroke($image, $params, $stroke, $strokeWidth);
+        }
+
+        $fill = $context->getComputedStyle('fill');
+        if (isset($fill) && $fill !== 'none') {
+            $fill = self::prepareColor($fill, $context);
+
+            $this->renderFill($image, $params, $fill);
         }
     }
 
