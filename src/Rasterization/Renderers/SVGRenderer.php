@@ -40,26 +40,69 @@ abstract class SVGRenderer
     {
         $params = $this->prepareRenderParams($rasterizer, $options);
 
-        $image = $rasterizer->getImage();
+        $paint_order = $this->getPaintOrder($context);
+        foreach($paint_order as $paint) {
+            if($paint == 'fill') {
+                $this->paintFill($rasterizer, $context, $params);
+            } else if ($paint == 'stroke') {
+                $this->paintStroke($rasterizer, $context, $params);
+            }
+        }
+    }
 
+    /**
+     * @param SVGRasterizer $rasterizer
+     * @param SVGNode $context
+     * @param $params
+     */
+    private function paintStroke(SVGRasterizer $rasterizer, SVGNode $context, $params)
+    {
         $stroke = $context->getComputedStyle('stroke');
         if (isset($stroke) && $stroke !== 'none') {
             $stroke      = self::prepareColor($stroke, $context);
             $strokeWidth = $context->getComputedStyle('stroke-width');
             $strokeWidth = self::prepareLengthX($strokeWidth, $rasterizer);
 
-            $this->renderStroke($image, $params, $stroke, $strokeWidth);
+            $this->renderStroke($rasterizer->getImage(), $params, $stroke, $strokeWidth);
         }
+    }
 
+    /**
+     * @param SVGRasterizer $rasterizer
+     * @param SVGNode $context
+     * @param $params
+     */
+    private function paintFill(SVGRasterizer $rasterizer, SVGNode $context, $params)
+    {
         $fill = $context->getComputedStyle('fill');
         if (isset($fill) && $fill !== 'none') {
             $fill = self::prepareColor($fill, $context);
 
-            $this->renderFill($image, $params, $fill);
+            $this->renderFill($rasterizer->getImage(), $params, $fill);
         }
     }
 
+    /**
+     * @param SVGNode $context
+     * @return string[]
+     */
+    private function getPaintOrder(SVGNode $context)
+    {
+        $context->setStyle('paint-order', 'fill stroke');
+        $paint_order = $context->getComputedStyle('paint-order');
+        $paint_order = preg_replace('#\s{2,}#', ' ', trim($paint_order));
 
+        $default_order = array('fill', 'stroke', 'markers');
+
+        if($paint_order == 'normal' || empty($paint_order)) {
+            $paint_order = $default_order;
+        } else {
+            $paint_order = array_intersect(explode(' ', $paint_order), $default_order);
+            $paint_order = array_merge($paint_order, array_diff($default_order, $paint_order));
+        }
+
+        return $paint_order;
+    }
 
     /**
      * Parses the color string and applies the node's total opacity to it,
