@@ -7,8 +7,10 @@ class SVGTextRenderer extends SVGRenderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
-        $options['x'] += $rasterizer->getOffsetX();
-        $options['y'] += $rasterizer->getOffsetY();
+        $options['x'] = self::prepareLengthX($options['x'], $rasterizer) + $rasterizer->getOffsetX();
+        $options['y'] = self::prepareLengthY($options['y'], $rasterizer) + $rasterizer->getOffsetY();
+
+        $options['size'] *= $rasterizer->getScaleY();
 
         return $options;
     }
