@@ -47,6 +47,11 @@ class SVGText extends SVGNodeContainer
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
+        $paint_order = $this->getComputedStyle('paint-order');
+        if(!$paint_order) {
+            $this->setStyle('paint-order', 'stroke fill');
+        }
+
         $rasterizer->render('text', array(
             'x'         => $this->getAttribute('x'),
             'y'         => $this->getAttribute('y'),
