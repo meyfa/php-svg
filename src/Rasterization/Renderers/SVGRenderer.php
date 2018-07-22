@@ -88,7 +88,6 @@ abstract class SVGRenderer
      */
     private function getPaintOrder(SVGNode $context)
     {
-        $context->setStyle('paint-order', 'fill stroke');
         $paint_order = $context->getComputedStyle('paint-order');
         $paint_order = preg_replace('#\s{2,}#', ' ', trim($paint_order));
 
