@@ -40,8 +40,8 @@ abstract class SVGRenderer
     {
         $params = $this->prepareRenderParams($rasterizer, $options);
 
-        $paint_order = $this->getPaintOrder($context);
-        foreach($paint_order as $paint) {
+        $paintOrder = $this->getPaintOrder($context);
+        foreach($paintOrder as $paint) {
             if($paint == 'fill') {
                 $this->paintFill($rasterizer, $context, $params);
             } else if ($paint == 'stroke') {
@@ -88,19 +88,19 @@ abstract class SVGRenderer
      */
     private function getPaintOrder(SVGNode $context)
     {
-        $paint_order = $context->getComputedStyle('paint-order');
-        $paint_order = preg_replace('#\s{2,}#', ' ', trim($paint_order));
+        $paintOrder = $context->getComputedStyle('paint-order');
+        $paintOrder = preg_replace('#\s{2,}#', ' ', trim($paintOrder));
 
-        $default_order = array('fill', 'stroke', 'markers');
+        $defaultOrder = array('fill', 'stroke', 'markers');
 
-        if($paint_order == 'normal' || empty($paint_order)) {
-            $paint_order = $default_order;
+        if($paintOrder == 'normal' || empty($paintOrder)) {
+            $paintOrder = $defaultOrder;
         } else {
-            $paint_order = array_intersect(explode(' ', $paint_order), $default_order);
-            $paint_order = array_merge($paint_order, array_diff($default_order, $paint_order));
+            $paintOrder = array_intersect(explode(' ', $paintOrder), $defaultOrder);
+            $paintOrder = array_merge($paintOrder, array_diff($defaultOrder, $paintOrder));
         }
 
-        return $paint_order;
+        return $paintOrder;
     }
 
     /**
