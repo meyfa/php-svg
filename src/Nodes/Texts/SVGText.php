@@ -37,12 +37,9 @@ class SVGText extends SVGNodeContainer
     {
         parent::__construct();
         $this->setValue($text);
-        if($x > 0) {
-            $this->setAttribute('x', $x);
-        }
-        if($y > 0) {
-            $this->setAttribute('y', $y);
-        }
+
+        $this->setAttribute('x', $x);
+        $this->setAttribute('y', $y);
     }
 
     public function rasterize(SVGRasterizer $rasterizer)
