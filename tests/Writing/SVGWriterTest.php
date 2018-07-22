@@ -121,7 +121,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $svgText = new \SVG\Nodes\Texts\SVGText();
         $svgText->setValue('hello world');
         $obj->writeNode($svgText);
-        $expect = $this->xmlDeclaration.'<text>hello world</text>';
+        $expect = $this->xmlDeclaration.'<text x="0" y="0">hello world</text>';
         $this->assertEquals($expect, $obj->getString());
 
         // should escape HTML entities in value
@@ -129,7 +129,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $svgText = new \SVG\Nodes\Texts\SVGText();
         $svgText->setValue('hello& <world>');
         $obj->writeNode($svgText);
-        $expect = $this->xmlDeclaration.'<text>hello&amp; &lt;world&gt;</text>';
+        $expect = $this->xmlDeclaration.'<text x="0" y="0">hello&amp; &lt;world&gt;</text>';
         $this->assertEquals($expect, $obj->getString());
 
         // should add value even for non-containers
