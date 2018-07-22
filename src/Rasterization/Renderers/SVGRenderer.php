@@ -94,11 +94,11 @@ abstract class SVGRenderer
         $defaultOrder = array('fill', 'stroke', 'markers');
 
         if($paintOrder == 'normal' || empty($paintOrder)) {
-            $paintOrder = $defaultOrder;
-        } else {
-            $paintOrder = array_intersect(explode(' ', $paintOrder), $defaultOrder);
-            $paintOrder = array_merge($paintOrder, array_diff($defaultOrder, $paintOrder));
+            return $defaultOrder;
         }
+
+        $paintOrder = array_intersect(explode(' ', $paintOrder), $defaultOrder);
+        $paintOrder = array_merge($paintOrder, array_diff($defaultOrder, $paintOrder));
 
         return $paintOrder;
     }
