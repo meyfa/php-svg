@@ -36,7 +36,21 @@ final class Color
             return array(0, 0, 0, 0);
         }
 
-        // clamp into integer range 0 - 255
+        return self::clamp($r, $g, $b, $a);
+    }
+
+    /**
+     * Clamps the RGBA components into the range 0 - 255 (inclusive). All values
+     * are converted to integers.
+     *
+     * @param float $r
+     * @param float $g
+     * @param float $b
+     * @param float $a
+     * @return int[] The clamped integer components array.
+     */
+    private static function clamp($r, $g, $b, $a)
+    {
         $r = min(max(intval($r), 0), 255);
         $g = min(max(intval($g), 0), 255);
         $b = min(max(intval($b), 0), 255);
