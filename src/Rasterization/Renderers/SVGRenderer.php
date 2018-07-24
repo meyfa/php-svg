@@ -2,9 +2,10 @@
 
 namespace SVG\Rasterization\Renderers;
 
-use SVG\SVG;
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Utilities\Units\Length;
+use SVG\Utilities\Colors\Color;
 
 /**
  * This is the base class for all shape renderer instances.
@@ -114,7 +115,7 @@ abstract class SVGRenderer
      */
     private static function prepareColor($color, SVGNode $context)
     {
-        $color = SVG::parseColor($color);
+        $color = Color::parse($color);
         $rgb   = ($color[0] << 16) + ($color[1] << 8) + ($color[2]);
 
         $opacity = self::calculateTotalOpacity($context);
@@ -180,7 +181,7 @@ abstract class SVGRenderer
         $doc   = $ras->getDocumentWidth();
         $scale = $ras->getScaleX();
 
-        return SVG::convertUnit($len, $doc) * $scale;
+        return Length::convert($len, $doc) * $scale;
     }
 
     /**
@@ -196,7 +197,7 @@ abstract class SVGRenderer
         $doc   = $ras->getDocumentWidth();
         $scale = $ras->getScaleY();
 
-        return SVG::convertUnit($len, $doc) * $scale;
+        return Length::convert($len, $doc) * $scale;
     }
 
     /**
