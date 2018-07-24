@@ -2,12 +2,12 @@
 
 namespace SVG;
 
-use SVG\SVGImage;
+use SVG\SVG;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGImageTest extends \PHPUnit\Framework\TestCase
+class SVGTest extends \PHPUnit\Framework\TestCase
 {
     private $xml, $xmlNoDeclaration;
 
@@ -27,7 +27,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
 
     public function testGetDocument()
     {
-        $image = new SVGImage(37, 42);
+        $image = new SVG(37, 42);
         $doc = $image->getDocument();
 
         // should be instanceof the correct class
@@ -44,7 +44,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
 
     public function testToRasterImage()
     {
-        $image = new SVGImage(37, 42);
+        $image = new SVG(37, 42);
         $rasterImage = $image->toRasterImage(100, 200);
 
         // should be a gd resource
@@ -58,7 +58,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
 
     public function test__toString()
     {
-        $image = new SVGImage(37, 42);
+        $image = new SVG(37, 42);
 
         // should return correctly stringified XML
         $this->assertSame($this->xml, (string) $image);
@@ -66,7 +66,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
 
     public function testToXMLString()
     {
-        $image = new SVGImage(37, 42);
+        $image = new SVG(37, 42);
 
         // should return correctly stringified XML
         $this->assertSame($this->xml, $image->toXMLString());
@@ -77,28 +77,28 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
 
     public function testFromString()
     {
-        $image = SVGImage::fromString($this->xml);
+        $image = SVG::fromString($this->xml);
         $doc = $image->getDocument();
 
-        // should return an instance of SVGImage
-        $this->assertInstanceOf('\SVG\SVGImage', $image);
+        // should return an instance of SVG
+        $this->assertInstanceOf('\SVG\SVG', $image);
 
         // should have correct width and height
         $this->assertSame('37', $doc->getWidth());
         $this->assertSame('42', $doc->getHeight());
 
         // should succeed without xml declaration
-        $image = SVGImage::fromString($this->xmlNoDeclaration);
+        $image = SVG::fromString($this->xmlNoDeclaration);
         $doc = $image->getDocument();
-        $this->assertInstanceOf('\SVG\SVGImage', $image);
+        $this->assertInstanceOf('\SVG\SVG', $image);
         $this->assertSame('37', $doc->getWidth());
         $this->assertSame('42', $doc->getHeight());
     }
 
     public function testFromFile()
     {
-        $image = SVGImage::fromFile(__DIR__.'/php_test.svg');
+        $image = SVG::fromFile(__DIR__.'/php_test.svg');
 
-        $this->assertInstanceOf('\SVG\SVGImage', $image);
+        $this->assertInstanceOf('\SVG\SVG', $image);
     }
 }

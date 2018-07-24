@@ -2,9 +2,9 @@
 
 namespace SVG\Rasterization\Renderers;
 
+use SVG\SVG;
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
-use SVG\SVGImage;
 
 /**
  * This renderer can draw referenced images (from <image> tags).
@@ -85,7 +85,7 @@ class SVGImageRenderer extends SVGRenderer
         $content = $this->loadImageContent($href);
 
         if (strpos($content, '<svg') !== false && strrpos($content, '</svg>') !== false) {
-            $svg = SVGImage::fromString($content);
+            $svg = SVG::fromString($content);
             return $svg->toRasterImage($w, $h);
         }
 

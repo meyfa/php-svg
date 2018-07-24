@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  *
  * Usage:
  *
- * $svg = new \SVG\SVGImage(600, 400);
+ * $svg = new \SVG\SVG(600, 400);
  *
  * $font = new \SVG\Nodes\Structures\SVGFont('openGost', 'OpenGostTypeA-Regular.ttf');
  * $svg->getDocument()->addChild($font);

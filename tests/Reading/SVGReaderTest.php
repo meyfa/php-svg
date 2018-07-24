@@ -64,10 +64,10 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldReturnAnImageOrNull()
     {
-        // should return an instance of SVGImage
+        // should return an instance of SVG
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xml);
-        $this->assertInstanceOf('\SVG\SVGImage', $result);
+        $this->assertInstanceOf('\SVG\SVG', $result);
 
         // should return null when parsing fails
         $result = $svgReader->parseString('<rect />');

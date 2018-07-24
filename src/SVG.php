@@ -11,7 +11,7 @@ use SVG\Writing\SVGWriter;
  * This is the main class for any SVG image, as it hosts the document root and
  * offers conversion methods.
  */
-class SVGImage
+class SVG
 {
     /** @var SVGReader $reader The singleton reader used by this class. */
     private static $reader;
@@ -63,7 +63,7 @@ class SVGImage
     }
 
     /**
-     * @see SVGImage::toXMLString() For the implementation (this is a wrapper).
+     * @see SVG::toXMLString() For the implementation (this is a wrapper).
      */
     public function __toString()
     {
@@ -94,7 +94,7 @@ class SVGImage
      *
      * @param string $string The XML string to parse.
      *
-     * @return SVGImage A new image, with the nodes parsed from the XML.
+     * @return SVG A new image, with the nodes parsed from the XML.
      */
     public static function fromString($string)
     {
@@ -107,7 +107,7 @@ class SVGImage
      *
      * @param string $file The path to the file to parse.
      *
-     * @return SVGImage A new image, with the nodes parsed from the XML.
+     * @return SVG A new image, with the nodes parsed from the XML.
      */
     public static function fromFile($file)
     {

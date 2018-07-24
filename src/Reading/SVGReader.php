@@ -2,7 +2,7 @@
 
 namespace SVG\Reading;
 
-use SVG\SVGImage;
+use SVG\SVG;
 use SVG\Nodes\SVGNode;
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Nodes\SVGGenericNodeType;
@@ -10,7 +10,7 @@ use SVG\Utilities\SVGStyleParser;
 
 /**
  * This class is used to read XML strings or files and turn them into instances
- * of SVGImage by parsing the document tree.
+ * of SVG by parsing the document tree.
  *
  * In contrast to SVGWriter, a single instance can perform any number of reads.
  */
@@ -74,12 +74,12 @@ class SVGReader
     );
 
     /**
-     * Parses the given string as XML and turns it into an instance of SVGImage.
+     * Parses the given string as XML and turns it into an instance of SVG.
      * Returns null when parsing fails.
      *
      * @param string $string The XML string to parse.
      *
-     * @return SVGImage|null An image object representing the parse result.
+     * @return SVG|null An image object representing the parse result.
      */
     public function parseString($string)
     {
@@ -89,14 +89,14 @@ class SVGReader
 
     /**
      * Parses the file at the given path/URL as XML and turns it into an
-     * instance of SVGImage.
+     * instance of SVG.
      *
      * The path can be on the local file system, or a URL on the network.
      * Returns null when parsing fails.
      *
      * @param string $filename The path or URL of the file to parse.
      *
-     * @return SVGImage|null An image object representing the parse result.
+     * @return SVG|null An image object representing the parse result.
      */
     public function parseFile($filename)
     {
@@ -105,12 +105,12 @@ class SVGReader
     }
 
     /**
-     * Parses the given XML document into an instance of SVGImage.
+     * Parses the given XML document into an instance of SVG.
      * Returns null when parsing fails.
      *
      * @param \SimpleXMLElement $xml The root node of the SVG document to parse.
      *
-     * @return SVGImage|null An image object representing the parse result.
+     * @return SVG|null An image object representing the parse result.
      */
     public function parseXML(\SimpleXMLElement $xml)
     {
@@ -123,7 +123,7 @@ class SVGReader
         $height = isset($xml['height']) ? $xml['height'] : null;
         $namespaces = $xml->getNamespaces(true);
 
-        $img = new SVGImage($width, $height, $namespaces);
+        $img = new SVG($width, $height, $namespaces);
 
         $nsKeys = array_keys($namespaces);
 
