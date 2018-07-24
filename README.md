@@ -75,11 +75,11 @@ header and echoes it:
 ```php
 <?php
 
-use SVG\SVGImage;
+use SVG\SVG;
 use SVG\Nodes\Shapes\SVGRect;
 
 // image with 100x100 viewport
-$image = new SVGImage(100, 100);
+$image = new SVG(100, 100);
 $doc = $image->getDocument();
 
 // blue 40x40 square at (0, 0)
@@ -93,17 +93,17 @@ echo $image;
 
 ### Rasterizing
 
-To convert an instance of SVGImage to a PHP/GD image resource, or in other words
+To convert an instance of `SVG` to a PHP/GD image resource, or in other words
 convert it to a raster image, you simply call `toRasterImage($width, $height)`
 on it. Example:
 
 ```php
 <?php
 
-use SVG\SVGImage;
+use SVG\SVG;
 use SVG\Nodes\Shapes\SVGCircle;
 
-$image = new SVGImage(100, 100);
+$image = new SVG(100, 100);
 $doc = $image->getDocument();
 
 // circle with radius 20 and green border, center at (50, 50)
@@ -129,13 +129,13 @@ from a string, moves the contained rectangle and echoes the new SVG:
 ```php
 <?php
 
-use SVG\SVGImage;
+use SVG\SVG;
 
 $svg  = '<svg width="100" height="100">';
 $svg .= '<rect width="50" height="50" fill="#00F" />';
 $svg .= '</svg>';
 
-$image = SVGImage::fromString($svg);
+$image = SVG::fromString($svg);
 $doc = $image->getDocument();
 
 $rect = $doc->getChild(0);
@@ -145,5 +145,5 @@ header('Content-Type: image/svg+xml');
 echo $image;
 ```
 
-For loading from a file instead, you would call `SVGImage::fromFile($file)`.
+For loading from a file instead, you would call `SVG::fromFile($file)`.
 That function supports local file paths as well as URLs.
