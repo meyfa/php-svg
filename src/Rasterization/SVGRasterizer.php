@@ -2,8 +2,8 @@
 
 namespace SVG\Rasterization;
 
-use SVG\SVG;
 use SVG\Nodes\SVGNode;
+use SVG\Utilities\Units\Length;
 
 /**
  * This class is the main entry point for the rasterization process.
@@ -174,7 +174,7 @@ class SVGRasterizer
      */
     public function getDocumentWidth()
     {
-        return SVG::convertUnit($this->docWidth ?: '100%', $this->width);
+        return Length::convert($this->docWidth ?: '100%', $this->width);
     }
 
     /**
@@ -182,7 +182,7 @@ class SVGRasterizer
      */
     public function getDocumentHeight()
     {
-        return SVG::convertUnit($this->docHeight ?: '100%', $this->height);
+        return Length::convert($this->docHeight ?: '100%', $this->height);
     }
 
     /**

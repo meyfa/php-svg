@@ -2,9 +2,9 @@
 
 namespace SVG\Nodes\Structures;
 
-use SVG\SVG;
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Utilities\Units\Length;
 
 /**
  * Represents the SVG tag 'svg'. This is the root node for every image.
@@ -119,8 +119,8 @@ class SVGDocumentFragment extends SVGNodeContainer
             $this->getWidth(),          // document width
             $this->getHeight(),         // document height
             $this->getViewBox(),        // viewBox
-            SVG::convertUnit($this->getWidth() ?: '100%', $rasterizer->getWidth()),
-            SVG::convertUnit($this->getHeight() ?: '100%', $rasterizer->getHeight())
+            Length::convert($this->getWidth() ?: '100%', $rasterizer->getWidth()),
+            Length::convert($this->getHeight() ?: '100%', $rasterizer->getHeight())
         );
 
         // perform rasterization as usual
