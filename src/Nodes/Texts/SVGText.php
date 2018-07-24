@@ -42,22 +42,6 @@ class SVGText extends SVGNodeContainer
         $this->setAttribute('y', $y);
     }
 
-    public function rasterize(SVGRasterizer $rasterizer)
-    {
-        $paintOrder = $this->getComputedStyle('paint-order');
-        if (!$paintOrder) {
-            $this->setStyle('paint-order', 'stroke fill');
-        }
-
-        $rasterizer->render('text', array(
-            'x'         => $this->getAttribute('x'),
-            'y'         => $this->getAttribute('y'),
-            'size'      => $this->getComputedStyle('font-size'),
-            'text'      => $this->getValue(),
-            'font_path' => $this->font->getFontPath(),
-        ), $this);
-    }
-
     /**
      * Set font
      *
@@ -81,5 +65,31 @@ class SVGText extends SVGNodeContainer
     {
         $this->setStyle('font-size', $size);
         return $this;
+    }
+
+    public function getComputedStyle($name)
+    {
+        // force stroke before fill
+        if ($name === 'paint-order') {
+            // TODO remove this workaround
+            return 'stroke fill';
+        }
+
+        return parent::getComputedStyle($name);
+    }
+
+    public function rasterize(SVGRasterizer $rasterizer)
+    {
+        if (empty($this->font)) {
+            return;
+        }
+
+        $rasterizer->render('text', array(
+            'x'         => $this->getAttribute('x'),
+            'y'         => $this->getAttribute('y'),
+            'size'      => $this->getComputedStyle('font-size'),
+            'text'      => $this->getValue(),
+            'font_path' => $this->font->getFontPath(),
+        ), $this);
     }
 }
