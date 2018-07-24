@@ -52,7 +52,7 @@ class SVGText extends SVGNodeContainer
         $rasterizer->render('text', array(
             'x'         => $this->getAttribute('x'),
             'y'         => $this->getAttribute('y'),
-            'size'      => (int)$this->getComputedStyle('font-size'),
+            'size'      => $this->getComputedStyle('font-size'),
             'text'      => $this->getValue(),
             'font_path' => $this->font->getFontPath(),
         ), $this);
