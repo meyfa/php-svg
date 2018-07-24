@@ -9,7 +9,7 @@ use SVG\Rasterization\SVGRasterizer;
  * Represents the SVG tag 'image'.
  * Has the special attributes xlink:href, x, y, width, height.
  */
-class SVGImageElement extends SVGNode
+class SVGImage extends SVGNode
 {
     const TAG_NAME = 'image';
 
