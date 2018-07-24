@@ -40,8 +40,6 @@ abstract class SVGPolygonalShape extends SVGNode
         return new static($points);
     }
 
-
-
     /**
      * Appends a new point to the end of this shape. The point can be given
      * either as a 2-tuple (1 param) or as separate x and y (2 params).
@@ -113,8 +111,6 @@ abstract class SVGPolygonalShape extends SVGNode
         $this->points[$index] = $point;
         return $this;
     }
-
-
 
     public function getSerializableAttributes()
     {

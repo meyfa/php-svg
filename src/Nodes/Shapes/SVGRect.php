@@ -29,8 +29,6 @@ class SVGRect extends SVGNode
         $this->setAttribute('height', $height);
     }
 
-
-
     /**
      * @return string The x coordinate of the upper left corner.
      */
@@ -107,8 +105,6 @@ class SVGRect extends SVGNode
         return $this->setAttribute('height', $height);
     }
 
-
-
     /**
      * @return string The x radius of the corners.
      */
@@ -148,8 +144,6 @@ class SVGRect extends SVGNode
     {
         return $this->setAttribute('ry', $ry);
     }
-
-
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
