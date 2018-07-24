@@ -2,21 +2,21 @@
 
 namespace SVG;
 
-use SVG\Nodes\Embedded\SVGImageElement;
+use SVG\Nodes\Embedded\SVGImage;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGImageElementTest extends \PHPUnit\Framework\TestCase
+ class SVGImageTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {
         // should not set any attributes by default
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
         $this->assertSame(array(), $obj->getSerializableAttributes());
 
         // should set attributes when provided
-        $obj = new SVGImageElement('test-href', 10, 10, 100, 100);
+        $obj = new SVGImage('test-href', 10, 10, 100, 100);
         $this->assertSame(array(
             'xlink:href' => 'test-href',
             'x' => '10',
@@ -29,24 +29,24 @@ use SVG\Nodes\Embedded\SVGImageElement;
     public function testGetHref()
     {
         // should return xlink:href when available
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
         $obj->setAttribute('xlink:href', 'test-xlink-href');
         $obj->setAttribute('href', 'test-href');
         $this->assertSame('test-xlink-href', $obj->getHref());
 
         // should return href when xlink:href not available
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
         $obj->setAttribute('href', 'test-href');
         $this->assertSame('test-href', $obj->getHref());
 
         // should return null when no href available
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
         $this->assertNull($obj->getHref());
     }
 
     public function testSetHref()
     {
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
 
         // should set xlink:href
         $obj->setHref('test-href');
@@ -58,7 +58,7 @@ use SVG\Nodes\Embedded\SVGImageElement;
 
     public function testGetX()
     {
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
 
         // should return the attribute
         $obj->setAttribute('x', 42);
@@ -67,7 +67,7 @@ use SVG\Nodes\Embedded\SVGImageElement;
 
     public function testSetX()
     {
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
 
         // should update the attribute
         $obj->setX(42);
@@ -79,7 +79,7 @@ use SVG\Nodes\Embedded\SVGImageElement;
 
     public function testGetY()
     {
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
 
         // should return the attribute
         $obj->setAttribute('y', 42);
@@ -88,7 +88,7 @@ use SVG\Nodes\Embedded\SVGImageElement;
 
     public function testSetY()
     {
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
 
         // should update the attribute
         $obj->setY(42);
@@ -100,7 +100,7 @@ use SVG\Nodes\Embedded\SVGImageElement;
 
     public function testGetWidth()
     {
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
 
         // should return the attribute
         $obj->setAttribute('width', 42);
@@ -109,7 +109,7 @@ use SVG\Nodes\Embedded\SVGImageElement;
 
     public function testSetWidth()
     {
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
 
         // should update the attribute
         $obj->setWidth(42);
@@ -121,7 +121,7 @@ use SVG\Nodes\Embedded\SVGImageElement;
 
     public function testGetHeight()
     {
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
 
         // should return the attribute
         $obj->setAttribute('height', 42);
@@ -130,7 +130,7 @@ use SVG\Nodes\Embedded\SVGImageElement;
 
     public function testSetHeight()
     {
-        $obj = new SVGImageElement();
+        $obj = new SVGImage();
 
         // should update the attribute
         $obj->setHeight(42);
@@ -142,7 +142,7 @@ use SVG\Nodes\Embedded\SVGImageElement;
 
     public function testRasterize()
     {
-        $obj = new SVGImageElement('test-href', 10, 10, 100, 100);
+        $obj = new SVGImage('test-href', 10, 10, 100, 100);
 
         $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
             ->disableOriginalConstructor()

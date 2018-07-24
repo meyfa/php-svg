@@ -31,7 +31,7 @@ class SVGReader
         'polygon'   => 'SVG\Nodes\Shapes\SVGPolygon',
         'polyline'  => 'SVG\Nodes\Shapes\SVGPolyline',
         'path'      => 'SVG\Nodes\Shapes\SVGPath',
-        'image'     => 'SVG\Nodes\Embedded\SVGImageElement',
+        'image'     => 'SVG\Nodes\Embedded\SVGImage',
         'text'      => 'SVG\Nodes\Texts\SVGText',
         'textPath'  => 'SVG\Nodes\Texts\SVGTextPath',
         'title'     => 'SVG\Nodes\Texts\SVGTitle',
