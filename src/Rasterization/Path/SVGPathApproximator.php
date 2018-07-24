@@ -46,8 +46,6 @@ class SVGPathApproximator
         self::$arc    = new SVGArcApproximator();
     }
 
-
-
     /**
      * Traces/approximates the path described by the given array of commands.
      *
@@ -131,8 +129,6 @@ class SVGPathApproximator
         return $builder->build();
     }
 
-
-
     /**
      * Calculates the reflection of $p relative to $r. Returns a point.
      *
@@ -148,8 +144,6 @@ class SVGPathApproximator
             2 * $r[1] - $p[1],
         );
     }
-
-
 
     /**
      * Approximation function for MoveTo (M and m).

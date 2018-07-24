@@ -23,7 +23,7 @@ class SVGPolygonRenderer extends SVGRenderer
         $offsetY = $rasterizer->getOffsetY();
 
         $points = array();
-        foreach($options['points'] as $point) {
+        foreach ($options['points'] as $point) {
             $points[] = $point[0] * $scaleX + $offsetX;
             $points[] = $point[1] * $scaleY + $offsetY;
         }

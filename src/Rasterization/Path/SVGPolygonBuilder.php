@@ -30,8 +30,6 @@ class SVGPolygonBuilder
         $this->posY = $posY;
     }
 
-
-
     /**
      * Method for obtaining the built polygon array.
      *
@@ -41,8 +39,6 @@ class SVGPolygonBuilder
     {
         return $this->points;
     }
-
-
 
     /**
      * Finds the very first point in this polygon, or null if none exist.
@@ -83,8 +79,6 @@ class SVGPolygonBuilder
     {
         return array($this->posX, $this->posY);
     }
-
-
 
     /**
      * Appends a point with ABSOLUTE coordinates to the end of this polygon.
@@ -128,8 +122,6 @@ class SVGPolygonBuilder
 
         $this->points[] = array($this->posX, $this->posY);
     }
-
-
 
     /**
      * Appends multiple points with ABSOLUTE coordinates to this polygon.

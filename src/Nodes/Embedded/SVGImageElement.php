@@ -31,8 +31,6 @@ class SVGImageElement extends SVGNode
         $this->setAttribute('height', $height);
     }
 
-
-
     /**
      * @return string The image path, URL or URI.
      */
@@ -52,8 +50,6 @@ class SVGImageElement extends SVGNode
     {
         return $this->setAttribute('xlink:href', $href);
     }
-
-
 
     /**
      * @return string The x coordinate of the upper left corner.
@@ -95,8 +91,6 @@ class SVGImageElement extends SVGNode
         return $this->setAttribute('y', $y);
     }
 
-
-
     /**
      * @return string The width.
      */
@@ -132,8 +126,6 @@ class SVGImageElement extends SVGNode
     {
         return $this->setAttribute('height', $height);
     }
-
-
 
     public function rasterize(SVGRasterizer $rasterizer)
     {

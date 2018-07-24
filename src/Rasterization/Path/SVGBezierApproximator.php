@@ -81,8 +81,6 @@ class SVGBezierApproximator
         return $points;
     }
 
-
-
     /**
      * Calculates a single point on the quadratic Bézier curve, using $t as its
      * parameter.
@@ -140,8 +138,6 @@ class SVGBezierApproximator
             $ti * $b0y + $t * $b1y,
         );
     }
-
-
 
     /**
      * Calculates the squared distance between two points.

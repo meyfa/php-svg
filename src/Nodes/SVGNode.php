@@ -44,8 +44,6 @@ abstract class SVGNode
         return new static();
     }
 
-
-
     /**
      * @return string This node's tag name (e.g. 'rect' or 'g').
      */
@@ -61,8 +59,6 @@ abstract class SVGNode
     {
         return $this->parent;
     }
-
-
 
     /**
      * Obtains the value on this node.
@@ -90,8 +86,6 @@ abstract class SVGNode
         $this->value = (string) $value;
         return $this;
     }
-
-
 
     /**
      * Obtains the style with the given name as specified on this node.
@@ -166,8 +160,6 @@ abstract class SVGNode
         return $style !== 'inherit' ? $style : null;
     }
 
-
-
     /**
      * Obtains the attribute with the given name as specified on this node.
      * For style attributes, use `getStyle($name)` instead.
@@ -212,8 +204,6 @@ abstract class SVGNode
         unset($this->attributes[$name]);
         return $this;
     }
-
-
 
     /**
      * Constructs a set of attributes that shall be included in generated XML.

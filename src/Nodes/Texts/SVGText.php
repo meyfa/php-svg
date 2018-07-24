@@ -45,7 +45,7 @@ class SVGText extends SVGNodeContainer
     public function rasterize(SVGRasterizer $rasterizer)
     {
         $paintOrder = $this->getComputedStyle('paint-order');
-        if(!$paintOrder) {
+        if (!$paintOrder) {
             $this->setStyle('paint-order', 'stroke fill');
         }
 

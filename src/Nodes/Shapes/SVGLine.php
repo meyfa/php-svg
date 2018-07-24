@@ -29,8 +29,6 @@ class SVGLine extends SVGNode
         $this->setAttribute('y2', $y2);
     }
 
-
-
     /**
      * @return string The first point's x coordinate.
      */
@@ -71,8 +69,6 @@ class SVGLine extends SVGNode
         return $this->setAttribute('y1', $y1);
     }
 
-
-
     /**
      * @return string The second point's x coordinate.
      */
@@ -112,8 +108,6 @@ class SVGLine extends SVGNode
     {
         return $this->setAttribute('y2', $y2);
     }
-
-
 
     public function rasterize(SVGRasterizer $rasterizer)
     {

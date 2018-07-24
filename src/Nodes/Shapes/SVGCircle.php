@@ -27,8 +27,6 @@ class SVGCircle extends SVGNode
         $this->setAttribute('r', $r);
     }
 
-
-
     /**
      * @return string The center's x coordinate.
      */
@@ -69,8 +67,6 @@ class SVGCircle extends SVGNode
         return $this->setAttribute('cy', $cy);
     }
 
-
-
     /**
      * @return string The radius.
      */
@@ -90,8 +86,6 @@ class SVGCircle extends SVGNode
     {
         return $this->setAttribute('r', $r);
     }
-
-
 
     public function rasterize(SVGRasterizer $rasterizer)
     {

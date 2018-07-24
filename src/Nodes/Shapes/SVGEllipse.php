@@ -29,8 +29,6 @@ class SVGEllipse extends SVGNode
         $this->setAttribute('ry', $ry);
     }
 
-
-
     /**
      * @return string The center's x coordinate.
      */
@@ -71,8 +69,6 @@ class SVGEllipse extends SVGNode
         return $this->setAttribute('cy', $cy);
     }
 
-
-
     /**
      * @return string The radius along the x-axis.
      */
@@ -112,8 +108,6 @@ class SVGEllipse extends SVGNode
     {
         return $this->setAttribute('ry', $ry);
     }
-
-
 
     public function rasterize(SVGRasterizer $rasterizer)
     {

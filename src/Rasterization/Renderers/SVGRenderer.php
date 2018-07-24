@@ -41,10 +41,10 @@ abstract class SVGRenderer
         $params = $this->prepareRenderParams($rasterizer, $options);
 
         $paintOrder = $this->getPaintOrder($context);
-        foreach($paintOrder as $paint) {
-            if($paint == 'fill') {
+        foreach ($paintOrder as $paint) {
+            if ($paint === 'fill') {
                 $this->paintFill($rasterizer, $context, $params);
-            } else if ($paint == 'stroke') {
+            } elseif ($paint === 'stroke') {
                 $this->paintStroke($rasterizer, $context, $params);
             }
         }
@@ -93,7 +93,7 @@ abstract class SVGRenderer
 
         $defaultOrder = array('fill', 'stroke', 'markers');
 
-        if($paintOrder == 'normal' || empty($paintOrder)) {
+        if ($paintOrder === 'normal' || empty($paintOrder)) {
             return $defaultOrder;
         }
 
@@ -167,8 +167,6 @@ abstract class SVGRenderer
         return $opacity;
     }
 
-
-
     /**
      * Parses the length string in relation to the rasterizer's X dimension.
      *
@@ -200,8 +198,6 @@ abstract class SVGRenderer
 
         return SVG::convertUnit($len, $doc) * $scale;
     }
-
-
 
     /**
      * Converts the options array into a new parameters array that the render

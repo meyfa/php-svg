@@ -15,9 +15,6 @@ class SVGTextRenderer extends SVGRenderer
         return $options;
     }
 
-    /**
-     * @SuppressWarnings("unused")
-     */
     protected function renderFill($image, array $params, $color)
     {
         imagettftext(

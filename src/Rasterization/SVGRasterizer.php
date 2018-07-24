@@ -87,8 +87,6 @@ class SVGRasterizer
         return $img;
     }
 
-
-
     /**
      * Makes sure the singleton static variables are all instantiated.
      *
@@ -151,8 +149,6 @@ class SVGRasterizer
         return self::$pathApproximator;
     }
 
-
-
     /**
      * Uses the specified renderer to draw an object, as described via the
      * params attribute, and by utilizing the provided node context.
@@ -173,8 +169,6 @@ class SVGRasterizer
         return $renderer->render($this, $params, $context);
     }
 
-
-
     /**
      * @return float The original SVG document width, in pixels.
      */
@@ -191,8 +185,6 @@ class SVGRasterizer
         return SVG::convertUnit($this->docHeight ?: '100%', $this->height);
     }
 
-
-
     /**
      * @return int The output image width, in pixels.
      */
@@ -208,8 +200,6 @@ class SVGRasterizer
     {
         return $this->height;
     }
-
-
 
     /**
      * @return float The factor by which the output is scaled on the x axis.
