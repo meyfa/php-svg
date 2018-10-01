@@ -22,7 +22,7 @@ class SVGBezierApproximator
      *
      * @return array[] An approximation for the curve, as an array of points.
      */
-    public function quadratic($p0, $p1, $p2, $accuracy = 1)
+    public function quadratic($p0, $p1, $p2, $accuracy = 1.0)
     {
         $t      = 0;
         $prev   = $p0;
@@ -59,7 +59,7 @@ class SVGBezierApproximator
      *
      * @return array[] An approximation for the curve, as an array of points.
      */
-    public function cubic($p0, $p1, $p2, $p3, $accuracy = 1)
+    public function cubic($p0, $p1, $p2, $p3, $accuracy = 1.0)
     {
         $t      = 0;
         $prev   = $p0;
