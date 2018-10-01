@@ -13,7 +13,7 @@ class SVGPolygonBuilderTest extends \PHPUnit\Framework\TestCase
     {
         // should set position to origin by default
         $obj = new SVGPolygonBuilder();
-        $this->assertSame(array(0, 0), $obj->getPosition());
+        $this->assertSame(array(0.0, 0.0), $obj->getPosition());
 
         // should use provided coordinates as origin
         $obj = new SVGPolygonBuilder(37.1, 42.2);
@@ -105,7 +105,7 @@ class SVGPolygonBuilderTest extends \PHPUnit\Framework\TestCase
         $obj->addPointRelative(37.1, 42.2);
         $obj->addPointRelative(0, 0);
         $this->assertSame(array(
-            array(10, 20),
+            array(10.0, 20.0),
             array(47.1, 62.2),
             array(47.1, 62.2),
         ), $obj->build());
@@ -113,7 +113,7 @@ class SVGPolygonBuilderTest extends \PHPUnit\Framework\TestCase
         // should treat null the same as 0
         $obj->addPointRelative(null, null);
         $this->assertSame(array(
-            array(10, 20),
+            array(10.0, 20.0),
             array(47.1, 62.2),
             array(47.1, 62.2),
             array(47.1, 62.2),
