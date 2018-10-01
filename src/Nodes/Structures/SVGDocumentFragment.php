@@ -187,7 +187,7 @@ class SVGDocumentFragment extends SVGNodeContainer
      *
      * @param string $id The id to search for.
      *
-     * @return SVGNode|null The node with the given id if it exists.
+     * @return \SVG\Nodes\SVGNode|null The node with the given id if it exists.
      */
     public function getElementById($id)
     {
