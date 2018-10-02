@@ -43,7 +43,7 @@ class SVGStyle extends SVGNode
     }
 
     /**
-     * @param $type The type attribute.
+     * @param $type string The type attribute.
      *
      * @return $this This node instance, for call chaining.
      */
@@ -63,7 +63,7 @@ class SVGStyle extends SVGNode
     /**
      * Sets the CSS content.
      *
-     * @param $css The new cdata content
+     * @param $css string The new cdata content
      *
      * @return $this The node instance for call chaining
      */

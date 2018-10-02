@@ -166,7 +166,7 @@ class SVGArcApproximator
      * @param float $vx Second vector's x coordinate.
      * @param float $vy Second vector's y coordinate.
      *
-     * @return The angle, in radians.
+     * @return float The angle, in radians.
      */
     private static function vectorAngle($ux, $uy, $vx, $vy)
     {

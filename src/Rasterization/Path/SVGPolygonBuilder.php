@@ -24,7 +24,7 @@ class SVGPolygonBuilder
      * @param float $posX The starting x position.
      * @param float $posY The starting y position.
      */
-    public function __construct($posX = 0, $posY = 0)
+    public function __construct($posX = 0.0, $posY = 0.0)
     {
         $this->posX = $posX;
         $this->posY = $posY;
