@@ -16,8 +16,9 @@ class SVGEmbeddedImage extends SVGNode
      * @param int    $width
      * @param int    $height
      * @param string $path
+     * @param string $mimeType e. g. "image/png" for PNG Files
      */
-    public function __construct($width, $height, $path)
+    public function __construct($width, $height, $path, $mimeType)
     {
         parent::__construct();
 
@@ -27,14 +28,6 @@ class SVGEmbeddedImage extends SVGNode
         $imageContent = file_get_contents($path);
         if ($imageContent === false) {
             throw new \RuntimeException('Image file "' . $path . '" could not be read.');
-        }
-
-        // TODO Validation via magic numbers?
-        $extension = pathinfo($path, PATHINFO_EXTENSION);
-        if ($extension === 'png') {
-            $mimeType = 'image/png';
-        } else {
-            throw new \RuntimeException('Unknown image file extension: "' . $extension . '".');
         }
 
         $this->setAttribute(
