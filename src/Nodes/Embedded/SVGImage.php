@@ -50,7 +50,37 @@ class SVGImage extends SVGNode
             throw new \RuntimeException('Image file "' . $path . '" could not be read.');
         }
 
-        $image = new self(
+        return self::fromString(
+            $imageContent,
+            $mimeType,
+            $x,
+            $y,
+            $width,
+            $height
+        );
+    }
+
+    /**
+     * Creates a new SVGImage directly from a raw binary image string
+     *
+     * @param string     $imageContent
+     * @param string     $mimeType
+     * @param float|null $x
+     * @param float|null $y
+     * @param float|null $width
+     * @param float|null $height
+     *
+     * @return self
+     */
+    public static function fromString(
+        $imageContent,
+        $mimeType,
+        $x = null,
+        $y = null,
+        $width = null,
+        $height = null
+    ) {
+        return new self(
             sprintf(
                 'data:%s;base64,%s',
                 $mimeType,
@@ -61,8 +91,6 @@ class SVGImage extends SVGNode
             $width,
             $height
         );
-
-        return $image;
     }
 
     /**
