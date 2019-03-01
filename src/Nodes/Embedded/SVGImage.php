@@ -32,6 +32,68 @@ class SVGImage extends SVGNode
     }
 
     /**
+     * Creates a new SVGImage directly from file
+     *
+     * @param string     $path
+     * @param string     $mimeType
+     * @param float|null $x
+     * @param float|null $y
+     * @param float|null $width
+     * @param float|null $height
+     *
+     * @return self
+     */
+    public static function fromFile($path, $mimeType, $x = null, $y = null, $width = null, $height = null)
+    {
+        $imageContent = file_get_contents($path);
+        if ($imageContent === false) {
+            throw new \RuntimeException('Image file "' . $path . '" could not be read.');
+        }
+
+        return self::fromString(
+            $imageContent,
+            $mimeType,
+            $x,
+            $y,
+            $width,
+            $height
+        );
+    }
+
+    /**
+     * Creates a new SVGImage directly from a raw binary image string
+     *
+     * @param string     $imageContent
+     * @param string     $mimeType
+     * @param float|null $x
+     * @param float|null $y
+     * @param float|null $width
+     * @param float|null $height
+     *
+     * @return self
+     */
+    public static function fromString(
+        $imageContent,
+        $mimeType,
+        $x = null,
+        $y = null,
+        $width = null,
+        $height = null
+    ) {
+        return new self(
+            sprintf(
+                'data:%s;base64,%s',
+                $mimeType,
+                base64_encode($imageContent)
+            ),
+            $x,
+            $y,
+            $width,
+            $height
+        );
+    }
+
+    /**
      * @return string The image path, URL or URI.
      */
     public function getHref()
