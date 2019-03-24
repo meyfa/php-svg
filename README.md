@@ -147,3 +147,5 @@ echo $image;
 
 For loading from a file instead, you would call `SVG::fromFile($file)`.
 That function supports local file paths as well as URLs.
+
+For additional documentation, see the [wiki](https://github.com/meyfa/php-svg/wiki).
