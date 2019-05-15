@@ -210,4 +210,28 @@ class SVGDocumentFragment extends SVGNodeContainer
 
         return null;
     }
+
+    /**
+     * Deletes the node with the given id if it is contained in a nodeContainer
+     *
+     * @param string $id The id to search for.
+     * @return \SVG\Nodes\SVGNode|null The node with the given id if deleted
+     *
+     */
+    public function removeElementById($id)
+    {
+        // get element by id
+        $elem = $this->getElementById($id);
+        if ($elem) {
+            // get parent of element
+            $parentElem = $elem->getParent();
+
+            if ($parentElem and $parentElem instanceof SVGNodeContainer) {
+                // delete element
+                $parentElem->removeChild($elem);
+                return $elem;
+            }
+        }
+        return null;
+    }
 }

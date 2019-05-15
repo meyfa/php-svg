@@ -214,6 +214,75 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
             // </container>
         );
         $this->assertSame($expected, $obj->getElementById('foobar'));
+
+    }
+
+    public function testRemoveElementById()
+    {
+        // should return null if not found
+        $obj = new SVGDocumentFragment();
+        $this->assertNull($obj->getElementById('foobar'));
+
+        // should return null if root
+        $obj = new SVGDocumentFragment();
+        $obj->setAttribute('id', 'foobar');
+        $this->assertNull($obj->removeElementById('foobar'));
+
+        // should return deleted item if deletable
+        $obj = new SVGDocumentFragment();
+        $obj->addChild(
+        // <container>
+            $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+            // <node id="foobar" />
+                $expected = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+                    ->setAttribute('id', 'foobar')
+            )
+        // </container>
+        );
+        $this->assertSame($expected, $obj->removeElementById('foobar'));
+
+        // should delete the node identified by the ID
+        $obj = new SVGDocumentFragment();
+        $obj->addChild(
+        // <container>
+            $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+            // <node id="foobar" />
+                $expected = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+                    ->setAttribute('id', 'foobar')
+            )
+        // </container>
+        );
+        $obj->removeElementById('foobar');
+        $this->assertNull($obj->getElementById('foobar'));
+
+        // should match only the first matching item (tree order)
+        $obj = new SVGDocumentFragment();
+        $obj->addChild(
+        // <container>
+            $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+            // <node />
+                $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+            )->addChild(
+            // <container>
+                $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+                // <node id="foobar" />
+                    $expected = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+                        ->setAttribute('id', 'foobar')
+                )
+            // </container>
+            )
+        // </container>
+        );
+        $obj->addChild(
+        // <container>
+            $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+            // <node id="foobar" />
+                $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+                    ->setAttribute('id', 'foobar')
+            )
+        // </container>
+        );
+        $this->assertSame($expected, $obj->removeElementById('foobar'));
     }
 
     public function testRasterize_empty()
