@@ -19,28 +19,38 @@ class SVGRectRenderer extends SVGRenderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
-        $x1 = self::prepareLengthX($options['x'], $rasterizer) + $rasterizer->getOffsetX();
-        $y1 = self::prepareLengthY($options['y'], $rasterizer) + $rasterizer->getOffsetY();
         $w  = self::prepareLengthX($options['width'], $rasterizer);
         $h  = self::prepareLengthY($options['height'], $rasterizer);
+
+        if ($w <= 0 || $h <= 0) {
+            return array('empty' => true);
+        }
+
+        $x1 = self::prepareLengthX($options['x'], $rasterizer) + $rasterizer->getOffsetX();
+        $y1 = self::prepareLengthY($options['y'], $rasterizer) + $rasterizer->getOffsetY();
 
         // corner radiuses may at least be (width-1)/2 pixels long.
         // anything larger than that and the circles start expanding beyond
         // the rectangle.
+        // when width=0 or height=0, no radiuses should be painted - the order
+        // of the ifs will take care of this.
         $rx = empty($options['rx']) ? 0 : self::prepareLengthX($options['rx'], $rasterizer);
-        if ($rx < 0) {
-            $rx = 0;
-        } elseif ($rx > ($w - 1) / 2) {
+        if ($rx > ($w - 1) / 2) {
             $rx = floor(($w - 1) / 2);
         }
+        if ($rx < 0) {
+            $rx = 0;
+        }
         $ry = empty($options['ry']) ? 0 : self::prepareLengthY($options['ry'], $rasterizer);
+        if ($ry > ($h - 1) / 2) {
+            $ry = floor(($h - 1) / 2);
+        }
         if ($ry < 0) {
             $ry = 0;
-        } elseif ($ry > ($h - 1) / 2) {
-            $ry = floor(($h - 1) / 2);
         }
 
         return array(
+            'empty' => false,
             'x1' => $x1,
             'y1' => $y1,
             'x2' => $x1 + $w - 1,
@@ -52,6 +62,10 @@ class SVGRectRenderer extends SVGRenderer
 
     protected function renderFill($image, array $params, $color)
     {
+        if ($params['empty']) {
+            return;
+        }
+
         if ($params['rx'] !== 0 || $params['ry'] !== 0) {
             $this->renderFillRounded($image, $params, $color);
             return;
@@ -107,6 +121,10 @@ class SVGRectRenderer extends SVGRenderer
 
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
+        if ($params['empty']) {
+            return;
+        }
+
         imagesetthickness($image, $strokeWidth);
 
         if ($params['rx'] !== 0 || $params['ry'] !== 0) {

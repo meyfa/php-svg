@@ -170,4 +170,46 @@ class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img,
             new GDSimilarityConstraint('./tests/images/renderer-rect-fill-rounded.png'));
     }
+
+    public function testDoesNotRenderIfWidthZero()
+    {
+        $obj = new SVGRectRenderer();
+
+        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context->setStyle('fill', '#FF0000');
+        $context->setStyle('stroke', '#0000FF');
+        $context->setStyle('stroke-width', '1px');
+
+        $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
+        $obj->render($rasterizer, array(
+            'x' => '4px', 'y' => '8px',
+            'width' => '0', 'height' => '16px',
+            'rx' => '10%', 'ry' => '10%',
+        ), $context);
+        $img = $rasterizer->finish();
+
+        $this->assertThat($img,
+            new GDSimilarityConstraint('./tests/images/renderer-rect-empty.png'));
+    }
+
+    public function testDoesNotRenderIfHeightZero()
+    {
+        $obj = new SVGRectRenderer();
+
+        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context->setStyle('fill', '#FF0000');
+        $context->setStyle('stroke', '#0000FF');
+        $context->setStyle('stroke-width', '1px');
+
+        $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
+        $obj->render($rasterizer, array(
+            'x' => '4px', 'y' => '8px',
+            'width' => '20px', 'height' => '0',
+            'rx' => '10%', 'ry' => '10%',
+        ), $context);
+        $img = $rasterizer->finish();
+
+        $this->assertThat($img,
+            new GDSimilarityConstraint('./tests/images/renderer-rect-empty.png'));
+    }
 }
