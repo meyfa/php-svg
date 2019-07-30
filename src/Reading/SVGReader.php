@@ -153,6 +153,11 @@ class SVGReader
     private function applyAttributes(SVGNode $node, \SimpleXMLElement $xml,
         array $namespaces)
     {
+        // a document like <svg>...</svg> was read (no xmlns declaration)
+        if (!in_array('', $namespaces, true) && !in_array(null, $namespaces, true)) {
+            $namespaces[] = '';
+        }
+
         foreach ($namespaces as $ns) {
             foreach ($xml->attributes($ns, true) as $key => $value) {
                 if ($key === 'style') {

@@ -31,6 +31,14 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->xml .= '</g>';
         $this->xml .= '</svg>';
 
+        $this->xmlNoXmlns  = '<svg>';
+        $this->xmlNoXmlns .= '<circle cx="10" cy="20" r="42" />';
+        $this->xmlNoXmlns .= '</svg>';
+
+        $this->xmlOnlyOtherXmlns  = '<svg xmlns:xlink="http://www.w3.org/1999/xlink">';
+        $this->xmlOnlyOtherXmlns .= '<circle cx="10" cy="20" r="42" xlink:foo="bar" />';
+        $this->xmlOnlyOtherXmlns .= '</svg>';
+
         $this->xmlNoViewBox  = '<?xml version="1.0" encoding="utf-8"?>';
         $this->xmlNoViewBox .= '<svg width="37" height="42" '.
             'xmlns="http://www.w3.org/2000/svg" '.
@@ -156,6 +164,29 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
             'rx' => '10',
             'ry' => '20',
         ), $ellipse->getSerializableAttributes());
+    }
+
+    public function testShouldWorkWithoutAnyXmlns()
+    {
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($this->xmlNoXmlns);
+        $doc = $result->getDocument();
+
+        $this->assertSame(1, $doc->countChildren());
+        $this->assertSame('circle', $doc->getChild(0)->getName());
+        $this->assertSame('10', $doc->getChild(0)->getAttribute('cx'));
+    }
+
+    public function testShouldWorkWithoutMainXmlns()
+    {
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($this->xmlOnlyOtherXmlns);
+        $doc = $result->getDocument();
+
+        $this->assertSame(1, $doc->countChildren());
+        $this->assertSame('circle', $doc->getChild(0)->getName());
+        $this->assertSame('10', $doc->getChild(0)->getAttribute('cx'));
+        $this->assertSame('bar', $doc->getChild(0)->getAttribute('xlink:foo'));
     }
 
     public function testShouldRetrieveUnknownNodes()
