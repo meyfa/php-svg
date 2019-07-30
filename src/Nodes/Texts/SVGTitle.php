@@ -11,6 +11,12 @@ class SVGTitle extends SVGNode
 {
     const TAG_NAME = 'title';
 
+    public function __construct($text = '')
+    {
+        parent::__construct();
+        $this->setValue($text);
+    }
+
     /**
      * Dummy implementation
      *
