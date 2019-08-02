@@ -2,14 +2,14 @@
 
 namespace SVG\Nodes\Shapes;
 
-use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'circle'.
  * Has the special attributes cx, cy, r.
  */
-class SVGCircle extends SVGNode
+class SVGCircle extends SVGNodeContainer
 {
     const TAG_NAME = 'circle';
 

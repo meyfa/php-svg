@@ -1,8 +1,8 @@
 <?php
 namespace SVG\Nodes\Texts;
 
-use SVG\Nodes\Structures\SVGFont;
 use SVG\Nodes\SVGNodeContainer;
+use SVG\Nodes\Structures\SVGFont;
 use SVG\Rasterization\SVGRasterizer;
 
 /**

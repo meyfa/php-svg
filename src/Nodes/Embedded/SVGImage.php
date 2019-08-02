@@ -2,14 +2,14 @@
 
 namespace SVG\Nodes\Embedded;
 
-use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'image'.
  * Has the special attributes xlink:href, x, y, width, height.
  */
-class SVGImage extends SVGNode
+class SVGImage extends SVGNodeContainer
 {
     const TAG_NAME = 'image';
 

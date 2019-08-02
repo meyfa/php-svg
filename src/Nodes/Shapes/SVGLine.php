@@ -2,14 +2,14 @@
 
 namespace SVG\Nodes\Shapes;
 
-use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'line'.
  * Has the special attributes x1, y1, x2, y2.
  */
-class SVGLine extends SVGNode
+class SVGLine extends SVGNodeContainer
 {
     const TAG_NAME = 'line';
 

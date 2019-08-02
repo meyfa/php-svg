@@ -35,7 +35,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGWriter();
         $node = new \SVG\Nodes\Structures\SVGGroup();
         $obj->writeNode($node);
-        $expect = $this->xmlDeclaration.'<g></g>';
+        $expect = $this->xmlDeclaration.'<g />';
         $this->assertEquals($expect, $obj->getString());
 
         // should write self-closing tag for non-containers
@@ -53,7 +53,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $node = new \SVG\Nodes\Structures\SVGGroup();
         $node->setAttribute('id', 'testg');
         $obj->writeNode($node);
-        $expect = $this->xmlDeclaration.'<g id="testg"></g>';
+        $expect = $this->xmlDeclaration.'<g id="testg" />';
         $this->assertEquals($expect, $obj->getString());
     }
 
@@ -64,7 +64,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $node = new \SVG\Nodes\Structures\SVGGroup();
         $node->setStyle('fill', '#ABC')->setStyle('opacity', '.5');
         $obj->writeNode($node);
-        $expect = $this->xmlDeclaration.'<g style="fill: #ABC; opacity: .5"></g>';
+        $expect = $this->xmlDeclaration.'<g style="fill: #ABC; opacity: .5" />';
         $this->assertEquals($expect, $obj->getString());
     }
 
@@ -102,7 +102,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $svgGroup->setAttribute('id', '" foo&bar>')->setStyle('content', '" foo&bar>');
         $obj->writeNode($svgGroup);
         $expect = $this->xmlDeclaration.'<g id="&quot; foo&amp;bar&gt;" '.
-            'style="content: &quot; foo&amp;bar&gt;"></g>';
+            'style="content: &quot; foo&amp;bar&gt;" />';
         $this->assertEquals($expect, $obj->getString());
 
         // should encode entities in style body

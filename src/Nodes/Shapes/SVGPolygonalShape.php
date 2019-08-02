@@ -2,13 +2,13 @@
 
 namespace SVG\Nodes\Shapes;
 
-use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
 
 /**
  * This is the base class for polygons and polylines.
  * Offers methods for manipulating the list of points.
  */
-abstract class SVGPolygonalShape extends SVGNode
+abstract class SVGPolygonalShape extends SVGNodeContainer
 {
     /** @var array[] $points List of points (float 2-tuples). */
     private $points;

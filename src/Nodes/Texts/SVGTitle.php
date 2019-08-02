@@ -1,13 +1,13 @@
 <?php
 namespace SVG\Nodes\Texts;
 
-use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'title'.
  */
-class SVGTitle extends SVGNode
+class SVGTitle extends SVGNodeContainer
 {
     const TAG_NAME = 'title';
 

@@ -2,14 +2,14 @@
 
 namespace SVG\Nodes\Shapes;
 
-use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'rect'.
  * Has the special attributes x, y, width, height, rx, ry.
  */
-class SVGRect extends SVGNode
+class SVGRect extends SVGNodeContainer
 {
     const TAG_NAME = 'rect';
 

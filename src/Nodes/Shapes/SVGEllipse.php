@@ -2,14 +2,14 @@
 
 namespace SVG\Nodes\Shapes;
 
-use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'ellipse'.
  * Has the special attributes cx, cy, rx, ry.
  */
-class SVGEllipse extends SVGNode
+class SVGEllipse extends SVGNodeContainer
 {
     const TAG_NAME = 'ellipse';
 

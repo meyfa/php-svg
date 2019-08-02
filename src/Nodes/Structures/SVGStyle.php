@@ -2,14 +2,14 @@
 
 namespace SVG\Nodes\Structures;
 
-use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'style'.
  * Has the attribute 'type' and the CSS content.
  */
-class SVGStyle extends SVGNode
+class SVGStyle extends SVGNodeContainer
 {
     const TAG_NAME = 'style';
 

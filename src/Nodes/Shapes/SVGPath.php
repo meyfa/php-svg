@@ -2,13 +2,13 @@
 
 namespace SVG\Nodes\Shapes;
 
-use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'path'.
  */
-class SVGPath extends SVGNode
+class SVGPath extends SVGNodeContainer
 {
     const TAG_NAME = 'path';
 
