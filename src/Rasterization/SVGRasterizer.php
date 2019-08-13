@@ -4,6 +4,7 @@ namespace SVG\Rasterization;
 
 use SVG\Nodes\SVGNode;
 use SVG\Utilities\Units\Length;
+use SVG\Utilities\Colors\Color;
 
 /**
  * This class is the main entry point for the rasterization process.
@@ -44,13 +45,14 @@ class SVGRasterizer
     private $outImage;
 
     /**
-     * @param string $docWidth  The original SVG document width, as a string.
-     * @param string $docHeight The original SVG document height, as a string.
-     * @param float[] $viewBox  The document's viewBox.
-     * @param int $width        The output image width, in pixels.
-     * @param int $height       The output image height, in pixels.
+     * @param string $docWidth   The original SVG document width, as a string.
+     * @param string $docHeight  The original SVG document height, as a string.
+     * @param float[] $viewBox   The document's viewBox.
+     * @param int $width         The output image width, in pixels.
+     * @param int $height        The output image height, in pixels.
+     * @param string $background The background color (hex/rgb[a]/hsl[a]/...).
      */
-    public function __construct($docWidth, $docHeight, $viewBox, $width, $height)
+    public function __construct($docWidth, $docHeight, $viewBox, $width, $height, $background = null)
     {
         $this->docWidth  = $docWidth;
         $this->docHeight = $docHeight;
@@ -60,7 +62,7 @@ class SVGRasterizer
         $this->width  = $width;
         $this->height = $height;
 
-        $this->outImage = self::createImage($width, $height);
+        $this->outImage = self::createImage($width, $height, $background);
 
         self::createDependencies();
     }
@@ -70,19 +72,27 @@ class SVGRasterizer
      *
      * The returned image supports and is filled with transparency.
      *
-     * @param int $width  The output image width, in pixels.
-     * @param int $height The output image height, in pixels.
+     * @param int $width         The output image width, in pixels.
+     * @param int $height        The output image height, in pixels.
+     * @param string $background The background color (hex/rgb[a]/hsl[a]/...).
      *
      * @return resource The created GD image resource.
      */
-    private static function createImage($width, $height)
+    private static function createImage($width, $height, $background)
     {
         $img = imagecreatetruecolor($width, $height);
 
         imagealphablending($img, true);
         imagesavealpha($img, true);
 
-        imagefill($img, 0, 0, 0x7F000000);
+        $bgRgb = 0x7F000000;
+        if (!empty($background)) {
+            $bgColor = Color::parse($background);
+
+            $alpha = 127 - intval($bgColor[3] * 127 / 255);
+            $bgRgb = ($alpha << 24) + ($bgColor[0] << 16) + ($bgColor[1] << 8) + ($bgColor[2]);
+        }
+        imagefill($img, 0, 0, $bgRgb);
 
         return $img;
     }

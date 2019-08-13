@@ -45,18 +45,19 @@ class SVG
      * Note that, since images in SVG have an innate size, the given size only
      * scales the output canvas and does not influence element positions.
      *
-     * @param int $width  The target canvas's width, in pixels.
-     * @param int $height The target canvas's height, in pixels.
+     * @param int $width         The target canvas's width, in pixels.
+     * @param int $height        The target canvas's height, in pixels.
+     * @param string $background The background color (hex/rgb[a]/hsl[a]/...).
      *
      * @return resource The rasterized image as a GD resource (with alpha).
      */
-    public function toRasterImage($width, $height)
+    public function toRasterImage($width, $height, $background = null)
     {
         $docWidth  = $this->document->getWidth();
         $docHeight = $this->document->getHeight();
         $viewBox = $this->document->getViewBox();
 
-        $rasterizer = new SVGRasterizer($docWidth, $docHeight, $viewBox, $width, $height);
+        $rasterizer = new SVGRasterizer($docWidth, $docHeight, $viewBox, $width, $height, $background);
         $this->document->rasterize($rasterizer);
 
         return $rasterizer->finish();

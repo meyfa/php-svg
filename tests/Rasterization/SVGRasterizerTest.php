@@ -2,6 +2,8 @@
 
 namespace SVG;
 
+use AssertGD\GDSimilarityConstraint;
+
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -156,5 +158,38 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGRasterizer(10, 20, array(), 100, 200);
         $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $obj->render('invalid_render_id', array('option' => 'value'), $mockChild);
+    }
+
+    public function testShouldRenderBackgroundTransparent()
+    {
+        $obj = new SVGRasterizer(32, 32, array(), 32, 32, null);
+        $img = $obj->finish();
+
+        $this->assertThat($img,
+            new GDSimilarityConstraint('./tests/images/bg-transparent.png'));
+
+        imagedestroy($img);
+    }
+
+    public function testShouldRenderBackgroundSolidWhite()
+    {
+        $obj = new SVGRasterizer(32, 32, array(), 32, 32, "#FFFFFF");
+        $img = $obj->finish();
+
+        $this->assertThat($img,
+            new GDSimilarityConstraint('./tests/images/bg-white.png'));
+
+        imagedestroy($img);
+    }
+
+    public function testShouldRenderBackgroundWhiteSemitransparent()
+    {
+        $obj = new SVGRasterizer(32, 32, array(), 32, 32, "rgba(255,255,255,.5)");
+        $img = $obj->finish();
+
+        $this->assertThat($img,
+            new GDSimilarityConstraint('./tests/images/bg-white-semitransparent.png'));
+
+        imagedestroy($img);
     }
 }
