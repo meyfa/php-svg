@@ -28,11 +28,6 @@ class SVGRasterizer
     private static $pathApproximator;
 
     /**
-     * @var int $docWidth  The original SVG document width, in pixels.
-     * @var int $docHeight The original SVG document height, in pixels.
-     */
-    private $docWidth, $docHeight;
-    /**
      * @var float[] The document's viewBox (x, y, w, h).
      */
     private $viewBox;
@@ -44,6 +39,12 @@ class SVGRasterizer
     /** @var resource $outImage The output image as a GD resource. */
     private $outImage;
 
+    // precomputed properties for getter methods, used often during render
+
+    private $docWidth, $docHeight;
+    private $scaleX, $scaleY;
+    private $offsetX, $offsetY;
+
     /**
      * @param string $docWidth   The original SVG document width, as a string.
      * @param string $docHeight  The original SVG document height, as a string.
@@ -54,13 +55,23 @@ class SVGRasterizer
      */
     public function __construct($docWidth, $docHeight, $viewBox, $width, $height, $background = null)
     {
-        $this->docWidth  = $docWidth;
-        $this->docHeight = $docHeight;
-
         $this->viewBox = empty($viewBox) ? null : $viewBox;
 
         $this->width  = $width;
         $this->height = $height;
+
+        // precompute properties
+
+        $this->docWidth  = Length::convert($docWidth ?: '100%', $width);
+        $this->docHeight = Length::convert($docHeight ?: '100%', $height);
+
+        $this->scaleX =  $width / (!empty($viewBox) ? $viewBox[2] : $this->docWidth);
+        $this->scaleY =  $height / (!empty($viewBox) ? $viewBox[3] : $this->docHeight);
+
+        $this->offsetX = !empty($viewBox) ? -($viewBox[0] * $this->scaleX) : 0;
+        $this->offsetY = !empty($viewBox) ? -($viewBox[1] * $this->scaleY) : 0;
+
+        // create image
 
         $this->outImage = self::createImage($width, $height, $background);
 
@@ -184,7 +195,7 @@ class SVGRasterizer
      */
     public function getDocumentWidth()
     {
-        return Length::convert($this->docWidth ?: '100%', $this->width);
+        return $this->docWidth;
     }
 
     /**
@@ -192,7 +203,7 @@ class SVGRasterizer
      */
     public function getDocumentHeight()
     {
-        return Length::convert($this->docHeight ?: '100%', $this->height);
+        return $this->docHeight;
     }
 
     /**
@@ -216,10 +227,7 @@ class SVGRasterizer
      */
     public function getScaleX()
     {
-        if (!empty($this->viewBox)) {
-            return $this->width / $this->viewBox[2];
-        }
-        return $this->width / $this->getDocumentWidth();
+        return $this->scaleX;
     }
 
     /**
@@ -227,11 +235,7 @@ class SVGRasterizer
      */
     public function getScaleY()
     {
-        if (!empty($this->viewBox)) {
-            return $this->height / $this->viewBox[3];
-        }
-
-        return $this->height / $this->getDocumentHeight();
+        return $this->scaleY;
     }
 
     /**
@@ -240,11 +244,7 @@ class SVGRasterizer
      */
     public function getOffsetX()
     {
-        if (!empty($this->viewBox)) {
-            $scale = $this->getScaleX();
-            return -($this->viewBox[0] * $scale);
-        }
-        return 0;
+        return $this->offsetX;
     }
 
     /**
@@ -253,11 +253,7 @@ class SVGRasterizer
      */
     public function getOffsetY()
     {
-        if (!empty($this->viewBox)) {
-            $scale = $this->getScaleY();
-            return -($this->viewBox[1] * $scale);
-        }
-        return 0;
+        return $this->offsetY;
     }
 
     /**
