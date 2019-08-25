@@ -51,12 +51,12 @@ final class Color
      */
     private static function clamp($r, $g, $b, $a)
     {
-        $r = min(max(intval($r), 0), 255);
-        $g = min(max(intval($g), 0), 255);
-        $b = min(max(intval($b), 0), 255);
-        $a = min(max(intval($a), 0), 255);
-
-        return array($r, $g, $b, $a);
+        return array(
+            $r < 0 ? 0 : ($r > 255 ? 255 : (int) $r),
+            $g < 0 ? 0 : ($g > 255 ? 255 : (int) $g),
+            $b < 0 ? 0 : ($b > 255 ? 255 : (int) $b),
+            $a < 0 ? 0 : ($a > 255 ? 255 : (int) $a),
+        );
     }
 
     /**
