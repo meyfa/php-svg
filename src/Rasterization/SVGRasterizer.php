@@ -100,7 +100,7 @@ class SVGRasterizer
         if (!empty($background)) {
             $bgColor = Color::parse($background);
 
-            $alpha = 127 - intval($bgColor[3] * 127 / 255);
+            $alpha = 127 - (int) ($bgColor[3] * 127 / 255);
             $bgRgb = ($alpha << 24) + ($bgColor[0] << 16) + ($bgColor[1] << 8) + ($bgColor[2]);
         }
         imagefill($img, 0, 0, $bgRgb);

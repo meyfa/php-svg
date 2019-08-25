@@ -35,11 +35,11 @@ class SVGEllipseRenderer extends SVGRenderer
         imagesetthickness($image, $strokeWidth);
 
         $width = $params['width'];
-        if (intval($width) % 2 === 0) {
+        if ($width % 2 === 0) {
             $width += 1;
         }
         $height = $params['height'];
-        if (intval($height) % 2 === 0) {
+        if ($height % 2 === 0) {
             $height += 1;
         }
 

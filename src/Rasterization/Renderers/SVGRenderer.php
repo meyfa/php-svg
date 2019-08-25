@@ -119,7 +119,7 @@ abstract class SVGRenderer
         $rgb   = ($color[0] << 16) + ($color[1] << 8) + ($color[2]);
 
         $opacity = self::calculateTotalOpacity($context);
-        $a = 127 - $opacity * intval($color[3] * 127 / 255);
+        $a = 127 - $opacity * (int) ($color[3] * 127 / 255);
 
         return $rgb | ($a << 24);
     }
@@ -137,7 +137,7 @@ abstract class SVGRenderer
         $opacity = $node->getStyle('opacity');
 
         if (is_numeric($opacity)) {
-            return floatval($opacity);
+            return (float) $opacity;
         } elseif ($opacity === 'inherit') {
             $parent = $node->getParent();
             if (isset($parent)) {

@@ -31,8 +31,8 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
             $coords = preg_split('/[\s,]+/', trim($attrs['points']));
             for ($i = 0, $n = count($coords); $i < $n; $i += 2) {
                 $points[] = array(
-                    floatval($coords[$i]),
-                    floatval($coords[$i + 1]),
+                    (float) $coords[$i],
+                    (float) $coords[$i + 1],
                 );
             }
         }

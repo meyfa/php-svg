@@ -142,9 +142,9 @@ final class Color
             return null;
         }
         if (isset($matches[2]) && $matches[2] === '%') {
-            return floatval($matches[1]) * $base / 100 * $scalar;
+            return (float) $matches[1] * $base / 100 * $scalar;
         }
-        return floatval($matches[1]) * $scalar;
+        return (float) $matches[1] * $scalar;
     }
 
     /**

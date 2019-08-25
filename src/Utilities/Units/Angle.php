@@ -27,7 +27,7 @@ final class Angle
             'turn' => (360),        // 1turn = 360deg
         );
 
-        $value = floatval($matches[1]);
+        $value = (float) $matches[1];
         $unit  = empty($matches[2]) ? 'deg' : $matches[2];
 
         return $value * $factors[$unit];

@@ -32,7 +32,7 @@ final class Length
             '%'  => ($viewLength / 100),    // 1% = 1/100 of viewLength
         );
 
-        $value = floatval($matches[1]);
+        $value = (float) $matches[1];
         $unit  = empty($matches[2]) ? 'px' : $matches[2];
 
         return $value * $factors[$unit];
