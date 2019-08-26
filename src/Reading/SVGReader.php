@@ -23,6 +23,7 @@ class SVGReader
         'svg'       => 'SVG\Nodes\Structures\SVGDocumentFragment',
         'g'         => 'SVG\Nodes\Structures\SVGGroup',
         'defs'      => 'SVG\Nodes\Structures\SVGDefs',
+        'use'		=> 'SVG\Nodes\Structures\SVGUse',
         'style'     => 'SVG\Nodes\Structures\SVGStyle',
         'rect'      => 'SVG\Nodes\Shapes\SVGRect',
         'circle'    => 'SVG\Nodes\Shapes\SVGCircle',
