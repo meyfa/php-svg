@@ -1,0 +1,34 @@
+<?php
+
+namespace SVG\Nodes\Structures;
+use SVG\Nodes\SVGNodeContainer;
+use SVG\Rasterization\SVGRasterizer;
+
+/**
+ * Represents the SVG tag 'use'.
+ */
+class SVGUse extends SVGNodeContainer
+{
+	const TAG_NAME = 'use';
+
+	public function __construct($href = '')
+	{
+		parent::__construct();
+		$this->setAttribute('xlink:href', $href);
+	}
+
+	/**
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+	 *
+	 * @param SVGRasterizer $rasterizer
+	 */
+	public function rasterize(SVGRasterizer $rasterizer)
+	{
+		if (empty($this->font)) {
+			return;
+		}
+		$rasterizer->render('textPath', array(
+			'xlink:href' => $this->getAttribute('xlink:href'),
+		), $this);
+	}
+}
