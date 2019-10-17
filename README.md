@@ -1,6 +1,6 @@
 # php-svg
 
-[![Build Status](https://travis-ci.org/meyfa/php-svg.svg?branch=master)](https://travis-ci.org/meyfa/php-svg)
+[![Build Status](https://travis-ci.com/meyfa/php-svg.svg?branch=master)](https://travis-ci.com/meyfa/php-svg)
 [![Code Climate](https://codeclimate.com/github/meyfa/php-svg/badges/gpa.svg)](https://codeclimate.com/github/meyfa/php-svg)
 
 This is a vector graphics library for PHP, which surely is a broad
