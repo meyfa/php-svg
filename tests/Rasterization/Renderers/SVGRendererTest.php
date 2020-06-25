@@ -6,6 +6,8 @@ use SVG\Rasterization\Renderers\SVGRenderer;
 
 /**
  * @SuppressWarnings(PHPMD)
+ *
+ * @requires extension gd
  */
 class SVGRendererTest extends \PHPUnit\Framework\TestCase
 {

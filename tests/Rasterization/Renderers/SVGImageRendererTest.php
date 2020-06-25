@@ -19,6 +19,8 @@ class SVGNodeClass extends SVGNode
 
 /**
  * @SuppressWarnings(PHPMD)
+ *
+ * @requires extension gd
  */
 class SVGImageRendererTest extends \PHPUnit\Framework\TestCase
 {

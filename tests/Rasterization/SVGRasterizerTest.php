@@ -8,6 +8,8 @@ use SVG\Rasterization\SVGRasterizer;
 
 /**
  * @SuppressWarnings(PHPMD)
+ *
+ * @requires extension gd
  */
 class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
 {

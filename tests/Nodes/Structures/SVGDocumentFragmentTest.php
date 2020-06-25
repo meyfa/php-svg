@@ -216,6 +216,9 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         $this->assertSame($expected, $obj->getElementById('foobar'));
     }
 
+    /**
+     * @requires extension gd
+     */
     public function testRasterize_empty()
     {
         $obj = new SVGDocumentFragment('2px', '2px');
@@ -232,6 +235,9 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
             new GDSimilarityConstraint('./tests/images/empty-4x8.png'));
     }
 
+    /**
+     * @requires extension gd
+     */
     public function testRasterize_object_unscaled()
     {
         $obj = new SVGDocumentFragment('20px', '40px');
@@ -252,6 +258,9 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
             new GDSimilarityConstraint('./tests/images/rect-20x40.png'));
     }
 
+    /**
+     * @requires extension gd
+     */
     public function testRasterize_object_scaledUp()
     {
         $obj = new SVGDocumentFragment('10px', '20px');
@@ -272,6 +281,9 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
             new GDSimilarityConstraint('./tests/images/rect-20x40.png'));
     }
 
+    /**
+     * @requires extension gd
+     */
     public function testRasterize_object_scaledDown()
     {
         $obj = new SVGDocumentFragment('40px', '80px');
@@ -292,6 +304,9 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
             new GDSimilarityConstraint('./tests/images/rect-20x40.png'));
     }
 
+    /**
+     * @requires extension gd
+     */
     public function testRasterize_object_viewBox()
     {
         $obj = new SVGDocumentFragment('100%', '100%');

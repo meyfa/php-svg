@@ -9,6 +9,8 @@ use SVG\Rasterization\Renderers\SVGRectRenderer;
 
 /**
  * @SuppressWarnings(PHPMD)
+ *
+ * @requires extension gd
  */
 class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
 {

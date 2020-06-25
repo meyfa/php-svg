@@ -40,6 +40,9 @@ class SVGTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $doc->getHeight());
     }
 
+    /**
+     * @requires extension gd
+     */
     public function testToRasterImage()
     {
         $image = new SVG(37, 42);
