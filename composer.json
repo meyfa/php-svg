@@ -16,7 +16,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
-        "meyfa/phpunit-assert-gd": "^1.1"
+        "meyfa/phpunit-assert-gd": "^1.1",
+        "phpmd/phpmd" : "@stable"
     },
     "suggest": {
         "ext-gd": "Needed to rasterize images",
