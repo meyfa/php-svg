@@ -79,7 +79,29 @@ class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertInternalType('array', $result);
         $this->assertSame(10.5, $result[0][0]);
         $this->assertSame(10.5, $result[0][1]);
-        $this->assertSame(10.256745068342173, $result[1][0]);
-        $this->assertSame(9.7916108165729518, $result[1][1]);
+        $this->assertEquals(10.55, $result[1][0], '', 0.02);
+        $this->assertEquals(10.55, $result[1][1], '', 0.02);
+        $this->assertSame(10.6, $result[2][0]);
+        $this->assertSame(10.6, $result[2][1]);
+    }
+
+    public function testApproximateLargeArcFlag()
+    {
+        $approx = new SVGArcApproximator();
+        $p0 = array(10, 10);
+        $p1 = array(20, 10);
+        $fa = true;
+        $fs = false;
+        $rx = 10;
+        $ry = 10;
+        $xa = 0;
+
+        $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
+        // test some point roughly in the middle
+        $this->assertTrue($result[count($result) / 2][1] > 27, 'arc does not descend enough');
+
+        $fa = false;
+        $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
+        $this->assertTrue($result[count($result) / 2][1] < 12, 'arc descends too far');
     }
 }
