@@ -1,6 +1,8 @@
 <?php
 namespace SVG\Nodes\Structures;
 
+use \RuntimeException;
+
 /**
  * Class SVGFont
  * @package SVG\Nodes\Structures
@@ -29,26 +31,11 @@ class SVGFont extends SVGStyle
      */
     public function __construct($name, $path, $embed = false, $mimeType = null)
     {
-        if ($embed) {
-            $imageContent = file_get_contents($path);
-            if ($imageContent === false) {
-                throw new \RuntimeException('Font file "' . $path . '" could not be read.');
-            }
-
-            $fontUrl = sprintf(
-                'data:%s;base64,%s',
-                $mimeType,
-                base64_encode($imageContent)
-            );
-        } else {
-            $fontUrl = $path;
-        }
-
         parent::__construct(
             sprintf(
                 "@font-face {font-family: %s; src:url('%s');}",
                 $name,
-                $fontUrl
+                self::resolveFontUrl($path, $embed, $mimeType)
             )
         );
 
@@ -74,5 +61,19 @@ class SVGFont extends SVGStyle
     public function getFontName()
     {
         return $this->name;
+    }
+
+    private static function resolveFontUrl($path, $embed, $mimeType)
+    {
+        if (!$embed) {
+            return $path;
+        }
+
+        $data = file_get_contents($path);
+        if ($data === false) {
+            throw new RuntimeException('Font file "' . $path . '" could not be read.');
+        }
+
+        return sprintf('data:%s;base64,%s', $mimeType, base64_encode($data));
     }
 }

@@ -2,6 +2,8 @@
 
 namespace SVG\Nodes\Embedded;
 
+use \RuntimeException;
+
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
@@ -47,7 +49,7 @@ class SVGImage extends SVGNodeContainer
     {
         $imageContent = file_get_contents($path);
         if ($imageContent === false) {
-            throw new \RuntimeException('Image file "' . $path . '" could not be read.');
+            throw new RuntimeException('Image file "' . $path . '" could not be read.');
         }
 
         return self::fromString(

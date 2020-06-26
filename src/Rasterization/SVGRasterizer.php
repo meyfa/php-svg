@@ -2,6 +2,8 @@
 
 namespace SVG\Rasterization;
 
+use \InvalidArgumentException;
+
 use SVG\Nodes\SVGNode;
 use SVG\Utilities\Units\Length;
 use SVG\Utilities\Colors\Color;
@@ -146,7 +148,7 @@ class SVGRasterizer
     private static function getRenderer($id)
     {
         if (!isset(self::$renderers[$id])) {
-            throw new \InvalidArgumentException("no such renderer: ".$id);
+            throw new InvalidArgumentException("no such renderer: ".$id);
         }
         return self::$renderers[$id];
     }
