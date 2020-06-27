@@ -128,12 +128,12 @@ class SVGArcApproximator
             ($x1prime - $cxprime) / $radiusX,
             ($y1prime - $cyprime) / $radiusY
         );
-        $angleDelta = fmod(self::vectorAngle2(
+        $angleDelta = self::vectorAngle2(
             ( $x1prime - $cxprime) / $radiusX,
             ( $y1prime - $cyprime) / $radiusY,
             (-$x1prime - $cxprime) / $radiusX,
             (-$y1prime - $cyprime) / $radiusY
-        ), M_PI * 2);
+        );
 
         // Adapt angles to sweep flags
         if (!$sweep && $angleDelta > 0) {
