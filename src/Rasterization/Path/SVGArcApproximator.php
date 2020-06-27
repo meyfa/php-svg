@@ -13,7 +13,7 @@ class SVGArcApproximator
     /**
      * Approximates an elliptical arc segment given the start point, the end
      * point, the section to use (large or small), the sweep direction,
-     * the ellipsis' radii, and its rotation.
+     * the ellipse's radii, and its rotation.
      *
      * All of the points (input and output) are represented as float arrays
      * where [0 => x coordinate, 1 => y coordinate].
@@ -46,7 +46,7 @@ class SVGArcApproximator
         $cosr = cos($rotation);
         $sinr = sin($rotation);
 
-        list($center, $angleStart, $angleDelta) = self::endpointToCenter(
+        list($center, $radiusX, $radiusY, $angleStart, $angleDelta) = self::endpointToCenter(
             $start, $end, $large, $sweep, $radiusX, $radiusY, $cosr, $sinr);
 
         // TODO implement better calculation for $numSteps
@@ -81,6 +81,8 @@ class SVGArcApproximator
      * angles the segment covers. For this, the start angle and the angle delta
      * are returned.
      *
+     * If the radii are too small, they are scaled. The new radii are returned.
+     *
      * The formulas can be found in W3's SVG spec.
      *
      * @see https://www.w3.org/TR/SVG11/implnote.html#ArcImplementationNotes
@@ -91,20 +93,18 @@ class SVGArcApproximator
      * @param bool    $sweep   The sweep direction flag.
      * @param float   $radiusX The x radius.
      * @param float   $radiusY The y radius.
-     * @param float   $cosr    Cosine of the ellipsis rotation.
-     * @param float   $sinr    Sine of the ellipsis rotation.
+     * @param float   $cosr    Cosine of the ellipse's rotation.
+     * @param float   $sinr    Sine of the ellipse's rotation.
      *
-     * @return float[] A tuple with (center (cx, cy), angleStart, angleDelta).
+     * @return float[] A tuple with (center(cx,cy), radiusX, radiusY, angleStart, angleDelta).
      */
     private static function endpointToCenter($start, $end, $large, $sweep, $radiusX, $radiusY, $cosr, $sinr)
     {
-        // Step 1: Compute (x1', y1')
+        // Step 1: Compute (x1', y1') [F.6.5.1]
         $xsubhalf = ($start[0] - $end[0]) / 2;
         $ysubhalf = ($start[1] - $end[1]) / 2;
         $x1prime  = $cosr * $xsubhalf + $sinr * $ysubhalf;
         $y1prime  = -$sinr * $xsubhalf + $cosr * $ysubhalf;
-
-        // TODO ensure radiuses are large enough
 
         // squares that occur multiple times
         $rx2 = $radiusX * $radiusX;
@@ -112,18 +112,27 @@ class SVGArcApproximator
         $x1prime2 = $x1prime * $x1prime;
         $y1prime2 = $y1prime * $y1prime;
 
-        // Step 2: Compute (cx', cy')
+        // Ensure radiuses are large enough [F.6.6.2]
+        $lambdaSqrt = sqrt($x1prime2 / $rx2 + $y1prime2 / $ry2);
+        if ($lambdaSqrt > 1) {
+            $radiusX *= $lambdaSqrt;
+            $radiusY *= $lambdaSqrt;
+            $rx2 = $radiusX * $radiusX;
+            $ry2 = $radiusY * $radiusY;
+        }
+
+        // Step 2: Compute (cx', cy') [F.6.5.2]
         $cxfactor = ($large != $sweep ? 1 : -1) * sqrt(abs(
             ($rx2*$ry2 - $rx2*$y1prime2 - $ry2*$x1prime2) / ($rx2*$y1prime2 + $ry2*$x1prime2)
         ));
         $cxprime = $cxfactor *  $radiusX * $y1prime / $radiusY;
         $cyprime = $cxfactor * -$radiusY * $x1prime / $radiusX;
 
-        // Step 3: Compute (cx, cy) from (cx', cy')
+        // Step 3: Compute (cx, cy) from (cx', cy') [F.6.5.3]
         $centerX = $cosr * $cxprime - $sinr * $cyprime + ($start[0] + $end[0]) / 2;
         $centerY = $sinr * $cxprime + $cosr * $cyprime + ($start[1] + $end[1]) / 2;
 
-        // Step 4: Compute the angles
+        // Step 4: Compute the angles [F.6.5.5, F.6.5.6]
         $angleStart = self::vectorAngle(
             ($x1prime - $cxprime) / $radiusX,
             ($y1prime - $cyprime) / $radiusY
@@ -142,7 +151,7 @@ class SVGArcApproximator
             $angleDelta += M_PI * 2;
         }
 
-        return array(array($centerX, $centerY), $angleStart, $angleDelta);
+        return array(array($centerX, $centerY), $radiusX, $radiusY, $angleStart, $angleDelta);
     }
 
     /**
@@ -173,6 +182,7 @@ class SVGArcApproximator
      */
     private static function vectorAngle2($vec1x, $vec1y, $vec2x, $vec2y)
     {
+        // see W3C [F.6.5.4]
         $dotprod = $vec1x * $vec2x + $vec1y * $vec2y;
         $norm = sqrt($vec1x * $vec1x + $vec1y * $vec1y) * sqrt($vec2x * $vec2x + $vec2y * $vec2y);
 
@@ -185,8 +195,8 @@ class SVGArcApproximator
      * Determine whether two points are basically the same, except for miniscule
      * differences.
      *
-     * @param float[] $start The start point (x0, y0).
-     * @param float[] $end   The end point (x1, y1).
+     * @param float[] $vec1 The start point (x0, y0).
+     * @param float[] $vec2 The end point (x1, y1).
      * @return bool Whether the points are close.
      */
     private static function pointsClose($vec1, $vec2)
