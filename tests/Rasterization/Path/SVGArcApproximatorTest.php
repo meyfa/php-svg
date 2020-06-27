@@ -85,23 +85,38 @@ class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(10.6, $result[2][1]);
     }
 
-    public function testApproximateLargeArcFlag()
+    public function testApproximateFlags()
     {
         $approx = new SVGArcApproximator();
         $p0 = array(10, 10);
         $p1 = array(20, 10);
-        $fa = true;
-        $fs = false;
         $rx = 10;
         $ry = 10;
         $xa = 0;
 
+        $fa = false;
+        $fs = false;
         $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
         // test some point roughly in the middle
-        $this->assertTrue($result[count($result) / 2][1] > 27, 'arc does not descend enough');
+        $this->assertEquals(15, $result[count($result) / 2][0], '', 0.5);
+        $this->assertEquals(11.35, $result[count($result) / 2][1], '', 0.5);
+
+        $fa = true;
+        $fs = false;
+        $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
+        $this->assertEquals(15, $result[count($result) / 2][0], '', 0.5);
+        $this->assertEquals(28.65, $result[count($result) / 2][1], '', 0.5);
 
         $fa = false;
+        $fs = true;
         $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
-        $this->assertTrue($result[count($result) / 2][1] < 12, 'arc descends too far');
+        $this->assertEquals(15, $result[count($result) / 2][0], '', 0.5);
+        $this->assertEquals(8.65, $result[count($result) / 2][1], '', 0.5);
+
+        $fa = true;
+        $fs = true;
+        $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
+        $this->assertEquals(15, $result[count($result) / 2][0], '', 0.5);
+        $this->assertEquals(-8.65, $result[count($result) / 2][1], '', 0.5);
     }
 }
