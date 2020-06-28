@@ -16,7 +16,7 @@ use SVG\Rasterization\SVGRasterizer;
  * - float width: the width
  * - float height: the height
  */
-class SVGImageRenderer extends SVGRenderer
+class ImageRenderer extends Renderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {

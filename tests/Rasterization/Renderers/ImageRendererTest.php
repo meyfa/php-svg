@@ -2,7 +2,7 @@
 
 namespace SVG;
 
-use SVG\Rasterization\Renderers\SVGImageRenderer;
+use SVG\Rasterization\Renderers\ImageRenderer;
 use SVG\Nodes\SVGNode;
 
 class SVGNodeClass extends SVGNode
@@ -22,7 +22,7 @@ class SVGNodeClass extends SVGNode
  *
  * @requires extension gd
  */
-class SVGImageRendererTest extends \PHPUnit\Framework\TestCase
+class ImageRendererTest extends \PHPUnit\Framework\TestCase
 {
     public function testRender()
     {
@@ -34,7 +34,7 @@ class SVGImageRendererTest extends \PHPUnit\Framework\TestCase
             'width'  => 100.5,
             'height' => 100.5
         );
-        $svgImageRender = new SVGImageRenderer();
+        $svgImageRender = new ImageRenderer();
         $context = new SVGNodeClass();
 
         $this->assertNull($svgImageRender->render($rast, $options, $context));

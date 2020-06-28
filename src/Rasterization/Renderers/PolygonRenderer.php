@@ -12,7 +12,7 @@ use SVG\Rasterization\SVGRasterizer;
  * - bool open: if true, leaves first and last point disconnected (-> polyline)
  * - array[] points: array of coordinate tuples (i.e., array of array of float)
  */
-class SVGPolygonRenderer extends SVGRenderer
+class PolygonRenderer extends Renderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {

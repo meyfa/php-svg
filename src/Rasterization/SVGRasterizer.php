@@ -22,7 +22,7 @@ use SVG\Utilities\Colors\Color;
  */
 class SVGRasterizer
 {
-    /** @var Renderers\SVGRenderer[] $renderers Map of shapes to renderers. */
+    /** @var Renderers\Renderer[] $renderers Map of shapes to renderers. */
     private static $renderers;
     /** @var Path\PathParser The singleton path parser. */
     private static $pathParser;
@@ -125,12 +125,12 @@ class SVGRasterizer
         }
 
         self::$renderers = array(
-            'rect'      => new Renderers\SVGRectRenderer(),
-            'line'      => new Renderers\SVGLineRenderer(),
-            'ellipse'   => new Renderers\SVGEllipseRenderer(),
-            'polygon'   => new Renderers\SVGPolygonRenderer(),
-            'image'     => new Renderers\SVGImageRenderer(),
-            'text'      => new Renderers\SVGTextRenderer(),
+            'rect'      => new Renderers\RectRenderer(),
+            'line'      => new Renderers\LineRenderer(),
+            'ellipse'   => new Renderers\EllipseRenderer(),
+            'polygon'   => new Renderers\PolygonRenderer(),
+            'image'     => new Renderers\ImageRenderer(),
+            'text'      => new Renderers\TextRenderer(),
         );
 
         self::$pathParser       = new Path\PathParser();
@@ -142,7 +142,7 @@ class SVGRasterizer
      *
      * @param string $id The id of a registered renderer instance.
      *
-     * @return Renderers\SVGRenderer The requested renderer.
+     * @return Renderers\Renderer The requested renderer.
      * @throws \InvalidArgumentException If no such renderer exists.
      */
     private static function getRenderer($id)

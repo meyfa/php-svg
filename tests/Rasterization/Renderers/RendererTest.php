@@ -2,14 +2,14 @@
 
 namespace SVG;
 
-use SVG\Rasterization\Renderers\SVGRenderer;
+use SVG\Rasterization\Renderers\Renderer;
 
 /**
  * @SuppressWarnings(PHPMD)
  *
  * @requires extension gd
  */
-class SVGRendererTest extends \PHPUnit\Framework\TestCase
+class RendererTest extends \PHPUnit\Framework\TestCase
 {
     public function testRender()
     {
@@ -26,7 +26,7 @@ class SVGRendererTest extends \PHPUnit\Framework\TestCase
         );
 
         // should call prepareRenderParams with correct arguments
-        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\SVGRenderer');
+        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\Renderer');
         $obj->expects($this->once())->method('prepareRenderParams')->with(
             $this->identicalTo($rast),
             $this->identicalTo($options)
@@ -35,7 +35,7 @@ class SVGRendererTest extends \PHPUnit\Framework\TestCase
 
         // should call renderFill with correct fill color
         $node->setStyle('fill', '#AAAAAA');
-        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\SVGRenderer');
+        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\Renderer');
         $obj->method('prepareRenderParams')->willReturn($params);
         $obj->expects($this->once())->method('renderFill')->with(
             $this->isType('resource'),
@@ -46,7 +46,7 @@ class SVGRendererTest extends \PHPUnit\Framework\TestCase
 
         // should not call renderFill with 'fill: none' style
         $node->setStyle('fill', 'none');
-        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\SVGRenderer');
+        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\Renderer');
         $obj->method('prepareRenderParams')->willReturn($params);
         $obj->expects($this->never())->method('renderFill');
         $obj->render($rast, $options, $node);
@@ -54,7 +54,7 @@ class SVGRendererTest extends \PHPUnit\Framework\TestCase
         // should call renderStroke with correct stroke color and width
         $node->setStyle('stroke', '#BBBBBB');
         $node->setStyle('stroke-width', '2px');
-        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\SVGRenderer');
+        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\Renderer');
         $obj->method('prepareRenderParams')->willReturn($params);
         $obj->expects($this->once())->method('renderStroke')->with(
             $this->isType('resource'),
@@ -66,7 +66,7 @@ class SVGRendererTest extends \PHPUnit\Framework\TestCase
 
         // should not call renderStroke with 'stroke: none' style
         $node->setStyle('stroke', 'none');
-        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\SVGRenderer');
+        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\Renderer');
         $obj->method('prepareRenderParams')->willReturn($params);
         $obj->expects($this->never())->method('renderStroke');
         $obj->render($rast, $options, $node);

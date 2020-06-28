@@ -5,18 +5,18 @@ namespace SVG;
 use AssertGD\GDSimilarityConstraint;
 
 use SVG\Rasterization\SVGRasterizer;
-use SVG\Rasterization\Renderers\SVGRectRenderer;
+use SVG\Rasterization\Renderers\RectRenderer;
 
 /**
  * @SuppressWarnings(PHPMD)
  *
  * @requires extension gd
  */
-class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
+class RectRendererTest extends \PHPUnit\Framework\TestCase
 {
     public function testShouldRenderStroke()
     {
-        $obj = new SVGRectRenderer();
+        $obj = new RectRenderer();
 
         $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $context->setStyle('fill', 'none');
@@ -36,7 +36,7 @@ class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldRenderStrokeThick()
     {
-        $obj = new SVGRectRenderer();
+        $obj = new RectRenderer();
 
         $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $context->setStyle('fill', 'none');
@@ -56,7 +56,7 @@ class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldRenderStrokeAlpha()
     {
-        $obj = new SVGRectRenderer();
+        $obj = new RectRenderer();
 
         $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $context->setStyle('fill', 'none');
@@ -76,7 +76,7 @@ class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldRenderFill()
     {
-        $obj = new SVGRectRenderer();
+        $obj = new RectRenderer();
 
         $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $context->setStyle('fill', '#FF0000');
@@ -95,7 +95,7 @@ class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldRenderFillAlpha()
     {
-        $obj = new SVGRectRenderer();
+        $obj = new RectRenderer();
 
         $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $context->setStyle('fill', 'rgba(255, 0, 0, 0.5)');
@@ -114,7 +114,7 @@ class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldRenderStrokeAndFill()
     {
-        $obj = new SVGRectRenderer();
+        $obj = new RectRenderer();
 
         $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $context->setStyle('fill', 'rgba(255, 255, 255, 0.5)');
@@ -134,7 +134,7 @@ class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldRenderStrokeRounded()
     {
-        $obj = new SVGRectRenderer();
+        $obj = new RectRenderer();
 
         $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $context->setStyle('fill', 'none');
@@ -155,7 +155,7 @@ class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldRenderFillRounded()
     {
-        $obj = new SVGRectRenderer();
+        $obj = new RectRenderer();
 
         $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $context->setStyle('fill', '#FF0000');
@@ -175,7 +175,7 @@ class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testDoesNotRenderIfWidthZero()
     {
-        $obj = new SVGRectRenderer();
+        $obj = new RectRenderer();
 
         $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $context->setStyle('fill', '#FF0000');
@@ -196,7 +196,7 @@ class SVGRectRendererTest extends \PHPUnit\Framework\TestCase
 
     public function testDoesNotRenderIfHeightZero()
     {
-        $obj = new SVGRectRenderer();
+        $obj = new RectRenderer();
 
         $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $context->setStyle('fill', '#FF0000');

@@ -13,7 +13,7 @@ use SVG\Rasterization\SVGRasterizer;
  * - float rx: radius along x-axis
  * - float ry: radius along y-axis
  */
-class SVGEllipseRenderer extends SVGRenderer
+class EllipseRenderer extends Renderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {

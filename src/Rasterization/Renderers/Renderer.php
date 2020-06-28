@@ -15,7 +15,7 @@ use SVG\Utilities\Colors\Color;
  * Subclasses generally require a special asociative options array to be passed
  * to this render method; see their docs for a list of things to provide.
  */
-abstract class SVGRenderer
+abstract class Renderer
 {
     /**
      * Renders the shape to the rasterizer, using the given options and node
@@ -29,7 +29,7 @@ abstract class SVGRenderer
      *
      * Note that as part of the renderer contract, every option that is passed
      * in must not be offset, scaled or even validated beforehand. Such things
-     * are dealt with by the `SVGRenderer::prepareRenderParams()` method.
+     * are dealt with by the `Renderer::prepareRenderParams()` method.
      *
      * @param SVGRasterizer $rasterizer The rasterizer to render to.
      * @param mixed[]       $options    Associative array of renderer options.
@@ -223,7 +223,7 @@ abstract class SVGRenderer
      * Doing nothing is valid behavior if the shape can't be filled
      * (for example, a line).
      *
-     * @see SVGRenderer::prepareRenderParams() For info on the params array.
+     * @see Renderer::prepareRenderParams() For info on the params array.
      *
      * @param resource $image  The image resource to render to.
      * @param mixed[]  $params The render params.
@@ -237,7 +237,7 @@ abstract class SVGRenderer
      * Renders the shape's outline in the given color, using the params array
      * obtained from the prepare method.
      *
-     * @see SVGRenderer::prepareRenderParams() For info on the params array.
+     * @see Renderer::prepareRenderParams() For info on the params array.
      *
      * @param resource $image  The image resource to render to.
      * @param mixed[]  $params The render params.

@@ -3,7 +3,7 @@ namespace SVG\Rasterization\Renderers;
 
 use SVG\Rasterization\SVGRasterizer;
 
-class SVGTextRenderer extends SVGRenderer
+class TextRenderer extends Renderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {

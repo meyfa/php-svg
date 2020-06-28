@@ -13,7 +13,7 @@ use SVG\Rasterization\SVGRasterizer;
  * - float x2: second x coordinate
  * - float y2: second y coordinate
  */
-class SVGLineRenderer extends SVGRenderer
+class LineRenderer extends Renderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
