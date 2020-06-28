@@ -8,7 +8,7 @@ namespace SVG\Rasterization\Path;
  * Relative points are resolved against a starting position and/or the previous
  * point(s), resulting in an array of only absolute coordinates when built.
  */
-class SVGPolygonBuilder
+class PolygonBuilder
 {
     /**
      * @var array[] $points The polygon being built (array of float 2-tuples).
@@ -108,7 +108,7 @@ class SVGPolygonBuilder
      * The coordinates are resolved against the current position.
      * Providing null for a coordinate is the same as providing a value of 0.
      *
-     * @see SVGPolygonBuilder::getPosition() For more info on relative points.
+     * @see PolygonBuilder::getPosition() For more info on relative points.
      *
      * @param float|null $x The point's relative x coordinate.
      * @param float|null $y The point's relative y coordinate.

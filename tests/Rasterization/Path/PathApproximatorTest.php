@@ -2,16 +2,16 @@
 
 namespace SVG;
 
-use SVG\Rasterization\Path\SVGPathApproximator;
+use SVG\Rasterization\Path\PathApproximator;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGPathApproximatorTest extends \PHPUnit\Framework\TestCase
+class PathApproximatorTest extends \PHPUnit\Framework\TestCase
 {
     public function testApproximate()
     {
-        $approx = new SVGPathApproximator();
+        $approx = new PathApproximator();
         $cmds = array(
             array('id' => 'M', 'args' => array(10, 20)),
             array('id' => 'm', 'args' => array(10, 20)),

@@ -74,9 +74,9 @@ use SVG\Nodes\Shapes\SVGPath;
         $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
             ->disableOriginalConstructor()
             ->getMock();
-        $pathParser = $this->getMockBuilder('\SVG\Rasterization\Path\SVGPathParser')
+        $pathParser = $this->getMockBuilder('\SVG\Rasterization\Path\PathParser')
             ->getMock();
-        $pathApproximator = $this->getMockBuilder('\SVG\Rasterization\Path\SVGPathApproximator')
+        $pathApproximator = $this->getMockBuilder('\SVG\Rasterization\Path\PathApproximator')
             ->getMock();
 
         // link mocks

@@ -6,7 +6,7 @@ namespace SVG\Rasterization\Path;
  * This class can approximate quadratic and cubic Bézier curves by calculating
  * a series of points on them (converting them to polylines).
  */
-class SVGBezierApproximator
+class BezierApproximator
 {
     /**
      * Approximates a quadratic Bézier curve given the start point, a control

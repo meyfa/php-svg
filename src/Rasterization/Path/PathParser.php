@@ -6,7 +6,7 @@ namespace SVG\Rasterization\Path;
  * This class can convert SVG path description strings into arrays of distinct
  * commands + their arguments.
  */
-class SVGPathParser
+class PathParser
 {
     /**
      * @var int[] $commandLengths A map of command ids to their argument counts.

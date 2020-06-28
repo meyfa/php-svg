@@ -6,7 +6,7 @@ namespace SVG\Rasterization\Path;
  * This class can trace a path by converting its commands into a series of
  * points. Curves are approximated and treated like polyline segments.
  */
-class SVGPathApproximator
+class PathApproximator
 {
     /**
      * @var string[] $commands A map of command ids to approximation functions.
@@ -25,8 +25,8 @@ class SVGPathApproximator
     );
 
     /**
-     * @var SVGBezierApproximator $bezier The singleton bezier approximator.
-     * @var SVGArcApproximator    $arc    The singleton arc approximator.
+     * @var BezierApproximator $bezier The singleton bezier approximator.
+     * @var ArcApproximator    $arc    The singleton arc approximator.
      */
     private static $bezier, $arc;
 
@@ -42,8 +42,8 @@ class SVGPathApproximator
         if (isset(self::$bezier)) {
             return;
         }
-        self::$bezier = new SVGBezierApproximator();
-        self::$arc    = new SVGArcApproximator();
+        self::$bezier = new BezierApproximator();
+        self::$arc    = new ArcApproximator();
     }
 
     /**
@@ -100,7 +100,7 @@ class SVGPathApproximator
      * the final x and y coordinates are stored in their respective reference
      * parameters.
      *
-     * @see SVGPathApproximator::approximate() For an input format description.
+     * @see PathApproximator::approximate() For an input format description.
      *
      * @param array[] $cmds The commands (assoc. arrays; see above).
      * @param float   $posX The current x position.
@@ -110,7 +110,7 @@ class SVGPathApproximator
      */
     private function approximateSubpath(array $cmds, &$posX, &$posY)
     {
-        $builder = new SVGPolygonBuilder($posX, $posY);
+        $builder = new PolygonBuilder($posX, $posY);
 
         foreach ($cmds as $cmd) {
             $id = $cmd['id'];
@@ -150,13 +150,13 @@ class SVGPathApproximator
      *
      * @param string            $id      The actual id used (for abs. vs. rel.).
      * @param float[]           $args    The arguments provided to the command.
-     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     * @param PolygonBuilder $builder The subpath builder to append to.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      */
-    private function moveTo($id, $args, SVGPolygonBuilder $builder)
+    private function moveTo($id, $args, PolygonBuilder $builder)
     {
         if ($id === 'm') {
             $builder->addPointRelative($args[0], $args[1]);
@@ -170,13 +170,13 @@ class SVGPathApproximator
      *
      * @param string            $id      The actual id used (for abs. vs. rel.).
      * @param float[]           $args    The arguments provided to the command.
-     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     * @param PolygonBuilder $builder The subpath builder to append to.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      */
-    private function lineTo($id, $args, SVGPolygonBuilder $builder)
+    private function lineTo($id, $args, PolygonBuilder $builder)
     {
         if ($id === 'l') {
             $builder->addPointRelative($args[0], $args[1]);
@@ -190,13 +190,13 @@ class SVGPathApproximator
      *
      * @param string            $id      The actual id used (for abs. vs. rel.).
      * @param float[]           $args    The arguments provided to the command.
-     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     * @param PolygonBuilder $builder The subpath builder to append to.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      */
-    private function lineToHorizontal($id, $args, SVGPolygonBuilder $builder)
+    private function lineToHorizontal($id, $args, PolygonBuilder $builder)
     {
         if ($id === 'h') {
             $builder->addPointRelative($args[0], null);
@@ -210,13 +210,13 @@ class SVGPathApproximator
      *
      * @param string            $id      The actual id used (for abs. vs. rel.).
      * @param float[]           $args    The arguments provided to the command.
-     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     * @param PolygonBuilder $builder The subpath builder to append to.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      */
-    private function lineToVertical($id, $args, SVGPolygonBuilder $builder)
+    private function lineToVertical($id, $args, PolygonBuilder $builder)
     {
         if ($id === 'v') {
             $builder->addPointRelative(null, $args[0]);
@@ -230,13 +230,13 @@ class SVGPathApproximator
      *
      * @param string            $id      The actual id used (for abs. vs. rel.).
      * @param float[]           $args    The arguments provided to the command.
-     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     * @param PolygonBuilder $builder The subpath builder to append to.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      */
-    private function curveToCubic($id, $args, SVGPolygonBuilder $builder)
+    private function curveToCubic($id, $args, PolygonBuilder $builder)
     {
         $p0 = $builder->getPosition();
         $p1 = array($args[0], $args[1]);
@@ -265,13 +265,13 @@ class SVGPathApproximator
      *
      * @param string            $id      The actual id used (for abs. vs. rel.).
      * @param float[]           $args    The arguments provided to the command.
-     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     * @param PolygonBuilder $builder The subpath builder to append to.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      */
-    private function curveToCubicSmooth($id, $args, SVGPolygonBuilder $builder)
+    private function curveToCubicSmooth($id, $args, PolygonBuilder $builder)
     {
         $p0 = $builder->getPosition();
         $p1 = $p0; // first control point defaults to current point
@@ -303,13 +303,13 @@ class SVGPathApproximator
      *
      * @param string            $id      The actual id used (for abs. vs. rel.).
      * @param float[]           $args    The arguments provided to the command.
-     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     * @param PolygonBuilder $builder The subpath builder to append to.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      */
-    private function curveToQuadratic($id, $args, SVGPolygonBuilder $builder)
+    private function curveToQuadratic($id, $args, PolygonBuilder $builder)
     {
         $p0 = $builder->getPosition();
         $p1 = array($args[0], $args[1]);
@@ -334,13 +334,13 @@ class SVGPathApproximator
      *
      * @param string            $id      The actual id used (for abs. vs. rel.).
      * @param float[]           $args    The arguments provided to the command.
-     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     * @param PolygonBuilder $builder The subpath builder to append to.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      */
-    private function curveToQuadraticSmooth($id, $args, SVGPolygonBuilder $builder)
+    private function curveToQuadraticSmooth($id, $args, PolygonBuilder $builder)
     {
         $p0 = $builder->getPosition();
         $p1 = $p0; // control point defaults to current point
@@ -368,13 +368,13 @@ class SVGPathApproximator
      *
      * @param string            $id      The actual id used (for abs. vs. rel.).
      * @param float[]           $args    The arguments provided to the command.
-     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     * @param PolygonBuilder $builder The subpath builder to append to.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      */
-    private function arcTo($id, $args, SVGPolygonBuilder $builder)
+    private function arcTo($id, $args, PolygonBuilder $builder)
     {
         // start point, end point
         $p0 = $builder->getPosition();
@@ -401,13 +401,13 @@ class SVGPathApproximator
      *
      * @param string            $id      The actual id used (for abs. vs. rel.).
      * @param float[]           $args    The arguments provided to the command.
-     * @param SVGPolygonBuilder $builder The subpath builder to append to.
+     * @param PolygonBuilder $builder The subpath builder to append to.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      */
-    private function closePath($id, $args, SVGPolygonBuilder $builder)
+    private function closePath($id, $args, PolygonBuilder $builder)
     {
         $first = $builder->getFirstPoint();
         $builder->addPoint($first[0], $first[1]);

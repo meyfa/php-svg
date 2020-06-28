@@ -15,18 +15,18 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetPathParser()
     {
-        // should return an instance of SVGPathParser
+        // should return an instance of PathParser
         $obj = new SVGRasterizer(10, 20, null, 100, 200);
-        $this->assertInstanceOf('\SVG\Rasterization\Path\SVGPathParser',
+        $this->assertInstanceOf('\SVG\Rasterization\Path\PathParser',
                 $obj->getPathParser());
         imagedestroy($obj->getImage());
     }
 
     public function testGetPathApproximator()
     {
-        // should return an instance of SVGPathApproximator
+        // should return an instance of PathApproximator
         $obj = new SVGRasterizer(10, 20, null, 100, 200);
-        $this->assertInstanceOf('\SVG\Rasterization\Path\SVGPathApproximator',
+        $this->assertInstanceOf('\SVG\Rasterization\Path\PathApproximator',
                 $obj->getPathApproximator());
         imagedestroy($obj->getImage());
     }

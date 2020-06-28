@@ -2,12 +2,12 @@
 
 namespace SVG;
 
-use SVG\Rasterization\Path\SVGArcApproximator;
+use SVG\Rasterization\Path\ArcApproximator;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
+class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
 {
     // THE TESTS IN THIS CLASS DO NOT ADHERE TO THE STANDARD LAYOUT
     // OF TESTING ONE CLASS METHOD PER TEST METHOD
@@ -15,7 +15,7 @@ class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
 
     public function testApproximate()
     {
-        $approx = new SVGArcApproximator();
+        $approx = new ArcApproximator();
         $p0 = array(10.5, 10.5);
         $p1 = array(10.5, 10.5);
         $fa = false;
@@ -31,7 +31,7 @@ class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
 
     public function testApproximateWithXaIsLessThanZero()
     {
-        $approx = new SVGArcApproximator();
+        $approx = new ArcApproximator();
         $p0 = array(10.5, 10.5);
         $p1 = array(10.5, 10.5);
         $fa = false;
@@ -47,7 +47,7 @@ class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
 
     public function testApproximateWithRxAndRyAreZero()
     {
-        $approx = new SVGArcApproximator();
+        $approx = new ArcApproximator();
         $p0 = array(10.5, 10.5);
         $p1 = array(10.6, 10.6);
         $fa = false;
@@ -66,7 +66,7 @@ class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
 
     public function testApproximateWithRxAndRyAreNotZero()
     {
-        $approx = new SVGArcApproximator();
+        $approx = new ArcApproximator();
         $p0 = array(10.5, 10.5);
         $p1 = array(10.6, 10.6);
         $fa = false;
@@ -87,7 +87,7 @@ class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
 
     public function testApproximateFlags()
     {
-        $approx = new SVGArcApproximator();
+        $approx = new ArcApproximator();
         $p0 = array(10, 10);
         $p1 = array(20, 10);
         $rx = 10;
@@ -126,7 +126,7 @@ class SVGArcApproximatorTest extends \PHPUnit\Framework\TestCase
 
     public function testApproximateRadiusScaling()
     {
-        $approx = new SVGArcApproximator();
+        $approx = new ArcApproximator();
         $p0 = array(10, 10);
         $p1 = array(20, 10);
         $fa = false;

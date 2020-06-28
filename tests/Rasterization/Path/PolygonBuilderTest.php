@@ -2,28 +2,28 @@
 
 namespace SVG;
 
-use SVG\Rasterization\Path\SVGPolygonBuilder;
+use SVG\Rasterization\Path\PolygonBuilder;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGPolygonBuilderTest extends \PHPUnit\Framework\TestCase
+class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {
         // should set position to origin by default
-        $obj = new SVGPolygonBuilder();
+        $obj = new PolygonBuilder();
         $this->assertSame(array(0.0, 0.0), $obj->getPosition());
 
         // should use provided coordinates as origin
-        $obj = new SVGPolygonBuilder(37.1, 42.2);
+        $obj = new PolygonBuilder(37.1, 42.2);
         $this->assertSame(array(37.1, 42.2), $obj->getPosition());
     }
 
     public function testBuild()
     {
         // should return an array of float 2-tuples
-        $obj = new SVGPolygonBuilder();
+        $obj = new PolygonBuilder();
         $obj->addPoint(10, 20);
         $obj->addPoint(37.1, 42.2);
         $this->assertSame(array(
@@ -34,7 +34,7 @@ class SVGPolygonBuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testGetFirstPoint()
     {
-        $obj = new SVGPolygonBuilder();
+        $obj = new PolygonBuilder();
 
         // should return null if no points exist
         $this->assertNull($obj->getFirstPoint());
@@ -47,7 +47,7 @@ class SVGPolygonBuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testGetLastPoint()
     {
-        $obj = new SVGPolygonBuilder();
+        $obj = new PolygonBuilder();
 
         // should return null if no points exist
         $this->assertNull($obj->getLastPoint());
@@ -60,7 +60,7 @@ class SVGPolygonBuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testGetPosition()
     {
-        $obj = new SVGPolygonBuilder(10, 20);
+        $obj = new PolygonBuilder(10, 20);
 
         // should return constructor coordinates at first
         $this->assertSame(array(10, 20), $obj->getPosition());
@@ -72,7 +72,7 @@ class SVGPolygonBuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testAddPoint()
     {
-        $obj = new SVGPolygonBuilder();
+        $obj = new PolygonBuilder();
 
         // should add the coordinates
         $obj->addPoint(10, 20);
@@ -98,7 +98,7 @@ class SVGPolygonBuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testAddPointRelative()
     {
-        $obj = new SVGPolygonBuilder();
+        $obj = new PolygonBuilder();
 
         // should add relative to the last point
         $obj->addPointRelative(10, 20);
@@ -122,7 +122,7 @@ class SVGPolygonBuilderTest extends \PHPUnit\Framework\TestCase
 
     public function testAddPoints()
     {
-        $obj = new SVGPolygonBuilder();
+        $obj = new PolygonBuilder();
 
         $obj->addPoint(10, 20);
 

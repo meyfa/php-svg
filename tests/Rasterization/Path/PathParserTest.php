@@ -2,12 +2,12 @@
 
 namespace SVG;
 
-use SVG\Rasterization\Path\SVGPathParser;
+use SVG\Rasterization\Path\PathParser;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
-class SVGPathParserTest extends \PHPUnit\Framework\TestCase
+class PathParserTest extends \PHPUnit\Framework\TestCase
 {
     // THE TESTS IN THIS CLASS DO NOT ADHERE TO THE STANDARD LAYOUT
     // OF TESTING ONE CLASS METHOD PER TEST METHOD
@@ -15,7 +15,7 @@ class SVGPathParserTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldSplitCorrectly()
     {
-        $obj = new SVGPathParser();
+        $obj = new PathParser();
 
         // should split commands and arguments correctly
         $this->assertEquals(array(
@@ -31,7 +31,7 @@ class SVGPathParserTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldSupportRepeatedCommands()
     {
-        $obj = new SVGPathParser();
+        $obj = new PathParser();
 
         // should support commands repeated implicitly (e.g. 'L 10,10 20,20')
         $this->assertEquals(array(
@@ -47,7 +47,7 @@ class SVGPathParserTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldTreatImplicitMoveToLikeLineTo()
     {
-        $obj = new SVGPathParser();
+        $obj = new PathParser();
 
         // should treat repeated MoveTo commands like implicit LineTo commands
         $this->assertEquals(array(
@@ -61,7 +61,7 @@ class SVGPathParserTest extends \PHPUnit\Framework\TestCase
 
     public function testShouldAbortOnError()
     {
-        $obj = new SVGPathParser();
+        $obj = new PathParser();
 
         // should return path up until erronous sequence
         $this->assertEquals(array(

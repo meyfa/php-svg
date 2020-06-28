@@ -6,7 +6,7 @@ namespace SVG\Rasterization\Path;
  * This class can approximate elliptical arc segments by calculating a series of
  * points on them (converting them to polylines).
  */
-class SVGArcApproximator
+class ArcApproximator
 {
     private static $EPSILON = 0.0000001;
 
