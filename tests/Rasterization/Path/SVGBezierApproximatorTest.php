@@ -12,31 +12,31 @@ class SVGBezierApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testQuadratic()
     {
         $svgBezier = new SVGBezierApproximator();
-        $p0 = array(10.5, 10.5);
-        $p1 = array(10.6, 10.6);
-        $p2 = array(10.7, 10.7);
+        $p0 = array(20, 10);
+        $p1 = array(-25, -15);
+        $p2 = array(30, 20);
         $result = $svgBezier->quadratic($p0, $p1, $p2);
 
-        $this->assertCount(12, $result);
-        $this->assertSame(10.5, $result[0][0]);
-        $this->assertSame(10.5, $result[0][1]);
-        $this->assertSame(10.52, $result[1][0]);
-        $this->assertSame(10.52, $result[1][1]);
+        $n = count($result);
+        $this->assertEquals(20, $result[0][0], '', 1);
+        $this->assertEquals(10, $result[0][1], '', 1);
+        $this->assertEquals(30, $result[$n - 1][0], '', 1);
+        $this->assertEquals(20, $result[$n - 1][1], '', 1);
     }
 
     public function testCubic()
     {
         $svgBezier = new SVGBezierApproximator();
-        $p0 = array(10.5, 10.5);
-        $p1 = array(10.6, 10.6);
-        $p2 = array(10.7, 10.7);
-        $p3 = array(10.8, 10.8);
+        $p0 = array(20, 10);
+        $p1 = array(-15, -15);
+        $p2 = array(-25, 10);
+        $p3 = array(30, 20);
         $result = $svgBezier->cubic($p0, $p1, $p2, $p3);
 
-        $this->assertCount(12, $result);
-        $this->assertSame(10.5, $result[0][0]);
-        $this->assertSame(10.5, $result[0][1]);
-        $this->assertSame(10.53, $result[1][0]);
-        $this->assertSame(10.53, $result[1][1]);
+        $n = count($result);
+        $this->assertEquals(20, $result[0][0], '', 1);
+        $this->assertEquals(10, $result[0][1], '', 1);
+        $this->assertEquals(30, $result[$n - 1][0], '', 1);
+        $this->assertEquals(20, $result[$n - 1][1], '', 1);
     }
 }

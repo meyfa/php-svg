@@ -28,8 +28,14 @@ class SVGBezierApproximator
         $prev   = $p0;
         $points = array($p0);
 
+        $step = 0.1;
+
         while ($t < 1) {
-            $step  = 0.2;
+            do {
+                $step *= 2;
+                $point = self::calculateQuadratic($p0, $p1, $p2, $t + $step);
+                $dist  = self::getDistanceSquared($prev, $point);
+            } while ($dist < $accuracy);
 
             do {
                 $step /= 2;
@@ -65,8 +71,14 @@ class SVGBezierApproximator
         $prev   = $p0;
         $points = array($p0);
 
+        $step  = 0.1;
+
         while ($t < 1) {
-            $step  = 0.2;
+            do {
+                $step *= 2;
+                $point = self::calculateCubic($p0, $p1, $p2, $p3, $t + $step);
+                $dist  = self::getDistanceSquared($prev, $point);
+            } while ($dist < $accuracy);
 
             do {
                 $step /= 2;
