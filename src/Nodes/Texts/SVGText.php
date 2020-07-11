@@ -77,6 +77,13 @@ class SVGText extends SVGNodeContainer
 
         return parent::getComputedStyle($name);
     }
+    
+    public function setRotate($rotate)
+    {
+        $this->setAttribute('transform', "rotate($rotate, ".$this->getAttribute('x').", ".$this->getAttribute('y').")");
+        $this->setAttribute('rotate2', $rotate);
+        return $this;
+    }
 
     public function rasterize(SVGRasterizer $rasterizer)
     {
@@ -89,6 +96,7 @@ class SVGText extends SVGNodeContainer
             'y'         => $this->getAttribute('y'),
             'size'      => $this->getComputedStyle('font-size'),
             'text'      => $this->getValue(),
+            'rotate'    => $this->getAttribute('rotate2'),
             'font_path' => $this->font->getFontPath(),
         ), $this);
     }
