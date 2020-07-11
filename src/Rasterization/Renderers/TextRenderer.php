@@ -13,6 +13,7 @@ class TextRenderer extends Renderer
             'size'      => self::prepareLengthY($options['size'], $rasterizer),
             'font_path' => $options['font_path'],
             'text'      => $options['text'],
+            'rotate'    => $options['rotate']*-1,
         );
     }
 
@@ -21,7 +22,7 @@ class TextRenderer extends Renderer
         imagettftext(
             $image,
             $params['size'],
-            0,
+            $params['rotate'],
             $params['x'],
             $params['y'],
             $color,
@@ -38,7 +39,7 @@ class TextRenderer extends Renderer
 
         for ($c1 = ($x-abs($px)); $c1 <= ($x+abs($px)); $c1++) {
             for ($c2 = ($y - abs($px)); $c2 <= ($y + abs($px)); $c2++) {
-                imagettftext($image, $params['size'], 0, $c1, $c2, $color, $params['font_path'], $params['text']);
+                imagettftext($image, $params['size'], $params['rotate'], $c1, $c2, $color, $params['font_path'], $params['text']);
             }
         }
     }
