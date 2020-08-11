@@ -240,4 +240,36 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertCount(0, SVGStyleParser::parseStyles(''));
     }
+
+    public function testChildKeepsNamespaces()
+    {
+        $code  = '<svg xmlns="http://www.w3.org/2000/svg">';
+        $code .= '<foreignObject width="500" height="500" x="20" y="20">';
+        $code .= '<div xmlns="http://www.w3.org/1999/xhtml" xmlns:foo="bar">';
+        $code .= '<p>a</p>';
+        $code .= '</div>';
+        $code .= '</foreignObject>';
+        $code .= '</svg>';
+
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($code);
+
+        $this->assertContains('<div xmlns="http://www.w3.org/1999/xhtml" xmlns:foo="bar">', ''.$result);
+    }
+
+    public function testParsesChildNamespacedAttributes()
+    {
+        $code  = '<svg xmlns="http://www.w3.org/2000/svg">';
+        $code .= '<foreignObject width="500" height="500" x="20" y="20">';
+        $code .= '<div xmlns="http://www.w3.org/1999/xhtml" xmlns:foo="bar">';
+        $code .= '<p foo:xxx="yyy">a</p>';
+        $code .= '</div>';
+        $code .= '</foreignObject>';
+        $code .= '</svg>';
+
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($code);
+
+        $this->assertContains('<p foo:xxx="yyy">', ''.$result);
+    }
 }
