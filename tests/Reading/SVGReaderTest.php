@@ -239,6 +239,11 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(0, SVGStyleParser::parseStyles(''));
     }
 
+    // the following requirement is due to SimpleXMLElement::getDocNamespaces
+    // not accepting 2 arguments below 5.4
+    /**
+     * @requires PHP 5.4
+     */
     public function testChildKeepsNamespaces()
     {
         $code  = '<svg xmlns="http://www.w3.org/2000/svg">';
@@ -255,6 +260,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertContains('<div xmlns="http://www.w3.org/1999/xhtml" xmlns:foo="bar">', ''.$result);
     }
 
+    /**
+     * @requires PHP 5.4
+     */
     public function testParsesChildNamespacedAttributes()
     {
         $code  = '<svg xmlns="http://www.w3.org/2000/svg">';

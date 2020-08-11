@@ -231,12 +231,6 @@ class SVGReader
      */
     private function parseNode(\SimpleXMLElement $xml, array $namespaces)
     {
-        // obtain array of namespaces that are declared directly on this node
-        $extraNamespaces = $xml->getDocNamespaces(false, false);
-        if (!empty($extraNamespaces)) {
-            $namespaces = array_unique(array_merge($namespaces, array_keys($extraNamespaces)));
-        }
-
         $type = $xml->getName();
 
         if (isset(self::$nodeTypes[$type])) {
@@ -246,7 +240,14 @@ class SVGReader
             $node = new SVGGenericNodeType($type);
         }
 
-        $node->setNamespaces($extraNamespaces);
+        // obtain array of namespaces that are declared directly on this node
+        // TODO find solution for PHP < 5.4 (where the 2nd parameter was introduced)
+        $extraNamespaces = @$xml->getDocNamespaces(false, false);
+        if (!empty($extraNamespaces)) {
+            $namespaces = array_unique(array_merge($namespaces, array_keys($extraNamespaces)));
+            $node->setNamespaces($extraNamespaces);
+        }
+
         $this->applyAttributes($node, $xml, $namespaces);
         $this->applyStyles($node, $xml);
         $node->setValue($xml);
