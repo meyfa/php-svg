@@ -121,13 +121,14 @@ class SVGReader
 
         $width = isset($xml['width']) ? $xml['width'] : null;
         $height = isset($xml['height']) ? $xml['height'] : null;
+
+        $img = new SVG($width, $height);
+        $doc = $img->getDocument();
+
         $namespaces = $xml->getNamespaces(true);
-
-        $img = new SVG($width, $height, $namespaces);
-
+        $doc->setNamespaces($namespaces);
         $nsKeys = array_keys($namespaces);
 
-        $doc = $img->getDocument();
         $this->applyAttributes($doc, $xml, $nsKeys);
         $this->applyStyles($doc, $xml);
         $this->addChildren($doc, $xml, $nsKeys);
@@ -230,6 +231,12 @@ class SVGReader
      */
     private function parseNode(\SimpleXMLElement $xml, array $namespaces)
     {
+        // obtain array of namespaces that are declared directly on this node
+        $extraNamespaces = $xml->getDocNamespaces(false, false);
+        if (!empty($extraNamespaces)) {
+            $namespaces = array_unique(array_merge($namespaces, array_keys($extraNamespaces)));
+        }
+
         $type = $xml->getName();
 
         if (isset(self::$nodeTypes[$type])) {
@@ -239,6 +246,7 @@ class SVGReader
             $node = new SVGGenericNodeType($type);
         }
 
+        $node->setNamespaces($extraNamespaces);
         $this->applyAttributes($node, $xml, $namespaces);
         $this->applyStyles($node, $xml);
         $node->setValue($xml);

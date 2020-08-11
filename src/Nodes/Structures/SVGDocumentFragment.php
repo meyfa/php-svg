@@ -22,19 +22,13 @@ class SVGDocumentFragment extends SVGNodeContainer
         'opacity'       => '1',
     );
 
-    /** @var string[] $namespaces A map of custom namespaces to their URIs. */
-    private $namespaces;
-
     /**
      * @param string|null $width      The declared width.
      * @param string|null $height     The declared height.
-     * @param string[]    $namespaces A map of custom namespaces to their URIs.
      */
-    public function __construct($width = null, $height = null, array $namespaces = array())
+    public function __construct($width = null, $height = null)
     {
         parent::__construct();
-
-        $this->namespaces = $namespaces;
 
         $this->setAttribute('width', $width);
         $this->setAttribute('height', $height);
@@ -143,15 +137,6 @@ class SVGDocumentFragment extends SVGNodeContainer
     {
         $attrs = parent::getSerializableAttributes();
 
-        if ($this->isRoot()) {
-            $attrs['xmlns'] = 'http://www.w3.org/2000/svg';
-            $attrs['xmlns:xlink'] = 'http://www.w3.org/1999/xlink';
-            foreach ($this->namespaces as $namespace => $uri) {
-                $namespace = $this->serializeNamespace($namespace);
-                $attrs[$namespace] = $uri;
-            }
-        }
-
         if (isset($attrs['width']) && $attrs['width'] === '100%') {
             unset($attrs['width']);
         }
@@ -162,23 +147,15 @@ class SVGDocumentFragment extends SVGNodeContainer
         return $attrs;
     }
 
-    /**
-     * Converts the given namespace string to standard form, i.e. ensuring that
-     * it either equals 'xmlns' or starts with 'xmlns:'.
-     *
-     * @param string $namespace The namespace string.
-     *
-     * @return string The modified namespace string to be added as attribute.
-     */
-    private function serializeNamespace($namespace)
+    public function getSerializableNamespaces()
     {
-        if ($namespace === '' || $namespace === 'xmlns') {
-            return 'xmlns';
+        if ($this->isRoot()) {
+            return parent::getSerializableNamespaces() + array(
+                '' => 'http://www.w3.org/2000/svg',
+                'xlink' => 'http://www.w3.org/1999/xlink',
+            );
         }
-        if (substr($namespace, 0, 6) !== 'xmlns:') {
-            return 'xmlns:'.$namespace;
-        }
-        return $namespace;
+        return parent::getSerializableNamespaces();
     }
 
     /**

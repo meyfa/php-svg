@@ -88,20 +88,20 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xml);
         $this->assertEquals(array(
-            'xmlns' => 'http://www.w3.org/2000/svg',
-            'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
-            'xmlns:testns' => 'test-namespace',
             'width' => '37',
             'height' => '42',
             'viewBox' => '10 20 74 84',
         ), $result->getDocument()->getSerializableAttributes());
+        $this->assertEquals(array(
+            '' => 'http://www.w3.org/2000/svg',
+            'xlink' => 'http://www.w3.org/1999/xlink',
+            'testns' => 'test-namespace',
+        ), $result->getDocument()->getSerializableNamespaces());
 
         // should deal with missing viewBox
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xmlNoViewBox);
         $this->assertEquals(array(
-            'xmlns' => 'http://www.w3.org/2000/svg',
-            'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
             'width' => '37',
             'height' => '42',
         ), $result->getDocument()->getSerializableAttributes());
@@ -110,8 +110,6 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xmlNoWH);
         $this->assertEquals(array(
-            'xmlns' => 'http://www.w3.org/2000/svg',
-            'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
             'viewBox' => '10 20 74 84',
         ), $result->getDocument()->getSerializableAttributes());
 

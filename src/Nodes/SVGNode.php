@@ -12,17 +12,20 @@ abstract class SVGNode
 {
     /** @var SVGNodeContainer $parent The parent node. */
     protected $parent;
-    /** @var string[] $styles This node's set of explicit style declarations. */
-    protected $styles;
+    /** @var string[] $namespaces A map of custom namespaces to their URIs. */
+    private $namespaces;
     /** @var string[] $attributes This node's set of attributes. */
     protected $attributes;
+    /** @var string[] $styles This node's set of explicit style declarations. */
+    protected $styles;
     /** @var string $value This node's value */
     protected $value;
 
     public function __construct()
     {
-        $this->styles     = array();
+        $this->namespaces = array();
         $this->attributes = array();
+        $this->styles     = array();
         $this->value      = '';
     }
 
@@ -58,6 +61,16 @@ abstract class SVGNode
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Set the namespaces defined directly on this node.
+     *
+     * @param string[] $namespaces A mapping from namespace id => URI.
+     */
+    public function setNamespaces(array $namespaces)
+    {
+        $this->namespaces = $namespaces;
     }
 
     /**
@@ -211,7 +224,7 @@ abstract class SVGNode
      * Subclasses MUST override this and include their own properties, if they
      * don't already use SVGNode's attribute set for storing them.
      *
-     * @return string[] The set of attributes to include in generated XML.
+     * @return string[] The attribute mapping to include in generated XML.
      */
     public function getSerializableAttributes()
     {
@@ -224,11 +237,21 @@ abstract class SVGNode
      * Subclasses MAY override this to augment or limit the styles returned
      * (in the case of SVG default values, for example).
      *
-     * @return string[] The set of styles to include in generated XML.
+     * @return string[] The style mapping to include in generated XML.
      */
     public function getSerializableStyles()
     {
         return $this->styles;
+    }
+
+    /**
+     * Constructs a set of namespaces that shall be included in generated XML.
+     *
+     * @return string[] The namespace mapping to include in generated XML.
+     */
+    public function getSerializableNamespaces()
+    {
+        return $this->namespaces;
     }
 
     /**

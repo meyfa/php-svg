@@ -14,13 +14,15 @@ class SVGTest extends \PHPUnit\Framework\TestCase
     public function setUp()
     {
         $this->xml  = '<?xml version="1.0" encoding="utf-8"?>';
-        $this->xml .= '<svg width="37" height="42" '.
+        $this->xml .= '<svg '.
             'xmlns="http://www.w3.org/2000/svg" '.
-            'xmlns:xlink="http://www.w3.org/1999/xlink" />';
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '.
+            'width="37" height="42" />';
 
-        $this->xmlNoDeclaration = '<svg width="37" height="42" '.
+        $this->xmlNoDeclaration = '<svg '.
             'xmlns="http://www.w3.org/2000/svg" '.
-            'xmlns:xlink="http://www.w3.org/1999/xlink" />';
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '.
+            'width="37" height="42" />';
     }
 
     public function testGetDocument()

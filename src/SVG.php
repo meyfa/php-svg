@@ -22,11 +22,10 @@ class SVG
     /**
      * @param string   $width      The image's width (any CSS length).
      * @param string   $height     The image's height (any CSS length).
-     * @param string[] $namespaces An optional array of additional namespaces.
      */
-    public function __construct($width, $height, array $namespaces = array())
+    public function __construct($width, $height)
     {
-        $this->document = new SVGDocumentFragment($width, $height, $namespaces);
+        $this->document = new SVGDocumentFragment($width, $height);
     }
 
     /**

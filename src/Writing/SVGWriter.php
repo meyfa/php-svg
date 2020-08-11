@@ -48,6 +48,7 @@ class SVGWriter
     {
         $this->outString .= '<'.$node->getName();
 
+        $this->appendNamespaces($node->getSerializableNamespaces());
         $this->appendAttributes($node->getSerializableAttributes());
         $this->appendStyles($node->getSerializableStyles());
 
@@ -75,6 +76,44 @@ class SVGWriter
         }
 
         $this->outString .= ' />';
+    }
+
+    /**
+     * Appends all attributes defined in the given associative array to this
+     * writer's output.
+     *
+     * @param string[] $attrs An associative array of attribute strings.
+     *
+     * @return void
+     */
+    private function appendNamespaces(array $namespaces)
+    {
+        $normalized = array();
+        foreach ($namespaces as $key => $value) {
+            $namespace = self::serializeNamespace($key);
+            $normalized[$namespace] = $value;
+        }
+
+        $this->appendAttributes($normalized);
+    }
+
+    /**
+     * Converts the given namespace string to standard form, i.e. ensuring that
+     * it either equals 'xmlns' or starts with 'xmlns:'.
+     *
+     * @param string $namespace The namespace string.
+     *
+     * @return string The modified namespace string to be added as attribute.
+     */
+    private static function serializeNamespace($namespace)
+    {
+        if ($namespace === '' || $namespace === 'xmlns') {
+            return 'xmlns';
+        }
+        if (substr($namespace, 0, 6) !== 'xmlns:') {
+            return 'xmlns:'.$namespace;
+        }
+        return $namespace;
     }
 
     /**

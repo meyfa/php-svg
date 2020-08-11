@@ -24,13 +24,6 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         $obj = new SVGDocumentFragment(37, 42);
         $this->assertSame('37', $obj->getWidth());
         $this->assertSame('42', $obj->getHeight());
-
-        // should set namespaces when provided
-        $ns = array(
-            'xmlns:foobar' => 'foobar-namespace',
-        );
-        $obj = new SVGDocumentFragment(37, 42, $ns);
-        $this->assertArraySubset($ns, $obj->getSerializableAttributes());
     }
 
     public function testIsRoot()
@@ -105,6 +98,39 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         $this->assertSame('#FFFFFF', $obj->getComputedStyle('fill'));
     }
 
+    public function testGetSerializableNamespaces()
+    {
+        // should include 'xmlns' and 'xmlns:xlink' namespaces for root
+        $obj = new SVGDocumentFragment();
+        $this->assertEquals(array(
+            '' => 'http://www.w3.org/2000/svg',
+            'xlink' => 'http://www.w3.org/1999/xlink',
+        ), $obj->getSerializableNamespaces());
+
+        // should include additional namespaces
+        $obj = new SVGDocumentFragment();
+        $obj->setNamespaces(array(
+            'xmlns:foo' => 'test-ns-foo',
+            'xmlns:bar' => 'test-ns-bar',
+        ));
+        $this->assertEquals(array(
+            '' => 'http://www.w3.org/2000/svg',
+            'xlink' => 'http://www.w3.org/1999/xlink',
+            'xmlns:foo' => 'test-ns-foo',
+            'xmlns:bar' => 'test-ns-bar',
+        ), $obj->getSerializableNamespaces());
+
+        // should override 'xmlns' unprefixed when provided
+        $obj = new SVGDocumentFragment();
+        $obj->setNamespaces(array(
+            '' => 'xmlns-override',
+        ));
+        $this->assertEquals(array(
+            '' => 'xmlns-override',
+            'xlink' => 'http://www.w3.org/1999/xlink',
+        ), $obj->getSerializableNamespaces());
+    }
+
     public function testGetSerializableAttributes()
     {
         $container = new \SVG\Nodes\Structures\SVGGroup();
@@ -135,44 +161,6 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         $obj = new SVGDocumentFragment('100%', '100%');
         $container->addChild($obj);
         $this->assertSame(array(), $obj->getSerializableAttributes());
-
-        // should include 'xmlns' and 'xmlns:xlink' namespaces for root
-        $obj = new SVGDocumentFragment();
-        $this->assertSame(array(
-            'xmlns' => 'http://www.w3.org/2000/svg',
-            'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
-        ), $obj->getSerializableAttributes());
-
-        // should include additional namespaces
-        $ns = array(
-            'foo' => 'test-ns-foo',
-            'xmlns:bar' => 'test-ns-bar',
-        );
-        $obj = new SVGDocumentFragment(null, null, $ns);
-        $this->assertSame(array(
-            'xmlns' => 'http://www.w3.org/2000/svg',
-            'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
-            'xmlns:foo' => 'test-ns-foo',
-            'xmlns:bar' => 'test-ns-bar',
-        ), $obj->getSerializableAttributes());
-
-        // should override 'xmlns' unprefixed when provided
-        $obj = new SVGDocumentFragment(null, null, array(
-            'xmlns' => 'xmlns-override',
-        ));
-        $this->assertSame(array(
-            'xmlns' => 'xmlns-override',
-            'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
-        ), $obj->getSerializableAttributes());
-
-        // should treat empty namespace string like 'xmlns'
-        $obj = new SVGDocumentFragment(null, null, array(
-            '' => 'xmlns-override',
-        ));
-        $this->assertSame(array(
-            'xmlns' => 'xmlns-override',
-            'xmlns:xlink' => 'http://www.w3.org/1999/xlink',
-        ), $obj->getSerializableAttributes());
     }
 
     public function testGetElementById()
