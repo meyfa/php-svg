@@ -3,13 +3,14 @@
 namespace SVG\Nodes\Texts;
 
 use SVG\Nodes\SVGNodeContainer;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
- * Represents the SVG tag 'textPath'.
+ * Represents the SVG tag 'desc'.
  */
-class SVGTextPath extends SVGNodeContainer
+class SVGDesc extends SVGNodeContainer
 {
-    const TAG_NAME = 'textPath';
+    const TAG_NAME = 'desc';
 
     public function __construct()
     {

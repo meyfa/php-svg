@@ -1,15 +1,16 @@
 <?php
-
 namespace SVG\Nodes\Texts;
 
 use SVG\Nodes\SVGNodeContainer;
+use SVG\Nodes\Structures\SVGFont;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
- * Represents the SVG tag 'textPath'.
+ * Represents the SVG tag 'tspan'.
  */
-class SVGTextPath extends SVGNodeContainer
+class SVGTSpan extends SVGNodeContainer
 {
-    const TAG_NAME = 'textPath';
+    const TAG_NAME = 'tspan';
 
     public function __construct()
     {

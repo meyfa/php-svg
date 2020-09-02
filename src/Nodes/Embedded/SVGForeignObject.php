@@ -1,15 +1,16 @@
 <?php
 
-namespace SVG\Nodes\Texts;
+namespace SVG\Nodes\Embedded;
 
 use SVG\Nodes\SVGNodeContainer;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
- * Represents the SVG tag 'textPath'.
+ * Represents the SVG tag 'foreignObject'.
  */
-class SVGTextPath extends SVGNodeContainer
+class SVGForeignObject extends SVGNodeContainer
 {
-    const TAG_NAME = 'textPath';
+    const TAG_NAME = 'foreignObject';
 
     public function __construct()
     {

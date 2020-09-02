@@ -6,17 +6,15 @@ use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
- * Represents the SVG tag 'clipPath'.
+ * Represents the SVG tag 'use'.
  */
-class SVGClipPath extends SVGNodeContainer
+class SVGUse extends SVGNodeContainer
 {
-    const TAG_NAME = 'clipPath';
+    const TAG_NAME = 'use';
 
-    public function __construct($id = null)
+    public function __construct()
     {
         parent::__construct();
-
-        $this->setAttribute('id', $id);
     }
 
     /**
@@ -26,6 +24,6 @@ class SVGClipPath extends SVGNodeContainer
      */
     public function rasterize(SVGRasterizer $rasterizer)
     {
-        // TODO How do we rasterize this? The clipPath in and of itself wont get rasterized, but usages of it will be!
+        // Nothing to rasterize.
     }
 }

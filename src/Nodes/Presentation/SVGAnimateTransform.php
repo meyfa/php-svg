@@ -1,15 +1,16 @@
 <?php
 
-namespace SVG\Nodes\Texts;
+namespace SVG\Nodes\Presentation;
 
 use SVG\Nodes\SVGNodeContainer;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
- * Represents the SVG tag 'textPath'.
+ * Represents the SVG tag 'animateTransform'.
  */
-class SVGTextPath extends SVGNodeContainer
+class SVGAnimateTransform extends SVGNodeContainer
 {
-    const TAG_NAME = 'textPath';
+    const TAG_NAME = 'animateTransform';
 
     public function __construct()
     {
