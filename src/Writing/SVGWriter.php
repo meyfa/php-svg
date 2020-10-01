@@ -77,7 +77,7 @@ class SVGWriter
             return;
         }
 
-        if (!empty($textContent)) {
+        if (trim($textContent) !== '') {
             $this->outString .= '>' . $textContent . '</'.$node->getName().'>';
             return;
         }

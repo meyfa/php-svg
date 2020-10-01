@@ -149,5 +149,12 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $obj->writeNode($svgRect);
         $expect = $this->xmlDeclaration.'<rect /><rect />';
         $this->assertEquals($expect, $obj->getString());
+
+        // should add zero as value
+        $obj = new SVGWriter();
+        $text = new \SVG\Nodes\Texts\SVGText('0');
+        $obj->writeNode($text);
+        $expect = $this->xmlDeclaration.'<text x="0" y="0">0</text>';
+        $this->assertEquals($expect, $obj->getString());
     }
 }
