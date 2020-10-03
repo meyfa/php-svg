@@ -262,21 +262,21 @@ abstract class SVGNode
      */
     public function getIdAndClassPattern()
     {
-        $id = $this->getAttribute('id');
-        $class = $this->getAttribute('class');
+        $id = trim($this->getAttribute('id'));
+        $class = trim($this->getAttribute('class'));
 
         $pattern = '';
-        if (!empty($id)) {
+        if ($id !== '') {
             $pattern = '#'.$id.'|#'.$id;
         }
-        if (!empty($class)) {
-            if (!empty($pattern)) {
+        if ($class !== '') {
+            if ($pattern !== '') {
                 $pattern .= '.'.$class.'|';
             }
             $pattern .= '.'.$class;
         }
 
-        return empty($pattern) ? null : '/('.$pattern.')/';
+        return $pattern === '' ? null : '/('.$pattern.')/';
     }
 
     /**
@@ -287,11 +287,7 @@ abstract class SVGNode
      */
     public function getViewBox()
     {
-        $attr = $this->getAttribute('viewBox');
-        if (empty($attr)) {
-            return null;
-        }
-
+        $attr = trim($this->getAttribute('viewBox'));
         $result = preg_split('/[\s,]+/', $attr);
         if (count($result) !== 4) {
             return null;

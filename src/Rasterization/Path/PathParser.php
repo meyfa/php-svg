@@ -68,7 +68,7 @@ class PathParser
         $str = trim($str);
 
         $args = array();
-        if (!empty($str)) {
+        if ($str !== '') {
             preg_match_all('/[+-]?(\d*\.\d+|\d+)(e[+-]?\d+)?/', $str, $args);
             $args = $args[0];
         }
