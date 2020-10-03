@@ -26,7 +26,9 @@ class PathParserTest extends \PHPUnit\Framework\TestCase
             array('id' => 'l', 'args' => array(7, -7)),
             array('id' => 'h', 'args' => array(0.5)),
             array('id' => 'z', 'args' => array()),
-        ), $obj->parse(' M10,10 l +10 -10 h .5e2 v 100e-1 l7-7 h.5 z '));
+            array('id' => 'H', 'args' => array(0)),
+            array('id' => 'z', 'args' => array()),
+        ), $obj->parse(' M10,10 l +10 -10 h .5e2 v 100e-1 l7-7 h.5 z H0z'));
     }
 
     public function testShouldSupportRepeatedCommands()
