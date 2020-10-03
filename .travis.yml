@@ -24,4 +24,4 @@ before_script:
 script: vendor/bin/phpunit --configuration .phpunit.xml
 
 after_script:
-- ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT
+- if [ $(phpenv version-name) = "7.2" ]; then ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT; fi

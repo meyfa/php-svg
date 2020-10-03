@@ -1,7 +1,8 @@
 # php-svg
 
 [![Build Status](https://travis-ci.com/meyfa/php-svg.svg?branch=master)](https://travis-ci.com/meyfa/php-svg)
-[![Code Climate](https://codeclimate.com/github/meyfa/php-svg/badges/gpa.svg)](https://codeclimate.com/github/meyfa/php-svg)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8f73468601a653aff0e8/maintainability)](https://codeclimate.com/github/meyfa/php-svg/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8f73468601a653aff0e8/test_coverage)](https://codeclimate.com/github/meyfa/php-svg/test_coverage)
 
 This is a vector graphics library for PHP, which surely is a broad
 specification. That is due to the fact that the goal of this project is to
