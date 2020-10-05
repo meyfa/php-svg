@@ -7,7 +7,7 @@ use SVG\Nodes\Structures\SVGDefs;
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGDefsTest extends \PHPUnit\Framework\TestCase
+class SVGDefsTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

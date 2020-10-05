@@ -14,8 +14,7 @@ class SVGStyleTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGStyle();
 
         $type = 'type_attribute';
-        $this->assertInstanceOf('SVG\Nodes\Structures\SVGStyle',
-            $obj->setType($type));
+        $this->assertInstanceOf('SVG\Nodes\Structures\SVGStyle', $obj->setType($type));
 
         $this->assertEquals($type, $obj->getAttribute('type'));
     }
@@ -34,8 +33,7 @@ class SVGStyleTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new SVGStyle();
 
-        $this->assertInstanceOf('SVG\Nodes\Structures\SVGStyle',
-            $obj->setCss('svg {background-color: beige;}'));
+        $this->assertInstanceOf('SVG\Nodes\Structures\SVGStyle', $obj->setCss('svg {background-color: beige;}'));
     }
 
     public function testGetCss()

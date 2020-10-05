@@ -24,7 +24,7 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
+class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

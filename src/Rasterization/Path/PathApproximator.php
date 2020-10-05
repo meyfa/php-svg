@@ -26,16 +26,25 @@ class PathApproximator
 
     /**
      * @var BezierApproximator $bezier The singleton bezier approximator.
-     * @var ArcApproximator    $arc    The singleton arc approximator.
      */
-    private static $bezier, $arc;
+    private static $bezier;
+    /**
+     * @var ArcApproximator $arc The singleton arc approximator.
+     */
+    private static $arc;
 
     /**
-     * @var string  $previousCommand The id of the last computed command.
-     * @var float[] $cubicOld        2nd control point of last C or S command.
-     * @var float[] $quadraticOld    Control point of last Q or T command.
+     * @var string $previousCommand The id of the last computed command.
      */
-    private $previousCommand, $cubicOld, $quadraticOld;
+    private $previousCommand;
+    /**
+     * @var float[] $cubicOld Second control point of last C or S command.
+     */
+    private $cubicOld;
+    /**
+     * @var float[] $quadraticOld Control point of last Q or T command.
+     */
+    private $quadraticOld;
 
     public function __construct()
     {

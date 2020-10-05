@@ -14,11 +14,15 @@ class PolygonBuilder
      * @var array[] $points The polygon being built (array of float 2-tuples).
      */
     private $points = array();
+
     /**
      * @var float $posX The current x position.
+     */
+    private $posX;
+    /**
      * @var float $posY The current y position.
      */
-    private $posX, $posY;
+    private $posY;
 
     /**
      * @param float $posX The starting x position.

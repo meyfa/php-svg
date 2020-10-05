@@ -35,14 +35,14 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGWriter();
         $node = new \SVG\Nodes\Structures\SVGGroup();
         $obj->writeNode($node);
-        $expect = $this->xmlDeclaration.'<g />';
+        $expect = $this->xmlDeclaration . '<g />';
         $this->assertEquals($expect, $obj->getString());
 
         // should write self-closing tag for non-containers
         $obj = new SVGWriter();
         $node = new \SVG\Nodes\Shapes\SVGRect();
         $obj->writeNode($node);
-        $expect = $this->xmlDeclaration.'<rect />';
+        $expect = $this->xmlDeclaration . '<rect />';
         $this->assertEquals($expect, $obj->getString());
     }
 
@@ -53,7 +53,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $node = new \SVG\Nodes\Structures\SVGGroup();
         $node->setAttribute('id', 'testg');
         $obj->writeNode($node);
-        $expect = $this->xmlDeclaration.'<g id="testg" />';
+        $expect = $this->xmlDeclaration . '<g id="testg" />';
         $this->assertEquals($expect, $obj->getString());
     }
 
@@ -64,7 +64,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $node = new \SVG\Nodes\Structures\SVGGroup();
         $node->setStyle('fill', '#ABC')->setStyle('opacity', '.5');
         $obj->writeNode($node);
-        $expect = $this->xmlDeclaration.'<g style="fill: #ABC; opacity: .5" />';
+        $expect = $this->xmlDeclaration . '<g style="fill: #ABC; opacity: .5" />';
         $this->assertEquals($expect, $obj->getString());
     }
 
@@ -79,7 +79,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
 
         $node->addChild($childNode);
         $obj->writeNode($node);
-        $expect = $this->xmlDeclaration.'<g><g><rect /></g></g>';
+        $expect = $this->xmlDeclaration . '<g><g><rect /></g></g>';
         $this->assertEquals($expect, $obj->getString());
     }
 
@@ -89,7 +89,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGWriter();
         $node = new \SVG\Nodes\Structures\SVGStyle('g {display: none;}');
         $obj->writeNode($node);
-        $expect = $this->xmlDeclaration.'<style type="text/css">'.
+        $expect = $this->xmlDeclaration . '<style type="text/css">' .
             '<![CDATA[g {display: none;}]]></style>';
         $this->assertEquals($expect, $obj->getString());
     }
@@ -101,7 +101,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $svgGroup = new \SVG\Nodes\Structures\SVGGroup();
         $svgGroup->setAttribute('id', '" foo&bar>')->setStyle('content', '" foo&bar>');
         $obj->writeNode($svgGroup);
-        $expect = $this->xmlDeclaration.'<g id="&quot; foo&amp;bar&gt;" '.
+        $expect = $this->xmlDeclaration . '<g id="&quot; foo&amp;bar&gt;" ' .
             'style="content: &quot; foo&amp;bar&gt;" />';
         $this->assertEquals($expect, $obj->getString());
 
@@ -109,7 +109,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGWriter();
         $svgStyle = new \SVG\Nodes\Structures\SVGStyle('" foo&bar>');
         $obj->writeNode($svgStyle);
-        $expect = $this->xmlDeclaration.'<style type="text/css">'.
+        $expect = $this->xmlDeclaration . '<style type="text/css">' .
             '<![CDATA[&quot; foo&amp;bar&gt;]]></style>';
         $this->assertEquals($expect, $obj->getString());
     }
@@ -121,7 +121,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $svgText = new \SVG\Nodes\Texts\SVGText();
         $svgText->setValue('hello world');
         $obj->writeNode($svgText);
-        $expect = $this->xmlDeclaration.'<text x="0" y="0">hello world</text>';
+        $expect = $this->xmlDeclaration . '<text x="0" y="0">hello world</text>';
         $this->assertEquals($expect, $obj->getString());
 
         // should escape HTML entities in value
@@ -129,7 +129,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $svgText = new \SVG\Nodes\Texts\SVGText();
         $svgText->setValue('hello& <world>');
         $obj->writeNode($svgText);
-        $expect = $this->xmlDeclaration.'<text x="0" y="0">hello&amp; &lt;world&gt;</text>';
+        $expect = $this->xmlDeclaration . '<text x="0" y="0">hello&amp; &lt;world&gt;</text>';
         $this->assertEquals($expect, $obj->getString());
 
         // should add value even for non-containers
@@ -137,7 +137,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $svgRect = new \SVG\Nodes\Shapes\SVGRect();
         $svgRect->setValue('hello world');
         $obj->writeNode($svgRect);
-        $expect = $this->xmlDeclaration.'<rect>hello world</rect>';
+        $expect = $this->xmlDeclaration . '<rect>hello world</rect>';
         $this->assertEquals($expect, $obj->getString());
 
         // should not add empty value
@@ -147,14 +147,14 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $obj->writeNode($svgRect);
         $svgRect->setValue(null);
         $obj->writeNode($svgRect);
-        $expect = $this->xmlDeclaration.'<rect /><rect />';
+        $expect = $this->xmlDeclaration . '<rect /><rect />';
         $this->assertEquals($expect, $obj->getString());
 
         // should add zero as value
         $obj = new SVGWriter();
         $text = new \SVG\Nodes\Texts\SVGText('0');
         $obj->writeNode($text);
-        $expect = $this->xmlDeclaration.'<text x="0" y="0">0</text>';
+        $expect = $this->xmlDeclaration . '<text x="0" y="0">0</text>';
         $this->assertEquals($expect, $obj->getString());
     }
 }

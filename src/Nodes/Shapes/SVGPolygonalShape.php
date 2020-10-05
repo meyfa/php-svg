@@ -128,7 +128,7 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
             if ($i > 0) {
                 $points .= ' ';
             }
-            $points .= $point[0].','.$point[1];
+            $points .= $point[0] . ',' . $point[1];
         }
         $attrs['points'] = $points;
 

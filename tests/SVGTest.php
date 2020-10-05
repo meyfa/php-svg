@@ -9,19 +9,20 @@ use SVG\SVG;
  */
 class SVGTest extends \PHPUnit\Framework\TestCase
 {
-    private $xml, $xmlNoDeclaration;
+    private $xml;
+    private $xmlNoDeclaration;
 
     public function setUp()
     {
         $this->xml  = '<?xml version="1.0" encoding="utf-8"?>';
-        $this->xml .= '<svg '.
-            'xmlns="http://www.w3.org/2000/svg" '.
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '.
+        $this->xml .= '<svg ' .
+            'xmlns="http://www.w3.org/2000/svg" ' .
+            'xmlns:xlink="http://www.w3.org/1999/xlink" ' .
             'width="37" height="42" />';
 
-        $this->xmlNoDeclaration = '<svg '.
-            'xmlns="http://www.w3.org/2000/svg" '.
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '.
+        $this->xmlNoDeclaration = '<svg ' .
+            'xmlns="http://www.w3.org/2000/svg" ' .
+            'xmlns:xlink="http://www.w3.org/1999/xlink" ' .
             'width="37" height="42" />';
     }
 
@@ -100,7 +101,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
 
     public function testFromFile()
     {
-        $image = SVG::fromFile(__DIR__.'/php_test.svg');
+        $image = SVG::fromFile(__DIR__ . '/php_test.svg');
 
         $this->assertInstanceOf('\SVG\SVG', $image);
     }

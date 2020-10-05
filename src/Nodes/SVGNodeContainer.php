@@ -254,10 +254,10 @@ abstract class SVGNodeContainer extends SVGNode
         }
 
         foreach ($this->children as $child) {
-            $class = ' '.$child->getAttribute('class').' ';
+            $class = ' ' . $child->getAttribute('class') . ' ';
             $allMatch = true;
             foreach ($className as $cn) {
-                if (strpos($class, ' '.$cn.' ') === false) {
+                if (strpos($class, ' ' . $cn . ' ') === false) {
                     $allMatch = false;
                     break;
                 }

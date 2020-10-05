@@ -35,11 +35,16 @@ class ImageRenderer extends Renderer
 
         if (!empty($img) && is_resource($img)) {
             imagecopyresampled(
-                $image,         $img,           // dst, src
-                $x,             $y,             // dst_x, dst_y
-                0,              0,              // src_x, src_y
-                $width,         $height,        // dst_w, dst_h
-                imagesx($img),  imagesy($img)   // src_w, src_h
+                $image,         // dst
+                $img,           // src
+                $x,             // dst_x
+                $y,             // dst_y
+                0,              // src_x
+                0,              // src_y
+                $width,         // dst_w
+                $height,        // dst_h
+                imagesx($img),  // src_w
+                imagesy($img)   // src_h
             );
         }
     }

@@ -7,7 +7,7 @@ use SVG\Nodes\Shapes\SVGEllipse;
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGEllipseTest extends \PHPUnit\Framework\TestCase
+class SVGEllipseTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

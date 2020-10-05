@@ -47,7 +47,7 @@ class SVGWriter
      */
     public function writeNode(SVGNode $node)
     {
-        $this->outString .= '<'.$node->getName();
+        $this->outString .= '<' . $node->getName();
 
         $this->appendNamespaces($node->getSerializableNamespaces());
         $this->appendAttributes($node->getSerializableAttributes());
@@ -58,13 +58,13 @@ class SVGWriter
         if ($node instanceof SVGStyle) {
             $this->outString .= '>';
             $this->writeCdata($node->getCss());
-            $this->outString .= $textContent.'</'.$node->getName().'>';
+            $this->outString .= $textContent . '</' . $node->getName() . '>';
             return;
         }
         if ($node instanceof SVGScript) {
             $this->outString .= '>';
             $this->writeCdata($node->getContent());
-            $this->outString .= $textContent.'</'.$node->getName().'>';
+            $this->outString .= $textContent . '</' . $node->getName() . '>';
             return;
         }
 
@@ -73,12 +73,12 @@ class SVGWriter
             for ($i = 0, $n = $node->countChildren(); $i < $n; ++$i) {
                 $this->writeNode($node->getChild($i));
             }
-            $this->outString .= $textContent.'</'.$node->getName().'>';
+            $this->outString .= $textContent . '</' . $node->getName() . '>';
             return;
         }
 
         if (trim($textContent) !== '') {
-            $this->outString .= '>' . $textContent . '</'.$node->getName().'>';
+            $this->outString .= '>' . $textContent . '</' . $node->getName() . '>';
             return;
         }
 
@@ -118,7 +118,7 @@ class SVGWriter
             return 'xmlns';
         }
         if (substr($namespace, 0, 6) !== 'xmlns:') {
-            return 'xmlns:'.$namespace;
+            return 'xmlns:' . $namespace;
         }
         return $namespace;
     }
@@ -144,7 +144,7 @@ class SVGWriter
                 $string .= '; ';
             }
             $prependSemicolon = true;
-            $string .= $key.': '.$value;
+            $string .= $key . ': ' . $value;
         }
 
         $this->appendAttribute('style', $string);
@@ -181,7 +181,7 @@ class SVGWriter
         $attrName = htmlspecialchars($attrName, $xml1 | ENT_COMPAT);
         $attrValue = htmlspecialchars($attrValue, $xml1 | ENT_COMPAT);
 
-        $this->outString .= ' '.$attrName.'="'.$attrValue.'"';
+        $this->outString .= ' ' . $attrName . '="' . $attrValue . '"';
     }
 
     /**

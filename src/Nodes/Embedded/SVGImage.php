@@ -2,8 +2,7 @@
 
 namespace SVG\Nodes\Embedded;
 
-use \RuntimeException;
-
+use RuntimeException;
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 

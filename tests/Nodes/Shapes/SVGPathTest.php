@@ -7,7 +7,7 @@ use SVG\Nodes\Shapes\SVGPath;
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGPathTest extends \PHPUnit\Framework\TestCase
+class SVGPathTest extends \PHPUnit\Framework\TestCase
 {
     private static $sampleDescription = 'M100,100 h20 Z M200,200 h20';
     private static $sampleParse = array(

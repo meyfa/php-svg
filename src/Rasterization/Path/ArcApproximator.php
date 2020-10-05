@@ -46,8 +46,8 @@ class ArcApproximator
         $cosr = cos($rotation);
         $sinr = sin($rotation);
 
-        list($center, $radiusX, $radiusY, $angleStart, $angleDelta) = self::endpointToCenter(
-            $start, $end, $large, $sweep, $radiusX, $radiusY, $cosr, $sinr);
+        list($center, $radiusX, $radiusY, $angleStart, $angleDelta) =
+            self::endpointToCenter($start, $end, $large, $sweep, $radiusX, $radiusY, $cosr, $sinr);
 
         // TODO implement better calculation for $numSteps
         // It would be better if we had access to the rasterization scale for
@@ -123,7 +123,7 @@ class ArcApproximator
 
         // Step 2: Compute (cx', cy') [F.6.5.2]
         $cxfactor = ($large != $sweep ? 1 : -1) * sqrt(abs(
-            ($rx2*$ry2 - $rx2*$y1prime2 - $ry2*$x1prime2) / ($rx2*$y1prime2 + $ry2*$x1prime2)
+            ($rx2 * $ry2 - $rx2 * $y1prime2 - $ry2 * $x1prime2) / ($rx2 * $y1prime2 + $ry2 * $x1prime2)
         ));
         $cxprime = $cxfactor *  $radiusX * $y1prime / $radiusY;
         $cyprime = $cxfactor * -$radiusY * $x1prime / $radiusX;

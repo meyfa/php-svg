@@ -214,12 +214,9 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         $root_1_1->setAttribute('class', 'bar foo baz');
 
         // should not return itself
-        $this->assertNotContains(array(),
-            $obj->getElementsByClassName('foo'));
-        $this->assertNotContains(array(),
-            $obj->getElementsByClassName('foo bar baz'));
-        $this->assertNotContains(array(),
-            $obj->getElementsByClassName(array('foo')));
+        $this->assertNotContains(array($obj), $obj->getElementsByClassName('foo'));
+        $this->assertNotContains(array($obj), $obj->getElementsByClassName('foo bar baz'));
+        $this->assertNotContains(array($obj), $obj->getElementsByClassName(array('foo')));
 
         // should find by single class name
         $this->assertSame(array(
