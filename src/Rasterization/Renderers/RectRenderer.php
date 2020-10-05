@@ -17,6 +17,9 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class RectRenderer extends MultiPassRenderer
 {
+    /**
+     * @inheritdoc
+     */
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
         $w  = self::prepareLengthX($options['width'], $rasterizer);
@@ -60,6 +63,9 @@ class RectRenderer extends MultiPassRenderer
         );
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function renderFill($image, array $params, $color)
     {
         if ($params['empty']) {
@@ -119,6 +125,9 @@ class RectRenderer extends MultiPassRenderer
         imagedestroy($corners);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
         if ($params['empty']) {

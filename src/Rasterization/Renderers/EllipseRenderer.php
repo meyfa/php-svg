@@ -15,6 +15,9 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class EllipseRenderer extends MultiPassRenderer
 {
+    /**
+     * @inheritdoc
+     */
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
         return array(
@@ -25,11 +28,17 @@ class EllipseRenderer extends MultiPassRenderer
         );
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function renderFill($image, array $params, $color)
     {
         imagefilledellipse($image, $params['cx'], $params['cy'], $params['width'], $params['height'], $color);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
         imagesetthickness($image, $strokeWidth);

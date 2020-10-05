@@ -20,9 +20,7 @@ class SVGTitle extends SVGNodeContainer
     /**
      * Dummy implementation
      *
-     * @param SVGRasterizer $rasterizer
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @inheritdoc
      */
     public function rasterize(SVGRasterizer $rasterizer)
     {
