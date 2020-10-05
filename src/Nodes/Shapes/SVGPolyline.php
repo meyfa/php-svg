@@ -20,6 +20,9 @@ class SVGPolyline extends SVGPolygonalShape
         parent::__construct($points);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rasterize(SVGRasterizer $rasterizer)
     {
         if ($this->getComputedStyle('display') === 'none') {

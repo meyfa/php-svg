@@ -109,6 +109,9 @@ class SVGLine extends SVGNodeContainer
         return $this->setAttribute('y2', $y2);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rasterize(SVGRasterizer $rasterizer)
     {
         if ($this->getComputedStyle('display') === 'none') {

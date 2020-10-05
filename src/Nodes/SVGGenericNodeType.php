@@ -19,11 +19,17 @@ class SVGGenericNodeType extends SVGNodeContainer
         $this->tagName = $tagName;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getName()
     {
         return $this->tagName;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rasterize(SVGRasterizer $rasterizer)
     {
         // do nothing

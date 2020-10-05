@@ -23,6 +23,9 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
         $this->points = $points;
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function constructFromAttributes($attrs)
     {
         $points = array();
@@ -112,6 +115,9 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
         return $this;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getSerializableAttributes()
     {
         $attrs = parent::getSerializableAttributes();

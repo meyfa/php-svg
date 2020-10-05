@@ -82,6 +82,9 @@ class SVGDocumentFragment extends SVGNodeContainer
         return $this->setAttribute('height', $height);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getComputedStyle($name)
     {
         // return either explicit declarations ...
@@ -95,11 +98,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     }
 
     /**
-     * Draws this node to the given rasterizer.
-     *
-     * @param SVGRasterizer $rasterizer The rasterizer to draw to.
-     *
-     * @return void
+     * @inheritdoc
      */
     public function rasterize(SVGRasterizer $rasterizer)
     {
@@ -133,6 +132,9 @@ class SVGDocumentFragment extends SVGNodeContainer
         imagedestroy($img);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getSerializableAttributes()
     {
         $attrs = parent::getSerializableAttributes();
@@ -147,6 +149,9 @@ class SVGDocumentFragment extends SVGNodeContainer
         return $attrs;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getSerializableNamespaces()
     {
         if ($this->isRoot()) {

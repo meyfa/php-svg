@@ -191,6 +191,9 @@ class SVGImage extends SVGNodeContainer
         return $this->setAttribute('height', $height);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rasterize(SVGRasterizer $rasterizer)
     {
         if ($this->getComputedStyle('display') === 'none') {
