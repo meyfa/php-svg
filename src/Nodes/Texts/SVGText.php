@@ -67,6 +67,9 @@ class SVGText extends SVGNodeContainer
         return $this;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getComputedStyle($name)
     {
         // force stroke before fill
@@ -78,6 +81,9 @@ class SVGText extends SVGNodeContainer
         return parent::getComputedStyle($name);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rasterize(SVGRasterizer $rasterizer)
     {
         if (empty($this->font)) {

@@ -14,6 +14,9 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class PolygonRenderer extends MultiPassRenderer
 {
+    /**
+     * @inheritdoc
+     */
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
         $scaleX = $rasterizer->getScaleX();
@@ -35,6 +38,9 @@ class PolygonRenderer extends MultiPassRenderer
         );
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function renderFill($image, array $params, $color)
     {
         if ($params['numpoints'] < 3) {
@@ -46,6 +52,9 @@ class PolygonRenderer extends MultiPassRenderer
         imagefilledpolygon($image, $params['points'], $params['numpoints'], $color);
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
         imagesetthickness($image, $strokeWidth);

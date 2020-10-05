@@ -5,6 +5,9 @@ use SVG\Rasterization\SVGRasterizer;
 
 class TextRenderer extends MultiPassRenderer
 {
+    /**
+     * @inheritdoc
+     */
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
         return array(
@@ -16,6 +19,9 @@ class TextRenderer extends MultiPassRenderer
         );
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function renderFill($image, array $params, $color)
     {
         imagettftext(
@@ -30,6 +36,9 @@ class TextRenderer extends MultiPassRenderer
         );
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
         $x = $params['x'];

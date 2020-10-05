@@ -24,6 +24,9 @@ class SVGScript extends SVGNodeContainer
         $this->content = $content;
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function constructFromAttributes($attr)
     {
         $cdata = trim(preg_replace('/^\s*\/\/<!\[CDATA\[([\s\S]*)\/\/\]\]>\s*\z/', '$1', $attr));
@@ -54,9 +57,7 @@ class SVGScript extends SVGNodeContainer
     }
 
     /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     *
-     * @param SVGRasterizer $rasterizer
+     * @inheritdoc
      */
     public function rasterize(SVGRasterizer $rasterizer)
     {

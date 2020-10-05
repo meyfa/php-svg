@@ -10,7 +10,7 @@ class SVGNodeClass extends SVGNode
     const TAG_NAME = 'test_subclass';
 
     /**
-     * @SuppressWarnings("unused")
+     * @inheritdoc
      */
     public function rasterize(\SVG\Rasterization\SVGRasterizer $rasterizer)
     {

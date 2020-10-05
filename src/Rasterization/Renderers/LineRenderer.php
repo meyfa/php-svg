@@ -15,6 +15,9 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class LineRenderer extends MultiPassRenderer
 {
+    /**
+     * @inheritdoc
+     */
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
         $offsetX = $rasterizer->getOffsetX();
@@ -29,13 +32,16 @@ class LineRenderer extends MultiPassRenderer
     }
 
     /**
-     * @SuppressWarnings("unused")
+     * @inheritdoc
      */
     protected function renderFill($image, array $params, $color)
     {
         // can't fill
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
         imagesetthickness($image, $strokeWidth);

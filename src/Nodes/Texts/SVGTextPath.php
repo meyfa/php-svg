@@ -17,9 +17,7 @@ class SVGTextPath extends SVGNodeContainer
     }
 
     /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     *
-     * @param SVGRasterizer $rasterizer
+     * @inheritdoc
      */
     public function rasterize(SVGRasterizer $rasterizer)
     {

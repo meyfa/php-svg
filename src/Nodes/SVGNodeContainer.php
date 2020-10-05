@@ -155,7 +155,9 @@ abstract class SVGNodeContainer extends SVGNode
         return $this;
     }
 
-
+    /**
+     * @inheritdoc
+     */
     public function rasterize(SVGRasterizer $rasterizer)
     {
         if ($this->getComputedStyle('display') === 'none') {
@@ -223,6 +225,9 @@ abstract class SVGNodeContainer extends SVGNode
         return preg_grep($pattern, array_keys($this->containerStyles));
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getElementsByTagName($tagName, array &$result = array())
     {
         foreach ($this->children as $child) {
@@ -235,6 +240,9 @@ abstract class SVGNodeContainer extends SVGNode
         return $result;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getElementsByClassName($className, array &$result = array())
     {
         if (!is_array($className)) {
