@@ -5,7 +5,7 @@ jobs:
   - name: PHPCS
     php: 7.4
     before_script: composer require squizlabs/php_codesniffer=3.*
-    script: vendor/bin/phpcs --standard=PSR12 src tests
+    script: vendor/bin/phpcs
 
   - php: 5.3
     dist: precise
