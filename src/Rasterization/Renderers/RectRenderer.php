@@ -15,7 +15,7 @@ use SVG\Rasterization\SVGRasterizer;
  * - float rx: the x radius of the corners.
  * - float ry: the y radius of the corners.
  */
-class RectRenderer extends Renderer
+class RectRenderer extends MultiPassRenderer
 {
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {

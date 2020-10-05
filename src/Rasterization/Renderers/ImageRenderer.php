@@ -18,52 +18,30 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class ImageRenderer extends Renderer
 {
-    protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
-    {
-        return array(
-            'href'      => $options['href'],
-            'x'         => self::prepareLengthX($options['x'], $rasterizer) + $rasterizer->getOffsetX(),
-            'y'         => self::prepareLengthY($options['y'], $rasterizer) + $rasterizer->getOffsetY(),
-            'width'     => self::prepareLengthX($options['width'], $rasterizer),
-            'height'    => self::prepareLengthY($options['height'], $rasterizer),
-        );
-    }
-
     /**
-     * @SuppressWarnings("unused")
+     * @inheritdoc
      */
     public function render(SVGRasterizer $rasterizer, array $options, SVGNode $context)
     {
-        $params = $this->prepareRenderParams($rasterizer, $options);
+        $href   = $options['href'];
+        $x      = self::prepareLengthX($options['x'], $rasterizer) + $rasterizer->getOffsetX();
+        $y      = self::prepareLengthX($options['x'], $rasterizer) + $rasterizer->getOffsetX();
+        $width  = self::prepareLengthX($options['width'], $rasterizer);
+        $height = self::prepareLengthY($options['height'], $rasterizer);
+
         $image = $rasterizer->getImage();
 
-        $img = $this->loadImage($params['href'], $params['width'], $params['height']);
+        $img = $this->loadImage($href, $width, $height);
 
         if (!empty($img) && is_resource($img)) {
             imagecopyresampled(
-                $image,             $img,               // dst, src
-                $params['x'],       $params['y'],       // dst_x, dst_y
-                0,                  0,                  // src_x, src_y
-                $params['width'],   $params['height'],  // dst_w, dst_h
-                imagesx($img),      imagesy($img)       // src_w, src_h
+                $image,         $img,           // dst, src
+                $x,             $y,             // dst_x, dst_y
+                0,              0,              // src_x, src_y
+                $width,         $height,        // dst_w, dst_h
+                imagesx($img),  imagesy($img)   // src_w, src_h
             );
         }
-    }
-
-    /**
-     * @SuppressWarnings("unused")
-     */
-    protected function renderFill($image, array $params, $color)
-    {
-        // implemented in render() override
-    }
-
-    /**
-     * @SuppressWarnings("unused")
-     */
-    protected function renderStroke($image, array $params, $color, $strokeWidth)
-    {
-        // not implemented
     }
 
     /**
