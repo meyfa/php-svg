@@ -18,6 +18,13 @@
         <exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
     </rule>
 
+    <!-- include some more sniffs specific to this project -->
+    <rule ref="Generic.Arrays.DisallowShortArraySyntax" />
+    <rule ref="Generic.PHP.BacktickOperator" />
+    <rule ref="Generic.PHP.DeprecatedFunctions" />
+    <rule ref="Generic.PHP.DisallowShortOpenTag" />
+    <rule ref="Generic.PHP.DiscourageGoto" />
+
     <!-- allow test methods like test__toString -->
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
         <exclude-pattern>*/tests/*</exclude-pattern>
