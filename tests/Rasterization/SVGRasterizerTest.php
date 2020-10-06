@@ -3,7 +3,6 @@
 namespace SVG;
 
 use AssertGD\GDSimilarityConstraint;
-
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -17,8 +16,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     {
         // should return an instance of PathParser
         $obj = new SVGRasterizer(10, 20, null, 100, 200);
-        $this->assertInstanceOf('\SVG\Rasterization\Path\PathParser',
-                $obj->getPathParser());
+        $this->assertInstanceOf('\SVG\Rasterization\Path\PathParser', $obj->getPathParser());
         imagedestroy($obj->getImage());
     }
 
@@ -26,8 +24,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     {
         // should return an instance of PathApproximator
         $obj = new SVGRasterizer(10, 20, null, 100, 200);
-        $this->assertInstanceOf('\SVG\Rasterization\Path\PathApproximator',
-                $obj->getPathApproximator());
+        $this->assertInstanceOf('\SVG\Rasterization\Path\PathApproximator', $obj->getPathApproximator());
         imagedestroy($obj->getImage());
     }
 
@@ -167,8 +164,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGRasterizer(32, 32, array(), 32, 32, null);
         $img = $obj->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/bg-transparent.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/bg-transparent.png'));
 
         imagedestroy($img);
     }
@@ -178,8 +174,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGRasterizer(32, 32, array(), 32, 32, "#FFFFFF");
         $img = $obj->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/bg-white.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/bg-white.png'));
 
         imagedestroy($img);
     }
@@ -189,8 +184,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGRasterizer(32, 32, array(), 32, 32, "rgba(255,255,255,.5)");
         $img = $obj->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/bg-white-semitransparent.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/bg-white-semitransparent.png'));
 
         imagedestroy($img);
     }

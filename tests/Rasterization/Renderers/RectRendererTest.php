@@ -3,7 +3,6 @@
 namespace SVG;
 
 use AssertGD\GDSimilarityConstraint;
-
 use SVG\Rasterization\SVGRasterizer;
 use SVG\Rasterization\Renderers\RectRenderer;
 
@@ -30,8 +29,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         ), $context);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/renderer-rect-stroke.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke.png'));
     }
 
     public function testShouldRenderStrokeThick()
@@ -50,8 +48,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         ), $context);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-thick.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-thick.png'));
     }
 
     public function testShouldRenderStrokeAlpha()
@@ -70,8 +67,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         ), $context);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-alpha.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-alpha.png'));
     }
 
     public function testShouldRenderFill()
@@ -89,8 +85,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         ), $context);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/renderer-rect-fill.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-fill.png'));
     }
 
     public function testShouldRenderFillAlpha()
@@ -108,8 +103,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         ), $context);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/renderer-rect-fill-alpha.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-fill-alpha.png'));
     }
 
     public function testShouldRenderStrokeAndFill()
@@ -128,8 +122,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         ), $context);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-fill.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-fill.png'));
     }
 
     public function testShouldRenderStrokeRounded()
@@ -149,8 +142,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         ), $context);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-rounded.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-rounded.png'));
     }
 
     public function testShouldRenderFillRounded()
@@ -169,8 +161,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         ), $context);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/renderer-rect-fill-rounded.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-fill-rounded.png'));
     }
 
     public function testDoesNotRenderIfWidthZero()
@@ -190,8 +181,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         ), $context);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/renderer-rect-empty.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-empty.png'));
     }
 
     public function testDoesNotRenderIfHeightZero()
@@ -211,7 +201,6 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         ), $context);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/renderer-rect-empty.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-empty.png'));
     }
 }

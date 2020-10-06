@@ -267,16 +267,16 @@ abstract class SVGNode
 
         $pattern = '';
         if ($id !== '') {
-            $pattern = '#'.$id.'|#'.$id;
+            $pattern = '#' . $id . '|#' . $id;
         }
         if ($class !== '') {
             if ($pattern !== '') {
-                $pattern .= '.'.$class.'|';
+                $pattern .= '.' . $class . '|';
             }
-            $pattern .= '.'.$class;
+            $pattern .= '.' . $class;
         }
 
-        return $pattern === '' ? null : '/('.$pattern.')/';
+        return $pattern === '' ? null : '/(' . $pattern . ')/';
     }
 
     /**

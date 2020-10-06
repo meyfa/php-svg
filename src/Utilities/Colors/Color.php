@@ -76,15 +76,15 @@ final class Color
         $r = $g = $b = $a = null;
 
         if ($len === 6 || $len === 8) {
-            $r = hexdec($str[0].$str[1]);
-            $g = hexdec($str[2].$str[3]);
-            $b = hexdec($str[4].$str[5]);
-            $a = $len === 8 ? hexdec($str[6].$str[7]) : 255;
+            $r = hexdec($str[0] . $str[1]);
+            $g = hexdec($str[2] . $str[3]);
+            $b = hexdec($str[4] . $str[5]);
+            $a = $len === 8 ? hexdec($str[6] . $str[7]) : 255;
         } elseif ($len === 3 || $len == 4) {
-            $r = hexdec($str[0].$str[0]);
-            $g = hexdec($str[1].$str[1]);
-            $b = hexdec($str[2].$str[2]);
-            $a = $len === 4 ? hexdec($str[3].$str[3]) : 255;
+            $r = hexdec($str[0] . $str[0]);
+            $g = hexdec($str[1] . $str[1]);
+            $b = hexdec($str[2] . $str[2]);
+            $a = $len === 4 ? hexdec($str[3] . $str[3]) : 255;
         }
 
         return array($r, $g, $b, $a);

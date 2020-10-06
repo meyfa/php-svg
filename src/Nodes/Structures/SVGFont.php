@@ -1,7 +1,8 @@
 <?php
+
 namespace SVG\Nodes\Structures;
 
-use \RuntimeException;
+use RuntimeException;
 
 /**
  * Class SVGFont

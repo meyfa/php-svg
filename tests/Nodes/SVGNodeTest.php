@@ -171,14 +171,14 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
 
     public function testGetSerializableNamespaces()
     {
-      $obj = new SVGNodeSubclass();
+        $obj = new SVGNodeSubclass();
 
-      // should set namespaces when declared
-      $ns = array(
-          'xmlns:foobar' => 'foobar-namespace',
-      );
-      $obj->setNamespaces($ns);
-      $this->assertSame($ns, $obj->getSerializableNamespaces());
+        // should set namespaces when declared
+        $ns = array(
+            'xmlns:foobar' => 'foobar-namespace',
+        );
+        $obj->setNamespaces($ns);
+        $this->assertSame($ns, $obj->getSerializableNamespaces());
     }
 
     public function testGetSerializableAttributes()

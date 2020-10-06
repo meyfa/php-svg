@@ -7,7 +7,7 @@ use SVG\Nodes\Embedded\SVGImage;
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGImageTest extends \PHPUnit\Framework\TestCase
+class SVGImageTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

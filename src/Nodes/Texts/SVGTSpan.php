@@ -1,4 +1,5 @@
 <?php
+
 namespace SVG\Nodes\Texts;
 
 use SVG\Nodes\SVGNodeContainer;

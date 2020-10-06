@@ -2,8 +2,7 @@
 
 namespace SVG\Rasterization;
 
-use \InvalidArgumentException;
-
+use InvalidArgumentException;
 use SVG\Nodes\SVGNode;
 use SVG\Utilities\Units\Length;
 use SVG\Utilities\Colors\Color;
@@ -33,19 +32,26 @@ class SVGRasterizer
      * @var float[] The document's viewBox (x, y, w, h).
      */
     private $viewBox;
+
     /**
      * @var int $width  The output image width, in pixels.
+     */
+    private $width;
+    /**
      * @var int $height The output image height, in pixels.
      */
-    private $width, $height;
+    private $height;
+
     /** @var resource $outImage The output image as a GD resource. */
     private $outImage;
 
     // precomputed properties for getter methods, used often during render
-
-    private $docWidth, $docHeight;
-    private $scaleX, $scaleY;
-    private $offsetX, $offsetY;
+    private $docWidth;
+    private $docHeight;
+    private $scaleX;
+    private $scaleY;
+    private $offsetX;
+    private $offsetY;
 
     /**
      * @param string $docWidth   The original SVG document width, as a string.
@@ -148,7 +154,7 @@ class SVGRasterizer
     private static function getRenderer($id)
     {
         if (!isset(self::$renderers[$id])) {
-            throw new InvalidArgumentException("no such renderer: ".$id);
+            throw new InvalidArgumentException('no such renderer: ' . $id);
         }
         return self::$renderers[$id];
     }

@@ -79,8 +79,10 @@ class RectRenderer extends MultiPassRenderer
 
         imagefilledrectangle(
             $image,
-            $params['x1'], $params['y1'],
-            $params['x2'], $params['y2'],
+            $params['x1'],
+            $params['y1'],
+            $params['x2'],
+            $params['y2'],
             $color
         );
     }
@@ -157,29 +159,37 @@ class RectRenderer extends MultiPassRenderer
         // top
         imagefilledrectangle(
             $image,
-            $x1 - $halfStrokeFloor,     $y1 - $halfStrokeFloor,
-            $x2 + $halfStrokeFloor,     $y1 + $halfStrokeCeil - 1,
+            $x1 - $halfStrokeFloor,
+            $y1 - $halfStrokeFloor,
+            $x2 + $halfStrokeFloor,
+            $y1 + $halfStrokeCeil - 1,
             $color
         );
         // bottom
         imagefilledrectangle(
             $image,
-            $x1 - $halfStrokeFloor,     $y2 - $halfStrokeCeil + 1,
-            $x2 + $halfStrokeFloor,     $y2 + $halfStrokeFloor,
+            $x1 - $halfStrokeFloor,
+            $y2 - $halfStrokeCeil + 1,
+            $x2 + $halfStrokeFloor,
+            $y2 + $halfStrokeFloor,
             $color
         );
         // left
         imagefilledrectangle(
             $image,
-            $x1 - $halfStrokeFloor,     $y1 + $halfStrokeCeil,
-            $x1 + $halfStrokeCeil - 1,  $y2 - $halfStrokeCeil,
+            $x1 - $halfStrokeFloor,
+            $y1 + $halfStrokeCeil,
+            $x1 + $halfStrokeCeil - 1,
+            $y2 - $halfStrokeCeil,
             $color
         );
         // right
         imagefilledrectangle(
             $image,
-            $x2 - $halfStrokeCeil + 1,  $y1 + $halfStrokeCeil,
-            $x2 + $halfStrokeFloor,     $y2 - $halfStrokeCeil,
+            $x2 - $halfStrokeCeil + 1,
+            $y1 + $halfStrokeCeil,
+            $x2 + $halfStrokeFloor,
+            $y2 - $halfStrokeCeil,
             $color
         );
     }
@@ -199,29 +209,37 @@ class RectRenderer extends MultiPassRenderer
         // top
         imagefilledrectangle(
             $image,
-            $x1 + $rx + 1,  $y1 - $halfStrokeFloor,
-            $x2 - $rx - 1,  $y1 + $halfStrokeCeil - 1,
+            $x1 + $rx + 1,
+            $y1 - $halfStrokeFloor,
+            $x2 - $rx - 1,
+            $y1 + $halfStrokeCeil - 1,
             $color
         );
         // bottom
         imagefilledrectangle(
             $image,
-            $x1 + $rx + 1,  $y2 - $halfStrokeCeil + 1,
-            $x2 - $rx - 1,  $y2 + $halfStrokeFloor,
+            $x1 + $rx + 1,
+            $y2 - $halfStrokeCeil + 1,
+            $x2 - $rx - 1,
+            $y2 + $halfStrokeFloor,
             $color
         );
         // left
         imagefilledrectangle(
             $image,
-            $x1 - $halfStrokeFloor,     $y1 + $ry + 1,
-            $x1 + $halfStrokeCeil - 1,  $y2 - $ry - 1,
+            $x1 - $halfStrokeFloor,
+            $y1 + $ry + 1,
+            $x1 + $halfStrokeCeil - 1,
+            $y2 - $ry - 1,
             $color
         );
         // right
         imagefilledrectangle(
             $image,
-            $x2 - $halfStrokeCeil + 1,  $y1 + $ry + 1,
-            $x2 + $halfStrokeFloor,     $y2 - $ry - 1,
+            $x2 - $halfStrokeCeil + 1,
+            $y1 + $ry + 1,
+            $x2 + $halfStrokeFloor,
+            $y2 - $ry - 1,
             $color
         );
 

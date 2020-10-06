@@ -3,13 +3,12 @@
 namespace SVG;
 
 use AssertGD\GDSimilarityConstraint;
-
 use SVG\Nodes\Structures\SVGDocumentFragment;
 
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
+class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {
@@ -212,15 +211,16 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         $obj = new SVGDocumentFragment('2px', '2px');
 
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(
-            $obj->getWidth(), $obj->getHeight(),    // doc width, height
-            $obj->getViewBox(),                     // viewBox
-            4, 8                                    // result width, height
+            $obj->getWidth(),   // doc width
+            $obj->getHeight(),  // doc height
+            $obj->getViewBox(), // viewBox
+            4,                  // result width
+            8                   // result height
         );
         $obj->rasterize($rasterizer);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/empty-4x8.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/empty-4x8.png'));
     }
 
     /**
@@ -235,15 +235,16 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         $obj->addChild($rect);
 
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(
-            $obj->getWidth(), $obj->getHeight(),    // doc width, height
-            $obj->getViewBox(),                     // viewBox
-            20, 40                                  // result width, height
+            $obj->getWidth(),   // doc width
+            $obj->getHeight(),  // doc height
+            $obj->getViewBox(), // viewBox
+            20,                 // result width
+            40                  // result height
         );
         $obj->rasterize($rasterizer);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/rect-20x40.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/rect-20x40.png'));
     }
 
     /**
@@ -258,15 +259,16 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         $obj->addChild($rect);
 
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(
-            $obj->getWidth(), $obj->getHeight(),    // doc width, height
-            $obj->getViewBox(),                     // viewBox
-            20, 40                                  // result width, height
+            $obj->getWidth(),   // doc width
+            $obj->getHeight(),  // doc height
+            $obj->getViewBox(), // viewBox
+            20,                 // result width
+            40                  // result height
         );
         $obj->rasterize($rasterizer);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/rect-20x40.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/rect-20x40.png'));
     }
 
     /**
@@ -281,15 +283,16 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         $obj->addChild($rect);
 
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(
-            $obj->getWidth(), $obj->getHeight(),    // doc width, height
-            $obj->getViewBox(),                     // viewBox
-            20, 40                                  // result width, height
+            $obj->getWidth(),   // doc width
+            $obj->getHeight(),  // doc height
+            $obj->getViewBox(), // viewBox
+            20,                 // result width
+            40                  // result height
         );
         $obj->rasterize($rasterizer);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/rect-20x40.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/rect-20x40.png'));
     }
 
     /**
@@ -305,14 +308,15 @@ use SVG\Nodes\Structures\SVGDocumentFragment;
         $obj->addChild($rect);
 
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(
-            $obj->getWidth(), $obj->getHeight(),    // doc width, height
-            $obj->getViewBox(),                     // viewBox
-            20, 40                                  // result width, height
+            $obj->getWidth(),   // doc width
+            $obj->getHeight(),  // doc height
+            $obj->getViewBox(), // viewBox
+            20,                 // result width
+            40                  // result height
         );
         $obj->rasterize($rasterizer);
         $img = $rasterizer->finish();
 
-        $this->assertThat($img,
-            new GDSimilarityConstraint('./tests/images/rect-20x40.png'));
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/rect-20x40.png'));
     }
 }

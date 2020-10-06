@@ -7,7 +7,7 @@ use SVG\Nodes\Shapes\SVGPolygon;
 /**
  * @SuppressWarnings(PHPMD)
  */
- class SVGPolygonTest extends \PHPUnit\Framework\TestCase
+class SVGPolygonTest extends \PHPUnit\Framework\TestCase
 {
     public function test__construct()
     {

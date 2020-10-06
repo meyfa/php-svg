@@ -204,8 +204,7 @@ class SVGReader
      *
      * @return void
      */
-    private function applyAttributes(SVGNode $node, \SimpleXMLElement $xml,
-        array $namespaces)
+    private function applyAttributes(SVGNode $node, \SimpleXMLElement $xml, array $namespaces)
     {
         // a document like <svg>...</svg> was read (no xmlns declaration)
         if (!in_array('', $namespaces, true) && !in_array(null, $namespaces, true)) {
@@ -263,8 +262,7 @@ class SVGReader
      *
      * @return void
      */
-    private function addChildren(SVGNodeContainer $node, \SimpleXMLElement $xml,
-        array $namespaces)
+    private function addChildren(SVGNodeContainer $node, \SimpleXMLElement $xml, array $namespaces)
     {
         foreach ($xml->children() as $child) {
             $node->addChild($this->parseNode($child, $namespaces));
@@ -281,6 +279,7 @@ class SVGReader
      * @return SVGNode The parsed node.
      *
      * @SuppressWarnings(PHPMD.ElseExpression)
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     private function parseNode(\SimpleXMLElement $xml, array $namespaces)
     {

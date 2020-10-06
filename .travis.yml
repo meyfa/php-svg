@@ -1,27 +1,31 @@
 language: php
-php:
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.2
-matrix:
+
+jobs:
   include:
-    - php: 5.3
-      dist: precise
-    - php: 5.4
-      dist: trusty
-    - php: 5.5
-      dist: trusty
+  - name: PHPCS
+    php: 7.4
+    before_script: composer require squizlabs/php_codesniffer=3.*
+    script: vendor/bin/phpcs
 
-install:
-  - composer install --no-interaction
+  - php: 5.3
+    dist: precise
+  - php: 5.4
+    dist: trusty
+  - php: 5.5
+    dist: trusty
+  - php: 5.6
+  - php: 7.0
+  - php: 7.1
 
-before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+  # this is also used for coverage
+  - php: 7.2
+    before_script:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
+    after_script:
+    - ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT
+
+install: composer install --no-interaction
 
 script: vendor/bin/phpunit --configuration .phpunit.xml
-
-after_script:
-- if [ $(phpenv version-name) = "7.2" ]; then ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT; fi

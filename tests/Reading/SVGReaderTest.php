@@ -14,16 +14,21 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
     // OF TESTING ONE CLASS METHOD PER TEST METHOD
     // BECAUSE THE CLASS UNDER TEST IS A SINGLE-FEATURE CLASS
 
-    private $xml, $xmlNoViewBox, $xmlNoWH, $xmlUnknown, $xmlValue, $xmlEntities;
+    private $xml;
+    private $xmlNoViewBox;
+    private $xmlNoWH;
+    private $xmlUnknown;
+    private $xmlValue;
+    private $xmlEntities;
 
     public function setUp()
     {
         $this->xml  = '<?xml version="1.0" encoding="utf-8"?>';
-        $this->xml .= '<svg width="37" height="42" viewBox="10 20 74 84" '.
-            'xmlns="http://www.w3.org/2000/svg" '.
-            'xmlns:xlink="http://www.w3.org/1999/xlink" '.
+        $this->xml .= '<svg width="37" height="42" viewBox="10 20 74 84" ' .
+            'xmlns="http://www.w3.org/2000/svg" ' .
+            'xmlns:xlink="http://www.w3.org/1999/xlink" ' .
             'xmlns:testns="test-namespace">';
-        $this->xml .= '<rect id="testrect" testns:attr="test" xlink:foo="bar" '.
+        $this->xml .= '<rect id="testrect" testns:attr="test" xlink:foo="bar" ' .
             'fill="#ABCDEF" style="opacity: .5; stroke: #AABBCC;" />';
         $this->xml .= '<g>';
         $this->xml .= '<circle cx="10" cy="20" r="42" />';
@@ -40,13 +45,13 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->xmlOnlyOtherXmlns .= '</svg>';
 
         $this->xmlNoViewBox  = '<?xml version="1.0" encoding="utf-8"?>';
-        $this->xmlNoViewBox .= '<svg width="37" height="42" '.
-            'xmlns="http://www.w3.org/2000/svg" '.
+        $this->xmlNoViewBox .= '<svg width="37" height="42" ' .
+            'xmlns="http://www.w3.org/2000/svg" ' .
             'xmlns:xlink="http://www.w3.org/1999/xlink">';
         $this->xmlNoViewBox .= '</svg>';
 
         $this->xmlNoWH  = '<?xml version="1.0" encoding="utf-8"?>';
-        $this->xmlNoWH .= '<svg viewBox="10 20 74 84" '.
+        $this->xmlNoWH .= '<svg viewBox="10 20 74 84" ' .
             'xmlns="http://www.w3.org/2000/svg">';
         $this->xmlNoWH .= '</svg>';
 
@@ -64,7 +69,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
 
         $this->xmlEntities  = '<?xml version="1.0" encoding="utf-8"?>';
         $this->xmlEntities .= '<svg xmlns="http://www.w3.org/2000/svg">';
-        $this->xmlEntities .= '<style id="&quot; foo&amp;bar&gt;" '.
+        $this->xmlEntities .= '<style id="&quot; foo&amp;bar&gt;" ' .
             'style="display: &amp;none">&quot; foo&amp;bar&gt;</style>';
         $this->xmlEntities .= '<text>&quot; foo&amp;bar&gt;</text>';
         $this->xmlEntities .= '</svg>';
@@ -257,7 +262,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($code);
 
-        $this->assertContains('<div xmlns="http://www.w3.org/1999/xhtml" xmlns:foo="bar">', ''.$result);
+        $this->assertContains('<div xmlns="http://www.w3.org/1999/xhtml" xmlns:foo="bar">', '' . $result);
     }
 
     /**
@@ -276,6 +281,6 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($code);
 
-        $this->assertContains('<p foo:xxx="yyy">', ''.$result);
+        $this->assertContains('<p foo:xxx="yyy">', '' . $result);
     }
 }

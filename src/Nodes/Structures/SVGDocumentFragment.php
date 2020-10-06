@@ -124,8 +124,10 @@ class SVGDocumentFragment extends SVGNodeContainer
         imagecopy(
             $rasterizer->getImage(),    // destination
             $img,                       // source
-            0, 0,                       // dst_x, dst_y
-            0, 0,                       // src_x, src_y
+            0,                          // dst_x
+            0,                          // dst_y
+            0,                          // srx_x
+            0,                          // src_y
             $subRasterizer->getWidth(), // src_w
             $subRasterizer->getHeight() // src_h
         );

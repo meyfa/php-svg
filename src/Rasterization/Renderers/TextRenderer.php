@@ -1,4 +1,5 @@
 <?php
+
 namespace SVG\Rasterization\Renderers;
 
 use SVG\Rasterization\SVGRasterizer;
@@ -45,7 +46,7 @@ class TextRenderer extends MultiPassRenderer
         $y = $params['y'];
         $px = $strokeWidth;
 
-        for ($c1 = ($x-abs($px)); $c1 <= ($x+abs($px)); $c1++) {
+        for ($c1 = ($x - abs($px)); $c1 <= ($x + abs($px)); $c1++) {
             for ($c2 = ($y - abs($px)); $c2 <= ($y + abs($px)); $c2++) {
                 imagettftext($image, $params['size'], 0, $c1, $c2, $color, $params['font_path'], $params['text']);
             }
