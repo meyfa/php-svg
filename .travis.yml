@@ -28,4 +28,4 @@ jobs:
 
 install: composer install --no-interaction
 
-script: vendor/bin/phpunit --configuration .phpunit.xml
+script: vendor/bin/phpunit

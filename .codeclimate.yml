@@ -11,7 +11,7 @@ engines:
     enabled: true
     config:
       file_extensions: "php"
-      rulesets: ".phpmdRulesets.xml"
+      rulesets: "phpmd.xml"
 ratings:
   paths:
   - "**.php"
