@@ -26,6 +26,6 @@ jobs:
     after_script:
     - ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT
 
-install: composer install --no-interaction
+install: travis_retry composer install --no-interaction
 
 script: vendor/bin/phpunit
