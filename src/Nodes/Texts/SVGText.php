@@ -95,6 +95,7 @@ class SVGText extends SVGNodeContainer
             'x'         => $this->getAttribute('x'),
             'y'         => $this->getAttribute('y'),
             'size'      => $this->getComputedStyle('font-size'),
+            'anchor'    => $this->getComputedStyle('text-anchor'),
             'text'      => $this->getValue(),
             'font_path' => $this->font->getFontPath(),
         ), $this);
