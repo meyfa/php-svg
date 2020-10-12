@@ -28,7 +28,7 @@ jobs:
     after_script:
     - ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT
 
-before_install: if [ php -v | grep -q 'Xdebug' ] && [[ ${TRAVIS_PHP_VERSION:0:3} != "7.2" ]]; then phpenv config-rm xdebug.ini; fi
+before_install: if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.2" ]]; then phpenv config-rm xdebug.ini; fi
 install: travis_retry composer install --no-interaction
 
 script: vendor/bin/phpunit
