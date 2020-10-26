@@ -89,6 +89,7 @@ class SVGReader
         'title'                 => 'SVG\Nodes\Texts\SVGTitle',
         'tspan'                 => 'SVG\Nodes\Texts\SVGTSpan',
     );
+
     /**
      * @var string[] @styleAttributes Attributes to be interpreted as styles.
      * List comes from https://www.w3.org/TR/SVG/styling.html.
@@ -124,6 +125,16 @@ class SVGReader
         'alignment-base', 'baseline-shift', 'dominant-baseline',
         'glyph-orientation-horizontal', 'glyph-orientation-vertical', 'kerning',
         'text-anchor', 'writing-mode',
+    );
+
+    /**
+     * @var string[] $styleConverters Map of style attributes to class names
+     * for SVG attribute to CSS property conversion.
+     */
+    private static $styleConverters = array(
+        'font-size'         => 'SVG\Reading\LengthAttributeConverter',
+        'letter-spacing'    => 'SVG\Reading\LengthAttributeConverter',
+        'word-spacing'      => 'SVG\Reading\LengthAttributeConverter',
     );
 
     /**
@@ -217,7 +228,7 @@ class SVGReader
                     continue;
                 }
                 if (in_array($key, self::$styleAttributes)) {
-                    $node->setStyle($key, $value);
+                    $node->setStyle($key, self::convertStyleAttribute($key, $value));
                     continue;
                 }
                 if (!empty($ns) && $ns !== 'svg') {
@@ -309,5 +320,24 @@ class SVGReader
         }
 
         return $node;
+    }
+
+    /**
+     * Some styles, notably font sizes / spacing, follow different syntactic
+     * rules as attributes vs. as CSS properties. This function helps with
+     * converting from an attribute value to a CSS property value.
+     *
+     * @param string $key   The attribute name.
+     * @param string $value The attribute value.
+     *
+     * @return string The converted value for use in a CSS property.
+     */
+    private static function convertStyleAttribute($key, $value)
+    {
+        if (!isset(self::$styleConverters[$key])) {
+            return $value;
+        }
+        $converter = call_user_func(array(self::$styleConverters[$key], 'getInstance'));
+        return $converter->convert($value);
     }
 }

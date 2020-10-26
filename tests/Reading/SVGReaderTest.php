@@ -144,6 +144,22 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('#AABBCC', $rect->getStyle('stroke'));
     }
 
+    public function testShouldConvertUnitlessCSSLengths()
+    {
+        $code  = '<svg xmlns="http://www.w3.org/2000/svg">';
+        $code .= '<text font-size="11" letter-spacing="2" word-spacing="3">foo</text>';
+        $code .= '</svg>';
+
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($code);
+
+        $text = $result->getDocument()->getChild(0);
+
+        $this->assertSame('11px', $text->getStyle('font-size'));
+        $this->assertSame('2px', $text->getStyle('letter-spacing'));
+        $this->assertSame('3px', $text->getStyle('word-spacing'));
+    }
+
     public function testShouldRecursivelyAddChildren()
     {
         // should recursively add all child nodes
