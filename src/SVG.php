@@ -20,10 +20,10 @@ class SVG
     private $document;
 
     /**
-     * @param string   $width      The image's width (any CSS length).
-     * @param string   $height     The image's height (any CSS length).
+     * @param string|null $width    The image's width (any CSS length).
+     * @param string|null $height   The image's height (any CSS length).
      */
-    public function __construct($width, $height)
+    public function __construct($width = null, $height = null)
     {
         $this->document = new SVGDocumentFragment($width, $height);
     }

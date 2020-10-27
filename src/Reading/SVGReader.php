@@ -63,10 +63,7 @@ class SVGReader
             return null;
         }
 
-        $width = isset($xml['width']) ? $xml['width'] : null;
-        $height = isset($xml['height']) ? $xml['height'] : null;
-
-        $img = new SVG($width, $height);
+        $img = new SVG();
         $doc = $img->getDocument();
 
         $namespaces = $xml->getNamespaces(true);

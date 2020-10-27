@@ -28,7 +28,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
 
     public function testGetDocument()
     {
-        $image = new SVG(37, 42);
+        $image = new SVG();
         $doc = $image->getDocument();
 
         // should be instanceof the correct class
@@ -37,8 +37,17 @@ class SVGTest extends \PHPUnit\Framework\TestCase
 
         // should be set to root
         $this->assertTrue($doc->isRoot());
+    }
 
-        // should have correct width and height
+    public function testConstructSetsDocumentDimensions()
+    {
+        $image = new SVG();
+        $doc = $image->getDocument();
+        $this->assertNull($doc->getWidth());
+        $this->assertNull($doc->getHeight());
+
+        $image = new SVG(37, 42);
+        $doc = $image->getDocument();
         $this->assertSame('37', $doc->getWidth());
         $this->assertSame('42', $doc->getHeight());
     }
