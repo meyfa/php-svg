@@ -21,7 +21,7 @@ class SVGPolygonTest extends \PHPUnit\Framework\TestCase
             array(37, 37),
         );
         $obj = new SVGPolygon($points);
-        $this->assertSame($points, $obj->getPoints());
+        $this->assertEquals($points, $obj->getPoints());
     }
 
     public function testRasterize()
@@ -40,7 +40,7 @@ class SVGPolygonTest extends \PHPUnit\Framework\TestCase
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('polygon'),
-            $this->identicalTo(array(
+            $this->equalTo(array(
                 'open' => false,
                 'points' => $points,
             )),
