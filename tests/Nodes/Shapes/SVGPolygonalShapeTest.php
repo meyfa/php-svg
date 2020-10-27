@@ -142,6 +142,14 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
         // should use attribute as source
         $obj->setAttribute('points', '1,2 3,4 5,6');
         $this->assertSame(3, $obj->countPoints());
+
+        // should support a variety of separators
+        $obj->setAttribute('points', '1,-2 3 -4  ,  5   -6  ,7,-8');
+        $this->assertSame(4, $obj->countPoints());
+
+        // can deal with an odd number of coordinates
+        $obj->setAttribute('points', '1 2 3 4 5 6 7');
+        $this->assertSame(3, $obj->countPoints());
     }
 
     /**
