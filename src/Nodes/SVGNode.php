@@ -30,24 +30,6 @@ abstract class SVGNode
     }
 
     /**
-     * Factory function for this class, which accepts an associative array of
-     * strings instead of parameters in the correct order (like `__construct`).
-     *
-     * By default, simply invokes the constructor with no arguments. Subclasses
-     * may choose to override this if they require special behavior.
-     *
-     * @param string[] $attrs The attribute array (or array-like object; e.g. \SimpleXMLElement).
-     *
-     * @return static A new instance of the class this was called on.
-     *
-     * @SuppressWarnings("unused")
-     */
-    public static function constructFromAttributes($attrs)
-    {
-        return new static();
-    }
-
-    /**
      * @return string This node's tag name (e.g. 'rect' or 'g').
      */
     public function getName()
