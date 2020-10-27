@@ -5,44 +5,65 @@ namespace SVG;
 use SVG\Nodes\Structures\SVGStyle;
 
 /**
+ * @coversDefaultClass \SVG\Nodes\Structures\SVGStyle
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGStyleTest extends \PHPUnit\Framework\TestCase
 {
-    public function testSetType()
+    /**
+     * @covers ::__construct
+     */
+    public function test__construct()
     {
+        // should default to empty CSS, type = text/css
         $obj = new SVGStyle();
+        $this->assertSame('', $obj->getValue());
+        $this->assertSame('text/css', $obj->getType());
 
-        $type = 'type_attribute';
-        $this->assertInstanceOf('SVG\Nodes\Structures\SVGStyle', $obj->setType($type));
-
-        $this->assertEquals($type, $obj->getAttribute('type'));
+        // should allow setting CSS and type
+        $obj = new SVGStyle('svg {background:beige;}', 'test-type');
+        $this->assertSame('svg {background:beige;}', $obj->getValue());
+        $this->assertSame('test-type', $obj->getType());
     }
 
+    /**
+     * @covers ::getType
+     */
     public function testGetType()
     {
         $obj = new SVGStyle();
+        $obj->setAttribute('type', 'test-type');
 
-        $type = 'type_attribute';
-        $obj->setAttribute('type', $type);
-
-        $this->assertSame($type, $obj->getType());
+        $this->assertSame('test-type', $obj->getType());
     }
 
-    public function testSetCss()
+    /**
+     * @covers ::setType
+     */
+    public function testSetType()
+    {
+        $obj = new SVGStyle();
+        $this->assertInstanceOf('SVG\Nodes\Structures\SVGStyle', $obj->setType('test-type'));
+
+        $this->assertEquals('test-type', $obj->getAttribute('type'));
+
+        $this->assertSame($obj, $obj->setType('foo'));
+    }
+
+    /**
+     * @covers ::rasterize
+     */
+    public function testRasterize()
     {
         $obj = new SVGStyle();
 
-        $this->assertInstanceOf('SVG\Nodes\Structures\SVGStyle', $obj->setCss('svg {background-color: beige;}'));
-    }
+        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-    public function testGetCss()
-    {
-        $obj = new SVGStyle();
-
-        $css = 'svg {background-color: beige;}';
-        $obj->setCss($css);
-
-        $this->assertSame($css, $obj->getCss());
+        // should not manipulate anything
+        $rast->expects($this->never())->method($this->anything());
+        $obj->rasterize($rast);
     }
 }
