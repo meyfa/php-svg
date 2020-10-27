@@ -14,6 +14,9 @@ class LengthAttributeConverter implements AttributeConverter
 {
     private static $instance;
 
+    /**
+     * @codeCoverageIgnore
+     */
     private function __construct()
     {
     }
@@ -22,10 +25,12 @@ class LengthAttributeConverter implements AttributeConverter
      * Obtain the instance of this class.
      *
      * @return self The singleton instance.
+     *
+     * @codeCoverageIgnore
      */
     public static function getInstance()
     {
-        if (empty(self::$instance)) {
+        if (!isset(self::$instance)) {
             self::$instance = new self();
         }
         return self::$instance;

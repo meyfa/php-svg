@@ -10,10 +10,6 @@ use SVG\Utilities\SVGStyleParser;
  */
 class SVGReaderTest extends \PHPUnit\Framework\TestCase
 {
-    // THE TESTS IN THIS CLASS DO NOT ADHERE TO THE STANDARD LAYOUT
-    // OF TESTING ONE CLASS METHOD PER TEST METHOD
-    // BECAUSE THE CLASS UNDER TEST IS A SINGLE-FEATURE CLASS
-
     private $xml;
     private $xmlNoViewBox;
     private $xmlNoWH;
@@ -75,6 +71,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->xmlEntities .= '</svg>';
     }
 
+    /**
+     * @covers SVG\Reading\SVGReader
+     */
     public function testShouldReturnAnImageOrNull()
     {
         // should return an instance of SVG
@@ -87,6 +86,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($result);
     }
 
+    /**
+     * @covers SVG\Reading\SVGReader
+     */
     public function testShouldSetAllAttributesAndNamespaces()
     {
         // should retain all document attributes and namespaces
@@ -129,6 +131,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         ), $rect->getSerializableAttributes());
     }
 
+    /**
+     * @covers SVG\Reading\SVGReader
+     */
     public function testShouldSetStyles()
     {
         $svgReader = new SVGReader();
@@ -144,6 +149,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('#AABBCC', $rect->getStyle('stroke'));
     }
 
+    /**
+     * @covers SVG\Reading\SVGReader
+     */
     public function testShouldConvertUnitlessCSSLengths()
     {
         $code  = '<svg xmlns="http://www.w3.org/2000/svg">';
@@ -160,6 +168,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('3px', $text->getStyle('word-spacing'));
     }
 
+    /**
+     * @covers SVG\Reading\SVGReader
+     */
     public function testShouldRecursivelyAddChildren()
     {
         // should recursively add all child nodes
@@ -185,6 +196,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         ), $ellipse->getSerializableAttributes());
     }
 
+    /**
+     * @covers SVG\Reading\SVGReader
+     */
     public function testShouldWorkWithoutAnyXmlns()
     {
         $svgReader = new SVGReader();
@@ -196,6 +210,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('10', $doc->getChild(0)->getAttribute('cx'));
     }
 
+    /**
+     * @covers SVG\Reading\SVGReader
+     */
     public function testShouldWorkWithoutMainXmlns()
     {
         $svgReader = new SVGReader();
@@ -208,6 +225,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('bar', $doc->getChild(0)->getAttribute('xlink:foo'));
     }
 
+    /**
+     * @covers SVG\Reading\SVGReader
+     */
     public function testShouldRetrieveUnknownNodes()
     {
         $svgReader = new SVGReader();
@@ -228,6 +248,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('baz', $doc->getChild(1)->getChild(0)->getName());
     }
 
+    /**
+     * @covers SVG\Reading\SVGReader
+     */
     public function testShouldSetValue()
     {
         $svgReader = new SVGReader();
@@ -238,6 +261,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('hello world', $doc->getChild(0)->getValue());
     }
 
+    /**
+     * @covers SVG\Reading\SVGReader
+     */
     public function testShouldDecodeEntities()
     {
         $svgReader = new SVGReader();
@@ -255,6 +281,9 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('" foo&bar>', $doc->getChild(1)->getValue());
     }
 
+    /**
+     * @covers SVG\Reading\SVGReader
+     */
     public function testParseStylesWithEmptyString()
     {
         $this->assertCount(0, SVGStyleParser::parseStyles(''));
@@ -264,6 +293,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
     // not accepting 2 arguments below 5.4
     /**
      * @requires PHP 5.4
+     * @covers SVG\Reading\SVGReader
      */
     public function testChildKeepsNamespaces()
     {
@@ -283,6 +313,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @requires PHP 5.4
+     * @covers SVG\Reading\SVGReader
      */
     public function testParsesChildNamespacedAttributes()
     {
