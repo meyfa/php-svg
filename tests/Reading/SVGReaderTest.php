@@ -3,7 +3,6 @@
 namespace SVG;
 
 use SVG\Reading\SVGReader;
-use SVG\Utilities\SVGStyleParser;
 
 /**
  * @SuppressWarnings(PHPMD)
@@ -279,14 +278,6 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
 
         // should decode entities in value
         $this->assertSame('" foo&bar>', $doc->getChild(1)->getValue());
-    }
-
-    /**
-     * @covers SVG\Reading\SVGReader
-     */
-    public function testParseStylesWithEmptyString()
-    {
-        $this->assertCount(0, SVGStyleParser::parseStyles(''));
     }
 
     // the following requirement is due to SimpleXMLElement::getDocNamespaces
