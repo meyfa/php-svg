@@ -289,7 +289,8 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $code  = '<svg xmlns="http://www.w3.org/2000/svg">';
         $code .= '<style><![CDATA[g {display:none;}]]></style>';
         $code .= '</svg>';
-        $result = (new SVGReader())->parseString($code);
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($code);
         $doc = $result->getDocument();
         $this->assertSame('g {display:none;}', $doc->getChild(0)->getValue());
     }
