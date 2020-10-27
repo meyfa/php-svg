@@ -49,6 +49,14 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
         );
         $obj = new SVGPolygonalShapeSubclass($points);
         $this->assertSame('42.5,42.5 37,37', $obj->getAttribute('points'));
+
+        // should stop when invalid point is encountered
+        $obj = new SVGPolygonalShapeSubclass(array(
+            array(1, 2),
+            array(3),
+            array(4, 5),
+        ));
+        $this->assertSame('1,2', $obj->getAttribute('points'));
     }
 
     /**

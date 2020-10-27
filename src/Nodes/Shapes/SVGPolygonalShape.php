@@ -130,6 +130,9 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
 
         for ($i = 0, $n = count($pointsArray); $i < $n; ++$i) {
             $point = $pointsArray[$i];
+            if (count($point) < 2) {
+                break;
+            }
             if ($i > 0) {
                 $pointsString .= ' ';
             }
