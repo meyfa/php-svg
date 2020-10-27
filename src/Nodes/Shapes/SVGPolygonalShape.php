@@ -66,8 +66,8 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
     {
         $pointsAttribute = $this->getAttribute('points');
         if (isset($pointsAttribute)) {
-            $separatorCount = preg_match_all('/[\s,]+/', trim($pointsAttribute));
-            return (int) (($separatorCount + 1) / 2);
+            $coords = self::splitCoordinates($pointsAttribute);
+            return (int) (count($coords) / 2);
         }
         return 0;
     }
@@ -106,7 +106,7 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setPoint($index, $point)
+    public function setPoint($index, array $point)
     {
         $coords = self::splitCoordinates($this->getAttribute('points') ?: '');
         $coords[$index * 2] = $point[0];
@@ -121,7 +121,7 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
         return preg_split('/[\s,]+/', trim($pointsString));
     }
 
-    private static function joinCoordinates($coordinatesArray)
+    private static function joinCoordinates(array $coordinatesArray)
     {
         $pointsString = '';
         for ($i = 0, $n = count($coordinatesArray); $i < $n; ++$i) {
@@ -150,12 +150,11 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
     private static function joinPoints(array $pointsArray)
     {
         $pointsString = '';
-        for ($i = 0, $n = count($pointsArray); $i < $n; ++$i) {
-            $point = $pointsArray[$i];
+        foreach ($pointsArray as $point) {
             if (count($point) < 2) {
                 break;
             }
-            if ($i > 0) {
+            if ($pointsString !== '') {
                 $pointsString .= ' ';
             }
             $pointsString .= $point[0] . ',' . $point[1];
