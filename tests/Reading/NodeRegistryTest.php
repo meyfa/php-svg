@@ -10,6 +10,9 @@ use SVG\Reading\NodeRegistry;
  */
 class NodeRegistryTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers \SVG\Reading\NodeRegistry
+     */
     public function testShouldConstructKnownTypes()
     {
         $xml = new SimpleXMLElement('<rect />');
@@ -18,6 +21,9 @@ class NodeRegistryTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('SVG\Nodes\Shapes\SVGRect', $result);
     }
 
+    /**
+     * @covers \SVG\Reading\NodeRegistry
+     */
     public function testShouldUseGenericTypeForOthers()
     {
         $xml = new SimpleXMLElement('<div />');

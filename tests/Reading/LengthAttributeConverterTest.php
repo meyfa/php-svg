@@ -9,29 +9,44 @@ use SVG\Reading\LengthAttributeConverter;
  */
 class LengthAttributeConverterTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers \SVG\Reading\LengthAttributeConverter
+     */
     public function testShouldQualifyUnitlessNumbers()
     {
-        $this->assertSame('42px', LengthAttributeConverter::getInstance()->convert('42'));
-        $this->assertSame('+42px', LengthAttributeConverter::getInstance()->convert('+42'));
-        $this->assertSame('-42px', LengthAttributeConverter::getInstance()->convert('-42'));
-        $this->assertSame('42.123px', LengthAttributeConverter::getInstance()->convert('42.123'));
-        $this->assertSame('-.123px', LengthAttributeConverter::getInstance()->convert('-.123'));
-        $this->assertSame('-42.px', LengthAttributeConverter::getInstance()->convert('-42.'));
-        $this->assertSame('-42.123px', LengthAttributeConverter::getInstance()->convert('-42.123'));
+        $obj = LengthAttributeConverter::getInstance();
+
+        $this->assertSame('42px', $obj->convert('42'));
+        $this->assertSame('+42px', $obj->convert('+42'));
+        $this->assertSame('-42px', $obj->convert('-42'));
+        $this->assertSame('42.123px', $obj->convert('42.123'));
+        $this->assertSame('-.123px', $obj->convert('-.123'));
+        $this->assertSame('-42.px', $obj->convert('-42.'));
+        $this->assertSame('-42.123px', $obj->convert('-42.123'));
     }
 
+    /**
+     * @covers \SVG\Reading\LengthAttributeConverter
+     */
     public function testShouldTrimWhitespace()
     {
-        $this->assertSame('-42.123px', LengthAttributeConverter::getInstance()->convert('  -42.123'));
-        $this->assertSame('-42.123px', LengthAttributeConverter::getInstance()->convert('-42.123  '));
-        $this->assertSame('-42.123px', LengthAttributeConverter::getInstance()->convert(" \n -42.123 \n "));
+        $obj = LengthAttributeConverter::getInstance();
+
+        $this->assertSame('-42.123px', $obj->convert('  -42.123'));
+        $this->assertSame('-42.123px', $obj->convert('-42.123  '));
+        $this->assertSame('-42.123px', $obj->convert(" \n -42.123 \n "));
     }
 
+    /**
+     * @covers \SVG\Reading\LengthAttributeConverter
+     */
     public function testShouldIgnoreOtherValues()
     {
-        $this->assertSame('42%', LengthAttributeConverter::getInstance()->convert('42%'));
-        $this->assertSame('42px', LengthAttributeConverter::getInstance()->convert('42px'));
-        $this->assertSame('none', LengthAttributeConverter::getInstance()->convert('none'));
-        $this->assertSame('42 37', LengthAttributeConverter::getInstance()->convert('42 37'));
+        $obj = LengthAttributeConverter::getInstance();
+
+        $this->assertSame('42%', $obj->convert('42%'));
+        $this->assertSame('42px', $obj->convert('42px'));
+        $this->assertSame('none', $obj->convert('none'));
+        $this->assertSame('42 37', $obj->convert('42 37'));
     }
 }

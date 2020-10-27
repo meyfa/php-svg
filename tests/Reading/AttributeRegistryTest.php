@@ -6,10 +6,15 @@ use SimpleXMLElement;
 use SVG\Reading\AttributeRegistry;
 
 /**
+ * @coversDefaultClass \SVG\Reading\AttributeRegistry
+ *
  * @SuppressWarnings(PHPMD)
  */
 class AttributeRegistryTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers ::isStyle
+     */
     public function testIsStyle()
     {
         $this->assertTrue(AttributeRegistry::isStyle('font-size'));
@@ -18,6 +23,9 @@ class AttributeRegistryTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(AttributeRegistry::isStyle('width'));
     }
 
+    /**
+     * @covers ::convertStyleAttribute
+     */
     public function testConvertStyleAttribute()
     {
         $this->assertSame('42px', AttributeRegistry::convertStyleAttribute('font-size', '42'));
