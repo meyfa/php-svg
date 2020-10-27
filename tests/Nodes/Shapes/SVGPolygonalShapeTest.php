@@ -11,7 +11,7 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
 {
     const TAG_NAME = 'test_subclass';
 
-    public function __construct($points)
+    public function __construct(array $points = null)
     {
         parent::__construct($points);
     }
@@ -34,19 +34,17 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
             array(37, 37),
         );
         $obj = new SVGPolygonalShapeSubclass($points);
-        $this->assertSame($points, $obj->getPoints());
+        $this->assertEquals($points, $obj->getPoints());
     }
 
-    public function testConstructFromAttributes()
+    public function testSetAttributePoints()
     {
         // should set empty points by default
-        $obj = SVGPolygonalShapeSubclass::constructFromAttributes(array());
+        $obj = new SVGPolygonalShapeSubclass();
         $this->assertSame(0, $obj->countPoints());
 
         // should set points when provided
-        $obj = SVGPolygonalShapeSubclass::constructFromAttributes(array(
-            'points' => '1,1 2,2 3,3',
-        ));
+        $obj->setAttribute('points', '1,1 2,2 3,3');
         $this->assertSame(3, $obj->countPoints());
     }
 
@@ -56,13 +54,13 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
 
         // should support 2 floats
         $obj->addPoint(42.5, 42.5);
-        $this->assertSame(array(
+        $this->assertEquals(array(
             array(42.5, 42.5),
         ), $obj->getPoints());
 
         // should support an array
         $obj->addPoint(array(37, 37));
-        $this->assertSame(array(
+        $this->assertEquals(array(
             array(42.5, 42.5),
             array(37, 37),
         ), $obj->getPoints());
@@ -80,7 +78,7 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
 
         // should remove points by index
         $obj->removePoint(0);
-        $this->assertSame(array(
+        $this->assertEquals(array(
             array(37, 37),
         ), $obj->getPoints());
 
@@ -99,7 +97,7 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
 
         // should replace the point at the given index
         $obj->setPoint(1, array(100, 100));
-        $this->assertSame(array(
+        $this->assertEquals(array(
             array(42.5, 42.5),
             array(100, 100),
         ), $obj->getPoints());
