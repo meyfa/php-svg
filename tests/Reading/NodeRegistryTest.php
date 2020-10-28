@@ -2,7 +2,6 @@
 
 namespace SVG;
 
-use SimpleXMLElement;
 use SVG\Reading\NodeRegistry;
 
 /**
@@ -14,17 +13,13 @@ class NodeRegistryTest extends \PHPUnit\Framework\TestCase
 {
     public function testShouldConstructKnownTypes()
     {
-        $xml = new SimpleXMLElement('<rect />');
-        $result = NodeRegistry::create($xml);
-
+        $result = NodeRegistry::create('rect');
         $this->assertInstanceOf('SVG\Nodes\Shapes\SVGRect', $result);
     }
 
     public function testShouldUseGenericTypeForOthers()
     {
-        $xml = new SimpleXMLElement('<div />');
-        $result = NodeRegistry::create($xml);
-
+        $result = NodeRegistry::create('div');
         $this->assertInstanceOf('SVG\Nodes\SVGGenericNodeType', $result);
     }
 }
