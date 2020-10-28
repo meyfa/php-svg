@@ -149,7 +149,7 @@ abstract class SVGNodeContainer extends SVGNode
      */
     public function addContainerStyle(SVGStyle $styleNode)
     {
-        $newStyles = SVGStyleParser::parseCss($styleNode->getCss());
+        $newStyles = SVGStyleParser::parseCss($styleNode->getValue());
         $this->containerStyles = array_merge($this->containerStyles, $newStyles);
 
         return $this;

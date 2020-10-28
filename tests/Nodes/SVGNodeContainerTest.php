@@ -3,7 +3,6 @@
 namespace SVG;
 
 use SVG\Nodes\SVGNodeContainer;
-use SVG\Utilities\SVGStyleParser;
 
 class SVGNodeContainerSubclass extends SVGNodeContainer
 {
@@ -232,20 +231,6 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(array(
             $root_1_0_0, $root_1_1,
         ), $obj->getElementsByClassName(array('foo', 'bar')));
-    }
-
-    public function testParseCssWithMatchedElement()
-    {
-        $result = SVGStyleParser::parseCss('svg {background-color: beige;}');
-
-        $this->assertSame('beige', $result['svg']['background-color']);
-    }
-
-    public function testParseCssWithSkippedElement()
-    {
-        $result = SVGStyleParser::parseCss('@font-face {font-family: "Bitstream Vera Serif Bold";}');
-
-        $this->assertCount(0, $result);
     }
 
     public function testGetContainerStyleForNode()

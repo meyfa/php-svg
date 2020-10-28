@@ -4,8 +4,7 @@ namespace SVG\Writing;
 
 use SVG\Nodes\SVGNode;
 use SVG\Nodes\SVGNodeContainer;
-use SVG\Nodes\Structures\SVGStyle;
-use SVG\Nodes\Structures\SVGScript;
+use SVG\Nodes\CDataContainer;
 
 /**
  * This class is used for composing ("writing") XML strings from nodes.
@@ -55,16 +54,10 @@ class SVGWriter
 
         $textContent = htmlspecialchars($node->getValue());
 
-        if ($node instanceof SVGStyle) {
+        if ($node instanceof CDataContainer) {
             $this->outString .= '>';
-            $this->writeCdata($node->getCss());
-            $this->outString .= $textContent . '</' . $node->getName() . '>';
-            return;
-        }
-        if ($node instanceof SVGScript) {
-            $this->outString .= '>';
-            $this->writeCdata($node->getContent());
-            $this->outString .= $textContent . '</' . $node->getName() . '>';
+            $this->writeCdata($node->getValue());
+            $this->outString .= '</' . $node->getName() . '>';
             return;
         }
 
@@ -193,10 +186,6 @@ class SVGWriter
      */
     private function writeCdata($cdata)
     {
-        $xml1 = defined('ENT_XML1') ? ENT_XML1 : 16;
-
-        $cdata = htmlspecialchars($cdata, $xml1 | ENT_COMPAT);
-
         $this->outString .= '<![CDATA[' . $cdata . ']]>';
     }
 }

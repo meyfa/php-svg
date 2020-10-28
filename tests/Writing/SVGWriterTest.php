@@ -105,12 +105,19 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
             'style="content: &quot; foo&amp;bar&gt;" />';
         $this->assertEquals($expect, $obj->getString());
 
-        // should encode entities in style body
+        // should encode entities in value
+        $obj = new SVGWriter();
+        $svgStyle = new \SVG\Nodes\Texts\SVGTitle('" foo&bar>');
+        $obj->writeNode($svgStyle);
+        $expect = $this->xmlDeclaration . '<title>&quot; foo&amp;bar&gt;</title>';
+        $this->assertEquals($expect, $obj->getString());
+
+        // should not encode entities in style body
         $obj = new SVGWriter();
         $svgStyle = new \SVG\Nodes\Structures\SVGStyle('" foo&bar>');
         $obj->writeNode($svgStyle);
         $expect = $this->xmlDeclaration . '<style type="text/css">' .
-            '<![CDATA[&quot; foo&amp;bar&gt;]]></style>';
+            '<![CDATA[" foo&bar>]]></style>';
         $this->assertEquals($expect, $obj->getString());
     }
 

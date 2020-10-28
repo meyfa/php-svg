@@ -3,7 +3,6 @@
 namespace SVG;
 
 use SVG\Reading\SVGReader;
-use SVG\Utilities\SVGStyleParser;
 
 /**
  * @SuppressWarnings(PHPMD)
@@ -275,7 +274,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('&none', $doc->getChild(0)->getStyle('display'));
 
         // should decode entities in style body
-        $this->assertSame('" foo&bar>', $doc->getChild(0)->getCss());
+        $this->assertSame('" foo&bar>', $doc->getChild(0)->getValue());
 
         // should decode entities in value
         $this->assertSame('" foo&bar>', $doc->getChild(1)->getValue());
@@ -284,9 +283,16 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers SVG\Reading\SVGReader
      */
-    public function testParseStylesWithEmptyString()
+    public function testShouldRemoveCDataForStyles()
     {
-        $this->assertCount(0, SVGStyleParser::parseStyles(''));
+        // should remove CDATA
+        $code  = '<svg xmlns="http://www.w3.org/2000/svg">';
+        $code .= '<style><![CDATA[g {display:none;}]]></style>';
+        $code .= '</svg>';
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($code);
+        $doc = $result->getDocument();
+        $this->assertSame('g {display:none;}', $doc->getChild(0)->getValue());
     }
 
     // the following requirement is due to SimpleXMLElement::getDocNamespaces

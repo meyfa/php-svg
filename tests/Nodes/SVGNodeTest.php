@@ -21,14 +21,6 @@ class SVGNodeSubclass extends SVGNode
  */
 class SVGNodeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testConstructFromAttributes()
-    {
-        $obj = SVGNodeSubclass::constructFromAttributes(array());
-
-        // should construct child class
-        $this->assertInstanceOf('SVG\SVGNodeSubclass', $obj);
-    }
-
     public function testGetName()
     {
         $obj = new SVGNodeSubclass();

@@ -103,8 +103,8 @@ class NodeRegistry
         $type = $xml->getName();
 
         if (isset(self::$nodeTypes[$type])) {
-            $call = array(self::$nodeTypes[$type], 'constructFromAttributes');
-            return call_user_func($call, $xml);
+            $nodeClass = self::$nodeTypes[$type];
+            return new $nodeClass();
         }
 
         return new SVGGenericNodeType($type);

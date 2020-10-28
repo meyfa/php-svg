@@ -2,17 +2,16 @@
 
 namespace SVG\Nodes\Structures;
 
+use SVG\Nodes\CDataContainer;
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'script'.
  */
-class SVGScript extends SVGNodeContainer
+class SVGScript extends SVGNodeContainer implements CDataContainer
 {
     const TAG_NAME = 'script';
-
-    private $content = '';
 
     /**
      * @param string $content The script content.
@@ -21,39 +20,7 @@ class SVGScript extends SVGNodeContainer
     {
         parent::__construct();
 
-        $this->content = $content;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function constructFromAttributes($attr)
-    {
-        $cdata = trim(preg_replace('/^\s*\/\/<!\[CDATA\[([\s\S]*)\/\/\]\]>\s*\z/', '$1', $attr));
-
-        return new static($cdata);
-    }
-
-    /**
-     * @return string The script content.
-     */
-    public function getScript()
-    {
-        return $this->content;
-    }
-
-    /**
-     * Sets the script content.
-     *
-     * @param $content string The new cdata content
-     *
-     * @return $this The node instance for call chaining
-     */
-    public function setScript($content)
-    {
-        $this->content = $content;
-
-        return $this;
+        $this->setValue($content);
     }
 
     /**
@@ -61,6 +28,5 @@ class SVGScript extends SVGNodeContainer
      */
     public function rasterize(SVGRasterizer $rasterizer)
     {
-        // Nothing to rasterize.
     }
 }
