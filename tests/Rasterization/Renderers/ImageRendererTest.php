@@ -18,9 +18,10 @@ class SVGNodeClass extends SVGNode
 }
 
 /**
- * @SuppressWarnings(PHPMD)
- *
  * @requires extension gd
+ * @covers \SVG\Rasterization\Renderers\ImageRenderer
+ *
+ * @SuppressWarnings(PHPMD)
  */
 class ImageRendererTest extends \PHPUnit\Framework\TestCase
 {

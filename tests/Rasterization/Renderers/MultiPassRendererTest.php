@@ -2,12 +2,13 @@
 
 namespace SVG;
 
-use SVG\Rasterization\Renderers\Renderer;
+use SVG\Rasterization\Renderers\MultiPassRenderer;
 
 /**
- * @SuppressWarnings(PHPMD)
- *
  * @requires extension gd
+ * @covers \SVG\Rasterization\Renderers\MultiPassRenderer
+ *
+ * @SuppressWarnings(PHPMD)
  */
 class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
 {

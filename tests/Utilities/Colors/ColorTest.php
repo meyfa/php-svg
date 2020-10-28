@@ -5,6 +5,8 @@ namespace SVG;
 use SVG\Utilities\Colors\Color;
 
 /**
+ * @covers \SVG\Utilities\Colors\Color
+ *
  * @SuppressWarnings(PHPMD)
  */
 class ColorTest extends \PHPUnit\Framework\TestCase

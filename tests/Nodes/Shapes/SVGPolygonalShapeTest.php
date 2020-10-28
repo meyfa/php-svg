@@ -23,7 +23,7 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
 
 /**
  * @coversDefaultClass \SVG\Nodes\Shapes\SVGPolygonalShape
- * @covers ::<private>
+ * @covers ::<!public>
  *
  * @SuppressWarnings(PHPMD)
  */

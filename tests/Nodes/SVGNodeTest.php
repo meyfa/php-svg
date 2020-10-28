@@ -17,10 +17,17 @@ class SVGNodeSubclass extends SVGNode
 }
 
 /**
+ * @coversDefaultClass \SVG\Nodes\SVGNode
+ * @covers ::<!public>
+ * @covers ::__construct
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGNodeTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers ::getName
+     */
     public function testGetName()
     {
         $obj = new SVGNodeSubclass();
@@ -29,6 +36,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(SVGNodeSubclass::TAG_NAME, $obj->getName());
     }
 
+    /**
+     * @covers ::getParent
+     */
     public function testGetParent()
     {
         $obj = new SVGNodeSubclass();
@@ -37,6 +47,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($obj->getParent());
     }
 
+    /**
+     * @covers ::getValue
+     */
     public function testGetValue()
     {
         $obj = new SVGNodeSubclass();
@@ -45,6 +58,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('', $obj->getValue());
     }
 
+    /**
+     * @covers ::setValue
+     */
     public function testSetValue()
     {
         $obj = new SVGNodeSubclass();
@@ -61,6 +77,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setValue('foo'));
     }
 
+    /**
+     * @covers ::getStyle
+     */
     public function testGetStyle()
     {
         $obj = new SVGNodeSubclass();
@@ -69,6 +88,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($obj->getStyle('fill'));
     }
 
+    /**
+     * @covers ::setStyle
+     */
     public function testSetStyle()
     {
         $obj = new SVGNodeSubclass();
@@ -98,6 +120,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setStyle('fill', null));
     }
 
+    /**
+     * @covers ::removeStyle
+     */
     public function testRemoveStyle()
     {
         $obj = new SVGNodeSubclass();
@@ -111,6 +136,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->removeStyle('fill'));
     }
 
+    /**
+     * @covers ::getAttribute
+     */
     public function testGetAttribute()
     {
         $obj = new SVGNodeSubclass();
@@ -119,6 +147,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($obj->getAttribute('x'));
     }
 
+    /**
+     * @covers ::setAttribute
+     */
     public function testSetAttribute()
     {
         $obj = new SVGNodeSubclass();
@@ -148,6 +179,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setAttribute('x', null));
     }
 
+    /**
+     * @covers ::removeAttribute
+     */
     public function testRemoveAttribute()
     {
         $obj = new SVGNodeSubclass();
@@ -161,6 +195,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->removeAttribute('x'));
     }
 
+    /**
+     * @covers ::getSerializableNamespaces
+     */
     public function testGetSerializableNamespaces()
     {
         $obj = new SVGNodeSubclass();
@@ -173,6 +210,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($ns, $obj->getSerializableNamespaces());
     }
 
+    /**
+     * @covers ::getSerializableAttributes
+     */
     public function testGetSerializableAttributes()
     {
         $obj = new SVGNodeSubclass();
@@ -188,6 +228,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         ), $obj->getSerializableAttributes());
     }
 
+    /**
+     * @covers ::getSerializableStyles
+     */
     public function testGetSerializableStyles()
     {
         $obj = new SVGNodeSubclass();
@@ -201,6 +244,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         ), $obj->getSerializableStyles());
     }
 
+    /**
+     * @covers ::getViewBox
+     */
     public function testGetViewBox()
     {
         $obj = new SVGNodeSubclass();

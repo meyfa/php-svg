@@ -5,10 +5,16 @@ namespace SVG;
 use SVG\Nodes\Embedded\SVGImage;
 
 /**
+ * @coversDefaultClass \SVG\Nodes\Embedded\SVGImage
+ * @covers ::<!public>
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGImageTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers ::__construct
+     */
     public function test__construct()
     {
         // should not set any attributes by default
@@ -26,6 +32,9 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         ), $obj->getSerializableAttributes());
     }
 
+    /**
+     * @covers ::getHref
+     */
     public function testGetHref()
     {
         // should return xlink:href when available
@@ -44,6 +53,9 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($obj->getHref());
     }
 
+    /**
+     * @covers ::setHref
+     */
     public function testSetHref()
     {
         $obj = new SVGImage();
@@ -56,6 +68,9 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setHref('test-href'));
     }
 
+    /**
+     * @covers ::getX
+     */
     public function testGetX()
     {
         $obj = new SVGImage();
@@ -65,6 +80,9 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getX());
     }
 
+    /**
+     * @covers ::setX
+     */
     public function testSetX()
     {
         $obj = new SVGImage();
@@ -77,6 +95,9 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setX(42));
     }
 
+    /**
+     * @covers ::getY
+     */
     public function testGetY()
     {
         $obj = new SVGImage();
@@ -86,6 +107,9 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getY());
     }
 
+    /**
+     * @covers ::setY
+     */
     public function testSetY()
     {
         $obj = new SVGImage();
@@ -98,6 +122,9 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setY(42));
     }
 
+    /**
+     * @covers ::getWidth
+     */
     public function testGetWidth()
     {
         $obj = new SVGImage();
@@ -107,6 +134,9 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getWidth());
     }
 
+    /**
+     * @covers ::setWidth
+     */
     public function testSetWidth()
     {
         $obj = new SVGImage();
@@ -119,6 +149,9 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setWidth(42));
     }
 
+    /**
+     * @covers ::getHeight
+     */
     public function testGetHeight()
     {
         $obj = new SVGImage();
@@ -128,6 +161,9 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getHeight());
     }
 
+    /**
+     * @covers ::setHeight
+     */
     public function testSetHeight()
     {
         $obj = new SVGImage();
@@ -140,6 +176,9 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setHeight(42));
     }
 
+    /**
+     * @covers ::rasterize
+     */
     public function testRasterize()
     {
         $obj = new SVGImage('test-href', 10, 10, 100, 100);

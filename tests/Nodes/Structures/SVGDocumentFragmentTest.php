@@ -6,10 +6,16 @@ use AssertGD\GDSimilarityConstraint;
 use SVG\Nodes\Structures\SVGDocumentFragment;
 
 /**
+ * @coversDefaultClass \SVG\Nodes\Structures\SVGDocumentFragment
+ * @covers ::<!public>
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers ::__construct
+     */
     public function test__construct()
     {
         $container = new \SVG\Nodes\Structures\SVGGroup();
@@ -25,6 +31,9 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getHeight());
     }
 
+    /**
+     * @covers ::isRoot
+     */
     public function testIsRoot()
     {
         // should return true by default
@@ -37,6 +46,9 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse($obj->isRoot());
     }
 
+    /**
+     * @covers ::getWidth
+     */
     public function testGetWidth()
     {
         $obj = new SVGDocumentFragment();
@@ -46,6 +58,9 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getWidth());
     }
 
+    /**
+     * @covers ::setWidth
+     */
     public function testSetWidth()
     {
         $obj = new SVGDocumentFragment();
@@ -58,6 +73,9 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setWidth(42));
     }
 
+    /**
+     * @covers ::getHeight
+     */
     public function testGetHeight()
     {
         $obj = new SVGDocumentFragment();
@@ -67,6 +85,9 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getHeight());
     }
 
+    /**
+     * @covers ::setHeight
+     */
     public function testSetHeight()
     {
         $obj = new SVGDocumentFragment();
@@ -79,6 +100,9 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setHeight(42));
     }
 
+    /**
+     * @covers ::getComputedStyle
+     */
     public function testGetComputedStyle()
     {
         $obj = new SVGDocumentFragment();
@@ -97,6 +121,9 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('#FFFFFF', $obj->getComputedStyle('fill'));
     }
 
+    /**
+     * @covers ::getSerializableNamespaces
+     */
     public function testGetSerializableNamespaces()
     {
         // should include 'xmlns' and 'xmlns:xlink' namespaces for root
@@ -130,6 +157,9 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         ), $obj->getSerializableNamespaces());
     }
 
+    /**
+     * @covers ::getSerializableAttributes
+     */
     public function testGetSerializableAttributes()
     {
         $container = new \SVG\Nodes\Structures\SVGGroup();
@@ -162,6 +192,9 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(array(), $obj->getSerializableAttributes());
     }
 
+    /**
+     * @covers ::getElementById
+     */
     public function testGetElementById()
     {
         // should return null if not found
@@ -203,8 +236,11 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($expected, $obj->getElementById('foobar'));
     }
 
+    // ---- THE FOLLOWING TESTS ARE INTEGRATION TESTS ----
+
     /**
      * @requires extension gd
+     * @coversNothing
      */
     public function testRasterize_empty()
     {
@@ -225,6 +261,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @requires extension gd
+     * @coversNothing
      */
     public function testRasterize_object_unscaled()
     {
@@ -249,6 +286,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @requires extension gd
+     * @coversNothing
      */
     public function testRasterize_object_scaledUp()
     {
@@ -273,6 +311,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @requires extension gd
+     * @coversNothing
      */
     public function testRasterize_object_scaledDown()
     {
@@ -297,6 +336,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @requires extension gd
+     * @coversNothing
      */
     public function testRasterize_object_viewBox()
     {

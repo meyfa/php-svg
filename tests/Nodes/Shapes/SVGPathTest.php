@@ -5,6 +5,9 @@ namespace SVG;
 use SVG\Nodes\Shapes\SVGPath;
 
 /**
+ * @coversDefaultClass \SVG\Nodes\Shapes\SVGPath
+ * @covers ::<!public>
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGPathTest extends \PHPUnit\Framework\TestCase
@@ -22,6 +25,9 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
         array(array(200, 200), array(220, 200)),
     );
 
+    /**
+     * @covers ::__construct
+     */
     public function test__construct()
     {
         // should not set any attributes by default
@@ -35,6 +41,9 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
         ), $obj->getSerializableAttributes());
     }
 
+    /**
+     * @covers ::getDescription
+     */
     public function testGetDescription()
     {
         $obj = new SVGPath();
@@ -44,6 +53,9 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(self::$sampleDescription, $obj->getDescription());
     }
 
+    /**
+     * @covers ::setDescription
+     */
     public function testSetDescription()
     {
         $obj = new SVGPath();
@@ -56,16 +68,25 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setDescription(self::$sampleDescription));
     }
 
+    /**
+     * @covers ::rasterize
+     */
     public function testRasterizeWithNull()
     {
+        $obj = new SVGPath();
+
         $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
             ->disableOriginalConstructor()
             ->getMock();
-        $obj = new SVGPath();
 
-        $this->assertNull($obj->rasterize($rast));
+        // should not manipulate anything
+        $rast->expects($this->never())->method($this->anything());
+        $obj->rasterize($rast);
     }
 
+    /**
+     * @covers ::rasterize
+     */
     public function testRasterize()
     {
         $obj = new SVGPath(self::$sampleDescription);

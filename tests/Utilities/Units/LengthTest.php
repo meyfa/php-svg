@@ -5,6 +5,8 @@ namespace SVG;
 use SVG\Utilities\Units\Length;
 
 /**
+ * @covers \SVG\Utilities\Units\Length
+ *
  * @SuppressWarnings(PHPMD)
  */
 class LengthTest extends \PHPUnit\Framework\TestCase

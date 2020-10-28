@@ -5,10 +5,16 @@ namespace SVG;
 use SVG\Nodes\Shapes\SVGEllipse;
 
 /**
+ * @coversDefaultClass \SVG\Nodes\Shapes\SVGEllipse
+ * @covers ::<!public>
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGEllipseTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers ::__construct
+     */
     public function test__construct()
     {
         // should not set any attributes by default
@@ -25,6 +31,9 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
         ), $obj->getSerializableAttributes());
     }
 
+    /**
+     * @covers ::getCenterX
+     */
     public function testGetCenterX()
     {
         $obj = new SVGEllipse();
@@ -34,6 +43,9 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getCenterX());
     }
 
+    /**
+     * @covers ::setCenterX
+     */
     public function testSetCenterX()
     {
         $obj = new SVGEllipse();
@@ -46,6 +58,9 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setCenterX(42));
     }
 
+    /**
+     * @covers ::getCenterY
+     */
     public function testGetCenterY()
     {
         $obj = new SVGEllipse();
@@ -55,6 +70,9 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getCenterY());
     }
 
+    /**
+     * @covers ::setCenterY
+     */
     public function testSetCenterY()
     {
         $obj = new SVGEllipse();
@@ -67,6 +85,9 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setCenterY(42));
     }
 
+    /**
+     * @covers ::getRadiusX
+     */
     public function testGetRadiusX()
     {
         $obj = new SVGEllipse();
@@ -76,6 +97,9 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getRadiusX());
     }
 
+    /**
+     * @covers ::setRadiusX
+     */
     public function testSetRadiusX()
     {
         $obj = new SVGEllipse();
@@ -88,6 +112,9 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setRadiusX(42));
     }
 
+    /**
+     * @covers ::getRadiusY
+     */
     public function testGetRadiusY()
     {
         $obj = new SVGEllipse();
@@ -97,6 +124,9 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getRadiusY());
     }
 
+    /**
+     * @covers ::setRadiusY
+     */
     public function testSetRadiusY()
     {
         $obj = new SVGEllipse();
@@ -109,6 +139,9 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setRadiusY(42));
     }
 
+    /**
+     * @covers ::rasterize
+     */
     public function testRasterize()
     {
         $obj = new SVGEllipse(37, 42, 100, 200);

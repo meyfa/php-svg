@@ -5,10 +5,16 @@ namespace SVG;
 use SVG\Rasterization\Path\PolygonBuilder;
 
 /**
+ * @coversDefaultClass \SVG\Rasterization\Path\PolygonBuilder
+ * @covers ::<!public>
+ *
  * @SuppressWarnings(PHPMD)
  */
 class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers ::__construct
+     */
     public function test__construct()
     {
         // should set position to origin by default
@@ -20,6 +26,9 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(array(37.1, 42.2), $obj->getPosition());
     }
 
+    /**
+     * @covers ::build
+     */
     public function testBuild()
     {
         // should return an array of float 2-tuples
@@ -32,6 +41,9 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         ), $obj->build());
     }
 
+    /**
+     * @covers ::getFirstPoint
+     */
     public function testGetFirstPoint()
     {
         $obj = new PolygonBuilder();
@@ -45,6 +57,9 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(array(10, 20), $obj->getFirstPoint());
     }
 
+    /**
+     * @covers ::getLastPoint
+     */
     public function testGetLastPoint()
     {
         $obj = new PolygonBuilder();
@@ -58,6 +73,9 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(array(37.1, 42.2), $obj->getLastPoint());
     }
 
+    /**
+     * @covers ::getPosition
+     */
     public function testGetPosition()
     {
         $obj = new PolygonBuilder(10, 20);
@@ -70,6 +88,9 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(array(37.1, 42.2), $obj->getPosition());
     }
 
+    /**
+     * @covers ::addPoint
+     */
     public function testAddPoint()
     {
         $obj = new PolygonBuilder();
@@ -96,6 +117,9 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         ), $obj->build());
     }
 
+    /**
+     * @covers ::addPointRelative
+     */
     public function testAddPointRelative()
     {
         $obj = new PolygonBuilder();
@@ -120,6 +144,9 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         ), $obj->build());
     }
 
+    /**
+     * @covers ::addPoints
+     */
     public function testAddPoints()
     {
         $obj = new PolygonBuilder();

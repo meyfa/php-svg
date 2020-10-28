@@ -5,6 +5,9 @@ namespace SVG;
 use SVG\SVG;
 
 /**
+ * @coversDefaultClass \SVG\SVG
+ * @covers ::<!public>
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGTest extends \PHPUnit\Framework\TestCase
@@ -26,19 +29,9 @@ class SVGTest extends \PHPUnit\Framework\TestCase
             'width="37" height="42" />';
     }
 
-    public function testGetDocument()
-    {
-        $image = new SVG();
-        $doc = $image->getDocument();
-
-        // should be instanceof the correct class
-        $docFragClass = '\SVG\Nodes\Structures\SVGDocumentFragment';
-        $this->assertInstanceOf($docFragClass, $doc);
-
-        // should be set to root
-        $this->assertTrue($doc->isRoot());
-    }
-
+    /**
+     * @covers ::__construct
+     */
     public function testConstructSetsDocumentDimensions()
     {
         $image = new SVG();
@@ -53,7 +46,24 @@ class SVGTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @covers ::getDocument
+     */
+    public function testGetDocument()
+    {
+        $image = new SVG();
+        $doc = $image->getDocument();
+
+        // should be instanceof the correct class
+        $docFragClass = '\SVG\Nodes\Structures\SVGDocumentFragment';
+        $this->assertInstanceOf($docFragClass, $doc);
+
+        // should be set to root
+        $this->assertTrue($doc->isRoot());
+    }
+
+    /**
      * @requires extension gd
+     * @covers ::toRasterImage
      */
     public function testToRasterImage()
     {
@@ -69,6 +79,9 @@ class SVGTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(200, imagesy($rasterImage));
     }
 
+    /**
+     * @covers ::__toString
+     */
     public function test__toString()
     {
         $image = new SVG(37, 42);
@@ -77,6 +90,9 @@ class SVGTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($this->xml, (string) $image);
     }
 
+    /**
+     * @covers ::toXMLString
+     */
     public function testToXMLString()
     {
         $image = new SVG(37, 42);
@@ -88,6 +104,9 @@ class SVGTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($this->xmlNoDeclaration, $image->toXMLString(false));
     }
 
+    /**
+     * @covers ::fromString
+     */
     public function testFromString()
     {
         $image = SVG::fromString($this->xml);
@@ -108,6 +127,9 @@ class SVGTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $doc->getHeight());
     }
 
+    /**
+     * @covers ::fromFile
+     */
     public function testFromFile()
     {
         $image = SVG::fromFile(__DIR__ . '/php_test.svg');
