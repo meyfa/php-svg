@@ -171,7 +171,7 @@ class SVGReader
      */
     private function parseNode(SimpleXMLElement $xml, array $namespaces)
     {
-        $node = NodeRegistry::create($xml);
+        $node = NodeRegistry::create($xml->getName());
 
         // obtain array of namespaces that are declared directly on this node
         // TODO find solution for PHP < 5.4 (where the 2nd parameter was introduced)

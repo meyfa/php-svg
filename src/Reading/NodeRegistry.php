@@ -2,7 +2,6 @@
 
 namespace SVG\Reading;
 
-use SimpleXMLElement;
 use SVG\Nodes\SVGNode;
 use SVG\Nodes\SVGGenericNodeType;
 
@@ -87,21 +86,15 @@ class NodeRegistry
     );
 
     /**
-     * Instantiate a node class matching the given XML element type.
+     * Instantiate a node class matching the given type.
+     * If no such class exists, a generic one will be used.
      *
-     * Note that nothing is copied (attributes, namespaces etc.). This method
-     * creates an empty element of the respective type, nothing more.
-     *
-     * If no specific matching class exists, a generic class will be used.
-     *
-     * @param SimpleXMLElement $xml The XML element to serve as reference.
+     * @param string $type The node tag name ('svg', 'rect', 'title', etc.).
      *
      * @return SVGNode The node that was created.
      */
-    public static function create(SimpleXMLElement $xml)
+    public static function create($type)
     {
-        $type = $xml->getName();
-
         if (isset(self::$nodeTypes[$type])) {
             $nodeClass = self::$nodeTypes[$type];
             return new $nodeClass();
