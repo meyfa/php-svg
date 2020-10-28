@@ -5,10 +5,16 @@ namespace SVG;
 use SVG\Nodes\Structures\SVGDefs;
 
 /**
+ * @coversDefaultClass \SVG\Nodes\Structures\SVGDefs
+ * @covers ::<!public>
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGDefsTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers ::__construct
+     */
     public function test__construct()
     {
         // should not set any attributes by default
@@ -16,6 +22,9 @@ class SVGDefsTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(array(), $obj->getSerializableAttributes());
     }
 
+    /**
+     * @covers ::rasterize
+     */
     public function testRasterize()
     {
         $obj = new SVGDefs();

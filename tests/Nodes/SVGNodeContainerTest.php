@@ -10,10 +10,17 @@ class SVGNodeContainerSubclass extends SVGNodeContainer
 }
 
 /**
+ * @coversDefaultClass \SVG\Nodes\SVGNodeContainer
+ * @covers ::<!public>
+ * @covers ::__construct
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers ::addChild
+     */
     public function testAddChild()
     {
         $obj = new SVGNodeContainerSubclass();
@@ -57,6 +64,9 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($child3, $obj->getChild(2));
     }
 
+    /**
+     * @covers ::removeChild
+     */
     public function testRemoveChild()
     {
         $obj = new SVGNodeContainerSubclass();
@@ -84,6 +94,9 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->removeChild($child));
     }
 
+    /**
+     * @covers ::setChild
+     */
     public function testSetChild()
     {
         $obj = new SVGNodeContainerSubclass();
@@ -113,6 +126,9 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setChild(0, $child2));
     }
 
+    /**
+     * @covers ::rasterize
+     */
     public function testRasterize()
     {
         $obj = new SVGNodeContainerSubclass();
@@ -133,6 +149,9 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         $obj->rasterize($rast);
     }
 
+    /**
+     * @covers ::getElementsByTagName
+     */
     public function testGetElementsByTagName()
     {
         $obj = new SVGNodeContainerSubclass();
@@ -176,6 +195,9 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         ), $obj->getElementsByTagName('*'));
     }
 
+    /**
+     * @covers ::getElementsByClassName
+     */
     public function testGetElementsByClassName()
     {
         $obj = new SVGNodeContainerSubclass();
@@ -231,8 +253,14 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(array(
             $root_1_0_0, $root_1_1,
         ), $obj->getElementsByClassName(array('foo', 'bar')));
+
+        // should return 0 elements with empty class name
+        $this->assertCount(0, $obj->getElementsByClassName(''));
     }
 
+    /**
+     * @covers ::getContainerStyleForNode
+     */
     public function testGetContainerStyleForNode()
     {
         $obj = new SVGNodeContainerSubclass();
@@ -243,6 +271,9 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(0, $obj->getContainerStyleForNode($mockChild));
     }
 
+    /**
+     * @covers ::getContainerStyleByPattern
+     */
     public function testGetContainerStyleByPattern()
     {
         $obj = new SVGNodeContainerSubclass();
@@ -251,12 +282,5 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         $obj->addChild($mockChild);
 
         $this->assertCount(0, $obj->getContainerStyleByPattern('/^(\d+)?\.\d+$/'));
-    }
-
-    public function testGetElementsByClassNameWithEmptyClassName()
-    {
-        $obj = (new SVGNodeContainerSubclass());
-
-        $this->assertCount(0, $obj->getElementsByClassName(''));
     }
 }

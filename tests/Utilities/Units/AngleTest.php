@@ -5,6 +5,8 @@ namespace SVG;
 use SVG\Utilities\Units\Angle;
 
 /**
+ * @covers \SVG\Utilities\Units\Angle
+ *
  * @SuppressWarnings(PHPMD)
  */
 class AngleTest extends \PHPUnit\Framework\TestCase

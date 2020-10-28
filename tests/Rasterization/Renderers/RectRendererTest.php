@@ -7,9 +7,10 @@ use SVG\Rasterization\SVGRasterizer;
 use SVG\Rasterization\Renderers\RectRenderer;
 
 /**
- * @SuppressWarnings(PHPMD)
- *
  * @requires extension gd
+ * @covers \SVG\Rasterization\Renderers\RectRenderer
+ *
+ * @SuppressWarnings(PHPMD)
  */
 class RectRendererTest extends \PHPUnit\Framework\TestCase
 {

@@ -5,14 +5,12 @@ namespace SVG;
 use SVG\Rasterization\Path\ArcApproximator;
 
 /**
+ * @covers SVG\Rasterization\Path\ArcApproximator
+ *
  * @SuppressWarnings(PHPMD)
  */
 class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
 {
-    // THE TESTS IN THIS CLASS DO NOT ADHERE TO THE STANDARD LAYOUT
-    // OF TESTING ONE CLASS METHOD PER TEST METHOD
-    // BECAUSE THE CLASS UNDER TEST IS A SINGLE-FEATURE CLASS
-
     public function testApproximate()
     {
         $approx = new ArcApproximator();

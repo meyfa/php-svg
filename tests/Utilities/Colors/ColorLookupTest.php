@@ -5,6 +5,8 @@ namespace SVG;
 use SVG\Utilities\Colors\ColorLookup;
 
 /**
+ * @covers \SVG\Utilities\Colors\ColorLookup
+ *
  * @SuppressWarnings(PHPMD)
  */
 class ColorLookupTest extends \PHPUnit\Framework\TestCase

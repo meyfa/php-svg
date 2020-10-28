@@ -5,10 +5,16 @@ namespace SVG;
 use SVG\Nodes\Shapes\SVGCircle;
 
 /**
+ * @coversDefaultClass \SVG\Nodes\Shapes\SVGCircle
+ * @covers ::<!public>
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGCircleTest extends \PHPUnit\Framework\TestCase
 {
+  /**
+     * @covers ::__construct
+     */
     public function test__construct()
     {
         // should not set any attributes by default
@@ -24,6 +30,9 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
         ), $obj->getSerializableAttributes());
     }
 
+    /**
+     * @covers ::getCenterX
+     */
     public function testGetCenterX()
     {
         $obj = new SVGCircle();
@@ -33,6 +42,9 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getCenterX());
     }
 
+    /**
+     * @covers ::setCenterX
+     */
     public function testSetCenterX()
     {
         $obj = new SVGCircle();
@@ -45,6 +57,9 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setCenterX(42));
     }
 
+    /**
+     * @covers ::getCenterY
+     */
     public function testGetCenterY()
     {
         $obj = new SVGCircle();
@@ -54,6 +69,9 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getCenterY());
     }
 
+    /**
+     * @covers ::setCenterY
+     */
     public function testSetCenterY()
     {
         $obj = new SVGCircle();
@@ -66,6 +84,9 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setCenterY(42));
     }
 
+    /**
+     * @covers ::getRadius
+     */
     public function testGetRadius()
     {
         $obj = new SVGCircle();
@@ -75,6 +96,9 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getRadius());
     }
 
+    /**
+     * @covers ::setRadius
+     */
     public function testSetRadius()
     {
         $obj = new SVGCircle();
@@ -87,6 +111,9 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setRadius(42));
     }
 
+    /**
+     * @covers ::rasterize
+     */
     public function testRasterize()
     {
         $obj = new SVGCircle(37, 42, 100);

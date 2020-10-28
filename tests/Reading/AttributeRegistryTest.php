@@ -7,6 +7,7 @@ use SVG\Reading\AttributeRegistry;
 
 /**
  * @coversDefaultClass \SVG\Reading\AttributeRegistry
+ * @covers ::<!public>
  *
  * @SuppressWarnings(PHPMD)
  */

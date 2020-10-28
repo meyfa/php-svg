@@ -5,10 +5,16 @@ namespace SVG;
 use SVG\Nodes\Shapes\SVGPolyline;
 
 /**
+ * @coversDefaultClass \SVG\Nodes\Shapes\SVGPolyline
+ * @covers ::<!public>
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGPolylineTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers ::__construct
+     */
     public function test__construct()
     {
         // should set empty points by default
@@ -24,6 +30,9 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($points, $obj->getPoints());
     }
 
+    /**
+     * @covers ::rasterize
+     */
     public function testRasterize()
     {
         $points = array(

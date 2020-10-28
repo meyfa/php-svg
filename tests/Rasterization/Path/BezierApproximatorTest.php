@@ -5,6 +5,8 @@ namespace SVG;
 use SVG\Rasterization\Path\BezierApproximator;
 
 /**
+ * @covers \SVG\Rasterization\Path\BezierApproximator
+ *
  * @SuppressWarnings(PHPMD)
  */
 class BezierApproximatorTest extends \PHPUnit\Framework\TestCase

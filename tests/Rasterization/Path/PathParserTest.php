@@ -5,14 +5,12 @@ namespace SVG;
 use SVG\Rasterization\Path\PathParser;
 
 /**
+ * @covers \SVG\Rasterization\Path\PathParser
+ *
  * @SuppressWarnings(PHPMD)
  */
 class PathParserTest extends \PHPUnit\Framework\TestCase
 {
-    // THE TESTS IN THIS CLASS DO NOT ADHERE TO THE STANDARD LAYOUT
-    // OF TESTING ONE CLASS METHOD PER TEST METHOD
-    // BECAUSE THE CLASS UNDER TEST IS A SINGLE-FEATURE CLASS
-
     public function testShouldSplitCorrectly()
     {
         $obj = new PathParser();

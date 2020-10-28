@@ -5,10 +5,16 @@ namespace SVG;
 use SVG\Nodes\Shapes\SVGLine;
 
 /**
+ * @coversDefaultClass \SVG\Nodes\Shapes\SVGLine
+ * @covers ::<!public>
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGLineTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers ::__construct
+     */
     public function test__construct()
     {
         // should not set any attributes by default
@@ -25,6 +31,9 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
         ), $obj->getSerializableAttributes());
     }
 
+    /**
+     * @covers ::getX1
+     */
     public function testGetX1()
     {
         $obj = new SVGLine();
@@ -34,6 +43,9 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getX1());
     }
 
+    /**
+     * @covers ::setX1
+     */
     public function testSetX1()
     {
         $obj = new SVGLine();
@@ -46,6 +58,9 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setX1(42));
     }
 
+    /**
+     * @covers ::getY1
+     */
     public function testGetY1()
     {
         $obj = new SVGLine();
@@ -55,6 +70,9 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getY1());
     }
 
+    /**
+     * @covers ::setY1
+     */
     public function testSetY1()
     {
         $obj = new SVGLine();
@@ -67,6 +85,9 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setY1(42));
     }
 
+    /**
+     * @covers ::getX2
+     */
     public function testGetX2()
     {
         $obj = new SVGLine();
@@ -76,6 +97,9 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getX2());
     }
 
+    /**
+     * @covers ::setX2
+     */
     public function testSetX2()
     {
         $obj = new SVGLine();
@@ -88,6 +112,9 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setX2(42));
     }
 
+    /**
+     * @covers ::getY2
+     */
     public function testGetY2()
     {
         $obj = new SVGLine();
@@ -97,6 +124,9 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getY2());
     }
 
+    /**
+     * @covers ::setY2
+     */
     public function testSetY2()
     {
         $obj = new SVGLine();
@@ -109,6 +139,9 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setY2(42));
     }
 
+    /**
+     * @covers ::rasterize
+     */
     public function testRasterize()
     {
         $obj = new SVGLine(11, 12, 13, 14);

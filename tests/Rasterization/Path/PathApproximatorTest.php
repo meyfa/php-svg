@@ -5,6 +5,8 @@ namespace SVG;
 use SVG\Rasterization\Path\PathApproximator;
 
 /**
+ * @covers \SVG\Rasterization\Path\PathApproximator
+ *
  * @SuppressWarnings(PHPMD)
  */
 class PathApproximatorTest extends \PHPUnit\Framework\TestCase

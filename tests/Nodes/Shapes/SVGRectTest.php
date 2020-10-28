@@ -5,10 +5,16 @@ namespace SVG;
 use SVG\Nodes\Shapes\SVGRect;
 
 /**
+ * @coversDefaultClass \SVG\Nodes\Shapes\SVGRect
+ * @covers ::<!public>
+ *
  * @SuppressWarnings(PHPMD)
  */
 class SVGRectTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers ::__construct
+     */
     public function test__construct()
     {
         // should not set any attributes by default
@@ -25,6 +31,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         ), $obj->getSerializableAttributes());
     }
 
+    /**
+     * @covers ::getX
+     */
     public function testGetX()
     {
         $obj = new SVGRect();
@@ -34,6 +43,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getX());
     }
 
+    /**
+     * @covers ::setX
+     */
     public function testSetX()
     {
         $obj = new SVGRect();
@@ -46,6 +58,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setX(42));
     }
 
+    /**
+     * @covers ::getY
+     */
     public function testGetY()
     {
         $obj = new SVGRect();
@@ -55,6 +70,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getY());
     }
 
+    /**
+     * @covers ::setY
+     */
     public function testSetY()
     {
         $obj = new SVGRect();
@@ -67,6 +85,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setY(42));
     }
 
+    /**
+     * @covers ::getWidth
+     */
     public function testGetWidth()
     {
         $obj = new SVGRect();
@@ -76,6 +97,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getWidth());
     }
 
+    /**
+     * @covers ::setWidth
+     */
     public function testSetWidth()
     {
         $obj = new SVGRect();
@@ -88,6 +112,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setWidth(42));
     }
 
+    /**
+     * @covers ::getHeight
+     */
     public function testGetHeight()
     {
         $obj = new SVGRect();
@@ -97,6 +124,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getHeight());
     }
 
+    /**
+     * @covers ::setHeight
+     */
     public function testSetHeight()
     {
         $obj = new SVGRect();
@@ -109,6 +139,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setHeight(42));
     }
 
+    /**
+     * @covers ::getRX
+     */
     public function testGetRX()
     {
         $obj = new SVGRect();
@@ -118,6 +151,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getRX());
     }
 
+    /**
+     * @covers ::setRX
+     */
     public function testSetRX()
     {
         $obj = new SVGRect();
@@ -130,6 +166,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setRX(42));
     }
 
+    /**
+     * @covers ::getRY
+     */
     public function testGetRY()
     {
         $obj = new SVGRect();
@@ -139,6 +178,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42', $obj->getRY());
     }
 
+    /**
+     * @covers ::setRY
+     */
     public function testSetRY()
     {
         $obj = new SVGRect();
@@ -151,6 +193,9 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame($obj, $obj->setRY(42));
     }
 
+    /**
+     * @covers ::rasterize
+     */
     public function testRasterize()
     {
         $obj = new SVGRect(37, 42, 100, 200);
