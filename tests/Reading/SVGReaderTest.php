@@ -303,4 +303,33 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
 
         $this->assertContains('<p foo:xxx="yyy">', '' . $result);
     }
+
+    public function testShouldRetrieveNamespacedNodes()
+    {
+        $code  = '<?xml version="1.0" encoding="utf-8"?>';
+        $code .= '<svg xmlns="http://www.w3.org/2000/svg">';
+        $code .= '<g xmlns:foo="http://test/foo">';
+        $code .= '<foo:xyz foo:attr="foo-attr">';
+        $code .= '<title>children</title>';
+        $code .= '<foo:child />';
+        $code .= '</foo:xyz>';
+        $code .= '</g>';
+        $code .= '</svg>';
+
+        $svgReader = new SVGReader();
+        $result = $svgReader->parseString($code);
+        $g = $result->getDocument()->getChild(0);
+
+        // should include namespaced node
+        $this->assertSame(1, $g->countChildren());
+        $this->assertSame('foo:xyz', $g->getChild(0)->getName());
+
+        // should set attributes on namespaced nodes
+        $this->assertSame('foo-attr', $g->getChild(0)->getAttribute('foo:attr'));
+
+        // should include children of namespaced nodes
+        $this->assertSame(2, $g->getChild(0)->countChildren());
+        $this->assertSame('title', $g->getChild(0)->getChild(0)->getName());
+        $this->assertSame('foo:child', $g->getChild(0)->getChild(1)->getName());
+    }
 }
