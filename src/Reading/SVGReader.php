@@ -68,7 +68,11 @@ class SVGReader
 
         $namespaces = $xml->getNamespaces(true);
         $doc->setNamespaces($namespaces);
+
         $nsKeys = array_keys($namespaces);
+        if (!in_array('', $nsKeys, true) && !in_array(null, $nsKeys, true)) {
+            $nsKeys[] = '';
+        }
 
         $this->applyAttributes($doc, $xml, $nsKeys);
         $this->applyStyles($doc, $xml);
@@ -94,11 +98,6 @@ class SVGReader
      */
     private function applyAttributes(SVGNode $node, SimpleXMLElement $xml, array $namespaces)
     {
-        // a document like <svg>...</svg> was read (no xmlns declaration)
-        if (!in_array('', $namespaces, true) && !in_array(null, $namespaces, true)) {
-            $namespaces[] = '';
-        }
-
         foreach ($namespaces as $ns) {
             foreach ($xml->attributes($ns, true) as $key => $value) {
                 if ($key === 'style') {
@@ -153,8 +152,10 @@ class SVGReader
      */
     private function addChildren(SVGNodeContainer $node, SimpleXMLElement $xml, array $namespaces)
     {
-        foreach ($xml->children() as $child) {
-            $node->addChild($this->parseNode($child, $namespaces));
+        foreach ($namespaces as $ns) {
+            foreach ($xml->children($ns, true) as $child) {
+                $node->addChild($this->parseNode($ns, $child, $namespaces));
+            }
         }
     }
 
@@ -162,6 +163,7 @@ class SVGReader
      * Parses the given XML element into an instance of a SVGNode subclass.
      * Unknown node types use a generic implementation.
      *
+     * @param string            $ns         The tag name namespace prefix.
      * @param SimpleXMLElement  $xml        The XML element to parse.
      * @param string[]          $namespaces Array of allowed namespace prefixes.
      *
@@ -169,9 +171,13 @@ class SVGReader
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    private function parseNode(SimpleXMLElement $xml, array $namespaces)
+    private function parseNode($ns, SimpleXMLElement $xml, array $namespaces)
     {
-        $node = NodeRegistry::create($xml->getName());
+        $tagName = $xml->getName();
+        if (!empty($ns) && $ns !== 'svg') {
+            $tagName = $ns . ':' . $tagName;
+        }
+        $node = NodeRegistry::create($tagName);
 
         // obtain array of namespaces that are declared directly on this node
         // TODO find solution for PHP < 5.4 (where the 2nd parameter was introduced)
