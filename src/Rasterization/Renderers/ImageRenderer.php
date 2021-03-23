@@ -25,7 +25,7 @@ class ImageRenderer extends Renderer
     {
         $href   = $options['href'];
         $x      = self::prepareLengthX($options['x'], $rasterizer) + $rasterizer->getOffsetX();
-        $y      = self::prepareLengthX($options['x'], $rasterizer) + $rasterizer->getOffsetX();
+        $y      = self::prepareLengthY($options['y'], $rasterizer) + $rasterizer->getOffsetY();
         $width  = self::prepareLengthX($options['width'], $rasterizer);
         $height = self::prepareLengthY($options['height'], $rasterizer);
 
