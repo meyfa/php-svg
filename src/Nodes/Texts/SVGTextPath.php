@@ -3,6 +3,7 @@
 namespace SVG\Nodes\Texts;
 
 use SVG\Nodes\SVGNodeContainer;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * Represents the SVG tag 'textPath'.
