@@ -50,6 +50,7 @@ jobs:
         php-version: ${{ matrix.php-versions }}
         extensions: gd, simplexml
         coverage: none
+        ini-values: auto_prepend_file="${{github.workspace}}/tests/bootstrap.php"
 
     - name: Cache Composer packages
       id: composer-cache
