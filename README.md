@@ -1,6 +1,6 @@
 # php-svg
 
-[![Build Status](https://travis-ci.com/meyfa/php-svg.svg?branch=master)](https://travis-ci.com/meyfa/php-svg)
+[![CI](https://github.com/meyfa/php-svg/actions/workflows/php.yml/badge.svg)](https://github.com/meyfa/php-svg/actions/workflows/php.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8f73468601a653aff0e8/maintainability)](https://codeclimate.com/github/meyfa/php-svg/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8f73468601a653aff0e8/test_coverage)](https://codeclimate.com/github/meyfa/php-svg/test_coverage)
 
