@@ -83,6 +83,26 @@ class SVGDocumentFragment extends SVGNodeContainer
     }
 
     /**
+     * Add a font to text nodes.
+     * @param string $fontPath The path of the font being added.
+     * @param string $nodeList The node list on where text nodes will be affected (whole document by default).
+     * @param string $fontFamily If specified, filter texts that are related to the given family.
+     */
+    public function addFont(string $fontPath, ?DOMNodeList $nodeList = null, string $fontFamily = '') : void
+    {
+        $nodeList = $nodeList == null ? $this : $nodeList;
+        $this->fonts[$fontFamily] = $fontPath;
+
+        foreach ($nodeList->getElementsByTagName('text') as $textElmt) {
+            $font_family = $textElmt->getComputedStyle('font-family') ?? '';
+            if ($fontFamily == '' || $fontFamily == $font_family) {
+                $textElmt->setValue(preg_replace('/[\x00-\x1F\x7F]/u', '', $textElmt->getValue()));
+                $textElmt->setFont(new \SVG\Nodes\Structures\SVGFont($fontFamily, $fontPath));
+            }
+        }
+    }
+
+    /**
      * @inheritdoc
      */
     public function getComputedStyle($name)
