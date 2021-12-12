@@ -107,6 +107,7 @@ class SVGCircle extends SVGNodeContainer
             'cy'    => $this->getCenterY(),
             'rx'    => $r,
             'ry'    => $r,
+            'dash'  => ($this->getStyle("stroke-dasharray") ? explode(" ", $this->getStyle("stroke-dasharray")) : [0, 0]),
         ), $this);
     }
 }

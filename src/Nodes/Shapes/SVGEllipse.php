@@ -128,6 +128,7 @@ class SVGEllipse extends SVGNodeContainer
             'cy'    => $this->getCenterY(),
             'rx'    => $this->getRadiusX(),
             'ry'    => $this->getRadiusY(),
+            'dash'  => ($this->getStyle("stroke-dasharray") ? explode(" ", $this->getStyle("stroke-dasharray")) : [0, 0]),
         ), $this);
     }
 }

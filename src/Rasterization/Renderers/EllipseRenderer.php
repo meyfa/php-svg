@@ -25,6 +25,7 @@ class EllipseRenderer extends MultiPassRenderer
             'cy'        => self::prepareLengthY($options['cy'], $rasterizer) + $rasterizer->getOffsetY(),
             'width'     => self::prepareLengthX($options['rx'], $rasterizer) * 2,
             'height'    => self::prepareLengthY($options['ry'], $rasterizer) * 2,
+            'dash'      => [(float)$options['dash'][0] / $options['rx'] * $rasterizer->getDocumentWidth() / 2.01, (float)$options['dash'][1] / $options['rx'] * $rasterizer->getDocumentWidth() / 2.01],
         );
     }
 
@@ -34,6 +35,43 @@ class EllipseRenderer extends MultiPassRenderer
     protected function renderFill($image, array $params, $color)
     {
         imagefilledellipse($image, $params['cx'], $params['cy'], $params['width'], $params['height'], $color);
+    }
+
+    /**
+     *
+     */
+    private function dashedcircle($im, $cx, $cy, $radius, $color, $dashstyle = [5, 2])
+    {
+        $dash = false;
+
+        if ($dash) {
+            $dashsize = $dashstyle[0];
+        }
+        else {
+            $dashsize = $dashstyle[1];
+        }
+
+        // for ($angle = 0; $angle <= (180 + $dashsize); $angle += $dashsize) {
+        for ($angle = 0; $angle <= (360 + $dashsize); $angle += $dashsize) {
+            $x = ($radius * cos(deg2rad($angle)));
+            $y = ($radius * sin(deg2rad($angle)));
+
+            if ($dash) {
+                imageline($im, $cx+$px, $cy+$py, $cx+$x, $cy+$y, $color);
+                // imageline($im, $cx-$px, $cx-$py, $cx-$x, $cy-$y, $color);
+            }
+
+            $dash = !$dash;
+            $px = $x;
+            $py = $y;
+
+            if ($dash) {
+                $dashsize = $dashstyle[0];
+            }
+            else {
+                $dashsize = $dashstyle[1];
+            }
+        }
     }
 
     /**
@@ -53,6 +91,13 @@ class EllipseRenderer extends MultiPassRenderer
         }
 
         // imageellipse ignores imagesetthickness; draw arc instead
-        imagearc($image, $params['cx'], $params['cy'], $width, $height, 0, 360, $color);
+        if ($params['dash'][0] == 0.0 || $params['dash'][1] == 0.0) {
+            imagearc($image, $params['cx'], $params['cy'], $width, $height, 0, 360, $color);
+        }
+        else {
+            if ($width == $height) {
+                $this->dashedcircle($image, $params['cx'], $params['cy'], $width / 2, $color, $params['dash']);
+            }
+        }
     }
 }
