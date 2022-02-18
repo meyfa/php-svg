@@ -177,9 +177,14 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new SVGRasterizer(10, 20, array(), 100, 200);
 
-        // should be a gd resource
-        $this->assertTrue(is_resource($obj->getImage()));
-        $this->assertSame('gd', get_resource_type($obj->getImage()));
+        if (class_exists('\GdImage', false)) {
+            // PHP >=8: should be an image object
+            $this->assertInstanceOf('\GdImage', $obj->getImage());
+        } else {
+            // PHP <8: should be a gd resource
+            $this->assertTrue(is_resource($obj->getImage()));
+            $this->assertSame('gd', get_resource_type($obj->getImage()));
+        }
 
         // should have correct width and height
         $this->assertSame(100, imagesx($obj->getImage()));

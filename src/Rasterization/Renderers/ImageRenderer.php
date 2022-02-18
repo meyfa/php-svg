@@ -33,7 +33,7 @@ class ImageRenderer extends Renderer
 
         $img = $this->loadImage($href, $width, $height);
 
-        if (!empty($img) && is_resource($img)) {
+        if (!empty($img) && (is_resource($img) || $img instanceof \GdImage)) {
             imagecopyresampled(
                 $image,         // dst
                 $img,           // src
