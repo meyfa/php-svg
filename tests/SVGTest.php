@@ -70,9 +70,14 @@ class SVGTest extends \PHPUnit\Framework\TestCase
         $image = new SVG(37, 42);
         $rasterImage = $image->toRasterImage(100, 200);
 
-        // should be a gd resource
-        $this->assertTrue(is_resource($rasterImage));
-        $this->assertSame('gd', get_resource_type($rasterImage));
+        if (class_exists('\GdImage', false)) {
+            // PHP >=8: should be an image object
+            $this->assertInstanceOf('\GdImage', $rasterImage);
+        } else {
+            // PHP <8: should be a gd resource
+            $this->assertTrue(is_resource($rasterImage));
+            $this->assertSame('gd', get_resource_type($rasterImage));
+        }
 
         // should have correct width and height
         $this->assertSame(100, imagesx($rasterImage));

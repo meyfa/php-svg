@@ -12,6 +12,18 @@ use SVG\Rasterization\Renderers\MultiPassRenderer;
  */
 class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
 {
+    // helper function
+    private function isGdImage()
+    {
+        if (class_exists('\GdImage', false)) {
+            // PHP >=8: gd images are objects
+            return $this->isInstanceOf('\GdImage');
+        } else {
+            // PHP <8: gd images are resources
+            return $this->isType('resource');
+        }
+    }
+
     public function testRender()
     {
         $rast = new \SVG\Rasterization\SVGRasterizer(10, 20, null, 100, 200);
@@ -39,7 +51,7 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
         $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\MultiPassRenderer');
         $obj->method('prepareRenderParams')->willReturn($params);
         $obj->expects($this->once())->method('renderFill')->with(
-            $this->isType('resource'),
+            $this->isGdImage(),
             $this->identicalTo($params),
             $this->identicalTo(0xAAAAAA)
         );
@@ -58,7 +70,7 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
         $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\MultiPassRenderer');
         $obj->method('prepareRenderParams')->willReturn($params);
         $obj->expects($this->once())->method('renderStroke')->with(
-            $this->isType('resource'),
+            $this->isGdImage(),
             $this->identicalTo($params),
             $this->identicalTo(0xBBBBBB),
             $this->equalTo(20)
