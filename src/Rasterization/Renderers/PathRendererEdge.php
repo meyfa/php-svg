@@ -62,7 +62,7 @@ class PathRendererEdge
     {
         if ($a->maxY < $b->maxY) {
             return 1;
-        } else if ($a->maxY > $b->maxY) {
+        } elseif ($a->maxY > $b->maxY) {
             return -1;
         }
         return 0;
@@ -79,7 +79,7 @@ class PathRendererEdge
     {
         if ($a->x < $b->x) {
             return 1;
-        } else if ($a->x > $b->x) {
+        } elseif ($a->x > $b->x) {
             return -1;
         }
         return 0;
