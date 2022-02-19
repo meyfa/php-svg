@@ -5,14 +5,13 @@ namespace SVG\Rasterization\Renderers;
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
 use SVG\Utilities\Units\Length;
-use SVG\Utilities\Colors\Color;
 
 /**
  * This is the base class for all shape renderer instances.
  *
  * It contains the method `render(SVGRasterizer, array, SVGNode)` that is used
  * to invoke a drawing operation.
- * Subclasses generally require a special asociative options array to be passed
+ * Subclasses generally require a special associative options array to be passed
  * to this render method; see their docs for a list of things to provide.
  */
 abstract class Renderer

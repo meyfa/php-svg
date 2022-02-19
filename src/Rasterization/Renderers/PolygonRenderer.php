@@ -57,7 +57,7 @@ class PolygonRenderer extends MultiPassRenderer
      */
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
-        imagesetthickness($image, $strokeWidth);
+        imagesetthickness($image, round($strokeWidth));
 
         if ($params['open']) {
             $this->renderStrokeOpen($image, $params['points'], $color);

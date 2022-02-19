@@ -4,7 +4,6 @@ namespace SVG\Rasterization\Renderers;
 
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
-use SVG\Utilities\Units\Length;
 use SVG\Utilities\Colors\Color;
 
 /**
@@ -127,9 +126,8 @@ abstract class MultiPassRenderer extends Renderer
         }
 
         $paintOrder = array_intersect(explode(' ', $paintOrder), $defaultOrder);
-        $paintOrder = array_merge($paintOrder, array_diff($defaultOrder, $paintOrder));
 
-        return $paintOrder;
+        return array_merge($paintOrder, array_diff($defaultOrder, $paintOrder));
     }
 
     /**
