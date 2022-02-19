@@ -47,7 +47,8 @@ class PathRendererEdge
         $this->maxY = max($y1, $y2);
 
         $this->direction = $y1 > $y2 ? -1 : 1;
-        $this->inverseSlope = $y1 === $y2 ? 0 : ($x1 - $x2) / ($y1 - $y2);
+        // NOTE: do not compare ($y1 === $y2) strictly, because in PHP, (4.0 === 4) is false!
+        $this->inverseSlope = $y1 == $y2 ? 0.0 : ($x1 - $x2) / ($y1 - $y2);
         $this->x = $y1 > $y2 ? $x1 : $x2;
     }
 

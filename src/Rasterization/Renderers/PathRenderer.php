@@ -130,15 +130,12 @@ class PathRenderer extends MultiPassRenderer
                         imageline($image, $prev->x, $scanline, $curr->x, $scanline, $color);
                     }
 
+                    // The original C++ code did some checking for whether a vertex was hit directly, and if so,
+                    // only incremented the winding number in certain cases.
+                    // I have found this to cause some problems and solve none, so I removed it.
+
                     // There are some weird cases when the ray hits a vertex directly, which we have to account for.
-                    $hitsMaxima = $scanline === $prev->minY ||
-                        $scanline === $prev->maxY ||
-                        $scanline === $curr->minY ||
-                        $scanline === $curr->maxY;
-                    $hitsVertex = $hitsMaxima && $prev->x === $curr->x;
-                    if (!$hitsVertex || $prev->inverseSlope * $curr->inverseSlope < 0) {
-                        $windingNumber += $evenOdd ? 1 : $curr->direction;
-                    }
+                    $windingNumber += $evenOdd ? 1 : $curr->direction;
                 }
 
                 // Finally, since the next step will look at the edges one pixel further up, move the $x property
