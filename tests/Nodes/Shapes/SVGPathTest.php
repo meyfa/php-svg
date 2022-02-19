@@ -107,34 +107,23 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
             ->willReturn($pathApproximator);
 
         // should call path parser with description attribute
-        $pathParser->expects($this->any())->method('parse')->with(
+        $pathParser->expects($this->once())->method('parse')->with(
             $this->identicalTo(self::$sampleDescription)
         )->willReturn(self::$sampleParse);
 
         // should call path approximator with parser's return value
-        $pathApproximator->expects($this->any())->method('approximate')->with(
+        $pathApproximator->expects($this->once())->method('approximate')->with(
             $this->identicalTo(self::$sampleParse)
         )->willReturn(self::$sampleApproximate);
 
         // should call image renderer with correct options
-        // (once for every subpath)
-        $rast->expects($this->exactly(2))->method('render')->withConsecutive(
-            array(
-                $this->identicalTo('polygon'),
-                $this->identicalTo(array(
-                    'open' => true,
-                    'points' => self::$sampleApproximate[0],
-                )),
-                $this->identicalTo($obj)
-            ),
-            array(
-                $this->identicalTo('polygon'),
-                $this->identicalTo(array(
-                    'open' => true,
-                    'points' => self::$sampleApproximate[1],
-                )),
-                $this->identicalTo($obj)
-            )
+        $rast->expects($this->once())->method('render')->with(
+            $this->identicalTo('path'),
+            $this->identicalTo(array(
+                'segments' => self::$sampleApproximate,
+                'fill-rule' => 'nonzero',
+            )),
+            $this->identicalTo($obj)
         );
         $obj->rasterize($rast);
 
