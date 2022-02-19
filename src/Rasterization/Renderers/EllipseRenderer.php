@@ -41,7 +41,7 @@ class EllipseRenderer extends MultiPassRenderer
      */
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
-        imagesetthickness($image, $strokeWidth);
+        imagesetthickness($image, round($strokeWidth));
 
         $width = $params['width'];
         if ($width % 2 === 0) {

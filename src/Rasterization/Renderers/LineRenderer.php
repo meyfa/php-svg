@@ -44,7 +44,7 @@ class LineRenderer extends MultiPassRenderer
      */
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
-        imagesetthickness($image, $strokeWidth);
+        imagesetthickness($image, round($strokeWidth));
         imageline($image, $params['x1'], $params['y1'], $params['x2'], $params['y2'], $color);
     }
 }

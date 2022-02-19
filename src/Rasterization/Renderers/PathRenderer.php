@@ -153,7 +153,7 @@ class PathRenderer extends MultiPassRenderer
      */
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
-        imagesetthickness($image, $strokeWidth);
+        imagesetthickness($image, round($strokeWidth));
 
         foreach ($params['segments'] as $points) {
             $this->renderStrokeOpen($image, $points, $color);

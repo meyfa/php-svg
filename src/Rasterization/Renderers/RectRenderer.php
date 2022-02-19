@@ -136,7 +136,7 @@ class RectRenderer extends MultiPassRenderer
             return;
         }
 
-        imagesetthickness($image, $strokeWidth);
+        imagesetthickness($image, round($strokeWidth));
 
         if ($params['rx'] !== 0 || $params['ry'] !== 0) {
             $this->renderStrokeRounded($image, $params, $color, $strokeWidth);
