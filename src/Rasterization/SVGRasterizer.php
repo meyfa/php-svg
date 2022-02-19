@@ -135,6 +135,7 @@ class SVGRasterizer
             'line'      => new Renderers\LineRenderer(),
             'ellipse'   => new Renderers\EllipseRenderer(),
             'polygon'   => new Renderers\PolygonRenderer(),
+            'path'      => new Renderers\PathRenderer(),
             'image'     => new Renderers\ImageRenderer(),
             'text'      => new Renderers\TextRenderer(),
         );

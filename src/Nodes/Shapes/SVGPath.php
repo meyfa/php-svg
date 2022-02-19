@@ -64,11 +64,9 @@ class SVGPath extends SVGNodeContainer
         $commands = $rasterizer->getPathParser()->parse($d);
         $subpaths = $rasterizer->getPathApproximator()->approximate($commands);
 
-        foreach ($subpaths as $subpath) {
-            $rasterizer->render('polygon', array(
-                'open'      => true,
-                'points'    => $subpath,
-            ), $this);
-        }
+        $rasterizer->render('path', array(
+            'segments'  => $subpaths,
+            'fill-rule' => strtolower(trim($this->getComputedStyle('fill-rule') ?: 'nonzero'))
+        ), $this);
     }
 }
