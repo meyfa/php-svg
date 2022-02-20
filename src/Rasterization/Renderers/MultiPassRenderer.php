@@ -40,11 +40,15 @@ abstract class MultiPassRenderer extends Renderer
     {
         $stroke = $context->getComputedStyle('stroke');
         if (isset($stroke) && $stroke !== 'none') {
-            $stroke      = self::prepareColor($stroke, $context);
-            $strokeWidth = Length::convert($context->getComputedStyle('stroke-width'), $rasterizer->getNormalizedDiagonal());
+            $stroke = self::prepareColor($stroke, $context);
+
+            $strokeWidth = $context->getComputedStyle('stroke-width');
+            $strokeWidth = Length::convert($strokeWidth, $rasterizer->getNormalizedDiagonal());
             $strokeWidth = $strokeWidth * $rasterizer->getDiagonalScale();
 
-            $this->renderStroke($rasterizer->getImage(), $params, $stroke, $strokeWidth);
+            if ($strokeWidth > 0) {
+                $this->renderStroke($rasterizer->getImage(), $params, $stroke, $strokeWidth);
+            }
         }
     }
 
