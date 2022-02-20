@@ -31,5 +31,6 @@ class LengthTest extends \PHPUnit\Framework\TestCase
         // illegal: missing number
         $this->assertNull(Length::convert('px', 100));
         $this->assertNull(Length::convert('', 100));
+        $this->assertNull(Length::convert(null, 100));
     }
 }
