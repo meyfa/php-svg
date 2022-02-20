@@ -19,12 +19,74 @@ class TransformTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, array($x, $y));
     }
 
+    private function assertResized(Transform $t, array $expected, array $source)
+    {
+        $width = $source[0];
+        $height = $source[1];
+        $t->resize($width, $height);
+        $this->assertEquals($expected, array($width, $height));
+    }
+
     public function testIdentity()
     {
         $t = Transform::identity();
         $this->assertMap($t, array(0, 0), array(0, 0));
         $this->assertMap($t, array(123, 456), array(123, 456));
         $this->assertMap($t, array(-123, -456), array(-123, -456));
+    }
+
+    /**
+     * @covers ::resize
+     */
+    public function testResize()
+    {
+        $t = Transform::identity();
+        $this->assertResized($t, array(123, 456), array(123, 456));
+
+        // translation is irrelevant
+        $t = Transform::identity();
+        $t->translate(500, 1000);
+        $this->assertResized($t, array(123, 456), array(123, 456));
+
+        // should scale
+        $t = Transform::identity();
+        $t->scale(3, 5);
+        $this->assertResized($t, array(123 * 3, 456 * 5), array(123, 456));
+
+        // lengths should not be affected by mirroring
+        $t = Transform::identity();
+        $t->scale(-3, -5);
+        $this->assertResized($t, array(123 * 3, 456 * 5), array(123, 456));
+
+        // rotation is irrelevant
+        $t = Transform::identity();
+        $t->rotate(M_PI_4);
+        $this->assertResized($t, array(123, 456), array(123, 456));
+
+        // skewX affects vertical side length
+        $t = Transform::identity();
+        $t->skewX(M_PI_4);
+        $this->assertResized($t, array(123, 456 * M_SQRT2), array(123, 456));
+        $t->skewX(-M_PI_4);
+        $t->skewX(-M_PI_4);
+        $this->assertResized($t, array(123, 456 * M_SQRT2), array(123, 456));
+
+        // skewY affects horizontal side length
+        $t = Transform::identity();
+        $t->skewY(M_PI_4);
+        $this->assertResized($t, array(123 * M_SQRT2, 456), array(123, 456));
+        $t->skewY(-M_PI_4);
+        $t->skewY(-M_PI_4);
+        $this->assertResized($t, array(123 * M_SQRT2, 456), array(123, 456));
+
+        // complex example
+        $t = Transform::identity();
+        $t->translate(100, 200);
+        $t->rotate(M_PI_4);
+        $t->skewX(M_PI_4);
+        $t->scale(3, 5);
+        $t->translate(100, 200);
+        $this->assertResized($t, array(123 * 3, 456 * 5 * M_SQRT2), array(123, 456));
     }
 
     public function testMultiply()
@@ -100,16 +162,16 @@ class TransformTest extends \PHPUnit\Framework\TestCase
         $t->rotate(0);
         $this->assertMap($t, array(123, 456), array(123, 456));
 
-        $t->rotate(pi() / 2);
+        $t->rotate(M_PI_2);
         $this->assertMap($t, array(-456, 123), array(123, 456));
 
-        $t->rotate(pi() / 2);
+        $t->rotate(M_PI_2);
         $this->assertMap($t, array(-123, -456), array(123, 456));
 
         // ensure that the formula is applied correctly (this has been computed with WolframAlpha)
         $t = new Transform(array(2, 3, 5, 7, 11, 13));
-        $t->rotate(pi() / 4);
-        $this->assertMap($t, array(11 + 298 * sqrt(2), 13 + 417 * sqrt(2)), array(59, 61));
+        $t->rotate(M_PI_4);
+        $this->assertMap($t, array(11 + 298 * M_SQRT2, 13 + 417 * M_SQRT2), array(59, 61));
     }
 
     public function testSkewX()
@@ -119,17 +181,17 @@ class TransformTest extends \PHPUnit\Framework\TestCase
         $t->skewX(0);
         $this->assertMap($t, array(123, 456), array(123, 456));
 
-        $t->skewX(pi() / 4);
+        $t->skewX(M_PI_4);
         $this->assertMap($t, array(0, 0), array(0, 0));
         $this->assertMap($t, array(123 + 456, 456), array(123, 456));
 
-        $t->skewX(pi() / 4);
+        $t->skewX(M_PI_4);
         $this->assertMap($t, array(123 + 456 + 456, 456), array(123, 456));
 
         // ensure that the formula is applied correctly (this has been computed with WolframAlpha)
         $t = new Transform(array(2, 3, 5, 7, 11, 13));
-        $t->skewX(pi() / 8);
-        $this->assertMap($t, array(312 + 122 * sqrt(2), 434 + 183 * sqrt(2)), array(59, 61));
+        $t->skewX(M_PI / 8);
+        $this->assertMap($t, array(312 + 122 * M_SQRT2, 434 + 183 * M_SQRT2), array(59, 61));
     }
 
     public function testSkewY()
@@ -139,16 +201,16 @@ class TransformTest extends \PHPUnit\Framework\TestCase
         $t->skewY(0);
         $this->assertMap($t, array(123, 456), array(123, 456));
 
-        $t->skewY(pi() / 4);
+        $t->skewY(M_PI_4);
         $this->assertMap($t, array(0, 0), array(0, 0));
         $this->assertMap($t, array(123, 456 + 123), array(123, 456));
 
-        $t->skewY(pi() / 4);
+        $t->skewY(M_PI_4);
         $this->assertMap($t, array(123, 456 + 123 + 123), array(123, 456));
 
         // ensure that the formula is applied correctly (this has been computed with WolframAlpha)
         $t = new Transform(array(2, 3, 5, 7, 11, 13));
-        $t->skewY(pi() / 8);
-        $this->assertMap($t, array(139 + 295 * sqrt(2), 204 + 413 * sqrt(2)), array(59, 61));
+        $t->skewY(M_PI / 8);
+        $this->assertMap($t, array(139 + 295 * M_SQRT2, 204 + 413 * M_SQRT2), array(59, 61));
     }
 }
