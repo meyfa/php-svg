@@ -4,6 +4,7 @@ namespace SVG\Nodes\Shapes;
 
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Utilities\Units\Length;
 
 /**
  * Represents the SVG tag 'ellipse'.
@@ -124,10 +125,10 @@ class SVGEllipse extends SVGNodeContainer
         }
 
         $rasterizer->render('ellipse', array(
-            'cx'    => $this->getCenterX(),
-            'cy'    => $this->getCenterY(),
-            'rx'    => $this->getRadiusX(),
-            'ry'    => $this->getRadiusY(),
+            'cx'    => Length::convert($this->getCenterX(), $rasterizer->getDocumentWidth()),
+            'cy'    => Length::convert($this->getCenterY(), $rasterizer->getDocumentHeight()),
+            'rx'    => Length::convert($this->getRadiusX(), $rasterizer->getDocumentWidth()),
+            'ry'    => Length::convert($this->getRadiusY(), $rasterizer->getDocumentHeight()),
         ), $this);
     }
 }

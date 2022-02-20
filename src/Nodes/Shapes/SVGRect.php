@@ -4,6 +4,7 @@ namespace SVG\Nodes\Shapes;
 
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Utilities\Units\Length;
 
 /**
  * Represents the SVG tag 'rect'.
@@ -160,12 +161,12 @@ class SVGRect extends SVGNodeContainer
         }
 
         $rasterizer->render('rect', array(
-            'x'         => $this->getX(),
-            'y'         => $this->getY(),
-            'width'     => $this->getWidth(),
-            'height'    => $this->getHeight(),
-            'rx'        => $this->getRX(),
-            'ry'        => $this->getRY(),
+            'x'         => Length::convert($this->getX(), $rasterizer->getDocumentWidth()),
+            'y'         => Length::convert($this->getY(), $rasterizer->getDocumentHeight()),
+            'width'     => Length::convert($this->getWidth(), $rasterizer->getDocumentWidth()),
+            'height'    => Length::convert($this->getHeight(), $rasterizer->getDocumentHeight()),
+            'rx'        => Length::convert($this->getRX(), $rasterizer->getDocumentWidth()),
+            'ry'        => Length::convert($this->getRY(), $rasterizer->getDocumentHeight()),
         ), $this);
     }
 }

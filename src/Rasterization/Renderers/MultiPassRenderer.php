@@ -5,6 +5,7 @@ namespace SVG\Rasterization\Renderers;
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
 use SVG\Utilities\Colors\Color;
+use SVG\Utilities\Units\Length;
 
 /**
  * This extends the Renderer class to offer features for multi-pass rendering
@@ -39,11 +40,15 @@ abstract class MultiPassRenderer extends Renderer
     {
         $stroke = $context->getComputedStyle('stroke');
         if (isset($stroke) && $stroke !== 'none') {
-            $stroke      = self::prepareColor($stroke, $context);
-            $strokeWidth = $context->getComputedStyle('stroke-width');
-            $strokeWidth = self::prepareLengthX($strokeWidth, $rasterizer);
+            $stroke = self::prepareColor($stroke, $context);
 
-            $this->renderStroke($rasterizer->getImage(), $params, $stroke, $strokeWidth);
+            $strokeWidth = $context->getComputedStyle('stroke-width');
+            $strokeWidth = Length::convert($strokeWidth, $rasterizer->getNormalizedDiagonal());
+            $strokeWidth = $strokeWidth * $rasterizer->getDiagonalScale();
+
+            if ($strokeWidth > 0) {
+                $this->renderStroke($rasterizer->getImage(), $params, $stroke, $strokeWidth);
+            }
         }
     }
 

@@ -4,6 +4,7 @@ namespace SVG\Nodes\Shapes;
 
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Utilities\Units\Length;
 
 /**
  * Represents the SVG tag 'circle'.
@@ -101,10 +102,13 @@ class SVGCircle extends SVGNodeContainer
             return;
         }
 
-        $r = $this->getRadius();
+        // https://svgwg.org/svg2-draft/geometry.html#R
+        // Percentages: refer to the normalized diagonal of the current SVG viewport
+        $r = Length::convert($this->getRadius(), $rasterizer->getNormalizedDiagonal());
+
         $rasterizer->render('ellipse', array(
-            'cx'    => $this->getCenterX(),
-            'cy'    => $this->getCenterY(),
+            'cx'    => Length::convert($this->getCenterX(), $rasterizer->getDocumentWidth()),
+            'cy'    => Length::convert($this->getCenterY(), $rasterizer->getDocumentHeight()),
             'rx'    => $r,
             'ry'    => $r,
         ), $this);

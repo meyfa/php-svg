@@ -4,7 +4,6 @@ namespace SVG\Rasterization\Renderers;
 
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
-use SVG\Utilities\Units\Length;
 
 /**
  * This is the base class for all shape renderer instances.
@@ -37,36 +36,4 @@ abstract class Renderer
      * @return void
      */
     abstract public function render(SVGRasterizer $rasterizer, array $options, SVGNode $context);
-
-    /**
-     * Parses the length string in relation to the rasterizer's X dimension.
-     *
-     * @param string        $len The CSS length string.
-     * @param SVGRasterizer $ras The rasterizer for scaling the length.
-     *
-     * @return float The parsed and scaled length, in pixels.
-     */
-    protected static function prepareLengthX($len, SVGRasterizer $ras)
-    {
-        $doc   = $ras->getDocumentWidth();
-        $scale = $ras->getScaleX();
-
-        return Length::convert($len, $doc) * $scale;
-    }
-
-    /**
-     * Parses the length string in relation to the rasterizer's Y dimension.
-     *
-     * @param string        $len The CSS length string.
-     * @param SVGRasterizer $ras The rasterizer for scaling the length.
-     *
-     * @return float The parsed and scaled length, in pixels.
-     */
-    protected static function prepareLengthY($len, SVGRasterizer $ras)
-    {
-        $doc   = $ras->getDocumentWidth();
-        $scale = $ras->getScaleY();
-
-        return Length::convert($len, $doc) * $scale;
-    }
 }

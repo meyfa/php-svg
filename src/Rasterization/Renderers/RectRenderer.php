@@ -22,29 +22,29 @@ class RectRenderer extends MultiPassRenderer
      */
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
-        $w  = self::prepareLengthX($options['width'], $rasterizer);
-        $h  = self::prepareLengthY($options['height'], $rasterizer);
+        $w  = $options['width'] * $rasterizer->getScaleX();
+        $h  = $options['height'] * $rasterizer->getScaleY();
 
         if ($w <= 0 || $h <= 0) {
             return array('empty' => true);
         }
 
-        $x1 = self::prepareLengthX($options['x'], $rasterizer) + $rasterizer->getOffsetX();
-        $y1 = self::prepareLengthY($options['y'], $rasterizer) + $rasterizer->getOffsetY();
+        $x1 = $options['x'] * $rasterizer->getScaleX() + $rasterizer->getOffsetX();
+        $y1 = $options['y'] * $rasterizer->getScaleY() + $rasterizer->getOffsetY();
 
         // corner radiuses may at least be (width-1)/2 pixels long.
         // anything larger than that and the circles start expanding beyond
         // the rectangle.
         // when width=0 or height=0, no radiuses should be painted - the order
         // of the ifs will take care of this.
-        $rx = empty($options['rx']) ? 0 : self::prepareLengthX($options['rx'], $rasterizer);
+        $rx = empty($options['rx']) ? 0 : $options['rx'] * $rasterizer->getScaleX();
         if ($rx > ($w - 1) / 2) {
             $rx = floor(($w - 1) / 2);
         }
         if ($rx < 0) {
             $rx = 0;
         }
-        $ry = empty($options['ry']) ? 0 : self::prepareLengthY($options['ry'], $rasterizer);
+        $ry = empty($options['ry']) ? 0 : $options['ry'] * $rasterizer->getScaleY();
         if ($ry > ($h - 1) / 2) {
             $ry = floor(($h - 1) / 2);
         }

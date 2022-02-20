@@ -4,6 +4,7 @@ namespace SVG\Nodes\Shapes;
 
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Utilities\Units\Length;
 
 /**
  * Represents the SVG tag 'line'.
@@ -124,10 +125,10 @@ class SVGLine extends SVGNodeContainer
         }
 
         $rasterizer->render('line', array(
-            'x1'    => $this->getX1(),
-            'y1'    => $this->getY1(),
-            'x2'    => $this->getX2(),
-            'y2'    => $this->getY2(),
+            'x1'    => Length::convert($this->getX1(), $rasterizer->getDocumentWidth()),
+            'y1'    => Length::convert($this->getY1(), $rasterizer->getDocumentHeight()),
+            'x2'    => Length::convert($this->getX2(), $rasterizer->getDocumentWidth()),
+            'y2'    => Length::convert($this->getY2(), $rasterizer->getDocumentHeight()),
         ), $this);
     }
 }

@@ -22,7 +22,7 @@ class TextRenderer extends MultiPassRenderer
      */
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
-        $size = self::prepareLengthY($options['size'], $rasterizer);
+        $size = $options['size'] * $rasterizer->getScaleY();
 
         // text-anchor
         $anchorOffset = 0;
@@ -31,8 +31,8 @@ class TextRenderer extends MultiPassRenderer
             $anchorOffset = $options['anchor'] === 'middle' ? ($width / 2) : $width;
         }
 
-        $x = self::prepareLengthX($options['x'], $rasterizer) + $rasterizer->getOffsetX();
-        $y = self::prepareLengthY($options['y'], $rasterizer) + $rasterizer->getOffsetY();
+        $x = $options['x'] * $rasterizer->getScaleX() + $rasterizer->getOffsetX();
+        $y = $options['y'] * $rasterizer->getScaleY() + $rasterizer->getOffsetY();
 
         return array(
             'x'         => $x - $anchorOffset,
