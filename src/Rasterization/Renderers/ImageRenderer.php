@@ -23,15 +23,14 @@ class ImageRenderer extends Renderer
      */
     public function render(SVGRasterizer $rasterizer, array $options, SVGNode $context)
     {
-        $href   = $options['href'];
-        $x      = self::prepareLengthX($options['x'], $rasterizer) + $rasterizer->getOffsetX();
-        $y      = self::prepareLengthY($options['y'], $rasterizer) + $rasterizer->getOffsetY();
-        $width  = self::prepareLengthX($options['width'], $rasterizer);
-        $height = self::prepareLengthY($options['height'], $rasterizer);
+        $x      = $options['x'] * $rasterizer->getScaleX() + $rasterizer->getOffsetX();
+        $y      = $options['y'] * $rasterizer->getScaleY() + $rasterizer->getOffsetY();
+        $width  = $options['width'] * $rasterizer->getScaleY();
+        $height = $options['height'] * $rasterizer->getScaleX();
 
         $image = $rasterizer->getImage();
 
-        $img = $this->loadImage($href, $width, $height);
+        $img = $this->loadImage($options['href'], $width, $height);
 
         if (!empty($img) && (is_resource($img) || $img instanceof \GdImage)) {
             imagecopyresampled(

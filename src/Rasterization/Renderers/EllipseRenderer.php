@@ -21,10 +21,10 @@ class EllipseRenderer extends MultiPassRenderer
     protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
     {
         return array(
-            'cx'        => self::prepareLengthX($options['cx'], $rasterizer) + $rasterizer->getOffsetX(),
-            'cy'        => self::prepareLengthY($options['cy'], $rasterizer) + $rasterizer->getOffsetY(),
-            'width'     => self::prepareLengthX($options['rx'], $rasterizer) * 2,
-            'height'    => self::prepareLengthY($options['ry'], $rasterizer) * 2,
+            'cx'        => $options['cx'] * $rasterizer->getScaleX() + $rasterizer->getOffsetX(),
+            'cy'        => $options['cy'] * $rasterizer->getScaleY() + $rasterizer->getOffsetY(),
+            'width'     => $options['rx'] * $rasterizer->getScaleX() * 2,
+            'height'    => $options['ry'] * $rasterizer->getScaleY() * 2,
         );
     }
 

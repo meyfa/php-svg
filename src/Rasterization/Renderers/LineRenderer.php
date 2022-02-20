@@ -24,10 +24,10 @@ class LineRenderer extends MultiPassRenderer
         $offsetY = $rasterizer->getOffsetY();
 
         return array(
-            'x1' => self::prepareLengthX($options['x1'], $rasterizer) + $offsetX,
-            'y1' => self::prepareLengthY($options['y1'], $rasterizer) + $offsetY,
-            'x2' => self::prepareLengthX($options['x2'], $rasterizer) + $offsetX,
-            'y2' => self::prepareLengthY($options['y2'], $rasterizer) + $offsetY,
+            'x1' => $options['x1'] * $rasterizer->getScaleX() + $offsetX,
+            'y1' => $options['y1'] * $rasterizer->getScaleY() + $offsetY,
+            'x2' => $options['x2'] * $rasterizer->getScaleX() + $offsetX,
+            'y2' => $options['y2'] * $rasterizer->getScaleY() + $offsetY,
         );
     }
 

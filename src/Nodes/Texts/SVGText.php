@@ -5,6 +5,7 @@ namespace SVG\Nodes\Texts;
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Nodes\Structures\SVGFont;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Utilities\Units\Length;
 
 /**
  * Represents the SVG tag 'text'.
@@ -91,10 +92,16 @@ class SVGText extends SVGNodeContainer
             return;
         }
 
+        // TODO: support percentage font sizes
+        //       https://www.w3.org/TR/SVG11/text.html#FontSizeProperty
+        //       "Percentages: refer to parent element's font size"
+        // For now, assume the standard font size of 16px as reference size
+        $fontSize = Length::convert($this->getComputedStyle('font-size'), 16);
+
         $rasterizer->render('text', array(
-            'x'         => $this->getAttribute('x'),
-            'y'         => $this->getAttribute('y'),
-            'size'      => $this->getComputedStyle('font-size'),
+            'x'         => Length::convert($this->getAttribute('x'), $rasterizer->getDocumentWidth()),
+            'y'         => Length::convert($this->getAttribute('y'), $rasterizer->getDocumentHeight()),
+            'size'      => $fontSize,
             'anchor'    => $this->getComputedStyle('text-anchor'),
             'text'      => $this->getValue(),
             'font_path' => $this->font->getFontPath(),
