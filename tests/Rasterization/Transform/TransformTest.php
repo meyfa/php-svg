@@ -63,6 +63,11 @@ class TransformTest extends \PHPUnit\Framework\TestCase
 
         $t->translate(-500, -2500);
         $this->assertMap($t, array(623, 456 - 500), array(123, 456));
+
+        // ensure that the formula is applied correctly (this has been computed with WolframAlpha)
+        $t = new Transform(array(2, 3, 5, 7, 11, 13));
+        $t->translate(37, 41);
+        $this->assertMap($t, array(713, 1015), array(59, 61));
     }
 
     public function testScale()
@@ -81,6 +86,11 @@ class TransformTest extends \PHPUnit\Framework\TestCase
         $t->scale(0, 0);
         $t->scale(1, 1);
         $this->assertMap($t, array(0, 0), array(12, 34));
+
+        // ensure that the formula is applied correctly (this has been computed with WolframAlpha)
+        $t = new Transform(array(2, 3, 5, 7, 11, 13));
+        $t->scale(37, 41);
+        $this->assertMap($t, array(16882, 24069), array(59, 61));
     }
 
     public function testRotate()
@@ -95,6 +105,11 @@ class TransformTest extends \PHPUnit\Framework\TestCase
 
         $t->rotate(pi() / 2);
         $this->assertMap($t, array(-123, -456), array(123, 456));
+
+        // ensure that the formula is applied correctly (this has been computed with WolframAlpha)
+        $t = new Transform(array(2, 3, 5, 7, 11, 13));
+        $t->rotate(pi() / 4);
+        $this->assertMap($t, array(11 + 298 * sqrt(2), 13 + 417 * sqrt(2)), array(59, 61));
     }
 
     public function testSkewX()
@@ -110,6 +125,11 @@ class TransformTest extends \PHPUnit\Framework\TestCase
 
         $t->skewX(pi() / 4);
         $this->assertMap($t, array(123 + 456 + 456, 456), array(123, 456));
+
+        // ensure that the formula is applied correctly (this has been computed with WolframAlpha)
+        $t = new Transform(array(2, 3, 5, 7, 11, 13));
+        $t->skewX(pi() / 8);
+        $this->assertMap($t, array(312 + 122 * sqrt(2), 434 + 183 * sqrt(2)), array(59, 61));
     }
 
     public function testSkewY()
@@ -125,5 +145,10 @@ class TransformTest extends \PHPUnit\Framework\TestCase
 
         $t->skewY(pi() / 4);
         $this->assertMap($t, array(123, 456 + 123 + 123), array(123, 456));
+
+        // ensure that the formula is applied correctly (this has been computed with WolframAlpha)
+        $t = new Transform(array(2, 3, 5, 7, 11, 13));
+        $t->skewY(pi() / 8);
+        $this->assertMap($t, array(139 + 295 * sqrt(2), 204 + 413 * sqrt(2)), array(59, 61));
     }
 }
