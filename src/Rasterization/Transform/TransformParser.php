@@ -21,8 +21,9 @@ final class TransformParser
 
         // https://www.w3.org/TR/css-transforms-1/#svg-syntax
 
-        $matches  = array();
-        preg_match_all('/(translate|scale|rotate|skewX|skewY|matrix)\s*\(\s*([^)]+)\s*\)/', $input, $matches, PREG_SET_ORDER);
+        $matches = array();
+        preg_match_all('/(translate|scale|rotate|skewX|skewY|matrix)\s*\(\s*([^)]+)\s*\)/', $input, $matches,
+            PREG_SET_ORDER);
 
         foreach ($matches as $match) {
             $operation = $match[1];
