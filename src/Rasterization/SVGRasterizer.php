@@ -254,22 +254,6 @@ class SVGRasterizer
     }
 
     /**
-     * @return float The factor by which the output is scaled on the x axis.
-     */
-    public function getScaleX()
-    {
-        return $this->scaleX;
-    }
-
-    /**
-     * @return float The factor by which the output is scaled on the y axis.
-     */
-    public function getScaleY()
-    {
-        return $this->scaleY;
-    }
-
-    /**
      * Determine the normalized diagonal scaling factor. This is the factor that should be used when scaling percentages
      * for properties that are not strictly horizontal or strictly vertical, such as stroke-width.
      *
@@ -278,24 +262,6 @@ class SVGRasterizer
     public function getDiagonalScale()
     {
         return hypot($this->scaleX, $this->scaleY) / M_SQRT2;
-    }
-
-    /**
-     * @return float The amount by which renderers must offset their drawings
-     *               on the x-axis (not to be scaled).
-     */
-    public function getOffsetX()
-    {
-        return $this->offsetX;
-    }
-
-    /**
-     * @return float The amount by which renderers must offset their drawings
-     *               on the y-axis (not to be scaled).
-     */
-    public function getOffsetY()
-    {
-        return $this->offsetY;
     }
 
     /**

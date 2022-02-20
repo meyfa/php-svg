@@ -102,38 +102,6 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers ::getScaleX
-     */
-    public function testGetScaleX()
-    {
-        // should use viewBox dimension when available
-        $obj = new SVGRasterizer(10, 20, array(37, 42, 25, 100), 100, 200);
-        $this->assertEquals(4, $obj->getScaleX());
-        imagedestroy($obj->getImage());
-
-        // should use document dimension when viewBox unavailable
-        $obj = new SVGRasterizer(10, 20, array(), 100, 200);
-        $this->assertEquals(10, $obj->getScaleX());
-        imagedestroy($obj->getImage());
-    }
-
-    /**
-     * @covers ::getScaleY
-     */
-    public function testGetScaleY()
-    {
-        // should use viewBox dimension when available
-        $obj = new SVGRasterizer(10, 20, array(37, 42, 25, 100), 100, 200);
-        $this->assertEquals(2, $obj->getScaleY());
-        imagedestroy($obj->getImage());
-
-        // should use document dimension when viewBox unavailable
-        $obj = new SVGRasterizer(10, 20, array(), 100, 200);
-        $this->assertEquals(10, $obj->getScaleY());
-        imagedestroy($obj->getImage());
-    }
-
-    /**
      * @covers ::getDiagonalScale
      */
     public function testGetDiagonalScale()
@@ -149,37 +117,6 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
         imagedestroy($obj->getImage());
     }
 
-    /**
-     * @covers ::getOffsetX
-     */
-    public function testGetOffsetX()
-    {
-        // should return scaled viewBox offset when available
-        $obj = new SVGRasterizer(10, 20, array(37, 42, 25, 100), 100, 200);
-        $this->assertEquals(-37 * $obj->getScaleX(), $obj->getOffsetX());
-        imagedestroy($obj->getImage());
-
-        // should return 0 when viewBox unavailable
-        $obj = new SVGRasterizer(10, 20, array(), 100, 200);
-        $this->assertEquals(0, $obj->getOffsetX());
-        imagedestroy($obj->getImage());
-    }
-
-    /**
-     * @covers ::getOffsetY
-     */
-    public function testGetOffsetY()
-    {
-        // should return scaled viewBox offset when available
-        $obj = new SVGRasterizer(10, 20, array(37, 42, 25, 100), 100, 200);
-        $this->assertEquals(-42 * $obj->getScaleY(), $obj->getOffsetY());
-        imagedestroy($obj->getImage());
-
-        // should return 0 when viewBox unavailable
-        $obj = new SVGRasterizer(10, 20, array(), 100, 200);
-        $this->assertEquals(0, $obj->getOffsetY());
-        imagedestroy($obj->getImage());
-    }
 
     /**
      * @covers ::getViewbox
