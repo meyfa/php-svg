@@ -5,7 +5,7 @@ namespace SVG;
 use SVG\Rasterization\Transform\Transform;
 
 /**
- * @covers \SVG\Rasterization\Transform\Transform
+ * @coversDefaultClass \SVG\Rasterization\Transform\Transform
  *
  * @SuppressWarnings(PHPMD)
  */
