@@ -154,10 +154,10 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('ellipse'),
             $this->identicalTo(array(
-                'cx' => '37',
-                'cy' => '42',
-                'rx' => '100',
-                'ry' => '200',
+                'cx' => 37.0,
+                'cy' => 42.0,
+                'rx' => 100.0,
+                'ry' => 200.0,
             )),
             $this->identicalTo($obj)
         );

@@ -25,8 +25,8 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
 
         $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
         $obj->render($rasterizer, array(
-            'x' => '4px', 'y' => '8px',
-            'width' => '20px', 'height' => '16px',
+            'x' => 4, 'y' => 8,
+            'width' => 20, 'height' => 16,
         ), $context);
         $img = $rasterizer->finish();
 
@@ -44,8 +44,8 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
 
         $rasterizer = new SVGRasterizer('20px', '20px', null, 40, 40);
         $obj->render($rasterizer, array(
-            'x' => '2px', 'y' => '4px',
-            'width' => '10px', 'height' => '8px',
+            'x' => 2, 'y' => 4,
+            'width' => 10, 'height' => 8,
         ), $context);
         $img = $rasterizer->finish();
 
@@ -63,8 +63,8 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
 
         $rasterizer = new SVGRasterizer('20px', '20px', null, 40, 40);
         $obj->render($rasterizer, array(
-            'x' => '2px', 'y' => '4px',
-            'width' => '10px', 'height' => '8px',
+            'x' => 2, 'y' => 4,
+            'width' => 10, 'height' => 8,
         ), $context);
         $img = $rasterizer->finish();
 
@@ -81,8 +81,8 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
 
         $rasterizer = new SVGRasterizer('20px', '20px', null, 40, 40);
         $obj->render($rasterizer, array(
-            'x' => '2px', 'y' => '4px',
-            'width' => '10px', 'height' => '8px',
+            'x' => 2, 'y' => 4,
+            'width' => 10, 'height' => 8,
         ), $context);
         $img = $rasterizer->finish();
 
@@ -99,8 +99,8 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
 
         $rasterizer = new SVGRasterizer('20px', '20px', null, 40, 40);
         $obj->render($rasterizer, array(
-            'x' => '2px', 'y' => '4px',
-            'width' => '10px', 'height' => '8px',
+            'x' => 2, 'y' => 4,
+            'width' => 10, 'height' => 8,
         ), $context);
         $img = $rasterizer->finish();
 
@@ -118,8 +118,8 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
 
         $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
         $obj->render($rasterizer, array(
-            'x' => '4px', 'y' => '8px',
-            'width' => '20px', 'height' => '16px',
+            'x' => 4, 'y' => 8,
+            'width' => 20, 'height' => 16,
         ), $context);
         $img = $rasterizer->finish();
 
@@ -137,9 +137,9 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
 
         $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
         $obj->render($rasterizer, array(
-            'x' => '4px', 'y' => '8px',
-            'width' => '20px', 'height' => '16px',
-            'rx' => '10%', 'ry' => '10%',
+            'x' => 4, 'y' => 8,
+            'width' => 20, 'height' => 16,
+            'rx' => 4, 'ry' => 4,
         ), $context);
         $img = $rasterizer->finish();
 
@@ -156,9 +156,9 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
 
         $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
         $obj->render($rasterizer, array(
-            'x' => '4px', 'y' => '8px',
-            'width' => '20px', 'height' => '16px',
-            'rx' => '10%', 'ry' => '10%',
+            'x' => 4, 'y' => 8,
+            'width' => 20, 'height' => 16,
+            'rx' => 4, 'ry' => 4,
         ), $context);
         $img = $rasterizer->finish();
 
@@ -176,9 +176,9 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
 
         $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
         $obj->render($rasterizer, array(
-            'x' => '4px', 'y' => '8px',
-            'width' => '0', 'height' => '16px',
-            'rx' => '10%', 'ry' => '10%',
+            'x' => 4, 'y' => 8,
+            'width' => 0, 'height' => 16,
+            'rx' => 4, 'ry' => 4,
         ), $context);
         $img = $rasterizer->finish();
 
@@ -196,9 +196,9 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
 
         $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
         $obj->render($rasterizer, array(
-            'x' => '4px', 'y' => '8px',
-            'width' => '20px', 'height' => '0',
-            'rx' => '10%', 'ry' => '10%',
+            'x' => 4, 'y' => 8,
+            'width' => 20, 'height' => 0,
+            'rx' => 4, 'ry' => 4,
         ), $context);
         $img = $rasterizer->finish();
 

@@ -154,10 +154,10 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('line'),
             $this->identicalTo(array(
-                'x1' => '11',
-                'y1' => '12',
-                'x2' => '13',
-                'y2' => '14',
+                'x1' => 11.0,
+                'y1' => 12.0,
+                'x2' => 13.0,
+                'y2' => 14.0,
             )),
             $this->identicalTo($obj)
         );

@@ -192,10 +192,10 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
             $this->identicalTo('image'),
             $this->identicalTo(array(
                 'href' => 'test-href',
-                'x' => '10',
-                'y' => '10',
-                'width' => '100',
-                'height' => '100',
+                'x' => 10.0,
+                'y' => 10.0,
+                'width' => 100.0,
+                'height' => 100.0,
             )),
             $this->identicalTo($obj)
         );

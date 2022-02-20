@@ -210,12 +210,12 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('rect'),
             $this->identicalTo(array(
-                'x' => '37',
-                'y' => '42',
-                'width' => '100',
-                'height' => '200',
-                'rx' => '15',
-                'ry' => '25',
+                'x' => 37.0,
+                'y' => 42.0,
+                'width' => 100.0,
+                'height' => 200.0,
+                'rx' => 15.0,
+                'ry' => 25.0,
             )),
             $this->identicalTo($obj)
         );
