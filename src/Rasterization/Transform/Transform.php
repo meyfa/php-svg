@@ -83,6 +83,20 @@ class Transform
         $destination[] = $y;
     }
 
+    /**
+     * This computes the side lengths that a rectangle with the given size would end up having,
+     * after applying the transform. Note that this doesn't measure the bounding box but the actual width and height.
+     *
+     * @param float $width  The original width.
+     * @param float $height The original height.
+     * @return void
+     */
+    public function resize(&$width, &$height)
+    {
+        $width  *= hypot($this->matrix[0], $this->matrix[1]);
+        $height *= hypot($this->matrix[2], $this->matrix[3]);
+    }
+
     // mutation functions
 
     /**
