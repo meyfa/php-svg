@@ -158,6 +158,30 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @covers ::makeTransform
+     */
+    public function testMakeTransform()
+    {
+        // should use viewBox dimension when available
+        $obj = new SVGRasterizer(10, 20, array(37, 42, 25, 80), 100, 160);
+        $transform = $obj->makeTransform();
+        $x = 100;
+        $y = 100;
+        $transform->map($x, $y);
+        $this->assertEquals(array(4 * 100 + 4 * -37, 2 * 100 + 2 * -42), array($x, $y));
+        imagedestroy($obj->getImage());
+
+        // should use document dimension when viewBox unavailable
+        $obj = new SVGRasterizer(10, 20, array(), 100, 160);
+        $transform = $obj->makeTransform();
+        $x = 100;
+        $y = 100;
+        $transform->map($x, $y);
+        $this->assertEquals(array(1000, 800), array($x, $y));
+        imagedestroy($obj->getImage());
+    }
+
+    /**
      * @covers ::render
      */
     public function testRenderWithNoSuchRenderId()
