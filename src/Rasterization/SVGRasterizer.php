@@ -4,6 +4,7 @@ namespace SVG\Rasterization;
 
 use InvalidArgumentException;
 use SVG\Nodes\SVGNode;
+use SVG\Rasterization\Transform\Transform;
 use SVG\Utilities\Units\Length;
 use SVG\Utilities\Colors\Color;
 
@@ -253,22 +254,6 @@ class SVGRasterizer
     }
 
     /**
-     * @return float The factor by which the output is scaled on the x axis.
-     */
-    public function getScaleX()
-    {
-        return $this->scaleX;
-    }
-
-    /**
-     * @return float The factor by which the output is scaled on the y axis.
-     */
-    public function getScaleY()
-    {
-        return $this->scaleY;
-    }
-
-    /**
      * Determine the normalized diagonal scaling factor. This is the factor that should be used when scaling percentages
      * for properties that are not strictly horizontal or strictly vertical, such as stroke-width.
      *
@@ -280,29 +265,24 @@ class SVGRasterizer
     }
 
     /**
-     * @return float The amount by which renderers must offset their drawings
-     *               on the x-axis (not to be scaled).
-     */
-    public function getOffsetX()
-    {
-        return $this->offsetX;
-    }
-
-    /**
-     * @return float The amount by which renderers must offset their drawings
-     *               on the y-axis (not to be scaled).
-     */
-    public function getOffsetY()
-    {
-        return $this->offsetY;
-    }
-
-    /**
      * @return float[]|null The document's viewBox.
      */
     public function getViewBox()
     {
         return $this->viewBox;
+    }
+
+    /**
+     * Obtain a Transform object from userspace coordinates into output image coordinates.
+     *
+     * @return Transform The created transform.
+     */
+    public function makeTransform()
+    {
+        $transform = Transform::identity();
+        $transform->translate($this->offsetX, $this->offsetY);
+        $transform->scale($this->scaleX, $this->scaleY);
+        return $transform;
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace SVG\Rasterization\Renderers;
 
-use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\Transform;
 
 /**
  * This renderer can draw pre-approximated paths, which are sets of line segments. These segments can potentially
@@ -18,20 +18,13 @@ class PathRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
+    protected function prepareRenderParams(array $options, Transform $transform)
     {
-        $scaleX = $rasterizer->getScaleX();
-        $scaleY = $rasterizer->getScaleY();
-
-        $offsetX = $rasterizer->getOffsetX();
-        $offsetY = $rasterizer->getOffsetY();
-
         $segments = array();
         foreach ($options['segments'] as $segment) {
             $points = array();
             foreach ($segment as $point) {
-                $points[] = $point[0] * $scaleX + $offsetX;
-                $points[] = $point[1] * $scaleY + $offsetY;
+                $transform->mapInto($point[0], $point[1], $points);
             }
             $segments[] = $points;
         }

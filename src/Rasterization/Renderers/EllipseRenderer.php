@@ -2,7 +2,7 @@
 
 namespace SVG\Rasterization\Renderers;
 
-use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\Transform;
 
 /**
  * This renderer can draw ellipses (and circles).
@@ -18,13 +18,21 @@ class EllipseRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
+    protected function prepareRenderParams(array $options, Transform $transform)
     {
+        $cx = $options['cx'];
+        $cy = $options['cy'];
+        $transform->map($cx, $cy);
+
+        $width = $options['rx'] * 2;
+        $height = $options['ry'] * 2;
+        $transform->resize($width, $height);
+
         return array(
-            'cx'        => $options['cx'] * $rasterizer->getScaleX() + $rasterizer->getOffsetX(),
-            'cy'        => $options['cy'] * $rasterizer->getScaleY() + $rasterizer->getOffsetY(),
-            'width'     => $options['rx'] * $rasterizer->getScaleX() * 2,
-            'height'    => $options['ry'] * $rasterizer->getScaleY() * 2,
+            'cx'        => $cx,
+            'cy'        => $cy,
+            'width'     => $width,
+            'height'    => $height,
         );
     }
 

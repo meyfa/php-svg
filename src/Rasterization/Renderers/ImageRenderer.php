@@ -23,10 +23,15 @@ class ImageRenderer extends Renderer
      */
     public function render(SVGRasterizer $rasterizer, array $options, SVGNode $context)
     {
-        $x      = $options['x'] * $rasterizer->getScaleX() + $rasterizer->getOffsetX();
-        $y      = $options['y'] * $rasterizer->getScaleY() + $rasterizer->getOffsetY();
-        $width  = $options['width'] * $rasterizer->getScaleY();
-        $height = $options['height'] * $rasterizer->getScaleX();
+        $transform = $rasterizer->makeTransform();
+
+        $x      = $options['x'];
+        $y      = $options['y'];
+        $transform->map($x, $y);
+
+        $width  = $options['width'];
+        $height = $options['height'];
+        $transform->resize($width, $height);
 
         $image = $rasterizer->getImage();
 

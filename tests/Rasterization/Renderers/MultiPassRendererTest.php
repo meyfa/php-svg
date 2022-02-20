@@ -41,8 +41,8 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
         // should call prepareRenderParams with correct arguments
         $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\MultiPassRenderer');
         $obj->expects($this->once())->method('prepareRenderParams')->with(
-            $this->identicalTo($rast),
-            $this->identicalTo($options)
+            $this->identicalTo($options),
+            $this->isInstanceOf('\SVG\Rasterization\Transform\Transform')
         )->willReturn($params);
         $obj->render($rast, $options, $node);
 

@@ -2,7 +2,7 @@
 
 namespace SVG\Rasterization\Renderers;
 
-use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\Transform;
 
 /**
  * This renderer can draw polygons and polylines.
@@ -17,18 +17,11 @@ class PolygonRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
+    protected function prepareRenderParams(array $options, Transform $transform)
     {
-        $scaleX = $rasterizer->getScaleX();
-        $scaleY = $rasterizer->getScaleY();
-
-        $offsetX = $rasterizer->getOffsetX();
-        $offsetY = $rasterizer->getOffsetY();
-
         $points = array();
         foreach ($options['points'] as $point) {
-            $points[] = $point[0] * $scaleX + $offsetX;
-            $points[] = $point[1] * $scaleY + $offsetY;
+            $transform->mapInto($point[0], $point[1], $points);
         }
 
         return array(

@@ -2,7 +2,7 @@
 
 namespace SVG\Rasterization\Renderers;
 
-use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\Transform;
 
 /**
  * This renderer can draw rectangles.
@@ -20,31 +20,31 @@ class RectRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
+    protected function prepareRenderParams(array $options, Transform $transform)
     {
-        $w  = $options['width'] * $rasterizer->getScaleX();
-        $h  = $options['height'] * $rasterizer->getScaleY();
+        $w = $options['width'];
+        $h = $options['height'];
+        $transform->resize($w, $h);
 
         if ($w <= 0 || $h <= 0) {
             return array('empty' => true);
         }
 
-        $x1 = $options['x'] * $rasterizer->getScaleX() + $rasterizer->getOffsetX();
-        $y1 = $options['y'] * $rasterizer->getScaleY() + $rasterizer->getOffsetY();
+        $x1 = $options['x'];
+        $y1 = $options['y'];
+        $transform->map($x1, $y1);
 
-        // corner radiuses may at least be (width-1)/2 pixels long.
-        // anything larger than that and the circles start expanding beyond
-        // the rectangle.
-        // when width=0 or height=0, no radiuses should be painted - the order
-        // of the ifs will take care of this.
-        $rx = empty($options['rx']) ? 0 : $options['rx'] * $rasterizer->getScaleX();
+        // Corner radii may at most be (width-1)/2 pixels long.
+        // Anything larger than that and the circles start expanding beyond the rectangle.
+        $rx = empty($options['rx']) ? 0 : $options['rx'];
+        $ry = empty($options['ry']) ? 0 : $options['ry'];
+        $transform->resize($rx, $ry);
         if ($rx > ($w - 1) / 2) {
             $rx = floor(($w - 1) / 2);
         }
         if ($rx < 0) {
             $rx = 0;
         }
-        $ry = empty($options['ry']) ? 0 : $options['ry'] * $rasterizer->getScaleY();
         if ($ry > ($h - 1) / 2) {
             $ry = floor(($h - 1) / 2);
         }
@@ -72,7 +72,7 @@ class RectRenderer extends MultiPassRenderer
             return;
         }
 
-        if ($params['rx'] !== 0 || $params['ry'] !== 0) {
+        if ($params['rx'] != 0 || $params['ry'] != 0) {
             $this->renderFillRounded($image, $params, $color);
             return;
         }
@@ -138,7 +138,7 @@ class RectRenderer extends MultiPassRenderer
 
         imagesetthickness($image, round($strokeWidth));
 
-        if ($params['rx'] !== 0 || $params['ry'] !== 0) {
+        if ($params['rx'] != 0 || $params['ry'] != 0) {
             $this->renderStrokeRounded($image, $params, $color, $strokeWidth);
             return;
         }

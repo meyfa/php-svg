@@ -4,6 +4,7 @@ namespace SVG\Rasterization\Renderers;
 
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\Transform;
 use SVG\Utilities\Colors\Color;
 use SVG\Utilities\Units\Length;
 
@@ -19,7 +20,9 @@ abstract class MultiPassRenderer extends Renderer
      */
     public function render(SVGRasterizer $rasterizer, array $options, SVGNode $context)
     {
-        $params = $this->prepareRenderParams($rasterizer, $options);
+        $transform = $rasterizer->makeTransform();
+
+        $params = $this->prepareRenderParams($options, $transform);
 
         $paintOrder = self::getPaintOrder($context);
         foreach ($paintOrder as $paint) {
@@ -76,12 +79,12 @@ abstract class MultiPassRenderer extends Renderer
      * method rather than dealing with it in the render methods. This shall
      * encourage single passes over the input data (for performance reasons).
      *
-     * @param SVGRasterizer $rasterizer The rasterizer used in this render.
-     * @param mixed[]       $options    The associative array of raw options.
+     * @param array     $options   The associative array of raw options.
+     * @param Transform $transform The coordinate transform to apply, to go from user coordinate to output coordinates.
      *
-     * @return mixed[] The new associative array of computed render parameters.
+     * @return array The new associative array of computed render parameters.
      */
-    abstract protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options);
+    abstract protected function prepareRenderParams(array $options, Transform $transform);
 
     /**
      * Renders the shape's filled version in the given color, using the params
