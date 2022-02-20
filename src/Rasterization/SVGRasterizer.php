@@ -216,6 +216,27 @@ class SVGRasterizer
     }
 
     /**
+     * Obtain the normalized diagonal of the SVG viewport. The normalized diagonal is to be used as the reference size
+     * for percentages that don't strictly refer to the horizontal or vertical axis. Examples of such values are
+     * a circle's radius attribute or the stroke-width.
+     *
+     * This is computed by the formula <code>hypot(documentWidth, documentHeight)/sqrt(2)</code>.
+     *
+     * @return float The normalized diagonal length.
+     */
+    public function getNormalizedDiagonal()
+    {
+        // https://svgwg.org/svg2-draft/coords.html#Units
+
+        // For any other length value expressed as a percentage of the SVG viewport, the percentage must be calculated
+        // as a percentage of the normalized diagonal of the ‘viewBox’ applied to that viewport. If no ‘viewBox’ is
+        // specified, then the normalized diagonal of the SVG viewport must be used. The normalized diagonal length must
+        // be calculated with sqrt((width)**2 + (height)**2)/sqrt(2).
+
+        return hypot($this->docWidth, $this->docHeight) / M_SQRT2;
+    }
+
+    /**
      * @return int The output image width, in pixels.
      */
     public function getWidth()
@@ -245,6 +266,17 @@ class SVGRasterizer
     public function getScaleY()
     {
         return $this->scaleY;
+    }
+
+    /**
+     * Determine the normalized diagonal scaling factor. This is the factor that should be used when scaling percentages
+     * for properties that are not strictly horizontal or strictly vertical, such as stroke-width.
+     *
+     * @return float The scaling factor of the view diagonal.
+     */
+    public function getDiagonalScale()
+    {
+        return hypot($this->scaleX, $this->scaleY) / M_SQRT2;
     }
 
     /**
