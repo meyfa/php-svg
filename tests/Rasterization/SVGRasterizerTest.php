@@ -69,6 +69,17 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @covers ::getNormalizedDiagonal
+     */
+    public function testGetNormalizedDiagonal()
+    {
+        // should return the correct length
+        $obj = new SVGRasterizer('50%', '50%', null, 100, 200);
+        $this->assertEquals(79.05, $obj->getNormalizedDiagonal(), null, 0.01);
+        imagedestroy($obj->getImage());
+    }
+
+    /**
      * @covers ::getWidth
      */
     public function testGetWidth()
@@ -119,6 +130,22 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
         // should use document dimension when viewBox unavailable
         $obj = new SVGRasterizer(10, 20, array(), 100, 200);
         $this->assertEquals(10, $obj->getScaleY());
+        imagedestroy($obj->getImage());
+    }
+
+    /**
+     * @covers ::getDiagonalScale
+     */
+    public function testGetDiagonalScale()
+    {
+        // should use viewBox dimension when available
+        $obj = new SVGRasterizer(10, 20, array(37, 42, 25, 100), 100, 200);
+        $this->assertEquals(3.16, $obj->getDiagonalScale(), null, 0.01);
+        imagedestroy($obj->getImage());
+
+        // should use document dimension when viewBox unavailable
+        $obj = new SVGRasterizer(10, 20, array(), 100, 300);
+        $this->assertEquals(12.74, $obj->getDiagonalScale(), '', 0.01);
         imagedestroy($obj->getImage());
     }
 
