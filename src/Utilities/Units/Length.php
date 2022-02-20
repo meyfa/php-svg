@@ -8,10 +8,10 @@ final class Length
      * Converts any valid SVG length string into an absolute pixel length,
      * using the given canvas width as reference for percentages.
      *
-     * If the string does not denote a valid length unit, null is returned.
+     * If the input is null or is a string that does not denote a valid length unit, null is returned.
      *
-     * @param string $unit       The SVG length string to convert.
-     * @param float  $viewLength The canvas width to use as reference length.
+     * @param string|null $unit       The SVG length string to convert.
+     * @param float       $viewLength The canvas width to use as reference length.
      *
      * @return float|null The absolute pixel number the given string denotes.
      */
