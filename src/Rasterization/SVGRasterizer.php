@@ -4,6 +4,7 @@ namespace SVG\Rasterization;
 
 use InvalidArgumentException;
 use SVG\Nodes\SVGNode;
+use SVG\Rasterization\Transform\Transform;
 use SVG\Utilities\Units\Length;
 use SVG\Utilities\Colors\Color;
 
@@ -303,6 +304,19 @@ class SVGRasterizer
     public function getViewBox()
     {
         return $this->viewBox;
+    }
+
+    /**
+     * Obtain a Transform object from userspace coordinates into output image coordinates.
+     *
+     * @return Transform The created transform.
+     */
+    public function makeTransform()
+    {
+        $transform = Transform::identity();
+        $transform->translate($this->offsetX, $this->offsetY);
+        $transform->scale($this->scaleX, $this->scaleY);
+        return $transform;
     }
 
     /**

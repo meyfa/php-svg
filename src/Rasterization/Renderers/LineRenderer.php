@@ -2,7 +2,7 @@
 
 namespace SVG\Rasterization\Renderers;
 
-use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\Transform;
 
 /**
  * This renderer can draw straight lines. Filling is not supported.
@@ -18,16 +18,21 @@ class LineRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
+    protected function prepareRenderParams(array $options, Transform $transform)
     {
-        $offsetX = $rasterizer->getOffsetX();
-        $offsetY = $rasterizer->getOffsetY();
+        $x1 = $options['x1'];
+        $y1 = $options['y1'];
+        $transform->map($x1, $y1);
+
+        $x2 = $options['x2'];
+        $y2 = $options['y2'];
+        $transform->map($x2, $y2);
 
         return array(
-            'x1' => $options['x1'] * $rasterizer->getScaleX() + $offsetX,
-            'y1' => $options['y1'] * $rasterizer->getScaleY() + $offsetY,
-            'x2' => $options['x2'] * $rasterizer->getScaleX() + $offsetX,
-            'y2' => $options['y2'] * $rasterizer->getScaleY() + $offsetY,
+            'x1' => $x1,
+            'y1' => $y1,
+            'x2' => $x2,
+            'y2' => $y2,
         );
     }
 

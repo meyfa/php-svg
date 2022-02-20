@@ -2,7 +2,7 @@
 
 namespace SVG\Rasterization\Renderers;
 
-use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\Transform;
 
 /**
  * This renderer can draw basic text.
@@ -20,9 +20,13 @@ class TextRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(SVGRasterizer $rasterizer, array $options)
+    protected function prepareRenderParams(array $options, Transform $transform)
     {
-        $size = $options['size'] * $rasterizer->getScaleY();
+        // this assumes there is no rotation or skew, but that's fine, we can't deal with that anyway
+        $size1 = $options['size'];
+        $size2 = $size1;
+        $transform->resize($size1, $size2);
+        $size = min($size1, $size2);
 
         // text-anchor
         $anchorOffset = 0;
@@ -31,8 +35,9 @@ class TextRenderer extends MultiPassRenderer
             $anchorOffset = $options['anchor'] === 'middle' ? ($width / 2) : $width;
         }
 
-        $x = $options['x'] * $rasterizer->getScaleX() + $rasterizer->getOffsetX();
-        $y = $options['y'] * $rasterizer->getScaleY() + $rasterizer->getOffsetY();
+        $x = $options['x'];
+        $y = $options['y'];
+        $transform->map($x, $y);
 
         return array(
             'x'         => $x - $anchorOffset,
