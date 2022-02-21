@@ -5,6 +5,7 @@ namespace SVG\Nodes\Embedded;
 use RuntimeException;
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\TransformParser;
 use SVG\Utilities\Units\Length;
 
 /**
@@ -205,6 +206,8 @@ class SVGImage extends SVGNodeContainer
             return;
         }
 
+        TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
+
         $rasterizer->render('image', array(
             'href'      => $this->getHref(),
             'x'         => Length::convert($this->getX(), $rasterizer->getDocumentWidth()),
@@ -212,5 +215,7 @@ class SVGImage extends SVGNodeContainer
             'width'     => Length::convert($this->getWidth(), $rasterizer->getDocumentWidth()),
             'height'    => Length::convert($this->getHeight(), $rasterizer->getDocumentHeight()),
         ), $this);
+
+        $rasterizer->popTransform();
     }
 }

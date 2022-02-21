@@ -4,6 +4,7 @@ namespace SVG\Nodes\Shapes;
 
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\TransformParser;
 use SVG\Utilities\Units\Length;
 
 /**
@@ -124,11 +125,15 @@ class SVGEllipse extends SVGNodeContainer
             return;
         }
 
+        TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
+
         $rasterizer->render('ellipse', array(
             'cx'    => Length::convert($this->getCenterX(), $rasterizer->getDocumentWidth()),
             'cy'    => Length::convert($this->getCenterY(), $rasterizer->getDocumentHeight()),
             'rx'    => Length::convert($this->getRadiusX(), $rasterizer->getDocumentWidth()),
             'ry'    => Length::convert($this->getRadiusY(), $rasterizer->getDocumentHeight()),
         ), $this);
+
+        $rasterizer->popTransform();
     }
 }
