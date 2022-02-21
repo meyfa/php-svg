@@ -164,6 +164,7 @@ class PathApproximator
      * @return void
      *
      * @SuppressWarnings("unused")
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function moveTo($id, $args, PolygonBuilder $builder)
     {
@@ -184,6 +185,7 @@ class PathApproximator
      * @return void
      *
      * @SuppressWarnings("unused")
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function lineTo($id, $args, PolygonBuilder $builder)
     {
@@ -204,6 +206,7 @@ class PathApproximator
      * @return void
      *
      * @SuppressWarnings("unused")
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function lineToHorizontal($id, $args, PolygonBuilder $builder)
     {
@@ -224,6 +227,7 @@ class PathApproximator
      * @return void
      *
      * @SuppressWarnings("unused")
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function lineToVertical($id, $args, PolygonBuilder $builder)
     {
@@ -244,6 +248,7 @@ class PathApproximator
      * @return void
      *
      * @SuppressWarnings("unused")
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function curveToCubic($id, $args, PolygonBuilder $builder)
     {
@@ -279,6 +284,7 @@ class PathApproximator
      * @return void
      *
      * @SuppressWarnings("unused")
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function curveToCubicSmooth($id, $args, PolygonBuilder $builder)
     {
@@ -317,6 +323,7 @@ class PathApproximator
      * @return void
      *
      * @SuppressWarnings("unused")
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function curveToQuadratic($id, $args, PolygonBuilder $builder)
     {
@@ -348,6 +355,7 @@ class PathApproximator
      * @return void
      *
      * @SuppressWarnings("unused")
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function curveToQuadraticSmooth($id, $args, PolygonBuilder $builder)
     {
@@ -382,6 +390,7 @@ class PathApproximator
      * @return void
      *
      * @SuppressWarnings("unused")
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function arcTo($id, $args, PolygonBuilder $builder)
     {
@@ -415,6 +424,7 @@ class PathApproximator
      * @return void
      *
      * @SuppressWarnings("unused")
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function closePath($id, $args, PolygonBuilder $builder)
     {
