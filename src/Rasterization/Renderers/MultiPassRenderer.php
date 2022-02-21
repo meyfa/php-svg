@@ -20,7 +20,7 @@ abstract class MultiPassRenderer extends Renderer
      */
     public function render(SVGRasterizer $rasterizer, array $options, SVGNode $context)
     {
-        $transform = $rasterizer->makeTransform();
+        $transform = $rasterizer->getCurrentTransform();
 
         $params = $this->prepareRenderParams($options, $transform);
 

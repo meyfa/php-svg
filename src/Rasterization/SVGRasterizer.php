@@ -3,6 +3,7 @@
 namespace SVG\Rasterization;
 
 use InvalidArgumentException;
+use RuntimeException;
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\Transform\Transform;
 use SVG\Utilities\Units\Length;
@@ -49,10 +50,9 @@ class SVGRasterizer
     // precomputed properties for getter methods, used often during render
     private $docWidth;
     private $docHeight;
-    private $scaleX;
-    private $scaleY;
-    private $offsetX;
-    private $offsetY;
+    private $diagonalScale;
+
+    private $transformStack;
 
     /**
      * @param string $docWidth   The original SVG document width, as a string.
@@ -74,11 +74,18 @@ class SVGRasterizer
         $this->docWidth  = Length::convert($docWidth ?: '100%', $width);
         $this->docHeight = Length::convert($docHeight ?: '100%', $height);
 
-        $this->scaleX =  $width / (!empty($viewBox) ? $viewBox[2] : $this->docWidth);
-        $this->scaleY =  $height / (!empty($viewBox) ? $viewBox[3] : $this->docHeight);
+        $scaleX =  $width / (!empty($viewBox) ? $viewBox[2] : $this->docWidth);
+        $scaleY =  $height / (!empty($viewBox) ? $viewBox[3] : $this->docHeight);
+        $this->diagonalScale = hypot($scaleX, $scaleY) / M_SQRT2;
 
-        $this->offsetX = !empty($viewBox) ? -($viewBox[0] * $this->scaleX) : 0;
-        $this->offsetY = !empty($viewBox) ? -($viewBox[1] * $this->scaleY) : 0;
+        $offsetX = !empty($viewBox) ? -($viewBox[0] * $scaleX) : 0;
+        $offsetY = !empty($viewBox) ? -($viewBox[1] * $scaleY) : 0;
+
+        // the transform stack starts out with a simple viewport transform
+        $transform = Transform::identity();
+        $transform->translate($offsetX, $offsetY);
+        $transform->scale($scaleX, $scaleY);
+        $this->transformStack = array($transform);
 
         // create image
 
@@ -261,7 +268,7 @@ class SVGRasterizer
      */
     public function getDiagonalScale()
     {
-        return hypot($this->scaleX, $this->scaleY) / M_SQRT2;
+        return $this->diagonalScale;
     }
 
     /**
@@ -275,14 +282,45 @@ class SVGRasterizer
     /**
      * Obtain a Transform object from userspace coordinates into output image coordinates.
      *
+     * This will NOT create a copy, so mutating the returned object is unsafe (= might affect later code in unexpected
+     * ways). Instead, perform a call to <code>pushTransform()</code> and mutate the return value of that. Then, when
+     * done using the changed transform, call <code>popTransform()</code> to revert back to the previous state.
+     *
      * @return Transform The created transform.
      */
-    public function makeTransform()
+    public function getCurrentTransform()
     {
-        $transform = Transform::identity();
-        $transform->translate($this->offsetX, $this->offsetY);
-        $transform->scale($this->scaleX, $this->scaleY);
-        return $transform;
+        return $this->transformStack[count($this->transformStack) - 1];
+    }
+
+    /**
+     * Create a copy of the current transform and push it onto the transform stack, so that it becomes the new
+     * current transform. The copied transform is then returned and can be manipulated. When done rendering with this
+     * mutated transform, call <code>popTransform()</code> to revert back to the previous transform.
+     *
+     * @return Transform The copy of the current transform, ready to have operations appended to it.
+     */
+    public function pushTransform()
+    {
+        $nextTransform = clone $this->transformStack[count($this->transformStack) - 1];
+        $this->transformStack[] = $nextTransform;
+        return $nextTransform;
+    }
+
+    /**
+     * Revert back to the previous transform, by removing the last transform that was pushed via
+     * <code>pushTransform()</code>. There must be a matching call to <code>popTransform</code> for every call to
+     * <code>pushTransform()</code>. Popping a transform when no pushed transform remains is an error.
+     *
+     * @return void
+     * @throws RuntimeException If trying to pop a transform but the stack contains only the initial transform.
+     */
+    public function popTransform()
+    {
+        if (count($this->transformStack) <= 1) {
+            throw new RuntimeException('popTransform() called with no transform on the stack!');
+        }
+        array_pop($this->transformStack);
     }
 
     /**
