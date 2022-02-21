@@ -3,6 +3,7 @@
 namespace SVG\Nodes\Shapes;
 
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\TransformParser;
 
 /**
  * Represents the SVG tag 'polygon'.
@@ -34,9 +35,13 @@ class SVGPolygon extends SVGPolygonalShape
             return;
         }
 
+        TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
+
         $rasterizer->render('polygon', array(
             'open'      => false,
             'points'    => $this->getPoints(),
         ), $this);
+
+        $rasterizer->popTransform();
     }
 }

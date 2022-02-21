@@ -4,6 +4,7 @@ namespace SVG\Nodes\Shapes;
 
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\TransformParser;
 use SVG\Utilities\Units\Length;
 
 /**
@@ -160,6 +161,8 @@ class SVGRect extends SVGNodeContainer
             return;
         }
 
+        TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
+
         $rasterizer->render('rect', array(
             'x'         => Length::convert($this->getX(), $rasterizer->getDocumentWidth()),
             'y'         => Length::convert($this->getY(), $rasterizer->getDocumentHeight()),
@@ -168,5 +171,7 @@ class SVGRect extends SVGNodeContainer
             'rx'        => Length::convert($this->getRX(), $rasterizer->getDocumentWidth()),
             'ry'        => Length::convert($this->getRY(), $rasterizer->getDocumentHeight()),
         ), $this);
+
+        $rasterizer->popTransform();
     }
 }

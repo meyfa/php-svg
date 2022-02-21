@@ -5,6 +5,7 @@ namespace SVG\Nodes\Texts;
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Nodes\Structures\SVGFont;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\TransformParser;
 use SVG\Utilities\Units\Length;
 
 /**
@@ -92,6 +93,8 @@ class SVGText extends SVGNodeContainer
             return;
         }
 
+        TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
+
         // TODO: support percentage font sizes
         //       https://www.w3.org/TR/SVG11/text.html#FontSizeProperty
         //       "Percentages: refer to parent element's font size"
@@ -106,5 +109,7 @@ class SVGText extends SVGNodeContainer
             'text'      => $this->getValue(),
             'font_path' => $this->font->getFontPath(),
         ), $this);
+
+        $rasterizer->popTransform();
     }
 }

@@ -4,6 +4,7 @@ namespace SVG\Nodes\Shapes;
 
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\TransformParser;
 
 /**
  * Represents the SVG tag 'path'.
@@ -64,9 +65,13 @@ class SVGPath extends SVGNodeContainer
         $commands = $rasterizer->getPathParser()->parse($d);
         $subpaths = $rasterizer->getPathApproximator()->approximate($commands);
 
+        TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
+
         $rasterizer->render('path', array(
             'segments'  => $subpaths,
             'fill-rule' => strtolower(trim($this->getComputedStyle('fill-rule') ?: 'nonzero'))
         ), $this);
+
+        $rasterizer->popTransform();
     }
 }

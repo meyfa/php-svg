@@ -3,6 +3,7 @@
 namespace SVG;
 
 use AssertGD\GDSimilarityConstraint;
+use Exception;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -158,13 +159,13 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers ::makeTransform
+     * @covers ::getCurrentTransform
      */
-    public function testMakeTransform()
+    public function testGetCurrentTransform()
     {
         // should use viewBox dimension when available
         $obj = new SVGRasterizer(10, 20, array(37, 42, 25, 80), 100, 160);
-        $transform = $obj->makeTransform();
+        $transform = $obj->getCurrentTransform();
         $x = 100;
         $y = 100;
         $transform->map($x, $y);
@@ -173,11 +174,54 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
 
         // should use document dimension when viewBox unavailable
         $obj = new SVGRasterizer(10, 20, array(), 100, 160);
-        $transform = $obj->makeTransform();
+        $transform = $obj->getCurrentTransform();
         $x = 100;
         $y = 100;
         $transform->map($x, $y);
         $this->assertEquals(array(1000, 800), array($x, $y));
+        imagedestroy($obj->getImage());
+    }
+
+    /**
+     * @covers ::pushTransform
+     * @covers ::popTransform
+     */
+    public function testTransformStack()
+    {
+        $obj = new SVGRasterizer(10, 20, array(37, 42, 25, 80), 100, 160);
+
+        // expect pop to be disallowed without prior push
+        try {
+            $obj->popTransform();
+            $this->fail('popTransform() did not throw');
+        } catch (Exception $expected) {
+        }
+
+        // push one
+        $original = $obj->getCurrentTransform();
+        $pushed = $obj->pushTransform();
+        $this->assertNotSame($original, $pushed);
+        $this->assertSame($pushed, $obj->getCurrentTransform());
+
+        // push another
+        $pushed2 = $obj->pushTransform();
+        $this->assertNotSame($original, $pushed2);
+        $this->assertNotSame($pushed, $pushed2);
+        $this->assertSame($pushed2, $obj->getCurrentTransform());
+
+        // expect the transform to still inherit the original mapping
+        $x = 100;
+        $y = 100;
+        $pushed2->map($x, $y);
+        $this->assertEquals(array(4 * 100 + 4 * -37, 2 * 100 + 2 * -42), array($x, $y));
+
+        // pop all previously pushed
+        $obj->popTransform();
+        $this->assertSame($pushed, $obj->getCurrentTransform());
+        $obj->popTransform();
+        $this->assertSame($original, $obj->getCurrentTransform());
+
+        // cleanup
         imagedestroy($obj->getImage());
     }
 

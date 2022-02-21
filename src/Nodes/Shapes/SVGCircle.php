@@ -4,6 +4,7 @@ namespace SVG\Nodes\Shapes;
 
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\TransformParser;
 use SVG\Utilities\Units\Length;
 
 /**
@@ -102,6 +103,8 @@ class SVGCircle extends SVGNodeContainer
             return;
         }
 
+        TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
+
         // https://svgwg.org/svg2-draft/geometry.html#R
         // Percentages: refer to the normalized diagonal of the current SVG viewport
         $r = Length::convert($this->getRadius(), $rasterizer->getNormalizedDiagonal());
@@ -112,5 +115,7 @@ class SVGCircle extends SVGNodeContainer
             'rx'    => $r,
             'ry'    => $r,
         ), $this);
+
+        $rasterizer->popTransform();
     }
 }

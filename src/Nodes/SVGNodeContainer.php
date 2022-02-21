@@ -4,6 +4,7 @@ namespace SVG\Nodes;
 
 use SVG\Nodes\Structures\SVGStyle;
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Rasterization\Transform\TransformParser;
 use SVG\Utilities\SVGStyleParser;
 
 /**
@@ -166,9 +167,13 @@ abstract class SVGNodeContainer extends SVGNode
 
         // 'visibility' can be overridden -> only applied in shape nodes.
 
+        TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
+
         foreach ($this->children as $child) {
             $child->rasterize($rasterizer);
         }
+
+        $rasterizer->popTransform();
     }
 
     /**
