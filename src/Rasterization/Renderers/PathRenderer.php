@@ -2,6 +2,7 @@
 
 namespace SVG\Rasterization\Renderers;
 
+use SVG\Rasterization\Path\PathApproximator;
 use SVG\Rasterization\Transform\Transform;
 
 /**
@@ -15,15 +16,24 @@ use SVG\Rasterization\Transform\Transform;
  */
 class PathRenderer extends MultiPassRenderer
 {
+    private $pathApproximator;
+
+    public function __construct()
+    {
+        $this->pathApproximator = new PathApproximator();
+    }
+
     /**
      * @inheritdoc
      */
     protected function prepareRenderParams(array $options, Transform $transform)
     {
+        $subpaths = $this->pathApproximator->approximate($options['commands']);
+
         $segments = array();
-        foreach ($options['segments'] as $segment) {
+        foreach ($subpaths as $subpath) {
             $points = array();
-            foreach ($segment as $point) {
+            foreach ($subpath as $point) {
                 $transform->mapInto($point[0], $point[1], $points);
             }
             $segments[] = $points;

@@ -27,8 +27,6 @@ class SVGRasterizer
     private static $renderers;
     /** @var Path\PathParser The singleton path parser. */
     private static $pathParser;
-    /** @var Path\PathApproximator The singleton path approximator. */
-    private static $pathApproximator;
 
     /**
      * @var float[] The document's viewBox (x, y, w, h).
@@ -148,8 +146,7 @@ class SVGRasterizer
             'text'      => new Renderers\TextRenderer(),
         );
 
-        self::$pathParser       = new Path\PathParser();
-        self::$pathApproximator = new Path\PathApproximator();
+        self::$pathParser = new Path\PathParser();
     }
 
     /**
@@ -176,15 +173,6 @@ class SVGRasterizer
     public function getPathParser()
     {
         return self::$pathParser;
-    }
-
-    /**
-     * @return Path\PathApproximator The approximator used by this instance.
-     */
-    // implementation note: (see 'getPathParser()')
-    public function getPathApproximator()
-    {
-        return self::$pathApproximator;
     }
 
     /**
