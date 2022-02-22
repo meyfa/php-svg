@@ -19,19 +19,15 @@ use SVG\Rasterization\Transform\Transform;
  */
 class PathRenderer extends MultiPassRenderer
 {
-    private $pathApproximator;
-
-    public function __construct()
-    {
-        $this->pathApproximator = new PathApproximator();
-    }
-
     /**
      * @inheritdoc
      */
     protected function prepareRenderParams(array $options, Transform $transform)
     {
-        $subpaths = $this->pathApproximator->approximate($options['commands']);
+        $approximator = new PathApproximator();
+        $approximator->approximate($options['commands']);
+
+        $subpaths = $approximator->getSubpaths();
 
         $segments = array();
         foreach ($subpaths as $subpath) {
