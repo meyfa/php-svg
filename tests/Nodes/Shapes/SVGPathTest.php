@@ -13,16 +13,12 @@ use SVG\Nodes\Shapes\SVGPath;
 class SVGPathTest extends \PHPUnit\Framework\TestCase
 {
     private static $sampleDescription = 'M100,100 h20 Z M200,200 h20';
-    private static $sampleParse = array(
-        array('id' => 'M', 'args' => array(100, 100)),
-        array('id' => 'h', 'args' => array(20)),
+    private static $sampleCommands = array(
+        array('id' => 'M', 'args' => array(100.0, 100.0)),
+        array('id' => 'h', 'args' => array(20.0)),
         array('id' => 'Z', 'args' => array()),
-        array('id' => 'M', 'args' => array(200, 200)),
-        array('id' => 'h', 'args' => array(20)),
-    );
-    private static $sampleApproximate = array(
-        array(array(100, 100), array(120, 100), array(100, 100)),
-        array(array(200, 200), array(220, 200)),
+        array('id' => 'M', 'args' => array(200.0, 200.0)),
+        array('id' => 'h', 'args' => array(20.0)),
     );
 
     /**
@@ -95,32 +91,12 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
         $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
             ->disableOriginalConstructor()
             ->getMock();
-        $pathParser = $this->getMockBuilder('\SVG\Rasterization\Path\PathParser')
-            ->getMock();
-        $pathApproximator = $this->getMockBuilder('\SVG\Rasterization\Path\PathApproximator')
-            ->getMock();
-
-        // link mocks
-        $rast->expects($this->any())->method('getPathParser')
-            ->willReturn($pathParser);
-        $rast->expects($this->any())->method('getPathApproximator')
-            ->willReturn($pathApproximator);
-
-        // should call path parser with description attribute
-        $pathParser->expects($this->once())->method('parse')->with(
-            $this->identicalTo(self::$sampleDescription)
-        )->willReturn(self::$sampleParse);
-
-        // should call path approximator with parser's return value
-        $pathApproximator->expects($this->once())->method('approximate')->with(
-            $this->identicalTo(self::$sampleParse)
-        )->willReturn(self::$sampleApproximate);
 
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('path'),
             $this->identicalTo(array(
-                'segments' => self::$sampleApproximate,
+                'commands' => self::$sampleCommands,
                 'fill-rule' => 'nonzero',
             )),
             $this->identicalTo($obj)

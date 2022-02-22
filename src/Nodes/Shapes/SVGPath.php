@@ -3,6 +3,7 @@
 namespace SVG\Nodes\Shapes;
 
 use SVG\Nodes\SVGNodeContainer;
+use SVG\Rasterization\Path\PathParser;
 use SVG\Rasterization\SVGRasterizer;
 use SVG\Rasterization\Transform\TransformParser;
 
@@ -12,6 +13,8 @@ use SVG\Rasterization\Transform\TransformParser;
 class SVGPath extends SVGNodeContainer
 {
     const TAG_NAME = 'path';
+
+    private static $pathParser;
 
     /**
      * @param string|null $d The path description.
@@ -62,16 +65,23 @@ class SVGPath extends SVGNodeContainer
             return;
         }
 
-        $commands = $rasterizer->getPathParser()->parse($d);
-        $subpaths = $rasterizer->getPathApproximator()->approximate($commands);
+        $commands = self::getPathParser()->parse($d);
 
         TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
 
         $rasterizer->render('path', array(
-            'segments'  => $subpaths,
+            'commands'  => $commands,
             'fill-rule' => strtolower(trim($this->getComputedStyle('fill-rule') ?: 'nonzero'))
         ), $this);
 
         $rasterizer->popTransform();
+    }
+
+    private static function getPathParser()
+    {
+        if (!isset(self::$pathParser)) {
+            self::$pathParser = new PathParser();
+        }
+        return self::$pathParser;
     }
 }

@@ -16,28 +16,6 @@ use SVG\Rasterization\SVGRasterizer;
 class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers ::getPathParser
-     */
-    public function testGetPathParser()
-    {
-        // should return an instance of PathParser
-        $obj = new SVGRasterizer(10, 20, null, 100, 200);
-        $this->assertInstanceOf('\SVG\Rasterization\Path\PathParser', $obj->getPathParser());
-        imagedestroy($obj->getImage());
-    }
-
-    /**
-     * @covers ::getPathApproximator
-     */
-    public function testGetPathApproximator()
-    {
-        // should return an instance of PathApproximator
-        $obj = new SVGRasterizer(10, 20, null, 100, 200);
-        $this->assertInstanceOf('\SVG\Rasterization\Path\PathApproximator', $obj->getPathApproximator());
-        imagedestroy($obj->getImage());
-    }
-
-    /**
      * @covers ::getDocumentWidth
      */
     public function testGetDocumentWidth()
