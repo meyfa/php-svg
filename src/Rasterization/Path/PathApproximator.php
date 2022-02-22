@@ -65,10 +65,9 @@ class PathApproximator
 
     /**
      * Traces/approximates the path described by the given array of commands.
-     * Calling this multiple times with command arrays C0, C1, ..., Cn is equivalent to calling it once with a single
-     * array that is the concatenation of C0, ..., Cn.
+     * The behavior when this is called multiple times is unspecified.
      *
-     * After the path is fully approximated, the resulting subpaths can be obtained via <code>getSubpaths()</code>.
+     * After this function has completed, the resulting subpaths can be obtained via <code>getSubpaths()</code>.
      *
      * Example input:
      * ```php
