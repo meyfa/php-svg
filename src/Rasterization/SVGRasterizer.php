@@ -17,7 +17,7 @@ use SVG\Utilities\Colors\Color;
  * renderer, e.g. 'ellipse' or 'polygon', which then performs the actual
  * drawing.
  * Note that renderers DO NOT correspond 1:1 to node types (e.g. there is no
- * renderer 'circle', but 'ellipse' with equal radiuses is used).
+ * renderer 'circle', but 'ellipse' with equal radii is used).
  *
  * @SuppressWarnings("coupling")
  */
@@ -25,8 +25,6 @@ class SVGRasterizer
 {
     /** @var Renderers\Renderer[] $renderers Map of shapes to renderers. */
     private static $renderers;
-    /** @var Path\PathParser The singleton path parser. */
-    private static $pathParser;
 
     /**
      * @var float[] The document's viewBox (x, y, w, h).
@@ -145,8 +143,6 @@ class SVGRasterizer
             'image'     => new Renderers\ImageRenderer(),
             'text'      => new Renderers\TextRenderer(),
         );
-
-        self::$pathParser = new Path\PathParser();
     }
 
     /**
@@ -163,16 +159,6 @@ class SVGRasterizer
             throw new InvalidArgumentException('no such renderer: ' . $id);
         }
         return self::$renderers[$id];
-    }
-
-    /**
-     * @return Path\PathParser The path parser used by this instance.
-     */
-    // implementation note: although $pathParser is static, this method isn't,
-    // to encourage access via passed instances (better for testing etc)
-    public function getPathParser()
-    {
-        return self::$pathParser;
     }
 
     /**
