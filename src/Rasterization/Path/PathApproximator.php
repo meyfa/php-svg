@@ -164,7 +164,7 @@ class PathApproximator
      *
      * @return float[] The reflected point (x, y).
      */
-    private static function reflectPoint($p, $r)
+    private static function reflectPoint(array $p, array $r)
     {
         return array(
             2 * $r[0] - $p[0],
@@ -184,7 +184,7 @@ class PathApproximator
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function moveTo($id, $args, PolygonBuilder $builder)
+    private function moveTo($id, array $args, PolygonBuilder $builder)
     {
         if ($id === 'm') {
             $builder->addPointRelative($args[0], $args[1]);
@@ -205,7 +205,7 @@ class PathApproximator
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function lineTo($id, $args, PolygonBuilder $builder)
+    private function lineTo($id, array $args, PolygonBuilder $builder)
     {
         if ($id === 'l') {
             $builder->addPointRelative($args[0], $args[1]);
@@ -226,7 +226,7 @@ class PathApproximator
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function lineToHorizontal($id, $args, PolygonBuilder $builder)
+    private function lineToHorizontal($id, array $args, PolygonBuilder $builder)
     {
         if ($id === 'h') {
             $builder->addPointRelative($args[0], null);
@@ -247,7 +247,7 @@ class PathApproximator
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function lineToVertical($id, $args, PolygonBuilder $builder)
+    private function lineToVertical($id, array $args, PolygonBuilder $builder)
     {
         if ($id === 'v') {
             $builder->addPointRelative(null, $args[0]);
@@ -268,7 +268,7 @@ class PathApproximator
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function curveToCubic($id, $args, PolygonBuilder $builder)
+    private function curveToCubic($id, array $args, PolygonBuilder $builder)
     {
         $p0 = $builder->getPosition();
         $p1 = array($args[0], $args[1]);
@@ -304,7 +304,7 @@ class PathApproximator
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function curveToCubicSmooth($id, $args, PolygonBuilder $builder)
+    private function curveToCubicSmooth($id, array $args, PolygonBuilder $builder)
     {
         $p0 = $builder->getPosition();
         $p1 = $p0; // first control point defaults to current point
@@ -343,7 +343,7 @@ class PathApproximator
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function curveToQuadratic($id, $args, PolygonBuilder $builder)
+    private function curveToQuadratic($id, array $args, PolygonBuilder $builder)
     {
         $p0 = $builder->getPosition();
         $p1 = array($args[0], $args[1]);
@@ -375,7 +375,7 @@ class PathApproximator
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function curveToQuadraticSmooth($id, $args, PolygonBuilder $builder)
+    private function curveToQuadraticSmooth($id, array $args, PolygonBuilder $builder)
     {
         $p0 = $builder->getPosition();
         $p1 = $p0; // control point defaults to current point
@@ -410,7 +410,7 @@ class PathApproximator
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function arcTo($id, $args, PolygonBuilder $builder)
+    private function arcTo($id, array $args, PolygonBuilder $builder)
     {
         // start point, end point
         $p0 = $builder->getPosition();
@@ -444,7 +444,7 @@ class PathApproximator
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function closePath($id, $args, PolygonBuilder $builder)
+    private function closePath($id, array $args, PolygonBuilder $builder)
     {
         $first = $builder->getFirstPoint();
         $builder->addPoint($first[0], $first[1]);
