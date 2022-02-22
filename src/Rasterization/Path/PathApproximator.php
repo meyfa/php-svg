@@ -148,9 +148,7 @@ class PathApproximator
             $this->previousCommand = $id;
         }
 
-        $pos  = $builder->getPosition();
-        $posX = $pos[0];
-        $posY = $pos[1];
+        list($posX, $posY) = $builder->getPosition();
 
         return $builder->build();
     }
