@@ -6,13 +6,16 @@ use SVG\Rasterization\Path\PathApproximator;
 use SVG\Rasterization\Transform\Transform;
 
 /**
- * This renderer can draw pre-approximated paths, which are sets of line segments. These segments can potentially
- * overlap, which is where this renderer improves on the simpler PolygonRenderer since it respects fill rules
- * (nonzero or evenodd winding).
- * The points are provided as arrays with 2 entries: 0 => x coord, 1 => y coord.
+ * This renderer can draw arbitrary paths. It expects the paths to be given as the command format as returned by
+ * PathParser. That format consists of an outer array containing one entry per command, with each such entry comprised
+ * of an 'id' property and an 'args' property, which is itself an array of numbers.
+ *
+ * During render, these commands will be approximated into polygonal subpaths. Since these subpaths can potentially
+ * overlap, a special rendering algorithm distinct from the polygonal renderer is implemented that respects
+ * fill rules (evenodd, nonzero winding).
  *
  * Options:
- * - array[][] segments: the segments, which are arrays of coordinate tuples (i.e., array of array of array of float)
+ * - array[] commands: The path commands, each containing an id string and an args array.
  */
 class PathRenderer extends MultiPassRenderer
 {
