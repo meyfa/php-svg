@@ -20,7 +20,8 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
             array('id' => 'l', 'args' => array(40, 20)),
             array('id' => 'Z', 'args' => array()),
         );
-        $result = $approx->approximate($cmds);
+        $approx->approximate($cmds);
+        $result = $approx->getSubpaths();
 
         $this->assertSame(10, $result[0][0][0]);
         $this->assertSame(20, $result[0][0][1]);
