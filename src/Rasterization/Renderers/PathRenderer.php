@@ -24,16 +24,15 @@ class PathRenderer extends MultiPassRenderer
      */
     protected function prepareRenderParams(array $options, Transform $transform)
     {
-        $approximator = new PathApproximator();
+        $approximator = new PathApproximator($transform);
         $approximator->approximate($options['commands']);
 
-        $subpaths = $approximator->getSubpaths();
-
         $segments = array();
-        foreach ($subpaths as $subpath) {
+        foreach ($approximator->getSubpaths() as $subpath) {
             $points = array();
             foreach ($subpath as $point) {
-                $transform->mapInto($point[0], $point[1], $points);
+                $points[] = $point[0];
+                $points[] = $point[1];
             }
             $segments[] = $points;
         }
