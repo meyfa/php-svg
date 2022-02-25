@@ -3,6 +3,7 @@
 namespace SVG;
 
 use SVG\Rasterization\Path\PathApproximator;
+use SVG\Rasterization\Transform\Transform;
 
 /**
  * @covers \SVG\Rasterization\Path\PathApproximator
@@ -13,7 +14,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
 {
     public function testApproximate()
     {
-        $approx = new PathApproximator();
+        $approx = new PathApproximator(Transform::identity());
         $cmds = array(
             array('id' => 'M', 'args' => array(10, 20)),
             array('id' => 'm', 'args' => array(10, 20)),
@@ -23,13 +24,42 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $approx->approximate($cmds);
         $result = $approx->getSubpaths();
 
-        $this->assertSame(10, $result[0][0][0]);
-        $this->assertSame(20, $result[0][0][1]);
-        $this->assertSame(20, $result[1][0][0]);
-        $this->assertSame(40, $result[1][0][1]);
-        $this->assertSame(60, $result[1][1][0]);
-        $this->assertSame(60, $result[1][1][1]);
-        $this->assertSame(20, $result[1][2][0]);
-        $this->assertSame(40, $result[1][2][1]);
+        $this->assertSame(array(
+            array(
+                array(10, 20),
+            ),
+            array(
+                array(20, 40),
+                array(60, 60),
+                array(20, 40),
+            ),
+        ), $result);
+    }
+
+    public function testApproximateWithTransform()
+    {
+        $transform = Transform::identity();
+        $transform->scale(3, 5);
+
+        $approx = new PathApproximator($transform);
+        $cmds = array(
+            array('id' => 'M', 'args' => array(10, 20)),
+            array('id' => 'm', 'args' => array(10, 20)),
+            array('id' => 'l', 'args' => array(40, 20)),
+            array('id' => 'Z', 'args' => array()),
+        );
+        $approx->approximate($cmds);
+        $result = $approx->getSubpaths();
+
+        $this->assertSame(array(
+            array(
+                array(30, 100),
+            ),
+            array(
+                array(60, 200),
+                array(180, 300),
+                array(60, 200),
+            ),
+        ), $result);
     }
 }
