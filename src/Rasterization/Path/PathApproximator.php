@@ -51,6 +51,14 @@ class PathApproximator
      */
     private $subpaths = array();
 
+    // the start of the current subpath, in path coordinates
+    private $firstX;
+    private $firstY;
+
+    // the most recently added point of the current subpath, in path coordinates
+    private $posX;
+    private $posY;
+
     /**
      * @var string $previousCommand The id of the last computed command.
      */
@@ -103,21 +111,21 @@ class PathApproximator
     {
         // These variables are used to track the current position in *path coordinate space*.
         // We cannot simply use the PolygonBuilder's last position for this, because that has already been transformed.
-        $posX = 0;
-        $posY = 0;
+        $this->posX = 0;
+        $this->posY = 0;
 
         $sp = array();
 
         foreach ($commands as $cmd) {
             if (($cmd['id'] === 'M' || $cmd['id'] === 'm') && !empty($sp)) {
-                $this->subpaths[] = $this->approximateSubpath($sp, $posX, $posY);
+                $this->subpaths[] = $this->approximateSubpath($sp);
                 $sp = array();
             }
             $sp[] = $cmd;
         }
 
         if (!empty($sp)) {
-            $this->subpaths[] = $this->approximateSubpath($sp, $posX, $posY);
+            $this->subpaths[] = $this->approximateSubpath($sp);
         }
     }
 
@@ -143,19 +151,17 @@ class PathApproximator
      * parameters.
      *
      * @param array[] $commands The commands (assoc. arrays; see above).
-     * @param float   $posX     The current x position.
-     * @param float   $posY     The current y position.
      *
      * @return array[] An array of points approximately describing the subpath.
      * @see PathApproximator::approximate() For an input format description.
      */
-    private function approximateSubpath(array $commands, &$posX, &$posY)
+    private function approximateSubpath(array $commands)
     {
-        $firstX = $posX;
-        $firstY = $posY;
+        $this->firstX = $this->posX;
+        $this->firstY = $this->posY;
 
-        $builderX = $posX;
-        $builderY = $posY;
+        $builderX = $this->posX;
+        $builderY = $this->posY;
         $this->transform->map($builderX, $builderY);
         $builder = new PolygonBuilder($builderX, $builderY);
 
@@ -169,7 +175,7 @@ class PathApproximator
                 break;
             }
             $funcName = self::$commands[$id];
-            $this->$funcName($id, $cmd['args'], $builder, $posX, $posY, $firstX, $firstY);
+            $this->$funcName($id, $cmd['args'], $builder);
             $this->previousCommand = $id;
         }
 
@@ -198,25 +204,21 @@ class PathApproximator
      * @param string         $id      The actual id used (for abs. vs. rel.).
      * @param float[]        $args    The arguments provided to the command.
      * @param PolygonBuilder $builder The subpath builder to append to.
-     * @param float          $posX    The current x position.
-     * @param float          $posY    The current y position.
-     * @param float          $firstX  The first x coordinate of the subpath.
-     * @param float          $firstY  The first y coordinate of the subpath.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function moveTo($id, array $args, PolygonBuilder $builder, &$posX, &$posY, &$firstX, &$firstY)
+    private function moveTo($id, array $args, PolygonBuilder $builder)
     {
         list($x, $y) = $args;
         if ($id === 'm') {
-            $x += $posX;
-            $y += $posY;
+            $x += $this->posX;
+            $y += $this->posY;
         }
-        $firstX = $posX = $x;
-        $firstY = $posY = $y;
+        $this->firstX = $this->posX = $x;
+        $this->firstY = $this->posY = $y;
         $this->transform->map($x, $y);
         $builder->addPoint($x, $y);
     }
@@ -227,23 +229,21 @@ class PathApproximator
      * @param string         $id      The actual id used (for abs. vs. rel.).
      * @param float[]        $args    The arguments provided to the command.
      * @param PolygonBuilder $builder The subpath builder to append to.
-     * @param float          $posX    The current x position.
-     * @param float          $posY    The current y position.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function lineTo($id, array $args, PolygonBuilder $builder, &$posX, &$posY)
+    private function lineTo($id, array $args, PolygonBuilder $builder)
     {
         list($x, $y) = $args;
         if ($id === 'l') {
-            $x += $posX;
-            $y += $posY;
+            $x += $this->posX;
+            $y += $this->posY;
         }
-        $posX = $x;
-        $posY = $y;
+        $this->posX = $x;
+        $this->posY = $y;
         $this->transform->map($x, $y);
         $builder->addPoint($x, $y);
     }
@@ -254,22 +254,20 @@ class PathApproximator
      * @param string         $id      The actual id used (for abs. vs. rel.).
      * @param float[]        $args    The arguments provided to the command.
      * @param PolygonBuilder $builder The subpath builder to append to.
-     * @param float          $posX    The current x position.
-     * @param float          $posY    The current y position.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function lineToHorizontal($id, array $args, PolygonBuilder $builder, &$posX, &$posY)
+    private function lineToHorizontal($id, array $args, PolygonBuilder $builder)
     {
         $x = $args[0];
-        $y = $posY;
+        $y = $this->posY;
         if ($id === 'h') {
-            $x += $posX;
+            $x += $this->posX;
         }
-        $posX = $x;
+        $this->posX = $x;
         $this->transform->map($x, $y);
         $builder->addPoint($x, $y);
     }
@@ -280,22 +278,20 @@ class PathApproximator
      * @param string         $id      The actual id used (for abs. vs. rel.).
      * @param float[]        $args    The arguments provided to the command.
      * @param PolygonBuilder $builder The subpath builder to append to.
-     * @param float          $posX    The current x position.
-     * @param float          $posY    The current y position.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function lineToVertical($id, array $args, PolygonBuilder $builder, &$posX, &$posY)
+    private function lineToVertical($id, array $args, PolygonBuilder $builder)
     {
-        $x = $posX;
+        $x = $this->posX;
         $y = $args[0];
         if ($id === 'v') {
-            $y += $posY;
+            $y += $this->posY;
         }
-        $posY = $y;
+        $this->posY = $y;
         $this->transform->map($x, $y);
         $builder->addPoint($x, $y);
     }
@@ -306,15 +302,13 @@ class PathApproximator
      * @param string         $id      The actual id used (for abs. vs. rel.).
      * @param float[]        $args    The arguments provided to the command.
      * @param PolygonBuilder $builder The subpath builder to append to.
-     * @param float          $posX    The current x position.
-     * @param float          $posY    The current y position.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function curveToCubic($id, array $args, PolygonBuilder $builder, &$posX, &$posY)
+    private function curveToCubic($id, array $args, PolygonBuilder $builder)
     {
         // NOTE: Bézier curves are invariant under affine transforms.
         //       This means transforming the control points vs. transforming the final approximated pixels does not
@@ -327,18 +321,18 @@ class PathApproximator
         $p3 = array($args[4], $args[5]);
 
         if ($id === 'c') {
-            $p1[0] += $posX;
-            $p1[1] += $posY;
+            $p1[0] += $this->posX;
+            $p1[1] += $this->posY;
 
-            $p2[0] += $posX;
-            $p2[1] += $posY;
+            $p2[0] += $this->posX;
+            $p2[1] += $this->posY;
 
-            $p3[0] += $posX;
-            $p3[1] += $posY;
+            $p3[0] += $this->posX;
+            $p3[1] += $this->posY;
         }
 
         $this->cubicOld = $p2;
-        list($posX, $posY) = $p3;
+        list($this->posX, $this->posY) = $p3;
 
         $this->transform->map($p1[0], $p1[1]);
         $this->transform->map($p2[0], $p2[1]);
@@ -354,26 +348,24 @@ class PathApproximator
      * @param string         $id      The actual id used (for abs. vs. rel.).
      * @param float[]        $args    The arguments provided to the command.
      * @param PolygonBuilder $builder The subpath builder to append to.
-     * @param float          $posX    The current x position.
-     * @param float          $posY    The current y position.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function curveToCubicSmooth($id, array $args, PolygonBuilder $builder, &$posX, &$posY)
+    private function curveToCubicSmooth($id, array $args, PolygonBuilder $builder)
     {
-        $p1 = array($posX, $posY); // first control point defaults to current point
+        $p1 = array($this->posX, $this->posY); // first control point defaults to current point
         $p2 = array($args[0], $args[1]);
         $p3 = array($args[2], $args[3]);
 
         if ($id === 's') {
-            $p2[0] += $posX;
-            $p2[1] += $posY;
+            $p2[0] += $this->posX;
+            $p2[1] += $this->posY;
 
-            $p3[0] += $posX;
-            $p3[1] += $posY;
+            $p3[0] += $this->posX;
+            $p3[1] += $this->posY;
         }
 
         // calculate first control point
@@ -383,7 +375,7 @@ class PathApproximator
         }
 
         $this->cubicOld = $p2;
-        list($posX, $posY) = $p3;
+        list($this->posX, $this->posY) = $p3;
 
         $this->transform->map($p1[0], $p1[1]);
         $this->transform->map($p2[0], $p2[1]);
@@ -399,29 +391,27 @@ class PathApproximator
      * @param string         $id      The actual id used (for abs. vs. rel.).
      * @param float[]        $args    The arguments provided to the command.
      * @param PolygonBuilder $builder The subpath builder to append to.
-     * @param float          $posX    The current x position.
-     * @param float          $posY    The current y position.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function curveToQuadratic($id, array $args, PolygonBuilder $builder, &$posX, &$posY)
+    private function curveToQuadratic($id, array $args, PolygonBuilder $builder)
     {
         $p1 = array($args[0], $args[1]);
         $p2 = array($args[2], $args[3]);
 
         if ($id === 'q') {
-            $p1[0] += $posX;
-            $p1[1] += $posY;
+            $p1[0] += $this->posX;
+            $p1[1] += $this->posY;
 
-            $p2[0] += $posX;
-            $p2[1] += $posY;
+            $p2[0] += $this->posX;
+            $p2[1] += $this->posY;
         }
 
         $this->quadraticOld = $p1;
-        list($posX, $posY) = $p2;
+        list($this->posX, $this->posY) = $p2;
 
         $this->transform->map($p1[0], $p1[1]);
         $this->transform->map($p2[0], $p2[1]);
@@ -436,22 +426,20 @@ class PathApproximator
      * @param string         $id      The actual id used (for abs. vs. rel.).
      * @param float[]        $args    The arguments provided to the command.
      * @param PolygonBuilder $builder The subpath builder to append to.
-     * @param float          $posX    The current x position.
-     * @param float          $posY    The current y position.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function curveToQuadraticSmooth($id, array $args, PolygonBuilder $builder, &$posX, &$posY)
+    private function curveToQuadraticSmooth($id, array $args, PolygonBuilder $builder)
     {
-        $p1 = array($posX, $posY); // control point defaults to current point
+        $p1 = array($this->posX, $this->posY); // control point defaults to current point
         $p2 = array($args[0], $args[1]);
 
         if ($id === 't') {
-            $p2[0] += $posX;
-            $p2[1] += $posY;
+            $p2[0] += $this->posX;
+            $p2[1] += $this->posY;
         }
 
         // calculate control point
@@ -461,7 +449,7 @@ class PathApproximator
         }
 
         $this->quadraticOld = $p1;
-        list($posX, $posY) = $p2;
+        list($this->posX, $this->posY) = $p2;
 
         $this->transform->map($p1[0], $p1[1]);
         $this->transform->map($p2[0], $p2[1]);
@@ -476,15 +464,13 @@ class PathApproximator
      * @param string         $id      The actual id used (for abs. vs. rel.).
      * @param float[]        $args    The arguments provided to the command.
      * @param PolygonBuilder $builder The subpath builder to append to.
-     * @param float          $posX    The current x position.
-     * @param float          $posY    The current y position.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function arcTo($id, array $args, PolygonBuilder $builder, &$posX, &$posY)
+    private function arcTo($id, array $args, PolygonBuilder $builder)
     {
         // NOTE: Unfortunately, it seems that arc segments are not invariant under affine transforms, as opposed to
         //       Bézier curves. Currently, our best strategy is to approximate the curve with path coordinates
@@ -492,7 +478,7 @@ class PathApproximator
         // TODO transform command before approximating
 
         // start point, end point
-        $p0 = array($posX, $posY);
+        $p0 = array($this->posX, $this->posY);
         $p1 = array($args[5], $args[6]);
         // radiuses, rotation
         $rx = $args[0];
@@ -503,8 +489,8 @@ class PathApproximator
         $fs = (bool) $args[4];
 
         if ($id === 'a') {
-            $p1[0] += $posX;
-            $p1[1] += $posY;
+            $p1[0] += $this->posX;
+            $p1[1] += $this->posY;
         }
 
         $approx = self::$arc->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
@@ -521,22 +507,18 @@ class PathApproximator
      * @param string         $id      The actual id used (for abs. vs. rel.).
      * @param float[]        $args    The arguments provided to the command.
      * @param PolygonBuilder $builder The subpath builder to append to.
-     * @param float          $posX    The current x position.
-     * @param float          $posY    The current y position.
-     * @param float          $firstX  The first x coordinate of the subpath.
-     * @param float          $firstY  The first y coordinate of the subpath.
      *
      * @return void
      *
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private function closePath($id, array $args, PolygonBuilder $builder, &$posX, &$posY, $firstX, $firstY)
+    private function closePath($id, array $args, PolygonBuilder $builder)
     {
         $first = $builder->getFirstPoint();
         $builder->addPoint($first[0], $first[1]);
 
-        $posX = $firstX;
-        $posY = $firstY;
+        $this->posX = $this->firstX;
+        $this->posY = $this->firstY;
     }
 }
