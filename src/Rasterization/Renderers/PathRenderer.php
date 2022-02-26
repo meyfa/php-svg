@@ -48,10 +48,6 @@ class PathRenderer extends MultiPassRenderer
      */
     protected function renderFill($image, array $params, $color)
     {
-        if (empty($params['segments']) || count($params['segments'][0]) < 2) {
-            return;
-        }
-
         imagesetthickness($image, 1);
 
         // whether to use the evenodd rule (vs. nonzero winding)
@@ -80,6 +76,11 @@ class PathRenderer extends MultiPassRenderer
                 $edges[] = $edge;
             }
         }
+
+        if (count($edges) < 3) {
+            return;
+        }
+
         // Sort the edges by their maximum y value, descending (i.e., edges that extend further down are sorted first).
         usort($edges, array('SVG\Rasterization\Renderers\PathRendererEdge', 'compareMaxY'));
         // Now the maxY of the entire path is just the maxY of the edge sorted first.
