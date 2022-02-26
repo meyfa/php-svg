@@ -474,9 +474,9 @@ class PathApproximator
     private function arcTo($id, array $args)
     {
         // NOTE: Unfortunately, it seems that arc segments are not invariant under affine transforms, as opposed to
-        //       Bézier curves. Currently, our best strategy is to approximate the curve with path coordinates
-        //       and transform the resulting points. This is very suboptimal for both performance and visual fidelity.
-        // TODO transform command before approximating
+        //       Bézier curves. Currently, our best strategy is to approximate the curve with path coordinates and
+        //       transform the resulting points. This is somewhat improved by guessing a "scale factor" to increase or
+        //       decrease the number of approximated points.
 
         // start point, end point
         $p0 = array($this->posX, $this->posY);
@@ -494,9 +494,17 @@ class PathApproximator
             $p1[1] += $this->posY;
         }
 
-        $approx = self::$arc->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
+        list($this->posX, $this->posY) = $p1;
 
-        foreach ($approx as $point) {
+        // guess a scale factor
+        $scaledRx = $rx;
+        $scaledRy = $ry;
+        $this->transform->resize($scaledRx, $scaledRy);
+        $scale = $rx == 0 || $ry == 0 ? 1.0 : hypot($scaledRx / $rx, $scaledRy / $ry);
+
+        $approx = self::$arc->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa, $scale);
+
+        foreach ($approx as &$point) {
             $this->transform->map($point[0], $point[1]);
         }
         $this->builder->addPoints($approx);
