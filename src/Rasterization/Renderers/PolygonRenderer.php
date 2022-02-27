@@ -11,6 +11,7 @@ use SVG\Rasterization\Transform\Transform;
  * Options:
  * - bool open: if true, leaves first and last point disconnected (-> polyline)
  * - array[] points: array of coordinate tuples (i.e., array of array of float)
+ * - string fill-rule: Either 'evenodd' or 'nonzero'. Defaults to 'nonzero'.
  */
 class PolygonRenderer extends MultiPassRenderer
 {
@@ -27,7 +28,7 @@ class PolygonRenderer extends MultiPassRenderer
         return array(
             'open'      => isset($options['open']) ? $options['open'] : false,
             'points'    => $points,
-            'numpoints' => count($options['points']),
+            'fill-rule' => $options['fill-rule'],
         );
     }
 
@@ -36,13 +37,8 @@ class PolygonRenderer extends MultiPassRenderer
      */
     protected function renderFill($image, array $params, $color)
     {
-        if ($params['numpoints'] < 3) {
-            return;
-        }
-
-        // somehow imagesetthickness() affects the polygon drawing. reset to 0.
-        imagesetthickness($image, 0);
-        imagefilledpolygon($image, $params['points'], $params['numpoints'], $color);
+        // Filling a polygon is equivalent to filling a path containing just a single polygonal subpath.
+        PathRendererImplementation::fillMultipath($image, array($params['points']), $color, $params['fill-rule']);
     }
 
     /**
@@ -50,27 +46,10 @@ class PolygonRenderer extends MultiPassRenderer
      */
     protected function renderStroke($image, array $params, $color, $strokeWidth)
     {
-        imagesetthickness($image, round($strokeWidth));
-
         if ($params['open']) {
-            $this->renderStrokeOpen($image, $params['points'], $color);
+            PathRendererImplementation::strokeOpenSubpath($image, $params['points'], $color, $strokeWidth);
             return;
         }
-
-        imagepolygon($image, $params['points'], $params['numpoints'], $color);
-    }
-
-    private function renderStrokeOpen($image, array $points, $color)
-    {
-        $px = $points[0];
-        $py = $points[1];
-
-        for ($i = 2, $n = count($points); $i < $n; $i += 2) {
-            $x = $points[$i];
-            $y = $points[$i + 1];
-            imageline($image, $px, $py, $x, $y, $color);
-            $px = $x;
-            $py = $y;
-        }
+        PathRendererImplementation::strokeClosedSubpath($image, $params['points'], $color, $strokeWidth);
     }
 }

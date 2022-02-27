@@ -40,6 +40,7 @@ class SVGPolygon extends SVGPolygonalShape
         $rasterizer->render('polygon', array(
             'open'      => false,
             'points'    => $this->getPoints(),
+            'fill-rule' => strtolower(trim($this->getComputedStyle('fill-rule') ?: 'nonzero'))
         ), $this);
 
         $rasterizer->popTransform();

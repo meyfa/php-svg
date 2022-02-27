@@ -52,6 +52,7 @@ class SVGPolygonTest extends \PHPUnit\Framework\TestCase
             $this->equalTo(array(
                 'open' => false,
                 'points' => $points,
+                'fill-rule' => 'nonzero',
             )),
             $this->identicalTo($obj)
         );
