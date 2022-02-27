@@ -59,6 +59,27 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         ), $result);
     }
 
+    public function testApproximateStopsAtInvalidCommand()
+    {
+        $approx = new PathApproximator(Transform::identity());
+        $cmds = array(
+            array('id' => 'M', 'args' => array(10, 20)),
+            array('id' => 'l', 'args' => array(40, 20)),
+            array('id' => 'x', 'args' => array()),
+            array('id' => 'l', 'args' => array(0, 10)),
+            array('id' => 'Z', 'args' => array()),
+        );
+        $approx->approximate($cmds);
+        $result = $approx->getSubpaths();
+
+        $this->assertSame(array(
+            array(
+                array(10, 20),
+                array(50, 40),
+            ),
+        ), $result);
+    }
+
     // tests more specific to each path command
 
     public function testMoveTo()
