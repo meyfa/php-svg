@@ -52,6 +52,7 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
             $this->equalTo(array(
                 'open' => true,
                 'points' => $points,
+                'fill-rule' => 'nonzero',
             )),
             $this->identicalTo($obj)
         );
