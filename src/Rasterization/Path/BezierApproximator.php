@@ -30,7 +30,7 @@ class BezierApproximator
 
         $step = 0.1;
 
-        while ($t < 1) {
+        while (true) {
             do {
                 $step *= 2;
                 $point = self::calculateQuadratic($p0, $p1, $p2, $t + $step);
@@ -43,9 +43,15 @@ class BezierApproximator
                 $dist  = self::getDistanceSquared($prev, $point);
             } while ($dist > $accuracy);
 
-            $points[] = $prev = $point;
             $t += $step;
+            if ($t >= 1) {
+                // final point is appended manually to achieve perfect accuracy
+                break;
+            }
+            $points[] = $prev = $point;
         }
+
+        $points[] = $p2;
 
         return $points;
     }
@@ -73,7 +79,7 @@ class BezierApproximator
 
         $step  = 0.1;
 
-        while ($t < 1) {
+        while (true) {
             do {
                 $step *= 2;
                 $point = self::calculateCubic($p0, $p1, $p2, $p3, $t + $step);
@@ -86,9 +92,15 @@ class BezierApproximator
                 $dist  = self::getDistanceSquared($prev, $point);
             } while ($dist > $accuracy);
 
-            $points[] = $prev = $point;
             $t += $step;
+            if ($t >= 1) {
+                // final point is appended manually to achieve perfect accuracy
+                break;
+            }
+            $points[] = $prev = $point;
         }
+
+        $points[] = $p3;
 
         return $points;
     }
