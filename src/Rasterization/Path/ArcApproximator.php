@@ -2,6 +2,8 @@
 
 namespace SVG\Rasterization\Path;
 
+use SVG\Rasterization\Transform\Transform;
+
 /**
  * This class can approximate elliptical arc segments by calculating a series of
  * points on them (converting them to polylines).
@@ -18,6 +20,10 @@ class ArcApproximator
      * All of the points (input and output) are represented as float arrays
      * where [0 => x coordinate, 1 => y coordinate].
      *
+     * The image scale can be given for somewhat better approximation. For example, when the image coordinate space
+     * is 4 times larger than path coordinate space, the scale should be 4. The result in that case will be that
+     * 4 times as many points are generated.
+     *
      * @param float[] $start    The start point (x0, y0).
      * @param float[] $end      The end point (x1, y1).
      * @param bool    $large    The large arc flag.
@@ -25,10 +31,11 @@ class ArcApproximator
      * @param float   $radiusX  The x radius.
      * @param float   $radiusY  The y radius.
      * @param float   $rotation The x-axis angle / the ellipse's rotation (radians).
+     * @param float   $scale    The scale factor to go from path coordinate space to image space.
      *
      * @return array[] An approximation for the curve, as an array of points.
      */
-    public function approximate($start, $end, $large, $sweep, $radiusX, $radiusY, $rotation)
+    public function approximate($start, $end, $large, $sweep, $radiusX, $radiusY, $rotation, $scale = 1.0)
     {
         // out-of-range parameter handling according to W3; see
         // https://www.w3.org/TR/SVG11/implnote.html#ArcImplementationNotes
@@ -49,11 +56,8 @@ class ArcApproximator
         list($center, $radiusX, $radiusY, $angleStart, $angleDelta) =
             self::endpointToCenter($start, $end, $large, $sweep, $radiusX, $radiusY, $cosr, $sinr);
 
-        // TODO implement better calculation for $numSteps
-        // It would be better if we had access to the rasterization scale for
-        // this, otherwise there is no way to make this accurate for every zoom
         $dist = abs($end[0] - $start[0]) + abs($end[1] - $start[1]);
-        $numSteps = max(2, ceil(abs($angleDelta * $dist)));
+        $numSteps = max(2, ceil(abs($angleDelta * $dist * $scale)));
         $stepSize = $angleDelta / $numSteps;
 
         $points = array();

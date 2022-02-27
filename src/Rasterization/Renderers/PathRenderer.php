@@ -24,16 +24,15 @@ class PathRenderer extends MultiPassRenderer
      */
     protected function prepareRenderParams(array $options, Transform $transform)
     {
-        $approximator = new PathApproximator();
+        $approximator = new PathApproximator($transform);
         $approximator->approximate($options['commands']);
 
-        $subpaths = $approximator->getSubpaths();
-
         $segments = array();
-        foreach ($subpaths as $subpath) {
+        foreach ($approximator->getSubpaths() as $subpath) {
             $points = array();
             foreach ($subpath as $point) {
-                $transform->mapInto($point[0], $point[1], $points);
+                $points[] = $point[0];
+                $points[] = $point[1];
             }
             $segments[] = $points;
         }
@@ -49,10 +48,6 @@ class PathRenderer extends MultiPassRenderer
      */
     protected function renderFill($image, array $params, $color)
     {
-        if (empty($params['segments']) || count($params['segments'][0]) < 2) {
-            return;
-        }
-
         imagesetthickness($image, 1);
 
         // whether to use the evenodd rule (vs. nonzero winding)
@@ -81,6 +76,11 @@ class PathRenderer extends MultiPassRenderer
                 $edges[] = $edge;
             }
         }
+
+        if (count($edges) < 3) {
+            return;
+        }
+
         // Sort the edges by their maximum y value, descending (i.e., edges that extend further down are sorted first).
         usort($edges, array('SVG\Rasterization\Renderers\PathRendererEdge', 'compareMaxY'));
         // Now the maxY of the entire path is just the maxY of the edge sorted first.
