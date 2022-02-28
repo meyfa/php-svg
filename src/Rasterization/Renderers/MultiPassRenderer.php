@@ -43,7 +43,8 @@ abstract class MultiPassRenderer extends Renderer
     {
         $stroke = $context->getComputedStyle('stroke');
         if (isset($stroke) && $stroke !== 'none') {
-            $stroke = self::prepareColor($stroke, $context);
+            $strokeOpacity = self::parseOpacity($context->getComputedStyle('stroke-opacity'));
+            $stroke = self::prepareColor($stroke, $context, $strokeOpacity);
 
             $strokeWidth = $context->getComputedStyle('stroke-width');
             $strokeWidth = Length::convert($strokeWidth, $rasterizer->getNormalizedDiagonal());
@@ -64,7 +65,8 @@ abstract class MultiPassRenderer extends Renderer
     {
         $fill = $context->getComputedStyle('fill');
         if (isset($fill) && $fill !== 'none') {
-            $fill = self::prepareColor($fill, $context);
+            $fillOpacity = self::parseOpacity($context->getComputedStyle('fill-opacity'));
+            $fill = self::prepareColor($fill, $context, $fillOpacity);
 
             $this->renderFill($rasterizer->getImage(), $params, $fill);
         }
@@ -142,17 +144,18 @@ abstract class MultiPassRenderer extends Renderer
      * Parses the color string and applies the node's total opacity to it,
      * then returns it as a GD color int.
      *
-     * @param string  $color   The CSS color value.
-     * @param SVGNode $context The node serving as the opacity reference.
+     * @param string  $color           The CSS color value.
+     * @param SVGNode $context         The node serving as the opacity reference.
+     * @param float   $specificOpacity An additional opacity factor specific to the paint operation.
      *
      * @return int The prepared color as a GD color integer.
      */
-    private static function prepareColor($color, SVGNode $context)
+    private static function prepareColor($color, SVGNode $context, $specificOpacity = 1.0)
     {
         $color = Color::parse($color);
         $rgb   = ($color[0] << 16) + ($color[1] << 8) + ($color[2]);
 
-        $opacity = self::calculateTotalOpacity($context);
+        $opacity = self::calculateTotalOpacity($context) * $specificOpacity;
         $a = 127 - $opacity * (int) ($color[3] * 127 / 255);
 
         return $rgb | ($a << 24);
@@ -168,18 +171,16 @@ abstract class MultiPassRenderer extends Renderer
      */
     private static function getNodeOpacity(SVGNode $node)
     {
-        $opacity = $node->getStyle('opacity');
+        $opacity = trim($node->getStyle('opacity'));
 
-        if (is_numeric($opacity)) {
-            return (float) $opacity;
-        } elseif ($opacity === 'inherit') {
+        if ($opacity === 'inherit') {
             $parent = $node->getParent();
             if (isset($parent)) {
                 return self::getNodeOpacity($parent);
             }
         }
 
-        return 1;
+        return self::parseOpacity($opacity);
     }
 
     /**
@@ -200,5 +201,32 @@ abstract class MultiPassRenderer extends Renderer
         }
 
         return $opacity;
+    }
+
+    /**
+     * Parse an alpha value (such as from the 'opacity', 'fill-opacity', or 'stroke-opacity' attributes).
+     *
+     * @param string|null $attributeValue The raw attribute value.
+     * @return float|int The parsed alpha value in the range 0 to 1. Invalid inputs are mapped to 1.
+     */
+    private static function parseOpacity($attributeValue)
+    {
+        // https://svgwg.org/svg2-draft/render.html#ObjectAndGroupOpacityProperties
+        // https://drafts.csswg.org/css-color/#transparency
+
+        $attributeString = trim($attributeValue);
+
+        // real numbers
+        if (is_numeric($attributeString)) {
+            return (float) $attributeString;
+        }
+
+        // percentages
+        $matches = array();
+        if (preg_match('/^([+-]?\d+(?:\.\d+)?|\.\d+)%$/', $attributeString, $matches)) {
+            return max(0, min(100, $matches[1])) / 100;
+        }
+
+        return 1;
     }
 }
