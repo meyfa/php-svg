@@ -83,7 +83,8 @@ abstract class SVGNode
     }
 
     /**
-     * Obtains the style with the given name as specified on this node.
+     * Obtains the style with the given name as specified on this node. The return value, if present, will never
+     * contain any leading or trailing whitespace.
      *
      * @param string $name The name of the style to get.
      *
@@ -91,12 +92,14 @@ abstract class SVGNode
      */
     public function getStyle($name)
     {
+        // whitespace has been trimmed in the setter
         return isset($this->styles[$name]) ? $this->styles[$name] : null;
     }
 
     /**
-     * Defines a style on this node. A value of null or the empty string will
-     * unset the property.
+     * Defines a style on this node. A value of null, the empty string, or strings containing only whitespace will
+     * unset the property. Since whitespace surrounding style values is meaningless, it will be trimmed such that later
+     * retrieval of the style property or computed style property will yield the value with no surrounding whitespace.
      *
      * @param string      $name  The name of the style to set.
      * @param string|null $value The new style value.
@@ -105,7 +108,7 @@ abstract class SVGNode
      */
     public function setStyle($name, $value)
     {
-        $value = (string) $value;
+        $value = trim($value);
         if (strlen($value) === 0) {
             unset($this->styles[$name]);
             return $this;
@@ -128,8 +131,10 @@ abstract class SVGNode
     }
 
     /**
-     * Obtains the computed style with the given name. The 'computed style' is
-     * the one in effect; taking inheritance and default styles into account.
+     * Obtains the computed style with the given name. The 'computed style' is the one in effect; taking inheritance
+     * and default styles into account.
+     *
+     * The return value, if present, will never contain any leading or trailing whitespace.
      *
      * @param string $name The name of the style to compute.
      *

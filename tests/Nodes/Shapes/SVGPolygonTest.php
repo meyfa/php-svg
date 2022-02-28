@@ -69,4 +69,47 @@ class SVGPolygonTest extends \PHPUnit\Framework\TestCase
         $obj->setStyle('visibility', 'collapse');
         $obj->rasterize($rast);
     }
+
+    /**
+     * @covers ::rasterize
+     */
+    public function testRasterizeShouldRespectFillRule()
+    {
+        $points = array(
+            array(42.5, 42.5),
+            array(37, 37),
+        );
+
+        $obj = new SVGPolygon($points);
+
+        $attributeToExpectedFillRule = array(
+            '' => 'nonzero',
+            " \n " => 'nonzero',
+            'nonzero' => 'nonzero',
+            '  nonzero  ' => 'nonzero',
+            'nonZero' => 'nonzero',
+            'evenodd' => 'evenodd',
+            '  evenodd  ' => 'evenodd',
+            ' evenOdd ' => 'evenodd',
+            'foo' => 'foo',
+        );
+        foreach ($attributeToExpectedFillRule as $attribute => $expectedFillRule) {
+            $rasterizer = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+            $rasterizer->expects($this->once())->method('render')->with(
+                $this->identicalTo('polygon'),
+                $this->equalTo(array(
+                    'open' => false,
+                    'points' => $points,
+                    'fill-rule' => $expectedFillRule,
+                )),
+                $this->identicalTo($obj)
+            );
+
+            $obj->setStyle('fill-rule', $attribute);
+            $obj->rasterize($rasterizer);
+        }
+    }
 }

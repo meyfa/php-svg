@@ -71,7 +71,7 @@ class SVGPath extends SVGNodeContainer
 
         $rasterizer->render('path', array(
             'commands'  => $commands,
-            'fill-rule' => strtolower(trim($this->getComputedStyle('fill-rule') ?: 'nonzero'))
+            'fill-rule' => strtolower($this->getComputedStyle('fill-rule') ?: 'nonzero')
         ), $this);
 
         $rasterizer->popTransform();

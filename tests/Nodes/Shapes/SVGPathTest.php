@@ -114,4 +114,41 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
         $obj->setStyle('visibility', 'collapse');
         $obj->rasterize($rast);
     }
+
+    /**
+     * @covers ::rasterize
+     */
+    public function testRasterizeShouldRespectFillRule()
+    {
+        $obj = new SVGPath(self::$sampleDescription);
+
+        $attributeToExpectedFillRule = array(
+            '' => 'nonzero',
+            " \n " => 'nonzero',
+            'nonzero' => 'nonzero',
+            '  nonzero  ' => 'nonzero',
+            'nonZero' => 'nonzero',
+            'evenodd' => 'evenodd',
+            '  evenodd  ' => 'evenodd',
+            ' evenOdd ' => 'evenodd',
+            'foo' => 'foo',
+        );
+        foreach ($attributeToExpectedFillRule as $attribute => $expectedFillRule) {
+            $rasterizer = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+            $rasterizer->expects($this->once())->method('render')->with(
+                $this->identicalTo('path'),
+                $this->equalTo(array(
+                    'commands' => self::$sampleCommands,
+                    'fill-rule' => $expectedFillRule,
+                )),
+                $this->identicalTo($obj)
+            );
+
+            $obj->setStyle('fill-rule', $attribute);
+            $obj->rasterize($rasterizer);
+        }
+    }
 }
