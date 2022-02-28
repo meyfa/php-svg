@@ -99,12 +99,23 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $obj->setStyle('fill', '#FFFFFF');
         $this->assertSame('#FFFFFF', $obj->getStyle('fill'));
 
+        // should trim whitespace around the value
+        $obj->setStyle('fill', "  \n #FFFFFF \n  ");
+        $this->assertSame('#FFFFFF', $obj->getStyle('fill'));
+
         // should unset properties when given null
+        $obj->setStyle('fill', '#FFFFFF');
         $obj->setStyle('fill', null);
         $this->assertNull($obj->getStyle('fill'));
 
         // should unset properties when given ''
+        $obj->setStyle('fill', '#FFFFFF');
         $obj->setStyle('fill', '');
+        $this->assertNull($obj->getStyle('fill'));
+
+        // should unset properties when given a whitespace-only string
+        $obj->setStyle('fill', '#FFFFFF');
+        $obj->setStyle('fill', "  \n  ");
         $this->assertNull($obj->getStyle('fill'));
 
         // should convert value to a string
@@ -257,9 +268,19 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         // should return null for ill-formed viewBox
         $obj->setAttribute('viewBox', 'foobar');
         $this->assertNull($obj->getViewBox());
+        $obj->setAttribute('viewBox', '37 42.25');
+        $this->assertNull($obj->getViewBox());
+        $obj->setAttribute('viewBox', '37, , , ');
+        $this->assertNull($obj->getViewBox());
 
         // should return float array for well-formed viewBox
         $obj->setAttribute('viewBox', '37, 42.25, 100 200');
+        $this->assertSame(array(37.0, 42.25, 100.0, 200.0), $obj->getViewBox());
+        $obj->setAttribute('viewBox', '37, .25, 100 200');
+        $this->assertSame(array(37.0, 0.25, 100.0, 200.0), $obj->getViewBox());
+
+        // should ignore superfluous whitespace
+        $obj->setAttribute('viewBox', "  \n 37, 42.25,\n 100 200 \n  ");
         $this->assertSame(array(37.0, 42.25, 100.0, 200.0), $obj->getViewBox());
     }
 }

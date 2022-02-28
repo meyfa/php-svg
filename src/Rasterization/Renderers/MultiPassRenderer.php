@@ -171,7 +171,7 @@ abstract class MultiPassRenderer extends Renderer
      */
     private static function getNodeOpacity(SVGNode $node)
     {
-        $opacity = trim($node->getStyle('opacity'));
+        $opacity = $node->getStyle('opacity');
 
         if ($opacity === 'inherit') {
             $parent = $node->getParent();
@@ -209,21 +209,19 @@ abstract class MultiPassRenderer extends Renderer
      * @param string|null $attributeValue The raw attribute value.
      * @return float|int The parsed alpha value in the range 0 to 1. Invalid inputs are mapped to 1.
      */
-    private static function parseOpacity($attributeValue)
+    private static function parseOpacity($value)
     {
         // https://svgwg.org/svg2-draft/render.html#ObjectAndGroupOpacityProperties
         // https://drafts.csswg.org/css-color/#transparency
 
-        $attributeString = trim($attributeValue);
-
         // real numbers
-        if (is_numeric($attributeString)) {
-            return (float) $attributeString;
+        if (is_numeric($value)) {
+            return (float) $value;
         }
 
         // percentages
         $matches = array();
-        if (preg_match('/^([+-]?\d+(?:\.\d+)?|\.\d+)%$/', $attributeString, $matches)) {
+        if (preg_match('/^([+-]?\d+(?:\.\d+)?|\.\d+)%$/', $value, $matches)) {
             return max(0, min(100, $matches[1])) / 100;
         }
 
