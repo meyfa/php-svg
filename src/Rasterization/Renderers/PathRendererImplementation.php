@@ -144,12 +144,12 @@ final class PathRendererImplementation
     {
         imagesetthickness($image, round($strokeWidth));
 
-        $px = $points[0];
-        $py = $points[1];
+        $px = round($points[0]);
+        $py = round($points[1]);
 
         for ($i = 2, $n = count($points); $i < $n; $i += 2) {
-            $x = $points[$i];
-            $y = $points[$i + 1];
+            $x = round($points[$i]);
+            $y = round($points[$i + 1]);
             imageline($image, $px, $py, $x, $y, $color);
             $px = $x;
             $py = $y;
