@@ -41,11 +41,11 @@ final class PathRendererImplementation
         $minY = $subpaths[0][1];
         foreach ($subpaths as $points) {
             for ($i = 0, $n = count($points); $i < $n; $i += 2) {
-                $x1 = $points[$i];
-                $y1 = $points[$i + 1];
+                $x1 = round($points[$i]);
+                $y1 = round($points[$i + 1]);
                 // the last vertex gets connected back to the first vertex for a complete loop
-                $x2 = $points[($i + 2) % $n];
-                $y2 = $points[($i + 3) % $n];
+                $x2 = round($points[($i + 2) % $n]);
+                $y2 = round($points[($i + 3) % $n]);
                 $edge = new PathRendererEdge($x1, $y1, $x2, $y2);
                 $minY = min($minY, $edge->minY);
                 $edges[] = $edge;
@@ -106,7 +106,7 @@ final class PathRendererImplementation
 
                     if ($evenOdd ? ($windingNumber % 2 === 0) : ($windingNumber !== 0)) {
                         // This section of the scanline is inside.
-                        imageline($image, $prev->x, $scanline, $curr->x, $scanline, $color);
+                        imageline($image, round($prev->x), $scanline, round($curr->x), $scanline, $color);
                     }
 
                     // The original C++ code did some checking for whether a vertex was hit directly, and if so,
