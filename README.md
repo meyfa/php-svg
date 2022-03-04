@@ -5,6 +5,7 @@
 [![CI](https://github.com/meyfa/php-svg/actions/workflows/php.yml/badge.svg)](https://github.com/meyfa/php-svg/actions/workflows/php.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/8f73468601a653aff0e8/maintainability)](https://codeclimate.com/github/meyfa/php-svg/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8f73468601a653aff0e8/test_coverage)](https://codeclimate.com/github/meyfa/php-svg/test_coverage)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/meyfa/php-svg)](https://packagist.org/packages/meyfa/php-svg)
 
 
 ## Features
@@ -33,7 +34,7 @@ PHP-SVG is free of dependencies. All it needs is a PHP installation satisfying t
   have the ['gd' PHP extension](https://www.php.net/manual/en/book.image.php).
 
 These extensions are almost always available on typical PHP installations. Still, you might want to make sure that your
-hosting provider actually has them. If SimpleXML or GD are missing, PHP-SVG can still perform all the tasks except those
+hosting provider actually has them. If SimpleXML or GD are missing, PHP-SVG can still perform all tasks except those
 that require the missing extension. For example, programmatically generating SVG images and outputting them as XML will
 always work, even without any extension.
 
