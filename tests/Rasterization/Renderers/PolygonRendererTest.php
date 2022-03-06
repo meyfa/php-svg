@@ -24,6 +24,7 @@ class PolygonRendererTest extends \PHPUnit\Framework\TestCase
         $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $context->setStyle('fill', '#FF0000');
         $context->setStyle('stroke', '#0000FF');
+        $context->setStyle('stroke-width', '1px');
 
         $rasterizer = new SVGRasterizer('50px', '50px', null, 50, 50);
 
