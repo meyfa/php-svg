@@ -38,7 +38,7 @@ final class PathRendererImplementation
         // Since a subpath can intersect with itself just as it can intersect with other subpaths,
         // there is no need to remember to which subpath an edge belongs.
         $edges = array();
-        $minY = $subpaths[0][1];
+        $minY = PHP_INT_MAX;
         foreach ($subpaths as $points) {
             for ($i = 0, $n = count($points); $i < $n; $i += 2) {
                 $x1 = round($points[$i]);
