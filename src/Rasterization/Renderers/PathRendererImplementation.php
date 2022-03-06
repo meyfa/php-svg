@@ -171,7 +171,15 @@ final class PathRendererImplementation
      */
     public static function strokeClosedSubpath($image, array $points, $color, $strokeWidth)
     {
+        // imagepolygon() requires at least 3 coordinate pairs
+        if (count($points) < 6) {
+            self::strokeOpenSubpath($image, $points, $color, $strokeWidth);
+            return;
+        }
+
+        $roundedCoordinates = array_map('round', $points);
+
         imagesetthickness($image, round($strokeWidth));
-        imagepolygon($image, $points, count($points) / 2, $color);
+        imagepolygon($image, $roundedCoordinates, count($roundedCoordinates) / 2, $color);
     }
 }
