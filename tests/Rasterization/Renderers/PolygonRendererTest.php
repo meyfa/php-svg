@@ -17,13 +17,14 @@ class PolygonRendererTest extends \PHPUnit\Framework\TestCase
     public function testShouldNotFailForTooFewPoints()
     {
         // ensures that there is no crash in case fewer than 3 points are provided,
-        // which might trip up the fill algorithm if it doesn't check for it
+        // which might trip up the fill or stroke algorithms if they don't check for it
 
         $obj = new PolygonRenderer();
 
         $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
         $context->setStyle('fill', '#FF0000');
         $context->setStyle('stroke', '#0000FF');
+        $context->setStyle('stroke-width', '1px');
 
         $rasterizer = new SVGRasterizer('50px', '50px', null, 50, 50);
 
