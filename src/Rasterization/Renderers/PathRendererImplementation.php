@@ -142,6 +142,11 @@ final class PathRendererImplementation
      */
     public static function strokeOpenSubpath($image, array $points, $color, $strokeWidth)
     {
+        // require at least 2 coordinate pairs to stroke a line
+        if (count($points) < 4) {
+            return;
+        }
+
         imagesetthickness($image, round($strokeWidth));
 
         $px = round($points[0]);
