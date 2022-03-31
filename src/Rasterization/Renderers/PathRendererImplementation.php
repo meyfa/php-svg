@@ -75,12 +75,12 @@ final class PathRendererImplementation
         for ($scanline = $maxY; $scanline >= $minY; --$scanline) {
             // An edge becomes irrelevant when the scanline is higher up than the edge's minY.
             $activeEdges = array_values(array_filter($activeEdges, function ($edge) use ($scanline) {
-                return $scanline > $edge->minY;
+                return $edge->minY < $scanline;
             }));
 
             // An edge becomes relevant when its y range starts to include $scanline.
-            for ($i = $lastActiveEdge, $n = count($edges); $i < $n; ++$i) {
-                $edge = $edges[$i];
+            for ($n = count($edges); $lastActiveEdge < $n; ++$lastActiveEdge) {
+                $edge = $edges[$lastActiveEdge];
                 // Since $edges is sorted by maxY, if this is true, there cannot be any more edges that match.
                 if ($edge->maxY < $scanline) {
                     break;
@@ -88,7 +88,6 @@ final class PathRendererImplementation
                 if ($edge->minY < $scanline) {
                     $activeEdges[] = $edge;
                 }
-                ++$lastActiveEdge;
             }
 
             if (!empty($activeEdges)) {
@@ -113,7 +112,6 @@ final class PathRendererImplementation
                     // only incremented the winding number in certain cases.
                     // I have found this to cause some problems and solve none, so I removed it.
 
-                    // There are some weird cases when the ray hits a vertex directly, which we have to account for.
                     $windingNumber += $evenOdd ? 1 : $curr->direction;
                 }
 
