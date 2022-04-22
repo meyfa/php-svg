@@ -214,6 +214,11 @@ abstract class MultiPassRenderer extends Renderer
         // https://svgwg.org/svg2-draft/render.html#ObjectAndGroupOpacityProperties
         // https://drafts.csswg.org/css-color/#transparency
 
+        // null
+        if ($value == null) {
+            return 1;
+        }
+
         // real numbers
         if (is_numeric($value)) {
             return (float) $value;

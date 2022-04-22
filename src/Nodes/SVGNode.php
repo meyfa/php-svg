@@ -274,7 +274,7 @@ abstract class SVGNode
      */
     public function getViewBox()
     {
-        if ($this->getAttribute('viewBox') == null ){
+        if ($this->getAttribute('viewBox') == null) {
             return null;
         }
         $attr = trim($this->getAttribute('viewBox'));
