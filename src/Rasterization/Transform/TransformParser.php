@@ -18,6 +18,9 @@ final class TransformParser
     public static function parseTransformString($input, Transform $applyTo = null)
     {
         $transform = isset($applyTo) ? $applyTo : Transform::identity();
+        if ($input == null) {
+            return $transform;
+        }
 
         // https://www.w3.org/TR/css-transforms-1/#svg-syntax
 
