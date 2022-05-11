@@ -43,7 +43,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     }
 
     /**
-     * @return string The declared width of this document.
+     * @return string|null The declared width of this document or null.
      */
     public function getWidth()
     {
@@ -63,7 +63,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     }
 
     /**
-     * @return string The declared height of this document.
+     * @return string|null The declared height of this document or null.
      */
     public function getHeight()
     {
