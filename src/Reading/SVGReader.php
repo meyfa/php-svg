@@ -27,7 +27,8 @@ class SVGReader
      */
     public function parseString($string)
     {
-        $xml = simplexml_load_string($string);
+        $xml = new SimpleXMLElement($string, LIBXML_PARSEHUGE);
+
         return $this->parseXML($xml);
     }
 
