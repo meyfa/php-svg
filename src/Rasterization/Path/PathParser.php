@@ -2,6 +2,8 @@
 
 namespace SVG\Rasterization\Path;
 
+use SVG\Shims\Str;
+
 /**
  * This class can convert SVG path description strings into arrays of distinct
  * commands + their arguments.
@@ -65,7 +67,7 @@ class PathParser
      */
     private function splitArguments($str)
     {
-        $str = trim($str);
+        $str = Str::trim($str);
 
         $args = array();
         if ($str !== '') {

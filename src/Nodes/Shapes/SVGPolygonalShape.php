@@ -3,6 +3,7 @@
 namespace SVG\Nodes\Shapes;
 
 use SVG\Nodes\SVGNodeContainer;
+use SVG\Shims\Str;
 
 /**
  * This is the base class for polygons and polylines.
@@ -38,7 +39,7 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
         }
 
         $pointsAttribute = $this->getAttribute('points') ?: '';
-        $this->setAttribute('points', trim($pointsAttribute . ' ' . $a . ',' . $b));
+        $this->setAttribute('points', Str::trim($pointsAttribute . ' ' . $a . ',' . $b));
 
         return $this;
     }
@@ -118,7 +119,7 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
 
     private static function splitCoordinates($pointsString)
     {
-        return preg_split('/[\s,]+/', trim($pointsString));
+        return preg_split('/[\s,]+/', Str::trim($pointsString));
     }
 
     private static function joinCoordinates(array $coordinatesArray)

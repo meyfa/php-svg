@@ -5,6 +5,7 @@ namespace SVG\Writing;
 use SVG\Nodes\SVGNode;
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Nodes\CDataContainer;
+use SVG\Shims\Str;
 
 /**
  * This class is used for composing ("writing") XML strings from nodes.
@@ -70,7 +71,7 @@ class SVGWriter
             return;
         }
 
-        if (trim($textContent) !== '') {
+        if (Str::trim($textContent) !== '') {
             $this->outString .= '>' . $textContent . '</' . $node->getName() . '>';
             return;
         }

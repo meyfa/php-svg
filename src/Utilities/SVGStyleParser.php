@@ -2,6 +2,8 @@
 
 namespace SVG\Utilities;
 
+use SVG\Shims\Str;
+
 /**
  * This is a utility class used to parse CSS rules.
  */
@@ -24,7 +26,7 @@ abstract class SVGStyleParser
         $declarations = preg_split('/\s*;\s*/', $string);
 
         foreach ($declarations as $declaration) {
-            $declaration = trim($declaration);
+            $declaration = Str::trim($declaration);
             if ($declaration === '') {
                 continue;
             }
@@ -51,13 +53,13 @@ abstract class SVGStyleParser
         preg_match_all('/(?ims)([a-z0-9\s\,\.\:#_\-@^*()\[\]\"\'=]+)\{([^\}]*)\}/', $css, $arr);
 
         foreach ($arr[0] as $i => $x) {
-            $selectors = explode(',', trim($arr[1][$i]));
+            $selectors = explode(',', Str::trim($arr[1][$i]));
             if (in_array($selectors[0], array('@font-face', '@keyframes', '@media'))) {
                 continue;
             }
-            $rules = self::parseStyles(trim($arr[2][$i]));
+            $rules = self::parseStyles(Str::trim($arr[2][$i]));
             foreach ($selectors as $selector) {
-                $result[trim($selector)] = $rules;
+                $result[Str::trim($selector)] = $rules;
             }
         }
 

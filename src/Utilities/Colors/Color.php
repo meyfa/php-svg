@@ -2,6 +2,7 @@
 
 namespace SVG\Utilities\Colors;
 
+use SVG\Shims\Str;
 use SVG\Utilities\Units\Angle;
 
 final class Color
@@ -104,7 +105,7 @@ final class Color
      */
     private static function parseRGBAComponents($str)
     {
-        $params = preg_split('/(\s*[\/,]\s*)|(\s+)/', trim($str));
+        $params = preg_split('/(\s*[\/,]\s*)|(\s+)/', Str::trim($str));
         if (count($params) !== 3 && count($params) !== 4) {
             return array(null, null, null, null);
         }
@@ -162,7 +163,7 @@ final class Color
     private static function parseHSLAComponents($str)
     {
         // split on delimiters
-        $params = preg_split('/(\s*[\/,]\s*)|(\s+)/', trim($str));
+        $params = preg_split('/(\s*[\/,]\s*)|(\s+)/', Str::trim($str));
         if (count($params) !== 3 && count($params) !== 4) {
             return null;
         }

@@ -3,6 +3,7 @@
 namespace SVG\Nodes;
 
 use SVG\Rasterization\SVGRasterizer;
+use SVG\Shims\Str;
 
 /**
  * Represents a single element inside an SVG image (in other words, an XML tag).
@@ -108,7 +109,7 @@ abstract class SVGNode
      */
     public function setStyle($name, $value)
     {
-        $value = trim($value);
+        $value = Str::trim($value);
         if (strlen($value) === 0) {
             unset($this->styles[$name]);
             return $this;
@@ -249,8 +250,8 @@ abstract class SVGNode
      */
     public function getIdAndClassPattern()
     {
-        $id = $this->getAttribute('id') != null ? trim($this->getAttribute('id')) : '';
-        $class = $this->getAttribute('class') != null  ? trim($this->getAttribute('class')) : '';
+        $id = $this->getAttribute('id') != null ? Str::trim($this->getAttribute('id')) : '';
+        $class = $this->getAttribute('class') != null  ? Str::trim($this->getAttribute('class')) : '';
 
         $pattern = '';
         if ($id !== '') {
@@ -277,7 +278,7 @@ abstract class SVGNode
         if ($this->getAttribute('viewBox') == null) {
             return null;
         }
-        $attr = trim($this->getAttribute('viewBox'));
+        $attr = Str::trim($this->getAttribute('viewBox'));
         $result = preg_split('/[\s,]+/', $attr);
         if (count($result) !== 4) {
             return null;
