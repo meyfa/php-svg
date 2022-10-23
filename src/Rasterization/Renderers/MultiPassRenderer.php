@@ -5,6 +5,7 @@ namespace SVG\Rasterization\Renderers;
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
 use SVG\Rasterization\Transform\Transform;
+use SVG\Shims\Str;
 use SVG\Utilities\Colors\Color;
 use SVG\Utilities\Units\Length;
 
@@ -127,7 +128,7 @@ abstract class MultiPassRenderer extends Renderer
     private static function getPaintOrder(SVGNode $context)
     {
         $paintOrder = $context->getComputedStyle('paint-order');
-        $paintOrder = preg_replace('#\s{2,}#', ' ', trim($paintOrder));
+        $paintOrder = preg_replace('#\s{2,}#', ' ', Str::trim($paintOrder));
 
         $defaultOrder = array('fill', 'stroke', 'markers');
 

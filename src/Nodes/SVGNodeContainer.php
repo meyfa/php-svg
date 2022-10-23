@@ -5,6 +5,7 @@ namespace SVG\Nodes;
 use SVG\Nodes\Structures\SVGStyle;
 use SVG\Rasterization\SVGRasterizer;
 use SVG\Rasterization\Transform\TransformParser;
+use SVG\Shims\Str;
 use SVG\Utilities\SVGStyleParser;
 
 /**
@@ -251,7 +252,7 @@ abstract class SVGNodeContainer extends SVGNode
     public function getElementsByClassName($className, array &$result = array())
     {
         if (!is_array($className)) {
-            $className = preg_split('/\s+/', trim($className));
+            $className = preg_split('/\s+/', Str::trim($className));
         }
         // shortcut if empty
         if (empty($className) || $className[0] === '') {
