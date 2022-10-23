@@ -170,7 +170,7 @@ class ArcApproximator
      */
     private static function vectorAngle($vecx, $vecy)
     {
-        $norm = sqrt($vecx * $vecx + $vecy * $vecy);
+        $norm = hypot($vecx, $vecy);
         return ($vecy >= 0 ? 1 : -1) * acos($vecx / $norm);
     }
 
@@ -188,7 +188,7 @@ class ArcApproximator
     {
         // see W3C [F.6.5.4]
         $dotprod = $vec1x * $vec2x + $vec1y * $vec2y;
-        $norm = sqrt($vec1x * $vec1x + $vec1y * $vec1y) * sqrt($vec2x * $vec2x + $vec2y * $vec2y);
+        $norm = hypot($vec1x, $vec1y) * hypot($vec2x, $vec2y);
 
         $sign = ($vec1x * $vec2y - $vec1y * $vec2x) >= 0 ? 1 : -1;
 
