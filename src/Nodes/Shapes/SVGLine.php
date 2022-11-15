@@ -32,7 +32,7 @@ class SVGLine extends SVGNodeContainer
     }
 
     /**
-     * @return string The first point's x coordinate.
+     * @return string|null The first point's x coordinate.
      */
     public function getX1()
     {
@@ -52,7 +52,7 @@ class SVGLine extends SVGNodeContainer
     }
 
     /**
-     * @return string The first point's y coordinate.
+     * @return string|null The first point's y coordinate.
      */
     public function getY1()
     {
@@ -72,7 +72,7 @@ class SVGLine extends SVGNodeContainer
     }
 
     /**
-     * @return string The second point's x coordinate.
+     * @return string|null The second point's x coordinate.
      */
     public function getX2()
     {
@@ -92,7 +92,7 @@ class SVGLine extends SVGNodeContainer
     }
 
     /**
-     * @return string The second point's y coordinate.
+     * @return string|null The second point's y coordinate.
      */
     public function getY2()
     {

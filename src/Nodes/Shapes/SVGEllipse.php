@@ -32,7 +32,7 @@ class SVGEllipse extends SVGNodeContainer
     }
 
     /**
-     * @return string The center's x coordinate.
+     * @return string|null The center's x coordinate.
      */
     public function getCenterX()
     {
@@ -52,7 +52,7 @@ class SVGEllipse extends SVGNodeContainer
     }
 
     /**
-     * @return string The center's y coordinate.
+     * @return string|null The center's y coordinate.
      */
     public function getCenterY()
     {
@@ -72,7 +72,7 @@ class SVGEllipse extends SVGNodeContainer
     }
 
     /**
-     * @return string The radius along the x-axis.
+     * @return string|null The radius along the x-axis.
      */
     public function getRadiusX()
     {
@@ -92,7 +92,7 @@ class SVGEllipse extends SVGNodeContainer
     }
 
     /**
-     * @return string The radius along the y-axis.
+     * @return string|null The radius along the y-axis.
      */
     public function getRadiusY()
     {

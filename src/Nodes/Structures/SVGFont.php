@@ -47,7 +47,7 @@ class SVGFont extends SVGStyle
     /**
      * Return font absolute path
      *
-     * @return mixed
+     * @return string
      */
     public function getFontPath()
     {

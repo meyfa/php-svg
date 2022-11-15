@@ -27,7 +27,7 @@ class SVGPath extends SVGNodeContainer
     }
 
     /**
-     * @return string The path description string.
+     * @return string|null The path description string.
      */
     public function getDescription()
     {

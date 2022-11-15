@@ -97,7 +97,7 @@ class SVGImage extends SVGNodeContainer
     }
 
     /**
-     * @return string The image path, URL or URI.
+     * @return string|null The image path, URL or URI.
      */
     public function getHref()
     {
@@ -117,7 +117,7 @@ class SVGImage extends SVGNodeContainer
     }
 
     /**
-     * @return string The x coordinate of the upper left corner.
+     * @return string|null The x coordinate of the upper left corner.
      */
     public function getX()
     {
@@ -137,7 +137,7 @@ class SVGImage extends SVGNodeContainer
     }
 
     /**
-     * @return string The y coordinate of the upper left corner.
+     * @return string|null The y coordinate of the upper left corner.
      */
     public function getY()
     {
@@ -157,7 +157,7 @@ class SVGImage extends SVGNodeContainer
     }
 
     /**
-     * @return string The width.
+     * @return string|null The width.
      */
     public function getWidth()
     {
@@ -175,7 +175,7 @@ class SVGImage extends SVGNodeContainer
     }
 
     /**
-     * @return string The height.
+     * @return string|null The height.
      */
     public function getHeight()
     {
