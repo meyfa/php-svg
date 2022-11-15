@@ -30,7 +30,7 @@ class SVGCircle extends SVGNodeContainer
     }
 
     /**
-     * @return string The center's x coordinate.
+     * @return string|null The center's x coordinate.
      */
     public function getCenterX()
     {
@@ -50,7 +50,7 @@ class SVGCircle extends SVGNodeContainer
     }
 
     /**
-     * @return string The center's y coordinate.
+     * @return string|null The center's y coordinate.
      */
     public function getCenterY()
     {
@@ -70,7 +70,7 @@ class SVGCircle extends SVGNodeContainer
     }
 
     /**
-     * @return string The radius.
+     * @return string|null The radius.
      */
     public function getRadius()
     {
