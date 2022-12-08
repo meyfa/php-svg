@@ -20,8 +20,8 @@ class AngleTest extends \PHPUnit\Framework\TestCase
 
         // radians
         $this->assertEquals(0, Angle::convert('0rad'));
-        $this->assertEquals(57.295779513, Angle::convert('1rad'), '', 0.00000001);
-        $this->assertEquals(180, Angle::convert('3.14159265359rad'), 0.00000001);
+        $this->assertEqualsWithDelta(57.295779513, Angle::convert('1rad'), 0.00000001);
+        $this->assertEqualsWithDelta(180, Angle::convert('3.14159265359rad'), 0.00000001);
 
         // gradians
         $this->assertEquals(0, Angle::convert('0grad'));

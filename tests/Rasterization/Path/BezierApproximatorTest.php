@@ -20,10 +20,10 @@ class BezierApproximatorTest extends \PHPUnit\Framework\TestCase
         $result = $bezier->quadratic($p0, $p1, $p2);
 
         $n = count($result);
-        $this->assertEquals(20, $result[0][0], '', 1);
-        $this->assertEquals(10, $result[0][1], '', 1);
-        $this->assertEquals(30, $result[$n - 1][0], '', 1);
-        $this->assertEquals(20, $result[$n - 1][1], '', 1);
+        $this->assertEqualsWithDelta(20, $result[0][0], 1);
+        $this->assertEqualsWithDelta(10, $result[0][1], 1);
+        $this->assertEqualsWithDelta(30, $result[$n - 1][0], 1);
+        $this->assertEqualsWithDelta(20, $result[$n - 1][1], 1);
     }
 
     public function testCubic()
@@ -36,9 +36,9 @@ class BezierApproximatorTest extends \PHPUnit\Framework\TestCase
         $result = $bezier->cubic($p0, $p1, $p2, $p3);
 
         $n = count($result);
-        $this->assertEquals(20, $result[0][0], '', 1);
-        $this->assertEquals(10, $result[0][1], '', 1);
-        $this->assertEquals(30, $result[$n - 1][0], '', 1);
-        $this->assertEquals(20, $result[$n - 1][1], '', 1);
+        $this->assertEqualsWithDelta(20, $result[0][0], 1);
+        $this->assertEqualsWithDelta(10, $result[0][1], 1);
+        $this->assertEqualsWithDelta(30, $result[$n - 1][0], 1);
+        $this->assertEqualsWithDelta(20, $result[$n - 1][1], 1);
     }
 }

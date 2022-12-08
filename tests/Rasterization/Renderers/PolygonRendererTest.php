@@ -18,6 +18,7 @@ class PolygonRendererTest extends \PHPUnit\Framework\TestCase
     {
         // ensures that there is no crash in case fewer than 3 points are provided,
         // which might trip up the fill or stroke algorithms if they don't check for it
+        $this->expectNotToPerformAssertions();
 
         $obj = new PolygonRenderer();
 

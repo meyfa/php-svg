@@ -14,13 +14,15 @@ class TransformTest extends \PHPUnit\Framework\TestCase
     private function assertMap(Transform $t, array $expected, array $source)
     {
         $t->map($source[0], $source[1]);
-        $this->assertEquals($expected, $source);
+        $this->assertEqualsWithDelta($expected[0], $source[0], 10e-12);
+        $this->assertEqualsWithDelta($expected[1], $source[1], 10e-12);
     }
 
     private function assertResized(Transform $t, array $expected, array $source)
     {
         $t->resize($source[0], $source[1]);
-        $this->assertEquals($expected, $source);
+        $this->assertEqualsWithDelta($expected[0], $source[0], 10e-12);
+        $this->assertEqualsWithDelta($expected[1], $source[1], 10e-12);
     }
 
     public function testIdentity()
