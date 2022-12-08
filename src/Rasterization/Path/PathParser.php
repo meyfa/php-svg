@@ -63,7 +63,7 @@ class PathParser
      *
      * @param string $str The string to split.
      *
-     * @return string[] The splitted arguments.
+     * @return string[] The split arguments.
      */
     private function splitArguments($str)
     {

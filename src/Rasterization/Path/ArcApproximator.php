@@ -2,8 +2,6 @@
 
 namespace SVG\Rasterization\Path;
 
-use SVG\Rasterization\Transform\Transform;
-
 /**
  * This class can approximate elliptical arc segments by calculating a series of
  * points on them (converting them to polylines).
@@ -196,7 +194,7 @@ class ArcApproximator
     }
 
     /**
-     * Determine whether two points are basically the same, except for miniscule
+     * Determine whether two points are basically the same, except for minuscule
      * differences.
      *
      * @param float[] $vec1 The start point (x0, y0).

@@ -187,7 +187,7 @@ class SVGDocumentFragment extends SVGNodeContainer
             // add children to stack (tree order traversal)
             if ($elem instanceof SVGNodeContainer) {
                 for ($i = $elem->countChildren() - 1; $i >= 0; --$i) {
-                    array_push($stack, $elem->getChild($i));
+                    $stack[] = $elem->getChild($i);
                 }
             }
         }
