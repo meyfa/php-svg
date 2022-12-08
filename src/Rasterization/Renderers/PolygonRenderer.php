@@ -26,7 +26,7 @@ class PolygonRenderer extends MultiPassRenderer
         }
 
         return [
-            'open'      => isset($options['open']) ? $options['open'] : false,
+            'open'      => $options['open'] ?? false,
             'points'    => $points,
             'fill-rule' => $options['fill-rule'],
         ];

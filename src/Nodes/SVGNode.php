@@ -63,7 +63,7 @@ abstract class SVGNode
      */
     public function getValue()
     {
-        return isset($this->value) ? $this->value : '';
+        return $this->value ?? '';
     }
 
     /**
@@ -94,7 +94,7 @@ abstract class SVGNode
     public function getStyle($name)
     {
         // whitespace has been trimmed in the setter
-        return isset($this->styles[$name]) ? $this->styles[$name] : null;
+        return $this->styles[$name] ?? null;
     }
 
     /**
@@ -148,7 +148,7 @@ abstract class SVGNode
         // If no immediate style then get style from container/global style rules
         if ($style === null && isset($this->parent)) {
             $containerStyles = $this->parent->getContainerStyleForNode($this);
-            $style = isset($containerStyles[$name]) ? $containerStyles[$name] : null;
+            $style = $containerStyles[$name] ?? null;
         }
 
         // If still no style then get parent's style
@@ -171,7 +171,7 @@ abstract class SVGNode
      */
     public function getAttribute($name)
     {
-        return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
+        return $this->attributes[$name] ?? null;
     }
 
     /**
