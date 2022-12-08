@@ -34,7 +34,7 @@ final class Color
 
         // any illegal component invalidates all components
         if (!isset($r) || !isset($g) || !isset($b) || !isset($a)) {
-            return array(0, 0, 0, 0);
+            return [0, 0, 0, 0];
         }
 
         return self::clamp($r, $g, $b, $a);
@@ -52,12 +52,12 @@ final class Color
      */
     private static function clamp($r, $g, $b, $a)
     {
-        return array(
+        return [
             $r < 0 ? 0 : ($r > 255 ? 255 : (int) $r),
             $g < 0 ? 0 : ($g > 255 ? 255 : (int) $g),
             $b < 0 ? 0 : ($b > 255 ? 255 : (int) $b),
             $a < 0 ? 0 : ($a > 255 ? 255 : (int) $a),
-        );
+        ];
     }
 
     /**
@@ -88,7 +88,7 @@ final class Color
             $a = $len === 4 ? hexdec($str[3] . $str[3]) : 255;
         }
 
-        return array($r, $g, $b, $a);
+        return [$r, $g, $b, $a];
     }
 
     /**
@@ -107,7 +107,7 @@ final class Color
     {
         $params = preg_split('/(\s*[\/,]\s*)|(\s+)/', Str::trim($str));
         if (count($params) !== 3 && count($params) !== 4) {
-            return array(null, null, null, null);
+            return [null, null, null, null];
         }
 
         $r = self::parseRGBAComponent($params[0]);
@@ -115,7 +115,7 @@ final class Color
         $b = self::parseRGBAComponent($params[2]);
         $a = count($params) < 4 ? 255 : self::parseRGBAComponent($params[3], 1, 255);
 
-        return array($r, $g, $b, $a);
+        return [$r, $g, $b, $a];
     }
 
     /**
@@ -181,7 +181,7 @@ final class Color
         // add alpha
         $a = count($params) < 4 ? 255 : self::parseRGBAComponent($params[3], 1, 255);
 
-        return array($r, $g, $b, $a);
+        return [$r, $g, $b, $a];
     }
 
     /**
@@ -201,7 +201,7 @@ final class Color
 
         if ($s == 0) {
             // shortcut if grayscale
-            return array($l * 255, $l * 255, $l * 255);
+            return [$l * 255, $l * 255, $l * 255];
         }
 
         // compute intermediates
@@ -213,7 +213,7 @@ final class Color
         $g = self::convertHSLHueToRGBComponent($m1, $m2, $h);
         $b = self::convertHSLHueToRGBComponent($m1, $m2, $h - 120);
 
-        return array($r, $g, $b);
+        return [$r, $g, $b];
     }
 
     /**

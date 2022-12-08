@@ -208,13 +208,13 @@ class SVGImage extends SVGNodeContainer
 
         TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
 
-        $rasterizer->render('image', array(
+        $rasterizer->render('image', [
             'href'      => $this->getHref(),
             'x'         => Length::convert($this->getX(), $rasterizer->getDocumentWidth()),
             'y'         => Length::convert($this->getY(), $rasterizer->getDocumentHeight()),
             'width'     => Length::convert($this->getWidth(), $rasterizer->getDocumentWidth()),
             'height'    => Length::convert($this->getHeight(), $rasterizer->getDocumentHeight()),
-        ), $this);
+        ], $this);
 
         $rasterizer->popTransform();
     }

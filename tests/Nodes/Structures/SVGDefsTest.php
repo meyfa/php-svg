@@ -19,7 +19,7 @@ class SVGDefsTest extends \PHPUnit\Framework\TestCase
     {
         // should not set any attributes by default
         $obj = new SVGDefs();
-        $this->assertSame(array(), $obj->getSerializableAttributes());
+        $this->assertSame([], $obj->getSerializableAttributes());
     }
 
     /**

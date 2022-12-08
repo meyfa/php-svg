@@ -19,15 +19,15 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
     {
         // should not set any attributes by default
         $obj = new SVGCircle();
-        $this->assertSame(array(), $obj->getSerializableAttributes());
+        $this->assertSame([], $obj->getSerializableAttributes());
 
         // should set attributes when provided
         $obj = new SVGCircle(37, 42, 100);
-        $this->assertSame(array(
+        $this->assertSame([
             'cx' => '37',
             'cy' => '42',
             'r' => '100',
-        ), $obj->getSerializableAttributes());
+        ], $obj->getSerializableAttributes());
     }
 
     /**
@@ -125,12 +125,12 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('ellipse'),
-            $this->identicalTo(array(
+            $this->identicalTo([
                 'cx' => 37.0,
                 'cy' => 42.0,
                 'rx' => 100.0,
                 'ry' => 100.0,
-            )),
+            ]),
             $this->identicalTo($obj)
         );
         $obj->rasterize($rast);

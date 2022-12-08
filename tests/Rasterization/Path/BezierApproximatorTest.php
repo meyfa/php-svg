@@ -14,9 +14,9 @@ class BezierApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testQuadratic()
     {
         $bezier = new BezierApproximator();
-        $p0 = array(20, 10);
-        $p1 = array(-25, -15);
-        $p2 = array(30, 20);
+        $p0 = [20, 10];
+        $p1 = [-25, -15];
+        $p2 = [30, 20];
         $result = $bezier->quadratic($p0, $p1, $p2);
 
         $n = count($result);
@@ -29,10 +29,10 @@ class BezierApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testCubic()
     {
         $bezier = new BezierApproximator();
-        $p0 = array(20, 10);
-        $p1 = array(-15, -15);
-        $p2 = array(-25, 10);
-        $p3 = array(30, 20);
+        $p0 = [20, 10];
+        $p1 = [-15, -15];
+        $p2 = [-25, 10];
+        $p3 = [30, 20];
         $result = $bezier->cubic($p0, $p1, $p2, $p3);
 
         $n = count($result);

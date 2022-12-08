@@ -28,13 +28,13 @@ class ImageRendererTest extends \PHPUnit\Framework\TestCase
     public function testRender()
     {
         $rast = new \SVG\Rasterization\SVGRasterizer(10, 20, null, 100, 200);
-        $options = array(
+        $options = [
             'href'   => __DIR__ . '/../../sample.svg',
             'x'      => 10.5,
             'y'      => 10.5,
             'width'  => 100.5,
             'height' => 100.5
-        );
+        ];
         $svgImageRender = new ImageRenderer();
         $context = new SVGNodeClass();
 

@@ -69,10 +69,10 @@ class SVGPath extends SVGNodeContainer
 
         TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
 
-        $rasterizer->render('path', array(
+        $rasterizer->render('path', [
             'commands'  => $commands,
             'fill-rule' => strtolower($this->getComputedStyle('fill-rule') ?: 'nonzero')
-        ), $this);
+        ], $this);
 
         $rasterizer->popTransform();
     }

@@ -24,7 +24,7 @@ final class TransformParser
 
         // https://www.w3.org/TR/css-transforms-1/#svg-syntax
 
-        $matches = array();
+        $matches = [];
         preg_match_all(
             '/(translate|scale|rotate|skewX|skewY|matrix)\s*\(\s*([^)]+)\s*\)/',
             $input,
@@ -44,7 +44,7 @@ final class TransformParser
 
     private static function splitArguments($argumentString)
     {
-        $args = array();
+        $args = [];
         if ($argumentString !== '') {
             preg_match_all('/[+-]?(\d*\.\d+|\d+)(e[+-]?\d+)?/', $argumentString, $args);
             $args = $args[0];

@@ -15,12 +15,12 @@ class SVGDocumentFragment extends SVGNodeContainer
     const TAG_NAME = 'svg';
 
     /** @var mixed[] $initialStyles A map of style keys to their defaults. */
-    private static $initialStyles = array(
+    private static $initialStyles = [
         'fill'          => '#000000',
         'stroke'        => 'none',
         'stroke-width'  => '1',
         'opacity'       => '1',
-    );
+    ];
 
     /**
      * @param string|null $width  The declared width.
@@ -157,10 +157,10 @@ class SVGDocumentFragment extends SVGNodeContainer
     public function getSerializableNamespaces()
     {
         if ($this->isRoot()) {
-            return parent::getSerializableNamespaces() + array(
+            return parent::getSerializableNamespaces() + [
                 '' => 'http://www.w3.org/2000/svg',
                 'xlink' => 'http://www.w3.org/1999/xlink',
-            );
+            ];
         }
         return parent::getSerializableNamespaces();
     }
@@ -176,7 +176,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     public function getElementById($id)
     {
         // start with document
-        $stack = array($this);
+        $stack = [$this];
 
         while (!empty($stack)) {
             $elem = array_pop($stack);

@@ -19,13 +19,13 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
     {
         // should set empty points by default
         $obj = new SVGPolyline();
-        $this->assertSame(array(), $obj->getPoints());
+        $this->assertSame([], $obj->getPoints());
 
         // should set points when provided
-        $points = array(
-            array(42.5, 42.5),
-            array(37, 37),
-        );
+        $points = [
+            [42.5, 42.5],
+            [37, 37],
+        ];
         $obj = new SVGPolyline($points);
         $this->assertEquals($points, $obj->getPoints());
     }
@@ -35,10 +35,10 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
      */
     public function testRasterize()
     {
-        $points = array(
-            array(42.5, 42.5),
-            array(37, 37),
-        );
+        $points = [
+            [42.5, 42.5],
+            [37, 37],
+        ];
 
         $obj = new SVGPolyline($points);
 
@@ -49,11 +49,11 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('polygon'),
-            $this->equalTo(array(
+            $this->equalTo([
                 'open' => true,
                 'points' => $points,
                 'fill-rule' => 'nonzero',
-            )),
+            ]),
             $this->identicalTo($obj)
         );
         $obj->rasterize($rast);
@@ -75,14 +75,14 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
      */
     public function testRasterizeShouldRespectFillRule()
     {
-        $points = array(
-            array(42.5, 42.5),
-            array(37, 37),
-        );
+        $points = [
+            [42.5, 42.5],
+            [37, 37],
+        ];
 
         $obj = new SVGPolyline($points);
 
-        $attributeToExpectedFillRule = array(
+        $attributeToExpectedFillRule = [
             '' => 'nonzero',
             " \n " => 'nonzero',
             'nonzero' => 'nonzero',
@@ -92,7 +92,7 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
             '  evenodd  ' => 'evenodd',
             ' evenOdd ' => 'evenodd',
             'foo' => 'foo',
-        );
+        ];
         foreach ($attributeToExpectedFillRule as $attribute => $expectedFillRule) {
             $rasterizer = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
                 ->disableOriginalConstructor()
@@ -100,11 +100,11 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
 
             $rasterizer->expects($this->once())->method('render')->with(
                 $this->identicalTo('polygon'),
-                $this->equalTo(array(
+                $this->equalTo([
                     'open' => true,
                     'points' => $points,
                     'fill-rule' => $expectedFillRule,
-                )),
+                ]),
                 $this->identicalTo($obj)
             );
 

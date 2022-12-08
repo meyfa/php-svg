@@ -27,7 +27,7 @@ class RectRenderer extends MultiPassRenderer
         $transform->resize($w, $h);
 
         if ($w <= 0 || $h <= 0) {
-            return array('empty' => true);
+            return ['empty' => true];
         }
 
         $x1 = $options['x'];
@@ -52,7 +52,7 @@ class RectRenderer extends MultiPassRenderer
             $ry = 0;
         }
 
-        return array(
+        return [
             'empty' => false,
             'x1' => $x1,
             'y1' => $y1,
@@ -60,7 +60,7 @@ class RectRenderer extends MultiPassRenderer
             'y2' => $y1 + $h - 1,
             'rx' => $rx,
             'ry' => $ry,
-        );
+        ];
     }
 
     /**

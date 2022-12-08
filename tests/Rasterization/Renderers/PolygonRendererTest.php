@@ -30,25 +30,25 @@ class PolygonRendererTest extends \PHPUnit\Framework\TestCase
         $rasterizer = new SVGRasterizer('50px', '50px', null, 50, 50);
 
         // try with 2 points
-        $obj->render($rasterizer, array(
-            'points' => array(array(0, 0), array(10, 10)),
+        $obj->render($rasterizer, [
+            'points' => [[0, 0], [10, 10]],
             'open' => false,
             'fill-rule' => 'nonzero',
-        ), $context);
+        ], $context);
 
         // then with 1
-        $obj->render($rasterizer, array(
-            'points' => array(array(0, 0)),
+        $obj->render($rasterizer, [
+            'points' => [[0, 0]],
             'open' => false,
             'fill-rule' => 'nonzero',
-        ), $context);
+        ], $context);
 
         // then with 0
-        $obj->render($rasterizer, array(
-            'points' => array(),
+        $obj->render($rasterizer, [
+            'points' => [],
             'open' => false,
             'fill-rule' => 'nonzero',
-        ), $context);
+        ], $context);
     }
 
     public function testShouldRespectFillRule()
@@ -59,24 +59,24 @@ class PolygonRendererTest extends \PHPUnit\Framework\TestCase
         $context->setStyle('fill', '#FF0000');
         $context->setStyle('stroke', 'none');
 
-        $points = array(
-            array(5, 5),
-            array(45, 5),
-            array(40, 40),
-            array(10, 10),
-            array(10, 40),
-            array(40, 10),
-            array(45, 45),
-            array(5, 45),
-        );
+        $points = [
+            [5, 5],
+            [45, 5],
+            [40, 40],
+            [10, 10],
+            [10, 40],
+            [40, 10],
+            [45, 45],
+            [5, 45],
+        ];
 
-        foreach (array('nonzero', 'evenodd') as $fillRule) {
+        foreach (['nonzero', 'evenodd'] as $fillRule) {
             $rasterizer = new SVGRasterizer('50px', '50px', null, 50, 50);
-            $obj->render($rasterizer, array(
+            $obj->render($rasterizer, [
                 'points' => $points,
                 'open' => false,
                 'fill-rule' => $fillRule,
-            ), $context);
+            ], $context);
             $img = $rasterizer->finish();
 
             $file = './tests/images/renderer-polygon-' . $fillRule . '.png';

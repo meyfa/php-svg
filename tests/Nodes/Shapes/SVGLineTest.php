@@ -19,16 +19,16 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
     {
         // should not set any attributes by default
         $obj = new SVGLine();
-        $this->assertSame(array(), $obj->getSerializableAttributes());
+        $this->assertSame([], $obj->getSerializableAttributes());
 
         // should set attributes when provided
         $obj = new SVGLine(11, 12, 13, 14);
-        $this->assertSame(array(
+        $this->assertSame([
             'x1' => '11',
             'y1' => '12',
             'x2' => '13',
             'y2' => '14'
-        ), $obj->getSerializableAttributes());
+        ], $obj->getSerializableAttributes());
     }
 
     /**
@@ -153,12 +153,12 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('line'),
-            $this->identicalTo(array(
+            $this->identicalTo([
                 'x1' => 11.0,
                 'y1' => 12.0,
                 'x2' => 13.0,
                 'y2' => 14.0,
-            )),
+            ]),
             $this->identicalTo($obj)
         );
         $obj->rasterize($rast);

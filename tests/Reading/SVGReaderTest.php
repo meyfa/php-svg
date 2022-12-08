@@ -89,41 +89,41 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         // should retain all document attributes and namespaces
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xml);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'width' => '37',
             'height' => '42',
             'viewBox' => '10 20 74 84',
-        ), $result->getDocument()->getSerializableAttributes());
-        $this->assertEquals(array(
+        ], $result->getDocument()->getSerializableAttributes());
+        $this->assertEquals([
             '' => 'http://www.w3.org/2000/svg',
             'xlink' => 'http://www.w3.org/1999/xlink',
             'testns' => 'test-namespace',
-        ), $result->getDocument()->getSerializableNamespaces());
+        ], $result->getDocument()->getSerializableNamespaces());
 
         // should deal with missing viewBox
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xmlNoViewBox);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'width' => '37',
             'height' => '42',
-        ), $result->getDocument()->getSerializableAttributes());
+        ], $result->getDocument()->getSerializableAttributes());
 
         // should deal with missing width/height
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xmlNoWH);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'viewBox' => '10 20 74 84',
-        ), $result->getDocument()->getSerializableAttributes());
+        ], $result->getDocument()->getSerializableAttributes());
 
         // should set all attributes, including namespace prefixed ones
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xml);
         $rect = $result->getDocument()->getChild(0);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'id' => 'testrect',
             'testns:attr' => 'test',
             'xlink:foo' => 'bar',
-        ), $rect->getSerializableAttributes());
+        ], $rect->getSerializableAttributes());
     }
 
     public function testShouldSetStyles()
@@ -167,19 +167,19 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(2, $g->countChildren());
 
         $circle = $g->getChild(0);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'cx' => '10',
             'cy' => '20',
             'r' => '42',
-        ), $circle->getSerializableAttributes());
+        ], $circle->getSerializableAttributes());
 
         $ellipse = $g->getChild(1);
-        $this->assertEquals(array(
+        $this->assertEquals([
             'cx' => '50',
             'cy' => '60',
             'rx' => '10',
             'ry' => '20',
-        ), $ellipse->getSerializableAttributes());
+        ], $ellipse->getSerializableAttributes());
     }
 
     public function testShouldWorkWithoutAnyXmlns()

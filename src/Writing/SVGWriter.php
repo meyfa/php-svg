@@ -89,7 +89,7 @@ class SVGWriter
      */
     private function appendNamespaces(array $namespaces)
     {
-        $normalized = array();
+        $normalized = [];
         foreach ($namespaces as $key => $value) {
             $namespace = self::serializeNamespace($key);
             $normalized[$namespace] = $value;

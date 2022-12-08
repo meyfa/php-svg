@@ -39,13 +39,13 @@ class ArcApproximator
         // https://www.w3.org/TR/SVG11/implnote.html#ArcImplementationNotes
         if (self::pointsClose($start, $end)) {
             // arc with equal points is treated as nonexistent
-            return array();
+            return [];
         }
         $radiusX = abs($radiusX);
         $radiusY = abs($radiusY);
         if ($radiusX < self::$EPSILON || $radiusY < self::$EPSILON) {
             // arc with no radius is treated as straight line
-            return array($start, $end);
+            return [$start, $end];
         }
 
         $cosr = cos($rotation);
@@ -58,17 +58,17 @@ class ArcApproximator
         $numSteps = max(2, ceil(abs($angleDelta * $dist * $scale)));
         $stepSize = $angleDelta / $numSteps;
 
-        $points = array();
+        $points = [];
 
         for ($i = 0; $i <= $numSteps; ++$i) {
             $angle = $angleStart + $stepSize * $i;
             $first = $radiusX * cos($angle);
             $second = $radiusY * sin($angle);
 
-            $points[] = array(
+            $points[] = [
                 $cosr * $first - $sinr * $second + $center[0],
                 $sinr * $first + $cosr * $second + $center[1],
-            );
+            ];
         }
 
         return $points;
@@ -153,7 +153,7 @@ class ArcApproximator
             $angleDelta += M_PI * 2;
         }
 
-        return array(array($centerX, $centerY), $radiusX, $radiusY, $angleStart, $angleDelta);
+        return [[$centerX, $centerY], $radiusX, $radiusY, $angleStart, $angleDelta];
     }
 
     /**

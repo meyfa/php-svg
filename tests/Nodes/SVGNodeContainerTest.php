@@ -180,19 +180,19 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         );
 
         // should not return itself
-        $this->assertSame(array(), $obj->getElementsByTagName('test_subclass'));
+        $this->assertSame([], $obj->getElementsByTagName('test_subclass'));
         $this->assertNotContains($obj, $obj->getElementsByTagName('*'));
 
         // should return specific tags
-        $this->assertSame(array(
+        $this->assertSame([
             $root_0_1, $root_1_0_0, $root_1_1,
-        ), $obj->getElementsByTagName('rect'));
+        ], $obj->getElementsByTagName('rect'));
 
         // should return all descendants for '*'
-        $this->assertSame(array(
+        $this->assertSame([
             $root_0, $root_0_0, $root_0_1,
             $root_1, $root_1_0, $root_1_0_0, $root_1_1,
-        ), $obj->getElementsByTagName('*'));
+        ], $obj->getElementsByTagName('*'));
     }
 
     /**
@@ -235,24 +235,24 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
         $root_1_1->setAttribute('class', 'bar foo baz');
 
         // should not return itself
-        $this->assertNotContains(array($obj), $obj->getElementsByClassName('foo'));
-        $this->assertNotContains(array($obj), $obj->getElementsByClassName('foo bar baz'));
-        $this->assertNotContains(array($obj), $obj->getElementsByClassName(array('foo')));
+        $this->assertNotContains([$obj], $obj->getElementsByClassName('foo'));
+        $this->assertNotContains([$obj], $obj->getElementsByClassName('foo bar baz'));
+        $this->assertNotContains([$obj], $obj->getElementsByClassName(['foo']));
 
         // should find by single class name
-        $this->assertSame(array(
+        $this->assertSame([
             $root_0_1, $root_1, $root_1_0_0, $root_1_1,
-        ), $obj->getElementsByClassName('foo'));
+        ], $obj->getElementsByClassName('foo'));
 
         // should find by multiple class names
-        $this->assertSame(array(
+        $this->assertSame([
             $root_1_0_0, $root_1_1,
-        ), $obj->getElementsByClassName('foo  bar '));
+        ], $obj->getElementsByClassName('foo  bar '));
 
         // should work with arrays
-        $this->assertSame(array(
+        $this->assertSame([
             $root_1_0_0, $root_1_1,
-        ), $obj->getElementsByClassName(array('foo', 'bar')));
+        ], $obj->getElementsByClassName(['foo', 'bar']));
 
         // should return 0 elements with empty class name
         $this->assertCount(0, $obj->getElementsByClassName(''));

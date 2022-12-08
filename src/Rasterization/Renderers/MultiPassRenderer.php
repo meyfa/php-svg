@@ -130,7 +130,7 @@ abstract class MultiPassRenderer extends Renderer
         $paintOrder = $context->getComputedStyle('paint-order');
         $paintOrder = preg_replace('#\s{2,}#', ' ', Str::trim($paintOrder));
 
-        $defaultOrder = array('fill', 'stroke', 'markers');
+        $defaultOrder = ['fill', 'stroke', 'markers'];
 
         if ($paintOrder === 'normal' || empty($paintOrder)) {
             return $defaultOrder;
@@ -226,7 +226,7 @@ abstract class MultiPassRenderer extends Renderer
         }
 
         // percentages
-        $matches = array();
+        $matches = [];
         if (preg_match('/^([+-]?\d+(?:\.\d+)?|\.\d+)%$/', $value, $matches)) {
             return max(0, min(100, $matches[1])) / 100;
         }

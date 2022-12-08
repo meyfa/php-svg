@@ -16,18 +16,18 @@ class StrTest extends TestCase
     /** @provides testTrimsWithDefaultCharacters */
     public function provideTrimsWithDefaultCharacters()
     {
-        return array(
-            "It trims null" => array(null, ""),
-            "It trims empty string" => array("", ""),
-            "It trims front" => array(" foo", "foo"),
-            "It trims end" => array("bar ", "bar"),
-            "It trims front and end" => array(" foobar ", 'foobar'),
-            "It doesn't touch the middle" => array(" foo baz ", 'foo baz'),
-            "It trims tabs" => array(" \t foo", 'foo'),
-            "It trims carriage returns" => array("bar \r", 'bar'),
-            "It trims NUL-byte" => array("foobar \0", 'foobar'),
-            "It trims vertical tab" => array("foobaz \v", 'foobaz'),
-        );
+        return [
+            "It trims null" => [null, ""],
+            "It trims empty string" => ["", ""],
+            "It trims front" => [" foo", "foo"],
+            "It trims end" => ["bar ", "bar"],
+            "It trims front and end" => [" foobar ", 'foobar'],
+            "It doesn't touch the middle" => [" foo baz ", 'foo baz'],
+            "It trims tabs" => [" \t foo", 'foo'],
+            "It trims carriage returns" => ["bar \r", 'bar'],
+            "It trims NUL-byte" => ["foobar \0", 'foobar'],
+            "It trims vertical tab" => ["foobaz \v", 'foobaz'],
+        ];
     }
 
     /** @dataProvider provideTrimsWithCustomCharacters */
@@ -40,13 +40,13 @@ class StrTest extends TestCase
     /** @provides testTrimsWithCustomCharacters */
     public function provideTrimsWithCustomCharacters()
     {
-        return array(
-            "It trims null" => array(null, ''),
-            "It trims empty string" => array('', ''),
-            "It doesn't trim spaces (1)" => array(' FOO', ' FOO'),
-            "It doesn't trim spaces (2)" => array('bar ', 'bar '),
-            "It trims front" => array('NeverGonnaGiveYouUp Never gonna let you down!', ' Never gonna let you down!'),
-            "It doesn't touch the middle" => array('FOO N BAR', 'FOO N BAR')
-        );
+        return [
+            "It trims null" => [null, ''],
+            "It trims empty string" => ['', ''],
+            "It doesn't trim spaces (1)" => [' FOO', ' FOO'],
+            "It doesn't trim spaces (2)" => ['bar ', 'bar '],
+            "It trims front" => ['NeverGonnaGiveYouUp Never gonna let you down!', ' Never gonna let you down!'],
+            "It doesn't touch the middle" => ['FOO N BAR', 'FOO N BAR']
+        ];
     }
 }

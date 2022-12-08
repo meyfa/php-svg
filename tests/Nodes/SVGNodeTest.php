@@ -214,9 +214,9 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGNodeSubclass();
 
         // should set namespaces when declared
-        $ns = array(
+        $ns = [
             'xmlns:foobar' => 'foobar-namespace',
-        );
+        ];
         $obj->setNamespaces($ns);
         $this->assertSame($ns, $obj->getSerializableNamespaces());
     }
@@ -232,11 +232,11 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         $obj->setAttribute('x', 0);
         $obj->setAttribute('y', 0);
         $obj->setAttribute('width', '100%');
-        $this->assertSame(array(
+        $this->assertSame([
             'x' => '0',
             'y' => '0',
             'width' => '100%',
-        ), $obj->getSerializableAttributes());
+        ], $obj->getSerializableAttributes());
     }
 
     /**
@@ -249,10 +249,10 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
         // should return previously defined properties
         $obj->setStyle('fill', '#FFFFFF');
         $obj->setStyle('width', 42);
-        $this->assertSame(array(
+        $this->assertSame([
             'fill' => '#FFFFFF',
             'width' => '42',
-        ), $obj->getSerializableStyles());
+        ], $obj->getSerializableStyles());
     }
 
     /**
@@ -275,12 +275,12 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
 
         // should return float array for well-formed viewBox
         $obj->setAttribute('viewBox', '37, 42.25, 100 200');
-        $this->assertSame(array(37.0, 42.25, 100.0, 200.0), $obj->getViewBox());
+        $this->assertSame([37.0, 42.25, 100.0, 200.0], $obj->getViewBox());
         $obj->setAttribute('viewBox', '37, .25, 100 200');
-        $this->assertSame(array(37.0, 0.25, 100.0, 200.0), $obj->getViewBox());
+        $this->assertSame([37.0, 0.25, 100.0, 200.0], $obj->getViewBox());
 
         // should ignore superfluous whitespace
         $obj->setAttribute('viewBox', "  \n 37, 42.25,\n 100 200 \n  ");
-        $this->assertSame(array(37.0, 42.25, 100.0, 200.0), $obj->getViewBox());
+        $this->assertSame([37.0, 42.25, 100.0, 200.0], $obj->getViewBox());
     }
 }

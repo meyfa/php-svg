@@ -163,14 +163,14 @@ class SVGRect extends SVGNodeContainer
 
         TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
 
-        $rasterizer->render('rect', array(
+        $rasterizer->render('rect', [
             'x'         => Length::convert($this->getX(), $rasterizer->getDocumentWidth()),
             'y'         => Length::convert($this->getY(), $rasterizer->getDocumentHeight()),
             'width'     => Length::convert($this->getWidth(), $rasterizer->getDocumentWidth()),
             'height'    => Length::convert($this->getHeight(), $rasterizer->getDocumentHeight()),
             'rx'        => Length::convert($this->getRX(), $rasterizer->getDocumentWidth()),
             'ry'        => Length::convert($this->getRY(), $rasterizer->getDocumentHeight()),
-        ), $this);
+        ], $this);
 
         $rasterizer->popTransform();
     }
