@@ -18,7 +18,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
     private $xmlValue;
     private $xmlEntities;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->xml  = '<?xml version="1.0" encoding="utf-8"?>';
         $this->xml .= '<svg width="37" height="42" viewBox="10 20 74 84" ' .
@@ -282,7 +282,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($code);
 
-        $this->assertContains('<div xmlns="http://www.w3.org/1999/xhtml" xmlns:foo="bar">', '' . $result);
+        $this->assertStringContainsString('<div xmlns="http://www.w3.org/1999/xhtml" xmlns:foo="bar">', '' . $result);
     }
 
     /**
@@ -301,7 +301,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($code);
 
-        $this->assertContains('<p foo:xxx="yyy">', '' . $result);
+        $this->assertStringContainsString('<p foo:xxx="yyy">', '' . $result);
     }
 
     public function testShouldRetrieveNamespacedNodes()

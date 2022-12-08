@@ -27,7 +27,7 @@ Contributions are very welcome. [Find out how to contribute](#contributing).
 
 PHP-SVG is free of dependencies. All it needs is a PHP installation satisfying the following requirements:
 
-* PHP version 5.3.3 or newer. This library is tested against all versions up to PHP 8.
+* PHP version 7.3 or newer. This library is tested against all versions up to PHP 8.
 * If you wish to load SVG files, or strings containing SVG code, you need to have the
   ['simplexml' PHP extension](https://www.php.net/manual/en/book.simplexml.php).
 * If you wish to use the rasterization feature for converting SVGs to raster images (PNGs, JPEGs, ...), you need to
@@ -163,8 +163,8 @@ a GD image resource. GD then provides methods for encoding this resource to a nu
 * [imagejpeg](https://www.php.net/manual/en/function.imagejpeg.php)
 * [imagebmp](https://www.php.net/manual/en/function.imagebmp.php)
 * [imagegif](https://www.php.net/manual/en/function.imagegif.php)
-* [imagewebp](https://www.php.net/manual/en/function.imagewebp.php) (PHP 5.4.0 and later)
-* [imageavif](https://www.php.net/manual/en/function.imageavif.php) (PHP 8.1.0 and later)
+* [imagewebp](https://www.php.net/manual/en/function.imagewebp.php)
+* [imageavif](https://www.php.net/manual/en/function.imageavif.php) (requires PHP 8.1.0 or newer)
 
 ```php
 <?php

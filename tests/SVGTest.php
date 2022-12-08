@@ -15,7 +15,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
     private $xml;
     private $xmlNoDeclaration;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->xml  = '<?xml version="1.0" encoding="utf-8"?>';
         $this->xml .= '<svg ' .

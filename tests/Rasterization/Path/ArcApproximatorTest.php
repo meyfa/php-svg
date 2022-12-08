@@ -23,7 +23,7 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $xa = 2;
         $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -39,7 +39,7 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $xa = -2;
         $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertCount(0, $result);
     }
 
@@ -55,7 +55,7 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $xa = 2;
         $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertSame(10.5, $result[0][0]);
         $this->assertSame(10.5, $result[0][1]);
         $this->assertSame(10.6, $result[1][0]);
@@ -74,13 +74,13 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $xa = 2;
         $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
 
-        $this->assertInternalType('array', $result);
-        $this->assertSame(10.5, $result[0][0]);
-        $this->assertSame(10.5, $result[0][1]);
-        $this->assertEquals(10.55, $result[1][0], '', 0.02);
-        $this->assertEquals(10.55, $result[1][1], '', 0.02);
-        $this->assertSame(10.6, $result[2][0]);
-        $this->assertSame(10.6, $result[2][1]);
+        $this->assertIsArray($result);
+        $this->assertEqualsWithDelta(10.5, $result[0][0], 10e-12);
+        $this->assertEqualsWithDelta(10.5, $result[0][1], 10e-12);
+        $this->assertEqualsWithDelta(10.55, $result[1][0], 0.02);
+        $this->assertEqualsWithDelta(10.55, $result[1][1], 0.02);
+        $this->assertEqualsWithDelta(10.6, $result[2][0], 10e-12);
+        $this->assertEqualsWithDelta(10.6, $result[2][1], 10e-12);
     }
 
     public function testApproximateFlags()
@@ -95,31 +95,31 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $fa = false;
         $fs = false;
         $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         // test some point roughly in the middle
-        $this->assertEquals(15, $result[count($result) / 2][0], '', 0.5);
-        $this->assertEquals(11.35, $result[count($result) / 2][1], '', 0.5);
+        $this->assertEqualsWithDelta(15, $result[count($result) / 2][0], 0.5);
+        $this->assertEqualsWithDelta(11.35, $result[count($result) / 2][1], 0.5);
 
         $fa = true;
         $fs = false;
         $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
-        $this->assertInternalType('array', $result);
-        $this->assertEquals(15, $result[count($result) / 2][0], '', 0.5);
-        $this->assertEquals(28.65, $result[count($result) / 2][1], '', 0.5);
+        $this->assertIsArray($result);
+        $this->assertEqualsWithDelta(15, $result[count($result) / 2][0], 0.5);
+        $this->assertEqualsWithDelta(28.65, $result[count($result) / 2][1], 0.5);
 
         $fa = false;
         $fs = true;
         $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
-        $this->assertInternalType('array', $result);
-        $this->assertEquals(15, $result[count($result) / 2][0], '', 0.5);
-        $this->assertEquals(8.65, $result[count($result) / 2][1], '', 0.5);
+        $this->assertIsArray($result);
+        $this->assertEqualsWithDelta(15, $result[count($result) / 2][0], 0.5);
+        $this->assertEqualsWithDelta(8.65, $result[count($result) / 2][1], 0.5);
 
         $fa = true;
         $fs = true;
         $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
-        $this->assertInternalType('array', $result);
-        $this->assertEquals(15, $result[count($result) / 2][0], '', 0.5);
-        $this->assertEquals(-8.65, $result[count($result) / 2][1], '', 0.5);
+        $this->assertIsArray($result);
+        $this->assertEqualsWithDelta(15, $result[count($result) / 2][0], 0.5);
+        $this->assertEqualsWithDelta(-8.65, $result[count($result) / 2][1], 0.5);
     }
 
     public function testApproximateRadiusScaling()
@@ -134,16 +134,16 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $xa = 0;
         $result = $approx->approximate($p0, $p1, $fa, $fs, $rx, $ry, $xa);
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
 
         $n = count($result);
         // expect ellipse to be scaled up 5x to meet start/end points
-        $this->assertEquals(10, $result[0][0], '', 0.1);
-        $this->assertEquals(10, $result[0][1], '', 0.1);
-        $this->assertEquals(20, $result[$n - 1][0], '', 0.1);
-        $this->assertEquals(10, $result[$n - 1][1], '', 0.1);
+        $this->assertEqualsWithDelta(10, $result[0][0], 0.1);
+        $this->assertEqualsWithDelta(10, $result[0][1], 0.1);
+        $this->assertEqualsWithDelta(20, $result[$n - 1][0], 0.1);
+        $this->assertEqualsWithDelta(10, $result[$n - 1][1], 0.1);
         // test some point roughly in the middle
-        $this->assertEquals(15, $result[$n / 2][0], '', 1);
-        $this->assertEquals(15, $result[$n / 2][1], '', 1);
+        $this->assertEqualsWithDelta(15, $result[$n / 2][0], 1);
+        $this->assertEqualsWithDelta(15, $result[$n / 2][1], 1);
     }
 }

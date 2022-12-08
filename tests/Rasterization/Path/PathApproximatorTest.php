@@ -294,8 +294,8 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(array(20, 20), $subpaths[0][count($subpaths[0]) - 1]);
         // check center (the curve should bend downwards about halfway to the only control point)
         list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) / 2)];
-        $this->assertEquals(15, $x, null, 1.0);
-        $this->assertEquals(25, $y, null, 1.0);
+        $this->assertEqualsWithDelta(15, $x, 1.0);
+        $this->assertEqualsWithDelta(25, $y, 1.0);
 
         // with preceding CurveToCubic (test reflection of control point)
         // this also checks the relative variant
@@ -314,16 +314,16 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         // The curve should first bend down due to 'C', then bend up due to the reflected 's'.
         // - check at 1/4 from beginning
         list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) * 0.25)];
-        $this->assertEquals(15, $x, null, 1.0);
-        $this->assertEquals(27.5, $y, null, 1.0);
+        $this->assertEqualsWithDelta(15, $x, 1.0);
+        $this->assertEqualsWithDelta(27.5, $y, 1.0);
         // - check at 1/2 from beginning
         list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) * 0.5)];
-        $this->assertEquals(20, $x, null, 1.0);
-        $this->assertEquals(20, $y, null, 1.0);
+        $this->assertEqualsWithDelta(20, $x, 1.0);
+        $this->assertEqualsWithDelta(20, $y, 1.0);
         // - check at 3/4 from beginning
         list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) * 0.75)];
-        $this->assertEquals(25, $x, null, 1.0);
-        $this->assertEquals(12.5, $y, null, 1.0);
+        $this->assertEqualsWithDelta(25, $x, 1.0);
+        $this->assertEqualsWithDelta(12.5, $y, 1.0);
     }
 
     public function testCurveToQuadratic()
@@ -354,13 +354,13 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
             list($x, $y) = $subpaths[0][$i];
             $this->assertGreaterThanOrEqual($xPrev, $x);
             $this->assertLessThanOrEqual(20, $x);
-            $this->assertEquals($yPrev, $y);
+            $this->assertEqualsWithDelta($yPrev, $y, 10e-12);
         }
         // expect everything after to be a straight vertical line
         for ($i = $corner + 1; $i < count($subpaths[0]); ++$i) {
             list($xPrev, $yPrev) = $subpaths[0][$i - 1];
             list($x, $y) = $subpaths[0][$i];
-            $this->assertEquals($xPrev, $x);
+            $this->assertEqualsWithDelta($xPrev, $x, 10e-12);
             $this->assertGreaterThanOrEqual($yPrev, $y);
             $this->assertLessThanOrEqual(30, $y);
         }
@@ -395,8 +395,8 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(array(20, 20), $subpaths[0][count($subpaths[0]) - 1]);
         // check center (the curve should represent a flat horizontal line)
         list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) / 2)];
-        $this->assertEquals(15, $x, null, 1.0);
-        $this->assertEquals(20, $y, null, 1.0);
+        $this->assertEqualsWithDelta(15, $x, 1.0);
+        $this->assertEqualsWithDelta(20, $y, 1.0);
 
         // with preceding CurveToQuadratic (test reflection of control point)
         // this also checks the relative variant
@@ -415,16 +415,16 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         // The curve should first bend down due to 'Q', then bend up due to the reflected 't'.
         // - check at 1/4 from beginning
         list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) * 0.25)];
-        $this->assertEquals(15, $x, null, 1.0);
-        $this->assertEquals(25, $y, null, 1.0);
+        $this->assertEqualsWithDelta(15, $x, 1.0);
+        $this->assertEqualsWithDelta(25, $y, 1.0);
         // - check at 1/2 from beginning
         list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) * 0.5)];
-        $this->assertEquals(20, $x, null, 1.0);
-        $this->assertEquals(20, $y, null, 1.0);
+        $this->assertEqualsWithDelta(20, $x, 1.0);
+        $this->assertEqualsWithDelta(20, $y, 1.0);
         // - check at 3/4 from beginning
         list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) * 0.75)];
-        $this->assertEquals(25, $x, null, 1.0);
-        $this->assertEquals(15, $y, null, 1.0);
+        $this->assertEqualsWithDelta(25, $x, 1.0);
+        $this->assertEqualsWithDelta(15, $y, 1.0);
     }
 
     public function testArcTo()
@@ -457,8 +457,8 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
             }
             // midpoint should roughly be at [15, 30]
             list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) / 2)];
-            $this->assertEquals(15, $x, null, 0.5);
-            $this->assertEquals(30, $y, null, 0.5);
+            $this->assertEqualsWithDelta(15, $x, 0.5);
+            $this->assertEqualsWithDelta(30, $y, 0.5);
         }
 
         // Ensure that with larger transform scale, the number of points increases (but not by too much)
