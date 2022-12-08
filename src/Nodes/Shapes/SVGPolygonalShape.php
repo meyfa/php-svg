@@ -82,7 +82,7 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
         if (isset($pointsAttribute)) {
             return self::splitPoints($pointsAttribute);
         }
-        return array();
+        return [];
     }
 
     /**
@@ -93,10 +93,10 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
     public function getPoint($index)
     {
         $coords = self::splitCoordinates($this->getAttribute('points') ?: '');
-        return array(
+        return [
             (float) $coords[$index * 2],
             (float) $coords[$index * 2 + 1],
-        );
+        ];
     }
 
     /**
@@ -137,13 +137,13 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
 
     private static function splitPoints($pointsString)
     {
-        $pointsArray = array();
+        $pointsArray = [];
         $coords = self::splitCoordinates($pointsString);
         for ($i = 0, $n = count($coords); $i + 1 < $n; $i += 2) {
-            $pointsArray[] = array(
+            $pointsArray[] = [
                 (float) $coords[$i],
                 (float) $coords[$i + 1],
-            );
+            ];
         }
         return $pointsArray;
     }

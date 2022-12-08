@@ -25,9 +25,9 @@ class PathRenderer extends MultiPassRenderer
         $approximator = new PathApproximator($transform);
         $approximator->approximate($options['commands']);
 
-        $subpaths = array();
+        $subpaths = [];
         foreach ($approximator->getSubpaths() as $subpath) {
-            $points = array();
+            $points = [];
             foreach ($subpath as $point) {
                 $points[] = $point[0];
                 $points[] = $point[1];
@@ -35,10 +35,10 @@ class PathRenderer extends MultiPassRenderer
             $subpaths[] = $points;
         }
 
-        return array(
+        return [
             'subpaths'  => $subpaths,
             'fill-rule' => $options['fill-rule'],
-        );
+        ];
     }
 
     /**

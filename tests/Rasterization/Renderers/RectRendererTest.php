@@ -24,10 +24,10 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $context->setStyle('stroke-width', '1px');
 
         $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
-        $obj->render($rasterizer, array(
+        $obj->render($rasterizer, [
             'x' => 4, 'y' => 8,
             'width' => 20, 'height' => 16,
-        ), $context);
+        ], $context);
         $img = $rasterizer->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke.png'));
@@ -43,10 +43,10 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $context->setStyle('stroke-width', '3px');
 
         $rasterizer = new SVGRasterizer('20px', '20px', null, 40, 40);
-        $obj->render($rasterizer, array(
+        $obj->render($rasterizer, [
             'x' => 2, 'y' => 4,
             'width' => 10, 'height' => 8,
-        ), $context);
+        ], $context);
         $img = $rasterizer->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-thick.png'));
@@ -62,10 +62,10 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $context->setStyle('stroke-width', '3px');
 
         $rasterizer = new SVGRasterizer('20px', '20px', null, 40, 40);
-        $obj->render($rasterizer, array(
+        $obj->render($rasterizer, [
             'x' => 2, 'y' => 4,
             'width' => 10, 'height' => 8,
-        ), $context);
+        ], $context);
         $img = $rasterizer->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-alpha.png'));
@@ -80,10 +80,10 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $context->setStyle('stroke', 'none');
 
         $rasterizer = new SVGRasterizer('20px', '20px', null, 40, 40);
-        $obj->render($rasterizer, array(
+        $obj->render($rasterizer, [
             'x' => 2, 'y' => 4,
             'width' => 10, 'height' => 8,
-        ), $context);
+        ], $context);
         $img = $rasterizer->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-fill.png'));
@@ -98,10 +98,10 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $context->setStyle('stroke', 'none');
 
         $rasterizer = new SVGRasterizer('20px', '20px', null, 40, 40);
-        $obj->render($rasterizer, array(
+        $obj->render($rasterizer, [
             'x' => 2, 'y' => 4,
             'width' => 10, 'height' => 8,
-        ), $context);
+        ], $context);
         $img = $rasterizer->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-fill-alpha.png'));
@@ -117,10 +117,10 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $context->setStyle('stroke-width', '5px');
 
         $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
-        $obj->render($rasterizer, array(
+        $obj->render($rasterizer, [
             'x' => 4, 'y' => 8,
             'width' => 20, 'height' => 16,
-        ), $context);
+        ], $context);
         $img = $rasterizer->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-fill.png'));
@@ -136,11 +136,11 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $context->setStyle('stroke-width', '1px');
 
         $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
-        $obj->render($rasterizer, array(
+        $obj->render($rasterizer, [
             'x' => 4, 'y' => 8,
             'width' => 20, 'height' => 16,
             'rx' => 4, 'ry' => 4,
-        ), $context);
+        ], $context);
         $img = $rasterizer->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-rounded.png'));
@@ -155,11 +155,11 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $context->setStyle('stroke', 'none');
 
         $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
-        $obj->render($rasterizer, array(
+        $obj->render($rasterizer, [
             'x' => 4, 'y' => 8,
             'width' => 20, 'height' => 16,
             'rx' => 4, 'ry' => 4,
-        ), $context);
+        ], $context);
         $img = $rasterizer->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-fill-rounded.png'));
@@ -175,11 +175,11 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $context->setStyle('stroke-width', '1px');
 
         $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
-        $obj->render($rasterizer, array(
+        $obj->render($rasterizer, [
             'x' => 4, 'y' => 8,
             'width' => 0, 'height' => 16,
             'rx' => 4, 'ry' => 4,
-        ), $context);
+        ], $context);
         $img = $rasterizer->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-empty.png'));
@@ -195,11 +195,11 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $context->setStyle('stroke-width', '1px');
 
         $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
-        $obj->render($rasterizer, array(
+        $obj->render($rasterizer, [
             'x' => 4, 'y' => 8,
             'width' => 20, 'height' => 0,
             'rx' => 4, 'ry' => 4,
-        ), $context);
+        ], $context);
         $img = $rasterizer->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-empty.png'));

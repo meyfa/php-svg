@@ -127,12 +127,12 @@ class SVGEllipse extends SVGNodeContainer
 
         TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
 
-        $rasterizer->render('ellipse', array(
+        $rasterizer->render('ellipse', [
             'cx'    => Length::convert($this->getCenterX(), $rasterizer->getDocumentWidth()),
             'cy'    => Length::convert($this->getCenterY(), $rasterizer->getDocumentHeight()),
             'rx'    => Length::convert($this->getRadiusX(), $rasterizer->getDocumentWidth()),
             'ry'    => Length::convert($this->getRadiusY(), $rasterizer->getDocumentHeight()),
-        ), $this);
+        ], $this);
 
         $rasterizer->popTransform();
     }

@@ -21,11 +21,11 @@ class TransformParserTest extends \PHPUnit\Framework\TestCase
     public function testParseTransformString()
     {
         $transform = TransformParser::parseTransformString('translate(10,20) scale(3,7) rotate(90)');
-        $this->assertMap($transform, array(-290, 720), array(100, 100));
+        $this->assertMap($transform, [-290, 720], [100, 100]);
 
         // should not care about whitespace
         $transform = TransformParser::parseTransformString("  translate  (  10  ,  20  ) \nscale(3, 7) rotate(90)  ");
-        $this->assertMap($transform, array(-290, 720), array(100, 100));
+        $this->assertMap($transform, [-290, 720], [100, 100]);
 
         // should not fail for missing arguments
         $this->assertNotNull(TransformParser::parseTransformString('translate(10)'));

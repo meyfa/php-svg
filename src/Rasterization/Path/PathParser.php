@@ -13,7 +13,7 @@ class PathParser
     /**
      * @var int[] $commandLengths A map of command ids to their argument counts.
      */
-    private static $commandLengths = array(
+    private static $commandLengths = [
         'M' => 2,   'm' => 2,   // MoveTo
         'L' => 2,   'l' => 2,   // LineTo
         'H' => 1,   'h' => 1,   // LineToHorizontal
@@ -24,7 +24,7 @@ class PathParser
         'T' => 2,   't' => 2,   // CurveToQuadraticSmooth
         'A' => 7,   'a' => 7,   // ArcTo
         'Z' => 0,   'z' => 0,   // ClosePath
-    );
+    ];
 
     /**
      * Parses a path description into a consecutive array of commands.
@@ -39,9 +39,9 @@ class PathParser
      */
     public function parse($description)
     {
-        $commands = array();
+        $commands = [];
 
-        $matches  = array();
+        $matches  = [];
         $idString = implode('', array_keys(self::$commandLengths));
         preg_match_all('/([' . $idString . '])([^' . $idString . ']*)/', $description, $matches, PREG_SET_ORDER);
 
@@ -69,7 +69,7 @@ class PathParser
     {
         $str = Str::trim($str);
 
-        $args = array();
+        $args = [];
         if ($str !== '') {
             preg_match_all('/[+-]?(\d*\.\d+|\d+)(e[+-]?\d+)?/', $str, $args);
             $args = $args[0];
@@ -101,10 +101,10 @@ class PathParser
             if (count($args) > 0) {
                 return false;
             }
-            $commands[] = array(
+            $commands[] = [
                 'id'    => $id,
                 'args'  => $args,
-            );
+            ];
             return true;
         }
 
@@ -112,10 +112,10 @@ class PathParser
             if (count($subArgs) !== $length) {
                 return false;
             }
-            $commands[] = array(
+            $commands[] = [
                 'id'    => $id,
                 'args'  => array_map('floatval', $subArgs),
-            );
+            ];
             // If a MoveTo command is followed by additional coordinate pairs,
             // those are interpreted as implicit LineTo commands
             if ($id === 'M') {

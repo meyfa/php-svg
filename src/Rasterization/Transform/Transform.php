@@ -46,7 +46,7 @@ class Transform
      */
     public static function identity()
     {
-        return new self(array(1, 0, 0, 1, 0, 0));
+        return new self([1, 0, 0, 1, 0, 0]);
     }
 
     // computation functions
@@ -119,14 +119,14 @@ class Transform
      */
     public function multiply(Transform $other)
     {
-        $this->matrix = array(
+        $this->matrix = [
             $other->matrix[0] * $this->matrix[0] + $other->matrix[1] * $this->matrix[2],
             $other->matrix[0] * $this->matrix[1] + $other->matrix[1] * $this->matrix[3],
             $other->matrix[2] * $this->matrix[0] + $other->matrix[3] * $this->matrix[2],
             $other->matrix[2] * $this->matrix[1] + $other->matrix[3] * $this->matrix[3],
             $other->matrix[4] * $this->matrix[0] + $other->matrix[5] * $this->matrix[2] + $this->matrix[4],
             $other->matrix[4] * $this->matrix[1] + $other->matrix[5] * $this->matrix[3] + $this->matrix[5],
-        );
+        ];
     }
 
     /**

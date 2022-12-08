@@ -13,7 +13,7 @@ class PolygonBuilder
     /**
      * @var array[] $points The polygon being built (array of float 2-tuples).
      */
-    private $points = array();
+    private $points = [];
 
     /**
      * @var float $posX The current x position.
@@ -81,7 +81,7 @@ class PolygonBuilder
      */
     public function getPosition()
     {
-        return array($this->posX, $this->posY);
+        return [$this->posX, $this->posY];
     }
 
     /**
@@ -100,7 +100,7 @@ class PolygonBuilder
         $x = isset($x) ? $x : $this->posX;
         $y = isset($y) ? $y : $this->posY;
 
-        $this->points[] = array($x, $y);
+        $this->points[] = [$x, $y];
 
         $this->posX = $x;
         $this->posY = $y;
@@ -124,7 +124,7 @@ class PolygonBuilder
         $this->posX += $x ?: 0;
         $this->posY += $y ?: 0;
 
-        $this->points[] = array($this->posX, $this->posY);
+        $this->points[] = [$this->posX, $this->posY];
     }
 
     /**

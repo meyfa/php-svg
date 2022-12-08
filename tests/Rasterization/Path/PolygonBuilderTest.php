@@ -19,11 +19,11 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
     {
         // should set position to origin by default
         $obj = new PolygonBuilder();
-        $this->assertSame(array(0.0, 0.0), $obj->getPosition());
+        $this->assertSame([0.0, 0.0], $obj->getPosition());
 
         // should use provided coordinates as origin
         $obj = new PolygonBuilder(37.1, 42.2);
-        $this->assertSame(array(37.1, 42.2), $obj->getPosition());
+        $this->assertSame([37.1, 42.2], $obj->getPosition());
     }
 
     /**
@@ -35,10 +35,10 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         $obj = new PolygonBuilder();
         $obj->addPoint(10, 20);
         $obj->addPoint(37.1, 42.2);
-        $this->assertSame(array(
-            array(10, 20),
-            array(37.1, 42.2),
-        ), $obj->build());
+        $this->assertSame([
+            [10, 20],
+            [37.1, 42.2],
+        ], $obj->build());
     }
 
     /**
@@ -54,7 +54,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         // should return the first point
         $obj->addPoint(10, 20);
         $obj->addPoint(37.1, 42.2);
-        $this->assertSame(array(10, 20), $obj->getFirstPoint());
+        $this->assertSame([10, 20], $obj->getFirstPoint());
     }
 
     /**
@@ -70,7 +70,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         // should return the last point
         $obj->addPoint(10, 20);
         $obj->addPoint(37.1, 42.2);
-        $this->assertSame(array(37.1, 42.2), $obj->getLastPoint());
+        $this->assertSame([37.1, 42.2], $obj->getLastPoint());
     }
 
     /**
@@ -81,11 +81,11 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         $obj = new PolygonBuilder(10, 20);
 
         // should return constructor coordinates at first
-        $this->assertSame(array(10, 20), $obj->getPosition());
+        $this->assertSame([10, 20], $obj->getPosition());
 
         // should return the last point added
         $obj->addPoint(37.1, 42.2);
-        $this->assertSame(array(37.1, 42.2), $obj->getPosition());
+        $this->assertSame([37.1, 42.2], $obj->getPosition());
     }
 
     /**
@@ -97,24 +97,24 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
 
         // should add the coordinates
         $obj->addPoint(10, 20);
-        $this->assertSame(array(
-            array(10, 20),
-        ), $obj->build());
+        $this->assertSame([
+            [10, 20],
+        ], $obj->build());
         $obj->addPoint(37.1, 42.2);
-        $this->assertSame(array(
-            array(10, 20),
-            array(37.1, 42.2),
-        ), $obj->build());
+        $this->assertSame([
+            [10, 20],
+            [37.1, 42.2],
+        ], $obj->build());
 
         // should use current position when null given instead of coordinate
         $obj->addPoint(0, null);
         $obj->addPoint(null, 0);
-        $this->assertSame(array(
-            array(10, 20),
-            array(37.1, 42.2),
-            array(0, 42.2),
-            array(0, 0),
-        ), $obj->build());
+        $this->assertSame([
+            [10, 20],
+            [37.1, 42.2],
+            [0, 42.2],
+            [0, 0],
+        ], $obj->build());
     }
 
     /**
@@ -128,20 +128,20 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         $obj->addPointRelative(10, 20);
         $obj->addPointRelative(37.1, 42.2);
         $obj->addPointRelative(0, 0);
-        $this->assertSame(array(
-            array(10.0, 20.0),
-            array(47.1, 62.2),
-            array(47.1, 62.2),
-        ), $obj->build());
+        $this->assertSame([
+            [10.0, 20.0],
+            [47.1, 62.2],
+            [47.1, 62.2],
+        ], $obj->build());
 
         // should treat null the same as 0
         $obj->addPointRelative(null, null);
-        $this->assertSame(array(
-            array(10.0, 20.0),
-            array(47.1, 62.2),
-            array(47.1, 62.2),
-            array(47.1, 62.2),
-        ), $obj->build());
+        $this->assertSame([
+            [10.0, 20.0],
+            [47.1, 62.2],
+            [47.1, 62.2],
+            [47.1, 62.2],
+        ], $obj->build());
     }
 
     /**
@@ -154,14 +154,14 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         $obj->addPoint(10, 20);
 
         // should add the points
-        $obj->addPoints(array(
-            array(47.1, 62.2),
-            array(100, 200),
-        ));
-        $this->assertSame(array(
-            array(10, 20),
-            array(47.1, 62.2),
-            array(100, 200),
-        ), $obj->build());
+        $obj->addPoints([
+            [47.1, 62.2],
+            [100, 200],
+        ]);
+        $this->assertSame([
+            [10, 20],
+            [47.1, 62.2],
+            [100, 200],
+        ], $obj->build());
     }
 }

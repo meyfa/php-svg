@@ -39,13 +39,13 @@ class TextRenderer extends MultiPassRenderer
         $y = $options['y'];
         $transform->map($x, $y);
 
-        return array(
+        return [
             'x'         => $x - $anchorOffset,
             'y'         => $y,
             'size'      => $size,
             'font_path' => $options['font_path'],
             'text'      => $options['text'],
-        );
+        ];
     }
 
     /**

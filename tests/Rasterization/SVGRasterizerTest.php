@@ -86,12 +86,12 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     public function testGetDiagonalScale()
     {
         // should use viewBox dimension when available
-        $obj = new SVGRasterizer(10, 20, array(37, 42, 25, 100), 100, 200);
+        $obj = new SVGRasterizer(10, 20, [37, 42, 25, 100], 100, 200);
         $this->assertEqualsWithDelta(3.16, $obj->getDiagonalScale(), 0.01);
         imagedestroy($obj->getImage());
 
         // should use document dimension when viewBox unavailable
-        $obj = new SVGRasterizer(10, 20, array(), 100, 300);
+        $obj = new SVGRasterizer(10, 20, [], 100, 300);
         $this->assertEqualsWithDelta(12.74, $obj->getDiagonalScale(), 0.01);
         imagedestroy($obj->getImage());
     }
@@ -103,12 +103,12 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     public function testGetViewbox()
     {
         // should return the constructor parameter
-        $obj = new SVGRasterizer(10, 20, array(37, 42, 25, 100), 100, 200);
-        $this->assertSame(array(37, 42, 25, 100), $obj->getViewBox());
+        $obj = new SVGRasterizer(10, 20, [37, 42, 25, 100], 100, 200);
+        $this->assertSame([37, 42, 25, 100], $obj->getViewBox());
         imagedestroy($obj->getImage());
 
         // should return null for empty viewBox
-        $obj = new SVGRasterizer(10, 20, array(), 100, 200);
+        $obj = new SVGRasterizer(10, 20, [], 100, 200);
         $this->assertNull($obj->getViewBox());
         imagedestroy($obj->getImage());
     }
@@ -118,7 +118,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetImage()
     {
-        $obj = new SVGRasterizer(10, 20, array(), 100, 200);
+        $obj = new SVGRasterizer(10, 20, [], 100, 200);
 
         if (class_exists('\GdImage', false)) {
             // PHP >=8: should be an image object
@@ -142,21 +142,21 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     public function testGetCurrentTransform()
     {
         // should use viewBox dimension when available
-        $obj = new SVGRasterizer(10, 20, array(37, 42, 25, 80), 100, 160);
+        $obj = new SVGRasterizer(10, 20, [37, 42, 25, 80], 100, 160);
         $transform = $obj->getCurrentTransform();
         $x = 100;
         $y = 100;
         $transform->map($x, $y);
-        $this->assertEquals(array(4 * 100 + 4 * -37, 2 * 100 + 2 * -42), array($x, $y));
+        $this->assertEquals([4 * 100 + 4 * -37, 2 * 100 + 2 * -42], [$x, $y]);
         imagedestroy($obj->getImage());
 
         // should use document dimension when viewBox unavailable
-        $obj = new SVGRasterizer(10, 20, array(), 100, 160);
+        $obj = new SVGRasterizer(10, 20, [], 100, 160);
         $transform = $obj->getCurrentTransform();
         $x = 100;
         $y = 100;
         $transform->map($x, $y);
-        $this->assertEquals(array(1000, 800), array($x, $y));
+        $this->assertEquals([1000, 800], [$x, $y]);
         imagedestroy($obj->getImage());
     }
 
@@ -166,7 +166,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
      */
     public function testTransformStack()
     {
-        $obj = new SVGRasterizer(10, 20, array(37, 42, 25, 80), 100, 160);
+        $obj = new SVGRasterizer(10, 20, [37, 42, 25, 80], 100, 160);
 
         // expect pop to be disallowed without prior push
         try {
@@ -191,7 +191,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
         $x = 100;
         $y = 100;
         $pushed2->map($x, $y);
-        $this->assertEquals(array(4 * 100 + 4 * -37, 2 * 100 + 2 * -42), array($x, $y));
+        $this->assertEquals([4 * 100 + 4 * -37, 2 * 100 + 2 * -42], [$x, $y]);
 
         // pop all previously pushed
         $obj->popTransform();
@@ -210,9 +210,9 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException('\InvalidArgumentException');
 
-        $obj = new SVGRasterizer(10, 20, array(), 100, 200);
+        $obj = new SVGRasterizer(10, 20, [], 100, 200);
         $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
-        $obj->render('invalid_render_id', array('option' => 'value'), $mockChild);
+        $obj->render('invalid_render_id', ['option' => 'value'], $mockChild);
     }
 
     /**
@@ -220,7 +220,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
      */
     public function testShouldRenderBackgroundTransparent()
     {
-        $obj = new SVGRasterizer(32, 32, array(), 32, 32, null);
+        $obj = new SVGRasterizer(32, 32, [], 32, 32, null);
         $img = $obj->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/bg-transparent.png'));
@@ -233,7 +233,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
      */
     public function testShouldRenderBackgroundSolidWhite()
     {
-        $obj = new SVGRasterizer(32, 32, array(), 32, 32, "#FFFFFF");
+        $obj = new SVGRasterizer(32, 32, [], 32, 32, "#FFFFFF");
         $img = $obj->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/bg-white.png'));
@@ -246,7 +246,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
      */
     public function testShouldRenderBackgroundWhiteSemitransparent()
     {
-        $obj = new SVGRasterizer(32, 32, array(), 32, 32, "rgba(255,255,255,.5)");
+        $obj = new SVGRasterizer(32, 32, [], 32, 32, "rgba(255,255,255,.5)");
         $img = $obj->finish();
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/bg-white-semitransparent.png'));

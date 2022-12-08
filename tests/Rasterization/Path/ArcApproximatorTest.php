@@ -14,8 +14,8 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testApproximate()
     {
         $approx = new ArcApproximator();
-        $p0 = array(10.5, 10.5);
-        $p1 = array(10.5, 10.5);
+        $p0 = [10.5, 10.5];
+        $p1 = [10.5, 10.5];
         $fa = false;
         $fs = false;
         $rx = 10;
@@ -30,8 +30,8 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testApproximateWithXaIsLessThanZero()
     {
         $approx = new ArcApproximator();
-        $p0 = array(10.5, 10.5);
-        $p1 = array(10.5, 10.5);
+        $p0 = [10.5, 10.5];
+        $p1 = [10.5, 10.5];
         $fa = false;
         $fs = false;
         $rx = 10;
@@ -46,8 +46,8 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testApproximateWithRxAndRyAreZero()
     {
         $approx = new ArcApproximator();
-        $p0 = array(10.5, 10.5);
-        $p1 = array(10.6, 10.6);
+        $p0 = [10.5, 10.5];
+        $p1 = [10.6, 10.6];
         $fa = false;
         $fs = false;
         $rx = 0;
@@ -65,8 +65,8 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testApproximateWithRxAndRyAreNotZero()
     {
         $approx = new ArcApproximator();
-        $p0 = array(10.5, 10.5);
-        $p1 = array(10.6, 10.6);
+        $p0 = [10.5, 10.5];
+        $p1 = [10.6, 10.6];
         $fa = false;
         $fs = false;
         $rx = 1;
@@ -86,8 +86,8 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testApproximateFlags()
     {
         $approx = new ArcApproximator();
-        $p0 = array(10, 10);
-        $p1 = array(20, 10);
+        $p0 = [10, 10];
+        $p1 = [20, 10];
         $rx = 10;
         $ry = 10;
         $xa = 0;
@@ -125,8 +125,8 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
     public function testApproximateRadiusScaling()
     {
         $approx = new ArcApproximator();
-        $p0 = array(10, 10);
-        $p1 = array(20, 10);
+        $p0 = [10, 10];
+        $p1 = [20, 10];
         $fa = false;
         $fs = false;
         $rx = 1;

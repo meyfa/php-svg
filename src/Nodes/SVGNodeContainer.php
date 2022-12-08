@@ -25,8 +25,8 @@ abstract class SVGNodeContainer extends SVGNode
     {
         parent::__construct();
 
-        $this->containerStyles = array();
-        $this->children = array();
+        $this->containerStyles = [];
+        $this->children = [];
     }
 
     /**
@@ -52,7 +52,7 @@ abstract class SVGNodeContainer extends SVGNode
         $index = ($index !== null) ? $index : count($this->children);
 
         // insert and set new parent
-        array_splice($this->children, $index, 0, array($node));
+        array_splice($this->children, $index, 0, [$node]);
         $node->parent = $this;
 
         if ($node instanceof SVGStyle) {
@@ -202,10 +202,10 @@ abstract class SVGNodeContainer extends SVGNode
     public function getContainerStyleByPattern($pattern)
     {
         if ($pattern === null) {
-            return array();
+            return [];
         }
 
-        $nodeStyles = array();
+        $nodeStyles = [];
         if (!empty($this->parent)) {
             $nodeStyles = $this->parent->getContainerStyleByPattern($pattern);
         }
@@ -234,7 +234,7 @@ abstract class SVGNodeContainer extends SVGNode
     /**
      * @inheritdoc
      */
-    public function getElementsByTagName($tagName, array &$result = array())
+    public function getElementsByTagName($tagName, array &$result = [])
     {
         foreach ($this->children as $child) {
             if ($tagName === '*' || $child->getName() === $tagName) {
@@ -249,7 +249,7 @@ abstract class SVGNodeContainer extends SVGNode
     /**
      * @inheritdoc
      */
-    public function getElementsByClassName($className, array &$result = array())
+    public function getElementsByClassName($className, array &$result = [])
     {
         if (!is_array($className)) {
             $className = preg_split('/\s+/', Str::trim($className));

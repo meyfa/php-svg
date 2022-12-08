@@ -39,23 +39,23 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($obj->getAttribute('points'));
 
         // should set attribute to '' if empty array is provided
-        $obj = new SVGPolygonalShapeSubclass(array());
+        $obj = new SVGPolygonalShapeSubclass([]);
         $this->assertSame('', $obj->getAttribute('points'));
 
         // should set provided points
-        $points = array(
-            array(42.5, 42.5),
-            array(37, 37),
-        );
+        $points = [
+            [42.5, 42.5],
+            [37, 37],
+        ];
         $obj = new SVGPolygonalShapeSubclass($points);
         $this->assertSame('42.5,42.5 37,37', $obj->getAttribute('points'));
 
         // should stop when invalid point is encountered
-        $obj = new SVGPolygonalShapeSubclass(array(
-            array(1, 2),
-            array(3),
-            array(4, 5),
-        ));
+        $obj = new SVGPolygonalShapeSubclass([
+            [1, 2],
+            [3],
+            [4, 5],
+        ]);
         $this->assertSame('1,2', $obj->getAttribute('points'));
     }
 
@@ -71,7 +71,7 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('42.5,43.5', $obj->getAttribute('points'));
 
         // should support an array
-        $obj->addPoint(array(37, 38));
+        $obj->addPoint([37, 38]);
         $this->assertSame('42.5,43.5 37,38', $obj->getAttribute('points'));
 
         // should return same instance
@@ -93,24 +93,24 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
      */
     public function testRemovePoint()
     {
-        $obj = new SVGPolygonalShapeSubclass(array(
-            array(42.5, 43.5),
-            array(37, 38),
-        ));
+        $obj = new SVGPolygonalShapeSubclass([
+            [42.5, 43.5],
+            [37, 38],
+        ]);
 
         // should remove points by index
         $obj->removePoint(0);
         $this->assertSame('37,38', $obj->getAttribute('points'));
-        $this->assertEquals(array(
-            array(37, 38),
-        ), $obj->getPoints());
+        $this->assertEquals([
+            [37, 38],
+        ], $obj->getPoints());
 
         // should return same instance
         $this->assertSame($obj, $obj->removePoint(0));
 
         // should allow clearing points completely
         $this->assertSame('', $obj->getAttribute('points'));
-        $this->assertSame(array(), $obj->getPoints());
+        $this->assertSame([], $obj->getPoints());
 
         // should allow removing from middle
         $obj->setAttribute('points', '1,2 3,4 5,6');
@@ -123,10 +123,10 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
      */
     public function testCountPoints()
     {
-        $obj = new SVGPolygonalShapeSubclass(array(
-            array(42.5, 43.5),
-            array(37, 38),
-        ));
+        $obj = new SVGPolygonalShapeSubclass([
+            [42.5, 43.5],
+            [37, 38],
+        ]);
 
         // should return number of points
         $this->assertSame(2, $obj->countPoints());
@@ -161,27 +161,27 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
 
         // should return empty array for missing attribute
         $obj->setAttribute('points', null);
-        $this->assertSame(array(), $obj->getPoints());
+        $this->assertSame([], $obj->getPoints());
 
         // should return empty array for empty attribute
         $obj->setAttribute('points', '');
-        $this->assertSame(array(), $obj->getPoints());
+        $this->assertSame([], $obj->getPoints());
 
         // should parse attribute
         $obj->setAttribute('points', '42.5 43.5 37 38 -5 3');
-        $this->assertEquals(array(
-            array(42.5, 43.5),
-            array(37, 38),
-            array(-5, 3)
-        ), $obj->getPoints());
+        $this->assertEquals([
+            [42.5, 43.5],
+            [37, 38],
+            [-5, 3]
+        ], $obj->getPoints());
 
         // should support comma delimiter
         $obj->setAttribute('points', '42.5 43.5 37,38,-5,3');
-        $this->assertEquals(array(
-            array(42.5, 43.5),
-            array(37, 38),
-            array(-5, 3)
-        ), $obj->getPoints());
+        $this->assertEquals([
+            [42.5, 43.5],
+            [37, 38],
+            [-5, 3]
+        ], $obj->getPoints());
     }
 
     /**
@@ -189,14 +189,14 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetPoint()
     {
-        $obj = new SVGPolygonalShapeSubclass(array(
-            array(42.5, 43.5),
-            array(37, 38),
-        ));
+        $obj = new SVGPolygonalShapeSubclass([
+            [42.5, 43.5],
+            [37, 38],
+        ]);
 
         // should return point at index
-        $this->assertEquals(array(42.5, 43.5), $obj->getPoint(0));
-        $this->assertEquals(array(37, 38), $obj->getPoint(1));
+        $this->assertEquals([42.5, 43.5], $obj->getPoint(0));
+        $this->assertEquals([37, 38], $obj->getPoint(1));
     }
 
     /**
@@ -204,16 +204,16 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetPoint()
     {
-        $obj = new SVGPolygonalShapeSubclass(array(
-            array(42.5, 43.5),
-            array(37, 38),
-        ));
+        $obj = new SVGPolygonalShapeSubclass([
+            [42.5, 43.5],
+            [37, 38],
+        ]);
 
         // should replace the point at the given index
-        $obj->setPoint(1, array(100, 200));
+        $obj->setPoint(1, [100, 200]);
         $this->assertSame('42.5,43.5 100,200', $obj->getAttribute('points'));
 
         // should return same instance
-        $this->assertSame($obj, $obj->setPoint(1, array(300, 400)));
+        $this->assertSame($obj, $obj->setPoint(1, [300, 400]));
     }
 }

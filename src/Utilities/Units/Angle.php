@@ -20,12 +20,12 @@ final class Angle
             return null;
         }
 
-        $factors = array(
+        $factors = [
             'deg'  => (1),          // base unit
             'rad'  => (180 / M_PI), // 1rad = (180/pi)deg
             'grad' => (9 / 10),     // 10grad = 9deg
             'turn' => (360),        // 1turn = 360deg
-        );
+        ];
 
         $value = (float) $matches[1];
         $unit  = empty($matches[2]) ? 'deg' : $matches[2];

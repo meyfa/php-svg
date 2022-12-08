@@ -20,16 +20,16 @@ class PolygonRenderer extends MultiPassRenderer
      */
     protected function prepareRenderParams(array $options, Transform $transform)
     {
-        $points = array();
+        $points = [];
         foreach ($options['points'] as $point) {
             $transform->mapInto($point[0], $point[1], $points);
         }
 
-        return array(
+        return [
             'open'      => isset($options['open']) ? $options['open'] : false,
             'points'    => $points,
             'fill-rule' => $options['fill-rule'],
-        );
+        ];
     }
 
     /**
@@ -38,7 +38,7 @@ class PolygonRenderer extends MultiPassRenderer
     protected function renderFill($image, array $params, $color)
     {
         // Filling a polygon is equivalent to filling a path containing just a single polygonal subpath.
-        PathRendererImplementation::fillMultipath($image, array($params['points']), $color, $params['fill-rule']);
+        PathRendererImplementation::fillMultipath($image, [$params['points']], $color, $params['fill-rule']);
     }
 
     /**

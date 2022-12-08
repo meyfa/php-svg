@@ -81,7 +81,7 @@ class SVGRasterizer
         $transform = Transform::identity();
         $transform->translate($offsetX, $offsetY);
         $transform->scale($scaleX, $scaleY);
-        $this->transformStack = array($transform);
+        $this->transformStack = [$transform];
 
         // create image
 
@@ -134,7 +134,7 @@ class SVGRasterizer
             return;
         }
 
-        self::$renderers = array(
+        self::$renderers = [
             'rect'      => new Renderers\RectRenderer(),
             'line'      => new Renderers\LineRenderer(),
             'ellipse'   => new Renderers\EllipseRenderer(),
@@ -142,7 +142,7 @@ class SVGRasterizer
             'path'      => new Renderers\PathRenderer(),
             'image'     => new Renderers\ImageRenderer(),
             'text'      => new Renderers\TextRenderer(),
-        );
+        ];
     }
 
     /**

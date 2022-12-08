@@ -18,7 +18,7 @@ abstract class SVGStyleParser
      */
     public static function parseStyles($string)
     {
-        $styles = array();
+        $styles = [];
         if (empty($string)) {
             return $styles;
         }
@@ -49,12 +49,12 @@ abstract class SVGStyleParser
      */
     public static function parseCss($css)
     {
-        $result = array();
+        $result = [];
         preg_match_all('/(?ims)([a-z0-9\s\,\.\:#_\-@^*()\[\]\"\'=]+)\{([^\}]*)\}/', $css, $arr);
 
         foreach ($arr[0] as $i => $x) {
             $selectors = explode(',', Str::trim($arr[1][$i]));
-            if (in_array($selectors[0], array('@font-face', '@keyframes', '@media'))) {
+            if (in_array($selectors[0], ['@font-face', '@keyframes', '@media'])) {
                 continue;
             }
             $rules = self::parseStyles(Str::trim($arr[2][$i]));

@@ -22,7 +22,7 @@ final class Length
             return null;
         }
 
-        $factors = array(
+        $factors = [
             'px' => (1),                    // base unit
             'pt' => (16 / 12),              // 12pt = 16px
             'pc' => (16),                   // 1pc = 16px
@@ -30,7 +30,7 @@ final class Length
             'cm' => (96 / 2.54),            // 1in = 96px, 1in = 2.54cm
             'mm' => (96 / 25.4),            // 1in = 96px, 1in = 25.4mm
             '%'  => ($viewLength / 100),    // 1% = 1/100 of viewLength
-        );
+        ];
 
         $value = (float) $matches[1];
         $unit  = empty($matches[2]) ? 'px' : $matches[2];

@@ -23,7 +23,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         // should not set any attributes by default
         $obj = new SVGDocumentFragment();
         $container->addChild($obj);
-        $this->assertSame(array(), $obj->getSerializableAttributes());
+        $this->assertSame([], $obj->getSerializableAttributes());
 
         // should set width, height when provided
         $obj = new SVGDocumentFragment(37, 42);
@@ -128,33 +128,33 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
     {
         // should include 'xmlns' and 'xmlns:xlink' namespaces for root
         $obj = new SVGDocumentFragment();
-        $this->assertEquals(array(
+        $this->assertEquals([
             '' => 'http://www.w3.org/2000/svg',
             'xlink' => 'http://www.w3.org/1999/xlink',
-        ), $obj->getSerializableNamespaces());
+        ], $obj->getSerializableNamespaces());
 
         // should include additional namespaces
         $obj = new SVGDocumentFragment();
-        $obj->setNamespaces(array(
+        $obj->setNamespaces([
             'xmlns:foo' => 'test-ns-foo',
             'xmlns:bar' => 'test-ns-bar',
-        ));
-        $this->assertEquals(array(
+        ]);
+        $this->assertEquals([
             '' => 'http://www.w3.org/2000/svg',
             'xlink' => 'http://www.w3.org/1999/xlink',
             'xmlns:foo' => 'test-ns-foo',
             'xmlns:bar' => 'test-ns-bar',
-        ), $obj->getSerializableNamespaces());
+        ], $obj->getSerializableNamespaces());
 
         // should override 'xmlns' unprefixed when provided
         $obj = new SVGDocumentFragment();
-        $obj->setNamespaces(array(
+        $obj->setNamespaces([
             '' => 'xmlns-override',
-        ));
-        $this->assertEquals(array(
+        ]);
+        $this->assertEquals([
             '' => 'xmlns-override',
             'xlink' => 'http://www.w3.org/1999/xlink',
-        ), $obj->getSerializableNamespaces());
+        ], $obj->getSerializableNamespaces());
     }
 
     /**
@@ -167,29 +167,29 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         // should be empty by default
         $obj = new SVGDocumentFragment();
         $container->addChild($obj);
-        $this->assertSame(array(), $obj->getSerializableAttributes());
+        $this->assertSame([], $obj->getSerializableAttributes());
 
         // should return previously defined properties
         $obj = new SVGDocumentFragment();
         $container->addChild($obj);
         $obj->setAttribute('id', 'test');
-        $this->assertSame(array(
+        $this->assertSame([
             'id' => 'test',
-        ), $obj->getSerializableAttributes());
+        ], $obj->getSerializableAttributes());
 
         // should include width and height when set
         $obj = new SVGDocumentFragment(100, 200);
         $container->addChild($obj);
         $obj->setHeight(300);
-        $this->assertSame(array(
+        $this->assertSame([
             'width' => '100',
             'height' => '300',
-        ), $obj->getSerializableAttributes());
+        ], $obj->getSerializableAttributes());
 
         // should not include width/height when set to '100%'
         $obj = new SVGDocumentFragment('100%', '100%');
         $container->addChild($obj);
-        $this->assertSame(array(), $obj->getSerializableAttributes());
+        $this->assertSame([], $obj->getSerializableAttributes());
     }
 
     /**

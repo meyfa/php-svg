@@ -24,9 +24,9 @@ abstract class SVGNode
 
     public function __construct()
     {
-        $this->namespaces = array();
-        $this->attributes = array();
-        $this->styles     = array();
+        $this->namespaces = [];
+        $this->attributes = [];
+        $this->styles     = [];
         $this->value      = '';
     }
 
@@ -310,7 +310,7 @@ abstract class SVGNode
      *
      * @SuppressWarnings("unused")
      */
-    public function getElementsByTagName($tagName, array &$result = array())
+    public function getElementsByTagName($tagName, array &$result = [])
     {
         return $result;
     }
@@ -324,7 +324,7 @@ abstract class SVGNode
      * (e.g. class="foo", class="a b foo bar", etc)
      *
      * Example 2: getElementsByClassName('foo bar')
-     * or alternatively: getElementsByClassName(array('foo', 'bar'))
+     * or alternatively: getElementsByClassName(['foo', 'bar'])
      * would return all nodes whose class attribute contains both items
      * 'foo' and 'bar'
      * (e.g. class="a b foo qux bar", but not class="foo")
@@ -336,7 +336,7 @@ abstract class SVGNode
      *
      * @SuppressWarnings("unused")
      */
-    public function getElementsByClassName($className, array &$result = array())
+    public function getElementsByClassName($className, array &$result = [])
     {
         return $result;
     }

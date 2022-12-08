@@ -19,16 +19,16 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     {
         // should not set any attributes by default
         $obj = new SVGRect();
-        $this->assertSame(array(), $obj->getSerializableAttributes());
+        $this->assertSame([], $obj->getSerializableAttributes());
 
         // should set attributes when provided
         $obj = new SVGRect(37, 42, 100, 200);
-        $this->assertSame(array(
+        $this->assertSame([
             'x' => '37',
             'y' => '42',
             'width' => '100',
             'height' => '200'
-        ), $obj->getSerializableAttributes());
+        ], $obj->getSerializableAttributes());
     }
 
     /**
@@ -209,14 +209,14 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('rect'),
-            $this->identicalTo(array(
+            $this->identicalTo([
                 'x' => 37.0,
                 'y' => 42.0,
                 'width' => 100.0,
                 'height' => 200.0,
                 'rx' => 15.0,
                 'ry' => 25.0,
-            )),
+            ]),
             $this->identicalTo($obj)
         );
         $obj->rasterize($rast);

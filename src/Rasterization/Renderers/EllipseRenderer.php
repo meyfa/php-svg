@@ -28,12 +28,12 @@ class EllipseRenderer extends MultiPassRenderer
         $height = $options['ry'] * 2;
         $transform->resize($width, $height);
 
-        return array(
+        return [
             'cx'        => $cx,
             'cy'        => $cy,
             'width'     => $width,
             'height'    => $height,
-        );
+        ];
     }
 
     /**

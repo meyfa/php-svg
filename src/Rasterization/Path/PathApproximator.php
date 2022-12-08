@@ -19,7 +19,7 @@ class PathApproximator
     /**
      * @var string[] $commands A map of command ids to approximation functions.
      */
-    private static $commands = array(
+    private static $commands = [
         'M' => 'moveTo',                    'm' => 'moveTo',
         'L' => 'lineTo',                    'l' => 'lineTo',
         'H' => 'lineToHorizontal',          'h' => 'lineToHorizontal',
@@ -30,7 +30,7 @@ class PathApproximator
         'T' => 'curveToQuadraticSmooth',    't' => 'curveToQuadraticSmooth',
         'A' => 'arcTo',                     'a' => 'arcTo',
         'Z' => 'closePath',                 'z' => 'closePath',
-    );
+    ];
 
     /**
      * @var BezierApproximator $bezier The singleton bezier approximator.
@@ -49,7 +49,7 @@ class PathApproximator
     /**
      * @var float[][][] $subpaths The approximation result up until now.
      */
-    private $subpaths = array();
+    private $subpaths = [];
 
     /**
      * @var PolygonBuilder|null $builder The current subpath builder.
@@ -203,10 +203,10 @@ class PathApproximator
      */
     private static function reflectPoint(array $p, array $r)
     {
-        return array(
+        return [
             2 * $r[0] - $p[0],
             2 * $r[1] - $p[1],
-        );
+        ];
     }
 
     /**
@@ -321,9 +321,9 @@ class PathApproximator
         //       accuracy properly for the output image size.
 
         // the transformed $p0 is simply $builder->getPosition()
-        $p1 = array($args[0], $args[1]);
-        $p2 = array($args[2], $args[3]);
-        $p3 = array($args[4], $args[5]);
+        $p1 = [$args[0], $args[1]];
+        $p2 = [$args[2], $args[3]];
+        $p3 = [$args[4], $args[5]];
 
         if ($id === 'c') {
             $p1[0] += $this->posX;
@@ -360,9 +360,9 @@ class PathApproximator
      */
     private function curveToCubicSmooth($id, array $args)
     {
-        $p1 = array($this->posX, $this->posY); // first control point defaults to current point
-        $p2 = array($args[0], $args[1]);
-        $p3 = array($args[2], $args[3]);
+        $p1 = [$this->posX, $this->posY]; // first control point defaults to current point
+        $p2 = [$args[0], $args[1]];
+        $p3 = [$args[2], $args[3]];
 
         if ($id === 's') {
             $p2[0] += $this->posX;
@@ -402,8 +402,8 @@ class PathApproximator
      */
     private function curveToQuadratic($id, array $args)
     {
-        $p1 = array($args[0], $args[1]);
-        $p2 = array($args[2], $args[3]);
+        $p1 = [$args[0], $args[1]];
+        $p2 = [$args[2], $args[3]];
 
         if ($id === 'q') {
             $p1[0] += $this->posX;
@@ -436,8 +436,8 @@ class PathApproximator
      */
     private function curveToQuadraticSmooth($id, array $args)
     {
-        $p1 = array($this->posX, $this->posY); // control point defaults to current point
-        $p2 = array($args[0], $args[1]);
+        $p1 = [$this->posX, $this->posY]; // control point defaults to current point
+        $p2 = [$args[0], $args[1]];
 
         if ($id === 't') {
             $p2[0] += $this->posX;
@@ -479,8 +479,8 @@ class PathApproximator
         //       decrease the number of approximated points.
 
         // start point, end point
-        $p0 = array($this->posX, $this->posY);
-        $p1 = array($args[5], $args[6]);
+        $p0 = [$this->posX, $this->posY];
+        $p1 = [$args[5], $args[6]];
         // radiuses, rotation
         $rx = $args[0];
         $ry = $args[1];

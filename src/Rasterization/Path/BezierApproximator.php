@@ -26,7 +26,7 @@ class BezierApproximator
     {
         $t      = 0;
         $prev   = $p0;
-        $points = array($p0);
+        $points = [$p0];
 
         $step = 0.1;
 
@@ -75,7 +75,7 @@ class BezierApproximator
     {
         $t      = 0;
         $prev   = $p0;
-        $points = array($p0);
+        $points = [$p0];
 
         $step  = 0.1;
 
@@ -120,10 +120,10 @@ class BezierApproximator
     {
         $ti = 1 - $t;
 
-        return array(
+        return [
             $ti * $ti * $p0[0] + 2 * $ti * $t * $p1[0] + $t * $t * $p2[0],
             $ti * $ti * $p0[1] + 2 * $ti * $t * $p1[1] + $t * $t * $p2[1],
-        );
+        ];
     }
 
     /**
@@ -157,10 +157,10 @@ class BezierApproximator
         $b1y = $ti * $a1y + $t * $a2y;
 
         // last step: line between points from step 3, result
-        return array(
+        return [
             $ti * $b0x + $t * $b1x,
             $ti * $b0y + $t * $b1y,
-        );
+        ];
     }
 
     /**

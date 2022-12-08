@@ -37,7 +37,7 @@ final class PathRendererImplementation
         // Get an array of all edges contained in all of the subpaths.
         // Since a subpath can intersect with itself just as it can intersect with other subpaths,
         // there is no need to remember to which subpath an edge belongs.
-        $edges = array();
+        $edges = [];
         $minY = PHP_INT_MAX;
         foreach ($subpaths as $points) {
             for ($i = 0, $n = count($points); $i < $n; $i += 2) {
@@ -59,7 +59,7 @@ final class PathRendererImplementation
         imagesetthickness($image, 1);
 
         // Sort the edges by their maximum y value, descending (i.e., edges that extend further down are sorted first).
-        usort($edges, array('SVG\Rasterization\Renderers\PathRendererEdge', 'compareMaxY'));
+        usort($edges, ['SVG\Rasterization\Renderers\PathRendererEdge', 'compareMaxY']);
         // Now the maxY of the entire path is just the maxY of the edge sorted first.
         // Since there is no way to know which edge has the minY, we cannot do the same for that and have to compute
         // it during the loop instead.
@@ -67,7 +67,7 @@ final class PathRendererImplementation
 
         // Not all edges are relevant the entire time. This stores only the ones that extend between y coordinates
         // that include the current scanline.
-        $activeEdges = array();
+        $activeEdges = [];
         // The index into $edges of the last edge that was added to $activeEdges.
         $lastActiveEdge = 0;
 
@@ -92,7 +92,7 @@ final class PathRendererImplementation
 
             if (!empty($activeEdges)) {
                 // Now sort the active edges from rightmost to leftmost (i.e., by x descending).
-                usort($activeEdges, array('SVG\Rasterization\Renderers\PathRendererEdge', 'compareX'));
+                usort($activeEdges, ['SVG\Rasterization\Renderers\PathRendererEdge', 'compareX']);
 
                 $windingNumber = $evenOdd ? 0 : $activeEdges[0]->direction;
 

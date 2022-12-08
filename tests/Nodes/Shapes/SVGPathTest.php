@@ -13,13 +13,13 @@ use SVG\Nodes\Shapes\SVGPath;
 class SVGPathTest extends \PHPUnit\Framework\TestCase
 {
     private static $sampleDescription = 'M100,100 h20 Z M200,200 h20';
-    private static $sampleCommands = array(
-        array('id' => 'M', 'args' => array(100.0, 100.0)),
-        array('id' => 'h', 'args' => array(20.0)),
-        array('id' => 'Z', 'args' => array()),
-        array('id' => 'M', 'args' => array(200.0, 200.0)),
-        array('id' => 'h', 'args' => array(20.0)),
-    );
+    private static $sampleCommands = [
+        ['id' => 'M', 'args' => [100.0, 100.0]],
+        ['id' => 'h', 'args' => [20.0]],
+        ['id' => 'Z', 'args' => []],
+        ['id' => 'M', 'args' => [200.0, 200.0]],
+        ['id' => 'h', 'args' => [20.0]],
+    ];
 
     /**
      * @covers ::__construct
@@ -28,13 +28,13 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
     {
         // should not set any attributes by default
         $obj = new SVGPath();
-        $this->assertSame(array(), $obj->getSerializableAttributes());
+        $this->assertSame([], $obj->getSerializableAttributes());
 
         // should set attributes when provided
         $obj = new SVGPath(self::$sampleDescription);
-        $this->assertSame(array(
+        $this->assertSame([
             'd' => self::$sampleDescription,
-        ), $obj->getSerializableAttributes());
+        ], $obj->getSerializableAttributes());
     }
 
     /**
@@ -95,10 +95,10 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('path'),
-            $this->identicalTo(array(
+            $this->identicalTo([
                 'commands' => self::$sampleCommands,
                 'fill-rule' => 'nonzero',
-            )),
+            ]),
             $this->identicalTo($obj)
         );
         $obj->rasterize($rast);
@@ -122,7 +122,7 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new SVGPath(self::$sampleDescription);
 
-        $attributeToExpectedFillRule = array(
+        $attributeToExpectedFillRule = [
             '' => 'nonzero',
             " \n " => 'nonzero',
             'nonzero' => 'nonzero',
@@ -132,7 +132,7 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
             '  evenodd  ' => 'evenodd',
             ' evenOdd ' => 'evenodd',
             'foo' => 'foo',
-        );
+        ];
         foreach ($attributeToExpectedFillRule as $attribute => $expectedFillRule) {
             $rasterizer = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
                 ->disableOriginalConstructor()
@@ -140,10 +140,10 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
 
             $rasterizer->expects($this->once())->method('render')->with(
                 $this->identicalTo('path'),
-                $this->equalTo(array(
+                $this->equalTo([
                     'commands' => self::$sampleCommands,
                     'fill-rule' => $expectedFillRule,
-                )),
+                ]),
                 $this->identicalTo($obj)
             );
 

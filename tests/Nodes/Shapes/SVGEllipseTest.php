@@ -19,16 +19,16 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
     {
         // should not set any attributes by default
         $obj = new SVGEllipse();
-        $this->assertSame(array(), $obj->getSerializableAttributes());
+        $this->assertSame([], $obj->getSerializableAttributes());
 
         // should set attributes when provided
         $obj = new SVGEllipse(37, 42, 100, 200);
-        $this->assertSame(array(
+        $this->assertSame([
             'cx' => '37',
             'cy' => '42',
             'rx' => '100',
             'ry' => '200'
-        ), $obj->getSerializableAttributes());
+        ], $obj->getSerializableAttributes());
     }
 
     /**
@@ -153,12 +153,12 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('ellipse'),
-            $this->identicalTo(array(
+            $this->identicalTo([
                 'cx' => 37.0,
                 'cy' => 42.0,
                 'rx' => 100.0,
                 'ry' => 200.0,
-            )),
+            ]),
             $this->identicalTo($obj)
         );
         $obj->rasterize($rast);

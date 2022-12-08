@@ -19,17 +19,17 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     {
         // should not set any attributes by default
         $obj = new SVGImage();
-        $this->assertSame(array(), $obj->getSerializableAttributes());
+        $this->assertSame([], $obj->getSerializableAttributes());
 
         // should set attributes when provided
         $obj = new SVGImage('test-href', 10, 10, 100, 100);
-        $this->assertSame(array(
+        $this->assertSame([
             'xlink:href' => 'test-href',
             'x' => '10',
             'y' => '10',
             'width' => '100',
             'height' => '100',
-        ), $obj->getSerializableAttributes());
+        ], $obj->getSerializableAttributes());
     }
 
     /**
@@ -190,13 +190,13 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('image'),
-            $this->identicalTo(array(
+            $this->identicalTo([
                 'href' => 'test-href',
                 'x' => 10.0,
                 'y' => 10.0,
                 'width' => 100.0,
                 'height' => 100.0,
-            )),
+            ]),
             $this->identicalTo($obj)
         );
         $obj->rasterize($rast);
