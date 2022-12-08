@@ -180,7 +180,6 @@ class SVGReader
         $node = NodeRegistry::create($tagName);
 
         // obtain array of namespaces that are declared directly on this node
-        // TODO find solution for PHP < 5.4 (where the 2nd parameter was introduced)
         $extraNamespaces = @$xml->getDocNamespaces(false, false);
         if (!empty($extraNamespaces)) {
             $namespaces = array_unique(array_merge($namespaces, array_keys($extraNamespaces)));
