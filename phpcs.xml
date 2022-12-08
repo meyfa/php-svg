@@ -19,7 +19,7 @@
     </rule>
 
     <!-- include some more sniffs specific to this project -->
-    <rule ref="Generic.Arrays.DisallowShortArraySyntax" />
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
     <rule ref="Generic.PHP.BacktickOperator" />
     <rule ref="Generic.PHP.DeprecatedFunctions" />
     <rule ref="Generic.PHP.DisallowShortOpenTag" />
