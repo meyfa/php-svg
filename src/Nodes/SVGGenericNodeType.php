@@ -2,7 +2,6 @@
 
 namespace SVG\Nodes;
 
-use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**

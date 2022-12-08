@@ -24,7 +24,7 @@ class SVGWriter
     }
 
     /**
-     * @return string The XML output string up until the point currenly written.
+     * @return string The XML output string up until the point currently written.
      */
     public function getString()
     {
@@ -83,7 +83,7 @@ class SVGWriter
      * Appends all attributes defined in the given associative array to this
      * writer's output.
      *
-     * @param string[] $attrs An associative array of attribute strings.
+     * @param string[] $namespaces An associative array of attribute strings.
      *
      * @return void
      */

@@ -532,7 +532,7 @@ class PathApproximator
         // The subpath is now complete and any following command should start a new one.
         // Also, since ClosePath can be immediately followed by a command such as LineTo,
         // we append ClosePath's position as a point to the new subpath.
-        // If the following command is, in fact, a MoveTo, this will simply be overriden.
+        // If the following command is, in fact, a MoveTo, this will simply be overridden.
         $this->newSubpath();
     }
 }

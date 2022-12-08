@@ -6,7 +6,6 @@ use SimpleXMLElement;
 use SVG\SVG;
 use SVG\Nodes\SVGNode;
 use SVG\Nodes\SVGNodeContainer;
-use SVG\Nodes\SVGGenericNodeType;
 use SVG\Utilities\SVGStyleParser;
 
 /**

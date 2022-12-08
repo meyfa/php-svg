@@ -207,7 +207,7 @@ abstract class MultiPassRenderer extends Renderer
     /**
      * Parse an alpha value (such as from the 'opacity', 'fill-opacity', or 'stroke-opacity' attributes).
      *
-     * @param string|null $attributeValue The raw attribute value.
+     * @param string|null $value The raw attribute value.
      * @return float|int The parsed alpha value in the range 0 to 1. Invalid inputs are mapped to 1.
      */
     private static function parseOpacity($value)
