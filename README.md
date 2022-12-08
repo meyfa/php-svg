@@ -163,8 +163,8 @@ a GD image resource. GD then provides methods for encoding this resource to a nu
 * [imagejpeg](https://www.php.net/manual/en/function.imagejpeg.php)
 * [imagebmp](https://www.php.net/manual/en/function.imagebmp.php)
 * [imagegif](https://www.php.net/manual/en/function.imagegif.php)
-* [imagewebp](https://www.php.net/manual/en/function.imagewebp.php) (PHP 5.4.0 and later)
-* [imageavif](https://www.php.net/manual/en/function.imageavif.php) (PHP 8.1.0 and later)
+* [imagewebp](https://www.php.net/manual/en/function.imagewebp.php)
+* [imageavif](https://www.php.net/manual/en/function.imageavif.php) (requires PHP 8.1.0 or newer)
 
 ```php
 <?php
