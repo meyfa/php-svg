@@ -97,8 +97,8 @@ class PolygonBuilder
      */
     public function addPoint($x, $y)
     {
-        $x = isset($x) ? $x : $this->posX;
-        $y = isset($y) ? $y : $this->posY;
+        $x = $x ?? $this->posX;
+        $y = $y ?? $this->posY;
 
         $this->points[] = [$x, $y];
 
