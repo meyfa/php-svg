@@ -3,7 +3,6 @@
 namespace SVG\Nodes\Texts;
 
 use SVG\Nodes\SVGNodeContainer;
-use SVG\Nodes\Structures\SVGFont;
 use SVG\Rasterization\SVGRasterizer;
 use SVG\Rasterization\Transform\TransformParser;
 use SVG\Utilities\Units\Length;
@@ -11,30 +10,22 @@ use SVG\Utilities\Units\Length;
 /**
  * Represents the SVG tag 'text'.
  *
- * Usage:
+ * Usage example:
+ *
+ * \SVG\SVG::addFont('./fonts/Ubuntu-Regular.ttf');
  *
  * $svg = new \SVG\SVG(600, 400);
  *
- * $font = new \SVG\Nodes\Structures\SVGFont('openGost', 'OpenGostTypeA-Regular.ttf');
- * $svg->getDocument()->addChild($font);
- *
  * $svg->getDocument()->addChild(
  *   (new \SVG\Nodes\Texts\SVGText('hello', 50, 50))
- *     ->setFont($font)
- *     ->setSize(15)
- *     ->setStyle('stroke', '#f00')
- *     ->setStyle('stroke-width', 1)
+ *     ->setFontFamily('Ubuntu')
+ *     ->setFontSize(15)
  * );
  *
  */
 class SVGText extends SVGNodeContainer
 {
     const TAG_NAME = 'text';
-
-    /**
-     * @var SVGFont
-     */
-    private $font;
 
     public function __construct($text = '', $x = 0, $y = 0)
     {
@@ -46,27 +37,26 @@ class SVGText extends SVGNodeContainer
     }
 
     /**
-     * Set font
+     * Set the CSS font-family property.
      *
-     * @param SVGFont $font
+     * @param string $fontFamily The value for the CSS font-family property.
      * @return $this
      */
-    public function setFont(SVGFont $font)
+    public function setFontFamily(string $fontFamily)
     {
-        $this->font = $font;
-        $this->setStyle('font-family', $font->getFontName());
+        $this->setStyle('font-family', $fontFamily);
         return $this;
     }
 
     /**
-     * Set font size
+     * Set the CSS font-size property.
      *
-     * @param $size
+     * @param $fontSize string The value for the CSS font-size property.
      * @return $this
      */
-    public function setSize($size)
+    public function setFontSize($fontSize)
     {
-        $this->setStyle('font-size', $size);
+        $this->setStyle('font-size', $fontSize);
         return $this;
     }
 
@@ -89,10 +79,6 @@ class SVGText extends SVGNodeContainer
      */
     public function rasterize(SVGRasterizer $rasterizer)
     {
-        if (empty($this->font)) {
-            return;
-        }
-
         TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
 
         // TODO: support percentage font sizes
@@ -102,12 +88,14 @@ class SVGText extends SVGNodeContainer
         $fontSize = Length::convert($this->getComputedStyle('font-size'), 16);
 
         $rasterizer->render('text', [
-            'x'         => Length::convert($this->getAttribute('x'), $rasterizer->getDocumentWidth()),
-            'y'         => Length::convert($this->getAttribute('y'), $rasterizer->getDocumentHeight()),
-            'size'      => $fontSize,
-            'anchor'    => $this->getComputedStyle('text-anchor'),
-            'text'      => $this->getValue(),
-            'font_path' => $this->font->getFontPath(),
+            'x'          => Length::convert($this->getAttribute('x'), $rasterizer->getDocumentWidth()),
+            'y'          => Length::convert($this->getAttribute('y'), $rasterizer->getDocumentHeight()),
+            'fontFamily' => $this->getComputedStyle('font-family'),
+            'fontWeight' => $this->getComputedStyle('font-weight'),
+            'fontStyle'  => $this->getComputedStyle('font-style'),
+            'fontSize'   => $fontSize,
+            'anchor'     => $this->getComputedStyle('text-anchor'),
+            'text'       => $this->getValue(),
         ], $this);
 
         $rasterizer->popTransform();

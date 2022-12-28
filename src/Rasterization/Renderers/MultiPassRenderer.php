@@ -2,6 +2,7 @@
 
 namespace SVG\Rasterization\Renderers;
 
+use SVG\Fonts\FontRegistry;
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
 use SVG\Rasterization\Transform\Transform;
@@ -23,7 +24,7 @@ abstract class MultiPassRenderer extends Renderer
     {
         $transform = $rasterizer->getCurrentTransform();
 
-        $params = $this->prepareRenderParams($options, $transform);
+        $params = $this->prepareRenderParams($options, $transform, $rasterizer->getFontRegistry());
 
         $paintOrder = self::getPaintOrder($context);
         foreach ($paintOrder as $paint) {
@@ -82,12 +83,13 @@ abstract class MultiPassRenderer extends Renderer
      * method rather than dealing with it in the render methods. This shall
      * encourage single passes over the input data (for performance reasons).
      *
-     * @param array     $options   The associative array of raw options.
-     * @param Transform $transform The coordinate transform to apply, to go from user coordinate to output coordinates.
+     * @param array             $options      The associative array of raw options.
+     * @param Transform         $transform    The coordinate transform to apply, to go from user to output coordinates.
+     * @param FontRegistry|null $fontRegistry The font registry to use for text rendering.
      *
      * @return array The new associative array of computed render parameters.
      */
-    abstract protected function prepareRenderParams(array $options, Transform $transform);
+    abstract protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry);
 
     /**
      * Renders the shape's filled version in the given color, using the params

@@ -2,6 +2,7 @@
 
 namespace SVG\Rasterization\Renderers;
 
+use SVG\Fonts\FontRegistry;
 use SVG\Rasterization\Path\PathApproximator;
 use SVG\Rasterization\Transform\Transform;
 
@@ -20,7 +21,7 @@ class PathRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(array $options, Transform $transform)
+    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry)
     {
         $approximator = new PathApproximator($transform);
         $approximator->approximate($options['commands']);

@@ -203,6 +203,40 @@ $rasterImage = $image->toRasterImage(200, 200, '#FFFFFF');
 imagejpeg($rasterImage, 'path/to/output.jpg');
 ```
 
+### Text rendering (loading fonts)
+
+PHP-SVG implements support for TrueType fonts (`.ttf` files) using a handcrafted TTF parser. Since PHP doesn't come
+with any built-in font files, you will need to provide your own. The following example shows how to load a set of font
+files. PHP-SVG will try to pick the best matching font for a given text element, based on algorithms from the CSS spec.
+
+```php
+<?php
+require __DIR__ . '/vendor/autoload.php';
+
+use SVG\SVG;
+
+// load a set of fonts
+SVG::addFont(FONTS_DIR . 'Ubuntu-Regular.ttf');
+SVG::addFont(FONTS_DIR . 'Ubuntu-Bold.ttf');
+SVG::addFont(FONTS_DIR . 'Ubuntu-Italic.ttf');
+SVG::addFont(FONTS_DIR . 'Ubuntu-BoldItalic.ttf');
+
+$image = SVG::fromString('
+<svg width="220" height="220">
+  <rect x="0" y="0" width="100%" height="100%" fill="lightgray"/>
+  <g font-size="15">
+    <text y="20">hello world</text>
+    <text y="100" font-weight="bold">in bold!</text>
+    <text y="120" font-style="italic">and italic!</text>
+    <text y="140" font-weight="bold" font-style="italic">bold and italic</text>
+  </g>
+</svg>
+');
+
+header('Content-Type: image/png');
+imagepng($image->toRasterImage(220, 220));
+```
+
 
 ## Document model
 
