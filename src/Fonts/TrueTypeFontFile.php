@@ -62,7 +62,7 @@ class TrueTypeFontFile extends FontFile
     }
 
     // https://learn.microsoft.com/en-us/typography/opentype/spec/otff
-    public static function read(string $path)
+    public static function read(string $path): ?TrueTypeFontFile
     {
         $file = fopen($path, 'rb');
         if ($file === false) {
@@ -101,7 +101,7 @@ class TrueTypeFontFile extends FontFile
 
     // // https://learn.microsoft.com/en-us/typography/opentype/spec/otff#table-directory
     // TableDirectory
-    private static function readTableDirectory($file)
+    private static function readTableDirectory($file): array
     {
         return [
             // 0x00010000 or 0x4F54544F ('OTTO')
@@ -127,7 +127,7 @@ class TrueTypeFontFile extends FontFile
      * @param $tag string The tag to locate.
      * @return bool True if the table record was found and the file pointer changed; otherwise, false.
      */
-    private static function locateTableRecord($file, array $tableDirectory, string $tag)
+    private static function locateTableRecord($file, array $tableDirectory, string $tag): bool
     {
         for ($i = 0; $i < $tableDirectory['numTables']; ++$i) {
             $pos = 12 + $i * 16;
@@ -141,7 +141,7 @@ class TrueTypeFontFile extends FontFile
 
     // https://learn.microsoft.com/en-us/typography/opentype/spec/otff#table-directory
     // TableRecord
-    private static function readTableRecord($file)
+    private static function readTableRecord($file): array
     {
         return [
             // Table identifier.
@@ -156,7 +156,7 @@ class TrueTypeFontFile extends FontFile
     }
 
     // https://learn.microsoft.com/en-us/typography/opentype/spec/name
-    private static function readNamingTable($file, array $record)
+    private static function readNamingTable($file, array $record): array
     {
         fseek($file, $record['offset']);
 
@@ -188,7 +188,7 @@ class TrueTypeFontFile extends FontFile
 
     // https://learn.microsoft.com/en-us/typography/opentype/spec/name#name-records
     // NameRecord
-    private static function readNameRecord($file)
+    private static function readNameRecord($file): array
     {
         return [
             // Platform ID.
@@ -207,7 +207,7 @@ class TrueTypeFontFile extends FontFile
     }
 
     // https://learn.microsoft.com/en-us/typography/opentype/spec/os2
-    private static function readOS2Table($file, array $record)
+    private static function readOS2Table($file, array $record): array
     {
         fseek($file, $record['offset']);
 
@@ -225,31 +225,31 @@ class TrueTypeFontFile extends FontFile
         ];
     }
 
-    private static function uint16($file)
+    private static function uint16($file): int
     {
         $bytes = fread($file, 2);
         return (ord($bytes[0]) << 8) + ord($bytes[1]);
     }
 
-    private static function int16($file)
+    private static function int16($file): int
     {
         $bytes = fread($file, 2);
         $value = (ord($bytes[0]) << 8) + ord($bytes[1]);
         return $value < 0x8000 ? $value : $value - 0x10000;
     }
 
-    private static function uint32($file)
+    private static function uint32($file): int
     {
         $bytes = fread($file, 4);
         return (ord($bytes[0]) << 24) + (ord($bytes[1]) << 16) + (ord($bytes[2]) << 8) + ord($bytes[3]);
     }
 
-    private static function string($file, int $length)
+    private static function string($file, int $length): string
     {
         return fread($file, $length);
     }
 
-    private static function stringAt($file, int $offset, int $length)
+    private static function stringAt($file, int $offset, int $length): string
     {
         $pos = ftell($file);
         fseek($file, $offset);
@@ -259,7 +259,7 @@ class TrueTypeFontFile extends FontFile
     }
 
     // https://learn.microsoft.com/en-us/typography/opentype/spec/name#platform-encoding-and-language
-    private static function decodeString($string, int $platformID, int $encodingID)
+    private static function decodeString(string $string, int $platformID, int $encodingID): string
     {
         // https://learn.microsoft.com/en-us/typography/opentype/spec/name#platform-ids
         switch ($platformID) {
