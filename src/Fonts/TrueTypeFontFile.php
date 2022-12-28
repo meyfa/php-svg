@@ -18,19 +18,23 @@ class TrueTypeFontFile extends FontFile
     private const NAME_ID_FONT_FAMILY = 1;
     private const NAME_ID_FONT_SUBFAMILY = 2;
 
+    private const TABLE_TAG_OS2 = 'OS/2';
+
     private const PLATFORM_ID_UNICODE = 0;
     private const PLATFORM_ID_MACINTOSH = 1;
     private const PLATFORM_ID_WINDOWS = 3;
 
     private $family;
     private $subfamily;
+    private $weightClass;
 
-    public function __construct(string $path, string $family, string $subfamily)
+    public function __construct(string $path, string $family, string $subfamily, ?int $weightClass)
     {
         parent::__construct($path);
 
-        $this->family    = $family;
-        $this->subfamily = $subfamily;
+        $this->family      = $family;
+        $this->subfamily   = $subfamily;
+        $this->weightClass = $weightClass;
     }
 
     public function getFamily(): string
@@ -40,7 +44,9 @@ class TrueTypeFontFile extends FontFile
 
     public function getWeight(): float
     {
-        // TODO implement this in a more fine-grained way by using the OS/2 table
+        if (isset($this->weightClass)) {
+            return $this->weightClass;
+        }
         return $this->subfamily === 'Bold' || $this->subfamily === 'Bold Italic' ? 700 : 400;
     }
 
@@ -78,9 +84,19 @@ class TrueTypeFontFile extends FontFile
         $nameTableRecord = self::readTableRecord($file);
         $nameTable = self::readNamingTable($file, $nameTableRecord);
 
+        $family = $nameTable[self::NAME_ID_FONT_FAMILY] ?? '';
+        $subfamily = $nameTable[self::NAME_ID_FONT_SUBFAMILY] ?? '';
+
+        $weightClass = null;
+        if (self::locateTableRecord($file, $tableDirectory, self::TABLE_TAG_OS2)) {
+            $os2TableRecord = self::readTableRecord($file);
+            $os2Table = self::readOS2Table($file, $os2TableRecord);
+            $weightClass = $os2Table['usWeightClass'] ?? null;
+        }
+
         fclose($file);
 
-        return new self($path, $nameTable[self::NAME_ID_FONT_FAMILY], $nameTable[self::NAME_ID_FONT_SUBFAMILY]);
+        return new self($path, $family, $subfamily, $weightClass);
     }
 
     // // https://learn.microsoft.com/en-us/typography/opentype/spec/otff#table-directory
@@ -190,10 +206,36 @@ class TrueTypeFontFile extends FontFile
         ];
     }
 
+    // https://learn.microsoft.com/en-us/typography/opentype/spec/os2
+    private static function readOS2Table($file, array $record)
+    {
+        fseek($file, $record['offset']);
+
+        // Note: There are many fields in the OS/2 table, even in version 0, but we only need a few.
+
+        return [
+            // OS/2 table version number.
+            'version' => self::uint16($file),
+            // Average weighted escapement.
+            'xAvgCharWidth' => self::int16($file),
+            // Weight class.
+            'usWeightClass' => self::uint16($file),
+            // Width class.
+            'usWidthClass' => self::uint16($file),
+        ];
+    }
+
     private static function uint16($file)
     {
         $bytes = fread($file, 2);
         return (ord($bytes[0]) << 8) + ord($bytes[1]);
+    }
+
+    private static function int16($file)
+    {
+        $bytes = fread($file, 2);
+        $value = (ord($bytes[0]) << 8) + ord($bytes[1]);
+        return $value < 0x8000 ? $value : $value - 0x10000;
     }
 
     private static function uint32($file)
