@@ -16,7 +16,7 @@ final class Color
      *
      * @return int[] The color converted to RGBA components.
      */
-    public static function parse($color)
+    public static function parse(string $color): array
     {
         $lookupResult = ColorLookup::get($color);
         if (isset($lookupResult)) {
@@ -50,7 +50,7 @@ final class Color
      * @param float $a
      * @return int[] The clamped integer components array.
      */
-    private static function clamp($r, $g, $b, $a)
+    private static function clamp(float $r, float $g, float $b, float $a): array
     {
         return [
             $r < 0 ? 0 : ($r > 255 ? 255 : (int) $r),
@@ -68,9 +68,9 @@ final class Color
      *
      * @param string $str The hexadecimal color string to convert.
      *
-     * @return float[] The RGBA components (0 - 255).
+     * @return array The RGBA components (0 - 255).
      */
-    private static function parseHexComponents($str)
+    private static function parseHexComponents(string $str): array
     {
         $len = strlen($str);
 
@@ -101,9 +101,9 @@ final class Color
      *
      * @param string $str The parameter string to convert.
      *
-     * @return float[] The RGBA components.
+     * @return array The RGBA components.
      */
-    private static function parseRGBAComponents($str)
+    private static function parseRGBAComponents(string $str): array
     {
         $params = preg_split('/(\s*[\/,]\s*)|(\s+)/', Str::trim($str));
         if (count($params) !== 3 && count($params) !== 4) {
@@ -134,9 +134,9 @@ final class Color
      * @param int    $base   The base value for percentages.
      * @param int    $scalar A multiplier for the final value.
      *
-     * @return float The floating-point converted component.
+     * @return float|null The floating-point converted component, or null on failure.
      */
-    private static function parseRGBAComponent($str, $base = 255, $scalar = 1)
+    private static function parseRGBAComponent(string $str, int $base = 255, int $scalar = 1): ?float
     {
         $regex = '/^([+-]?(?:\d+|\d*\.\d+))(%)?$/';
         if (!preg_match($regex, $str, $matches)) {
@@ -158,14 +158,14 @@ final class Color
      *
      * @param string $str The parameter string to convert.
      *
-     * @return float[] The RGBA components.
+     * @return array The RGBA components.
      */
-    private static function parseHSLAComponents($str)
+    private static function parseHSLAComponents(string $str): array
     {
         // split on delimiters
         $params = preg_split('/(\s*[\/,]\s*)|(\s+)/', Str::trim($str));
         if (count($params) !== 3 && count($params) !== 4) {
-            return null;
+            return [null, null, null, null];
         }
 
         // parse HSL
@@ -194,7 +194,7 @@ final class Color
      *
      * @return float[] An RGB array with values ranging from 0 - 255 each.
      */
-    private static function convertHSLtoRGB($h, $s, $l)
+    private static function convertHSLtoRGB(float $h, float $s, float $l): array
     {
         $s = min(max($s, 0), 1);
         $l = min(max($l, 0), 1);
@@ -226,7 +226,7 @@ final class Color
      *
      * @return float The component's value (0 - 255).
      */
-    private static function convertHSLHueToRGBComponent($m1, $m2, $hue)
+    private static function convertHSLHueToRGBComponent(float $m1, float $m2, float $hue): float
     {
         // bring hue into range (fmod assures that 0 <= abs($hue) < 360, while
         // the next step assures that it's positive)

@@ -14,5 +14,5 @@ interface AttributeConverter
      *
      * @return string The converted value that can be used in CSS.
      */
-    public function convert($value);
+    public function convert(string $value): string;
 }

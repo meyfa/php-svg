@@ -93,7 +93,7 @@ class NodeRegistry
      *
      * @return SVGNode The node that was created.
      */
-    public static function create($type)
+    public static function create(string $type): SVGNode
     {
         if (isset(self::$nodeTypes[$type])) {
             $nodeClass = self::$nodeTypes[$type];

@@ -2,6 +2,8 @@
 
 namespace SVG\Utilities\Units;
 
+use SVG\Shims\Str;
+
 final class Length
 {
     /**
@@ -10,15 +12,17 @@ final class Length
      *
      * If the input is null or is a string that does not denote a valid length unit, null is returned.
      *
-     * @param string|null $unit       The SVG length string to convert.
-     * @param float       $viewLength The canvas width to use as reference length.
+     * @param string|null $input      The SVG length string to convert.
+     * @param float|null  $viewLength The canvas width to use as reference length (if available).
      *
-     * @return float|null The absolute pixel number the given string denotes.
+     * @return float|null The absolute pixel number the given string denotes, or null on parse error.
      */
-    public static function convert($unit, $viewLength)
+    public static function convert(?string $input, ?float $viewLength): ?float
     {
+        $normalizedInput = Str::trim($input);
+
         $regex = '/^([+-]?\d*\.?\d*)(px|pt|pc|cm|mm|in|%)?$/';
-        if (!preg_match($regex, $unit, $matches) || $matches[1] === '') {
+        if (!preg_match($regex, $normalizedInput, $matches) || $matches[1] === '') {
             return null;
         }
 
@@ -29,7 +33,7 @@ final class Length
             'in' => (96),                   // 1in = 96px
             'cm' => (96 / 2.54),            // 1in = 96px, 1in = 2.54cm
             'mm' => (96 / 25.4),            // 1in = 96px, 1in = 25.4mm
-            '%'  => ($viewLength / 100),    // 1% = 1/100 of viewLength
+            '%'  => (($viewLength ?? 0) / 100),    // 1% = 1/100 of viewLength
         ];
 
         $value = (float) $matches[1];
