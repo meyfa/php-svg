@@ -16,7 +16,7 @@ class SVGScript extends SVGNodeContainer implements CDataContainer
     /**
      * @param string $content The script content.
      */
-    public function __construct($content = '')
+    public function __construct(string $content = '')
     {
         parent::__construct();
 
@@ -26,7 +26,7 @@ class SVGScript extends SVGNodeContainer implements CDataContainer
     /**
      * @inheritdoc
      */
-    public function rasterize(SVGRasterizer $rasterizer)
+    public function rasterize(SVGRasterizer $rasterizer): void
     {
     }
 }

@@ -18,12 +18,12 @@ class SVGImage extends SVGNodeContainer
 
     /**
      * @param string|null $href   The image path, URL or URI.
-     * @param string|null $x      The x coordinate of the upper left corner.
-     * @param string|null $y      The y coordinate of the upper left corner.
-     * @param string|null $width  The width.
-     * @param string|null $height The height.
+     * @param mixed $x      The x coordinate of the upper left corner.
+     * @param mixed $y      The y coordinate of the upper left corner.
+     * @param mixed $width  The width.
+     * @param mixed $height The height.
      */
-    public function __construct($href = null, $x = null, $y = null, $width = null, $height = null)
+    public function __construct(?string $href = null, $x = null, $y = null, $width = null, $height = null)
     {
         parent::__construct();
 
@@ -39,15 +39,21 @@ class SVGImage extends SVGNodeContainer
      *
      * @param string     $path
      * @param string     $mimeType
-     * @param float|null $x
-     * @param float|null $y
-     * @param float|null $width
-     * @param float|null $height
+     * @param mixed $x
+     * @param mixed $y
+     * @param mixed $width
+     * @param mixed $height
      *
      * @return self
      */
-    public static function fromFile($path, $mimeType, $x = null, $y = null, $width = null, $height = null)
-    {
+    public static function fromFile(
+        string $path,
+        string $mimeType,
+        $x = null,
+        $y = null,
+        $width = null,
+        $height = null
+    ): SVGImage {
         $imageContent = file_get_contents($path);
         if ($imageContent === false) {
             throw new RuntimeException('Image file "' . $path . '" could not be read.');
@@ -68,21 +74,21 @@ class SVGImage extends SVGNodeContainer
      *
      * @param string     $imageContent
      * @param string     $mimeType
-     * @param float|null $x
-     * @param float|null $y
-     * @param float|null $width
-     * @param float|null $height
+     * @param mixed $x
+     * @param mixed $y
+     * @param mixed $width
+     * @param mixed $height
      *
      * @return self
      */
     public static function fromString(
-        $imageContent,
-        $mimeType,
+        string $imageContent,
+        string $mimeType,
         $x = null,
         $y = null,
         $width = null,
         $height = null
-    ) {
+    ): SVGImage {
         return new self(
             sprintf(
                 'data:%s;base64,%s',
@@ -99,7 +105,7 @@ class SVGImage extends SVGNodeContainer
     /**
      * @return string|null The image path, URL or URI.
      */
-    public function getHref()
+    public function getHref(): ?string
     {
         return $this->getAttribute('xlink:href') ?: $this->getAttribute('href');
     }
@@ -107,11 +113,11 @@ class SVGImage extends SVGNodeContainer
     /**
      * Sets this image's path, URL or URI.
      *
-     * @param string $href The new image hyperreference.
+     * @param string|null $href The new image hyper reference.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setHref($href)
+    public function setHref(?string $href): SVGImage
     {
         return $this->setAttribute('xlink:href', $href);
     }
@@ -119,7 +125,7 @@ class SVGImage extends SVGNodeContainer
     /**
      * @return string|null The x coordinate of the upper left corner.
      */
-    public function getX()
+    public function getX(): ?string
     {
         return $this->getAttribute('x');
     }
@@ -127,11 +133,11 @@ class SVGImage extends SVGNodeContainer
     /**
      * Sets the x coordinate of the upper left corner.
      *
-     * @param string $x The new coordinate.
+     * @param mixed $x The new coordinate.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setX($x)
+    public function setX($x): SVGImage
     {
         return $this->setAttribute('x', $x);
     }
@@ -139,7 +145,7 @@ class SVGImage extends SVGNodeContainer
     /**
      * @return string|null The y coordinate of the upper left corner.
      */
-    public function getY()
+    public function getY(): ?string
     {
         return $this->getAttribute('y');
     }
@@ -147,11 +153,11 @@ class SVGImage extends SVGNodeContainer
     /**
      * Sets the y coordinate of the upper left corner.
      *
-     * @param string $y The new coordinate.
+     * @param mixed $y The new coordinate.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setY($y)
+    public function setY($y): SVGImage
     {
         return $this->setAttribute('y', $y);
     }
@@ -159,17 +165,17 @@ class SVGImage extends SVGNodeContainer
     /**
      * @return string|null The width.
      */
-    public function getWidth()
+    public function getWidth(): ?string
     {
         return $this->getAttribute('width');
     }
 
     /**
-     * @param string $width The new width.
+     * @param mixed $width The new width.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setWidth($width)
+    public function setWidth($width): SVGImage
     {
         return $this->setAttribute('width', $width);
     }
@@ -177,17 +183,17 @@ class SVGImage extends SVGNodeContainer
     /**
      * @return string|null The height.
      */
-    public function getHeight()
+    public function getHeight(): ?string
     {
         return $this->getAttribute('height');
     }
 
     /**
-     * @param string $height The new height.
+     * @param mixed $height The new height.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setHeight($height)
+    public function setHeight($height): SVGImage
     {
         return $this->setAttribute('height', $height);
     }
@@ -195,7 +201,7 @@ class SVGImage extends SVGNodeContainer
     /**
      * @inheritdoc
      */
-    public function rasterize(SVGRasterizer $rasterizer)
+    public function rasterize(SVGRasterizer $rasterizer): void
     {
         if ($this->getComputedStyle('display') === 'none') {
             return;

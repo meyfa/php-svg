@@ -12,7 +12,7 @@ class SVGTitle extends SVGNodeContainer
 {
     const TAG_NAME = 'title';
 
-    public function __construct($text = '')
+    public function __construct(string $text = '')
     {
         parent::__construct();
         $this->setValue($text);
@@ -23,7 +23,7 @@ class SVGTitle extends SVGNodeContainer
      *
      * @inheritdoc
      */
-    public function rasterize(SVGRasterizer $rasterizer)
+    public function rasterize(SVGRasterizer $rasterizer): void
     {
         // nothing to rasterize
     }

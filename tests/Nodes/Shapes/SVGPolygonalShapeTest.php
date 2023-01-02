@@ -16,7 +16,7 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
         parent::__construct($points);
     }
 
-    public function rasterize(\SVG\Rasterization\SVGRasterizer $rasterizer)
+    public function rasterize(\SVG\Rasterization\SVGRasterizer $rasterizer): void
     {
     }
 }

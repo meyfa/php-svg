@@ -18,7 +18,7 @@ class SVGStyle extends SVGNodeContainer implements CDataContainer
      * @param string $css   The CSS data rules.
      * @param string $type  The style type attribute.
      */
-    public function __construct($css = '', $type = 'text/css')
+    public function __construct(string $css = '', string $type = 'text/css')
     {
         parent::__construct();
 
@@ -27,19 +27,19 @@ class SVGStyle extends SVGNodeContainer implements CDataContainer
     }
 
     /**
-     * @return string The type attribute.
+     * @return string|null The type attribute.
      */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->getAttribute('type');
     }
 
     /**
-     * @param $type string The type attribute.
+     * @param $type string|null The type attribute.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setType($type)
+    public function setType(?string $type): SVGStyle
     {
         return $this->setAttribute('type', $type);
     }
@@ -47,7 +47,7 @@ class SVGStyle extends SVGNodeContainer implements CDataContainer
     /**
      * @inheritdoc
      */
-    public function rasterize(SVGRasterizer $rasterizer)
+    public function rasterize(SVGRasterizer $rasterizer): void
     {
     }
 }

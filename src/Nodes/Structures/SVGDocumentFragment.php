@@ -2,6 +2,7 @@
 
 namespace SVG\Nodes\Structures;
 
+use SVG\Nodes\SVGNode;
 use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 use SVG\Utilities\Units\Length;
@@ -14,7 +15,7 @@ class SVGDocumentFragment extends SVGNodeContainer
 {
     const TAG_NAME = 'svg';
 
-    /** @var mixed[] $initialStyles A map of style keys to their defaults. */
+    /** @var array $initialStyles A map of style keys to their defaults. */
     private static $initialStyles = [
         'fill'          => '#000000',
         'stroke'        => 'none',
@@ -37,7 +38,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     /**
      * @return bool Whether this is the root document.
      */
-    public function isRoot()
+    public function isRoot(): bool
     {
         return $this->getParent() === null;
     }
@@ -45,7 +46,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     /**
      * @return string|null The declared width of this document or null.
      */
-    public function getWidth()
+    public function getWidth(): ?string
     {
         return $this->getAttribute('width');
     }
@@ -53,11 +54,11 @@ class SVGDocumentFragment extends SVGNodeContainer
     /**
      * Declares a new width for this document.
      *
-     * @param string $width The new width.
+     * @param mixed $width The new width.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setWidth($width)
+    public function setWidth($width): SVGDocumentFragment
     {
         return $this->setAttribute('width', $width);
     }
@@ -65,7 +66,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     /**
      * @return string|null The declared height of this document or null.
      */
-    public function getHeight()
+    public function getHeight(): ?string
     {
         return $this->getAttribute('height');
     }
@@ -73,11 +74,11 @@ class SVGDocumentFragment extends SVGNodeContainer
     /**
      * Declares a new height for this document.
      *
-     * @param string $height The new height.
+     * @param mixed $height The new height.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setHeight($height)
+    public function setHeight($height): SVGDocumentFragment
     {
         return $this->setAttribute('height', $height);
     }
@@ -85,7 +86,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     /**
      * @inheritdoc
      */
-    public function getComputedStyle($name)
+    public function getComputedStyle(string $name): ?string
     {
         // return either explicit declarations ...
         $style = parent::getComputedStyle($name);
@@ -100,7 +101,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     /**
      * @inheritdoc
      */
-    public function rasterize(SVGRasterizer $rasterizer)
+    public function rasterize(SVGRasterizer $rasterizer): void
     {
         if ($this->isRoot()) {
             parent::rasterize($rasterizer);
@@ -137,7 +138,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     /**
      * @inheritdoc
      */
-    public function getSerializableAttributes()
+    public function getSerializableAttributes(): array
     {
         $attrs = parent::getSerializableAttributes();
 
@@ -154,7 +155,7 @@ class SVGDocumentFragment extends SVGNodeContainer
     /**
      * @inheritdoc
      */
-    public function getSerializableNamespaces()
+    public function getSerializableNamespaces(): array
     {
         if ($this->isRoot()) {
             return parent::getSerializableNamespaces() + [
@@ -171,9 +172,9 @@ class SVGDocumentFragment extends SVGNodeContainer
      *
      * @param string $id The id to search for.
      *
-     * @return \SVG\Nodes\SVGNode|null The node with the given id if it exists.
+     * @return SVGNode|null The node with the given id if it exists.
      */
-    public function getElementById($id)
+    public function getElementById(string $id): ?SVGNode
     {
         // start with document
         $stack = [$this];

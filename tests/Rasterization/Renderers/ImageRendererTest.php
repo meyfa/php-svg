@@ -12,7 +12,7 @@ class SVGNodeClass extends SVGNode
     /**
      * @inheritdoc
      */
-    public function rasterize(\SVG\Rasterization\SVGRasterizer $rasterizer)
+    public function rasterize(\SVG\Rasterization\SVGRasterizer $rasterizer): void
     {
     }
 }
