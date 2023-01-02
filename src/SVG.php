@@ -2,6 +2,7 @@
 
 namespace SVG;
 
+use SVG\Fonts\FontRegistry;
 use SVG\Nodes\Structures\SVGDocumentFragment;
 use SVG\Rasterization\SVGRasterizer;
 use SVG\Reading\SVGReader;
@@ -15,6 +16,8 @@ class SVG
 {
     /** @var SVGReader $reader The singleton reader used by this class. */
     private static $reader;
+
+    private static $fontRegistry;
 
     /** @var SVGDocumentFragment $document This image's root `svg` node/tag. */
     private $document;
@@ -57,6 +60,7 @@ class SVG
         $viewBox = $this->document->getViewBox();
 
         $rasterizer = new SVGRasterizer($docWidth, $docHeight, $viewBox, $width, $height, $background);
+        $rasterizer->setFontRegistry(self::getFontRegistry());
         $this->document->rasterize($rasterizer);
 
         return $rasterizer->finish();
@@ -123,5 +127,27 @@ class SVG
             self::$reader = new SVGReader();
         }
         return self::$reader;
+    }
+
+    /**
+     * @return FontRegistry The singleton font registry.
+     */
+    private static function getFontRegistry(): FontRegistry
+    {
+        if (!isset(self::$fontRegistry)) {
+            self::$fontRegistry = new FontRegistry();
+        }
+        return self::$fontRegistry;
+    }
+
+    /**
+     * Register a font file to be used when rasterizing text.
+     *
+     * @param string $path The path to the font file.
+     * @return void
+     */
+    public static function addFont(string $path): void
+    {
+        self::getFontRegistry()->addFont($path);
     }
 }

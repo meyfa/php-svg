@@ -4,6 +4,7 @@ namespace SVG\Rasterization;
 
 use InvalidArgumentException;
 use RuntimeException;
+use SVG\Fonts\FontRegistry;
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\Transform\Transform;
 use SVG\Utilities\Units\Length;
@@ -25,6 +26,8 @@ class SVGRasterizer
 {
     /** @var Renderers\Renderer[] $renderers Map of shapes to renderers. */
     private static $renderers;
+
+    private $fontRegistry;
 
     /**
      * @var float[] The document's viewBox (x, y, w, h).
@@ -159,6 +162,16 @@ class SVGRasterizer
             throw new InvalidArgumentException('no such renderer: ' . $id);
         }
         return self::$renderers[$id];
+    }
+
+    public function setFontRegistry(FontRegistry $fontRegistry): void
+    {
+        $this->fontRegistry = $fontRegistry;
+    }
+
+    public function getFontRegistry(): ?FontRegistry
+    {
+        return $this->fontRegistry;
     }
 
     /**

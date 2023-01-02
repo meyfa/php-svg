@@ -2,6 +2,7 @@
 
 namespace SVG\Rasterization\Renderers;
 
+use SVG\Fonts\FontRegistry;
 use SVG\Rasterization\Transform\Transform;
 
 /**
@@ -18,7 +19,7 @@ class EllipseRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(array $options, Transform $transform)
+    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry)
     {
         $cx = $options['cx'];
         $cy = $options['cy'];

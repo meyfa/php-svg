@@ -2,6 +2,7 @@
 
 namespace SVG\Rasterization\Renderers;
 
+use SVG\Fonts\FontRegistry;
 use SVG\Rasterization\Transform\Transform;
 
 /**
@@ -11,8 +12,10 @@ use SVG\Rasterization\Transform\Transform;
  * - float x: the x coordinate of the text
  * - float y: the y coordinate of the baseline
  * - string anchor: the anchor point (start|middle|end) for x coordinate
- * - float size: the font size
- * - string font_path: the path to the font file (.ttf)
+ * - float fontSize: the font size
+ * - string fontFamily: the font family
+ * - string fontStyle: the font style (normal|italic|oblique)
+ * - string fontWeight: the font weight (normal|bold|bolder|lighter|(number))
  * - string text: the text to draw
  */
 class TextRenderer extends MultiPassRenderer
@@ -20,10 +23,10 @@ class TextRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(array $options, Transform $transform)
+    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry)
     {
         // this assumes there is no rotation or skew, but that's fine, we can't deal with that anyway
-        $size1 = $options['size'];
+        $size1 = $options['fontSize'];
         $size2 = $size1;
         $transform->resize($size1, $size2);
         $size = min($size1, $size2);
@@ -39,11 +42,21 @@ class TextRenderer extends MultiPassRenderer
         $y = $options['y'];
         $transform->map($x, $y);
 
+        $fontPath = null;
+        if (isset($fontRegistry)) {
+            $isItalic = $options['fontStyle'] === 'italic' || $options['fontStyle'] === 'oblique';
+            $weight = self::resolveFontWeight($options['fontWeight']);
+            $matchingFont = $fontRegistry->findMatchingFont($options['fontFamily'], $isItalic, $weight);
+            if ($matchingFont !== null) {
+                $fontPath = $matchingFont->getPath();
+            }
+        }
+
         return [
             'x'         => $x - $anchorOffset,
             'y'         => $y,
             'size'      => $size,
-            'font_path' => $options['font_path'],
+            'font_path' => $fontPath,
             'text'      => $options['text'],
         ];
     }
@@ -90,7 +103,7 @@ class TextRenderer extends MultiPassRenderer
      *
      * @return float The width in pixels.
      */
-    private static function calculateTextWidth($text, $fontFile, $size)
+    private static function calculateTextWidth(string $text, string $fontFile, float $size): float
     {
         // note for future: imagettfbbox is unable to calculate height properly.
         // width should be fine though.
@@ -101,5 +114,18 @@ class TextRenderer extends MultiPassRenderer
         $maxX = max($box[0], $box[2], $box[4], $box[6]);
 
         return abs($maxX - $minX);
+    }
+
+    private static function resolveFontWeight($weight): int
+    {
+        // TODO implement "bolder" and "lighter"
+
+        if (is_numeric($weight)) {
+            return (int) $weight;
+        } elseif ($weight === 'bold') {
+            return 700;
+        }
+
+        return 400;
     }
 }
