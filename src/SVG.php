@@ -23,8 +23,8 @@ class SVG
     private $document;
 
     /**
-     * @param string|null $width    The image's width (any CSS length).
-     * @param string|null $height   The image's height (any CSS length).
+     * @param mixed $width    The image's width (any CSS length).
+     * @param mixed $height   The image's height (any CSS length).
      */
     public function __construct($width = null, $height = null)
     {
@@ -34,7 +34,7 @@ class SVG
     /**
      * @return SVGDocumentFragment The document/root node of this image.
      */
-    public function getDocument()
+    public function getDocument(): SVGDocumentFragment
     {
         return $this->document;
     }
@@ -47,13 +47,13 @@ class SVG
      * Note that, since images in SVG have an innate size, the given size only
      * scales the output canvas and does not influence element positions.
      *
-     * @param int $width         The target canvas's width, in pixels.
-     * @param int $height        The target canvas's height, in pixels.
-     * @param string $background The background color (hex/rgb[a]/hsl[a]/...).
+     * @param int $width              The target canvas's width, in pixels.
+     * @param int $height             The target canvas's height, in pixels.
+     * @param string|null $background The background color (hex/rgb[a]/hsl[a]/...).
      *
      * @return resource The rasterized image as a GD resource (with alpha).
      */
-    public function toRasterImage($width, $height, $background = null)
+    public function toRasterImage(int $width, int $height, ?string $background = null)
     {
         $docWidth  = $this->document->getWidth();
         $docHeight = $this->document->getHeight();
@@ -69,7 +69,7 @@ class SVG
     /**
      * @see SVG::toXMLString() For the implementation (this is a wrapper).
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toXMLString();
     }
@@ -85,7 +85,7 @@ class SVG
      *
      * @return string This image's document tree as an XML string.
      */
-    public function toXMLString($standalone = true)
+    public function toXMLString(bool $standalone = true): string
     {
         $writer = new SVGWriter($standalone);
         $writer->writeNode($this->document);
@@ -100,7 +100,7 @@ class SVG
      *
      * @return SVG A new image, with the nodes parsed from the XML.
      */
-    public static function fromString($string)
+    public static function fromString($string): ?SVG
     {
         return self::getReader()->parseString($string);
     }
@@ -113,7 +113,7 @@ class SVG
      *
      * @return SVG A new image, with the nodes parsed from the XML.
      */
-    public static function fromFile($file)
+    public static function fromFile(string $file): ?SVG
     {
         return self::getReader()->parseFile($file);
     }
@@ -121,7 +121,7 @@ class SVG
     /**
      * @return SVGReader The singleton reader shared across all instances.
      */
-    private static function getReader()
+    private static function getReader(): SVGReader
     {
         if (!isset(self::$reader)) {
             self::$reader = new SVGReader();

@@ -24,7 +24,7 @@ class SVGReader
      *
      * @return SVG|null An image object representing the parse result.
      */
-    public function parseString($string)
+    public function parseString(string $string): ?SVG
     {
         $xml = new SimpleXMLElement($string, LIBXML_PARSEHUGE);
 
@@ -42,7 +42,7 @@ class SVGReader
      *
      * @return SVG|null An image object representing the parse result.
      */
-    public function parseFile($filename)
+    public function parseFile(string $filename): ?SVG
     {
         $xml = simplexml_load_file($filename);
         return $this->parseXML($xml);
@@ -56,7 +56,7 @@ class SVGReader
      *
      * @return SVG|null An image object representing the parse result.
      */
-    public function parseXML(SimpleXMLElement $xml)
+    public function parseXML(SimpleXMLElement $xml): ?SVG
     {
         $name = $xml->getName();
         if ($name !== 'svg') {
@@ -96,7 +96,7 @@ class SVGReader
      *
      * @return void
      */
-    private function applyAttributes(SVGNode $node, SimpleXMLElement $xml, array $namespaces)
+    private function applyAttributes(SVGNode $node, SimpleXMLElement $xml, array $namespaces): void
     {
         foreach ($namespaces as $ns) {
             foreach ($xml->attributes($ns, true) as $key => $value) {
@@ -128,7 +128,7 @@ class SVGReader
      *
      * @return void
      */
-    private function applyStyles(SVGNode $node, SimpleXMLElement $xml)
+    private function applyStyles(SVGNode $node, SimpleXMLElement $xml): void
     {
         if (!isset($xml['style'])) {
             return;
@@ -150,7 +150,7 @@ class SVGReader
      *
      * @return void
      */
-    private function addChildren(SVGNodeContainer $node, SimpleXMLElement $xml, array $namespaces)
+    private function addChildren(SVGNodeContainer $node, SimpleXMLElement $xml, array $namespaces): void
     {
         foreach ($namespaces as $ns) {
             foreach ($xml->children($ns, true) as $child) {
@@ -171,7 +171,7 @@ class SVGReader
      *
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    private function parseNode($ns, SimpleXMLElement $xml, array $namespaces)
+    private function parseNode(string $ns, SimpleXMLElement $xml, array $namespaces): SVGNode
     {
         $tagName = $xml->getName();
         if (!empty($ns) && $ns !== 'svg') {

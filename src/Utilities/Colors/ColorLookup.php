@@ -12,7 +12,7 @@ final class ColorLookup
      * @param string $keyword The color keyword to look up.
      * @return int[]|null The RGBA components, or null.
      */
-    public static function get($keyword)
+    public static function get(string $keyword): ?array
     {
         $keywordLower = strtolower($keyword);
 

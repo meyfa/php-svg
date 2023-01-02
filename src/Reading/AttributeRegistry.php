@@ -63,7 +63,7 @@ class AttributeRegistry
      *
      * @return boolean Whether the attribute is a style.
      */
-    public static function isStyle($key)
+    public static function isStyle(string $key): bool
     {
         return in_array($key, self::$styleAttributes);
     }
@@ -78,7 +78,7 @@ class AttributeRegistry
      *
      * @return string The converted value for use in a CSS property.
      */
-    public static function convertStyleAttribute($key, $value)
+    public static function convertStyleAttribute(string $key, string $value): string
     {
         if (!isset(self::$styleConverters[$key])) {
             return $value;

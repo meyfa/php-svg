@@ -16,7 +16,7 @@ abstract class SVGStyleParser
      *
      * @return string[] An associative array of all declarations.
      */
-    public static function parseStyles($string)
+    public static function parseStyles(string $string): array
     {
         $styles = [];
         if (empty($string)) {
@@ -47,7 +47,7 @@ abstract class SVGStyleParser
      *
      * @return string[][] A 2D associative array with style declarations.
      */
-    public static function parseCss($css)
+    public static function parseCss(string $css): array
     {
         $result = [];
         preg_match_all('/(?ims)([a-z0-9\s\,\.\:#_\-@^*()\[\]\"\'=]+)\{([^\}]*)\}/', $css, $arr);

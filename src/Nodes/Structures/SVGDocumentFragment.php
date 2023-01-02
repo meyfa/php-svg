@@ -24,8 +24,8 @@ class SVGDocumentFragment extends SVGNodeContainer
     ];
 
     /**
-     * @param string|null $width  The declared width.
-     * @param string|null $height The declared height.
+     * @param mixed $width  The declared width.
+     * @param mixed $height The declared height.
      */
     public function __construct($width = null, $height = null)
     {
