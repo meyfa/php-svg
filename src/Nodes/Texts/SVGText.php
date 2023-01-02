@@ -27,7 +27,7 @@ class SVGText extends SVGNodeContainer
 {
     const TAG_NAME = 'text';
 
-    public function __construct($text = '', $x = 0, $y = 0)
+    public function __construct(string $text = '', $x = 0, $y = 0)
     {
         parent::__construct();
         $this->setValue($text);
@@ -42,7 +42,7 @@ class SVGText extends SVGNodeContainer
      * @param string $fontFamily The value for the CSS font-family property.
      * @return $this
      */
-    public function setFontFamily(string $fontFamily)
+    public function setFontFamily(string $fontFamily): SVGText
     {
         $this->setStyle('font-family', $fontFamily);
         return $this;
@@ -51,10 +51,10 @@ class SVGText extends SVGNodeContainer
     /**
      * Set the CSS font-size property.
      *
-     * @param $fontSize string The value for the CSS font-size property.
+     * @param $fontSize mixed The value for the CSS font-size property.
      * @return $this
      */
-    public function setFontSize($fontSize)
+    public function setFontSize($fontSize): SVGText
     {
         $this->setStyle('font-size', $fontSize);
         return $this;
@@ -63,7 +63,7 @@ class SVGText extends SVGNodeContainer
     /**
      * @inheritdoc
      */
-    public function getComputedStyle($name)
+    public function getComputedStyle(string $name): ?string
     {
         // force stroke before fill
         if ($name === 'paint-order') {
@@ -77,7 +77,7 @@ class SVGText extends SVGNodeContainer
     /**
      * @inheritdoc
      */
-    public function rasterize(SVGRasterizer $rasterizer)
+    public function rasterize(SVGRasterizer $rasterizer): void
     {
         TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
 

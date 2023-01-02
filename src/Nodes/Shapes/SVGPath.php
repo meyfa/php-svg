@@ -19,7 +19,7 @@ class SVGPath extends SVGNodeContainer
     /**
      * @param string|null $d The path description.
      */
-    public function __construct($d = null)
+    public function __construct(string $d = null)
     {
         parent::__construct();
 
@@ -29,7 +29,7 @@ class SVGPath extends SVGNodeContainer
     /**
      * @return string|null The path description string.
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->getAttribute('d');
     }
@@ -37,11 +37,11 @@ class SVGPath extends SVGNodeContainer
     /**
      * Sets the path description string.
      *
-     * @param string $d The new description.
+     * @param string|null $d The new description.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setDescription($d)
+    public function setDescription(?string $d): SVGPath
     {
         return $this->setAttribute('d', $d);
     }
@@ -49,7 +49,7 @@ class SVGPath extends SVGNodeContainer
     /**
      * @inheritdoc
      */
-    public function rasterize(SVGRasterizer $rasterizer)
+    public function rasterize(SVGRasterizer $rasterizer): void
     {
         if ($this->getComputedStyle('display') === 'none') {
             return;
@@ -77,7 +77,7 @@ class SVGPath extends SVGNodeContainer
         $rasterizer->popTransform();
     }
 
-    private static function getPathParser()
+    private static function getPathParser(): PathParser
     {
         if (!isset(self::$pathParser)) {
             self::$pathParser = new PathParser();

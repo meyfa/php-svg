@@ -16,9 +16,9 @@ class SVGCircle extends SVGNodeContainer
     const TAG_NAME = 'circle';
 
     /**
-     * @param string|null $cx The center's x coordinate.
-     * @param string|null $cy The center's y coordinate.
-     * @param string|null $r  The radius.
+     * @param mixed $cx The center's x coordinate.
+     * @param mixed $cy The center's y coordinate.
+     * @param mixed $r  The radius.
      */
     public function __construct($cx = null, $cy = null, $r = null)
     {
@@ -32,7 +32,7 @@ class SVGCircle extends SVGNodeContainer
     /**
      * @return string|null The center's x coordinate.
      */
-    public function getCenterX()
+    public function getCenterX(): ?string
     {
         return $this->getAttribute('cx');
     }
@@ -40,11 +40,11 @@ class SVGCircle extends SVGNodeContainer
     /**
      * Sets the center's x coordinate.
      *
-     * @param string $cx The new coordinate.
+     * @param mixed $cx The new coordinate.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setCenterX($cx)
+    public function setCenterX($cx): SVGCircle
     {
         return $this->setAttribute('cx', $cx);
     }
@@ -52,7 +52,7 @@ class SVGCircle extends SVGNodeContainer
     /**
      * @return string|null The center's y coordinate.
      */
-    public function getCenterY()
+    public function getCenterY(): ?string
     {
         return $this->getAttribute('cy');
     }
@@ -60,11 +60,11 @@ class SVGCircle extends SVGNodeContainer
     /**
      * Sets the center's y coordinate.
      *
-     * @param string $cy The new coordinate.
+     * @param mixed $cy The new coordinate.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setCenterY($cy)
+    public function setCenterY($cy): SVGCircle
     {
         return $this->setAttribute('cy', $cy);
     }
@@ -72,7 +72,7 @@ class SVGCircle extends SVGNodeContainer
     /**
      * @return string|null The radius.
      */
-    public function getRadius()
+    public function getRadius(): ?string
     {
         return $this->getAttribute('r');
     }
@@ -80,11 +80,11 @@ class SVGCircle extends SVGNodeContainer
     /**
      * Sets the radius.
      *
-     * @param string $r The new radius.
+     * @param mixed $r The new radius.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setRadius($r)
+    public function setRadius($r): SVGCircle
     {
         return $this->setAttribute('r', $r);
     }
@@ -92,7 +92,7 @@ class SVGCircle extends SVGNodeContainer
     /**
      * @inheritdoc
      */
-    public function rasterize(SVGRasterizer $rasterizer)
+    public function rasterize(SVGRasterizer $rasterizer): void
     {
         if ($this->getComputedStyle('display') === 'none') {
             return;

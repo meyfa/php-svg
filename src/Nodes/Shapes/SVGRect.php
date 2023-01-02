@@ -16,10 +16,10 @@ class SVGRect extends SVGNodeContainer
     const TAG_NAME = 'rect';
 
     /**
-     * @param string|null $x      The x coordinate of the upper left corner.
-     * @param string|null $y      The y coordinate of the upper left corner.
-     * @param string|null $width  The width.
-     * @param string|null $height The height.
+     * @param mixed $x      The x coordinate of the upper left corner.
+     * @param mixed $y      The y coordinate of the upper left corner.
+     * @param mixed $width  The width.
+     * @param mixed $height The height.
      */
     public function __construct($x = null, $y = null, $width = null, $height = null)
     {
@@ -34,7 +34,7 @@ class SVGRect extends SVGNodeContainer
     /**
      * @return string|null The x coordinate of the upper left corner.
      */
-    public function getX()
+    public function getX(): ?string
     {
         return $this->getAttribute('x');
     }
@@ -42,11 +42,11 @@ class SVGRect extends SVGNodeContainer
     /**
      * Sets the x coordinate of the upper left corner.
      *
-     * @param string $x The new coordinate.
+     * @param mixed $x The new coordinate.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setX($x)
+    public function setX($x): SVGRect
     {
         return $this->setAttribute('x', $x);
     }
@@ -54,7 +54,7 @@ class SVGRect extends SVGNodeContainer
     /**
      * @return string|null The y coordinate of the upper left corner.
      */
-    public function getY()
+    public function getY(): ?string
     {
         return $this->getAttribute('y');
     }
@@ -62,11 +62,11 @@ class SVGRect extends SVGNodeContainer
     /**
      * Sets the y coordinate of the upper left corner.
      *
-     * @param string $y The new coordinate.
+     * @param mixed $y The new coordinate.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setY($y)
+    public function setY($y): SVGRect
     {
         return $this->setAttribute('y', $y);
     }
@@ -74,17 +74,17 @@ class SVGRect extends SVGNodeContainer
     /**
      * @return string|null The width.
      */
-    public function getWidth()
+    public function getWidth(): ?string
     {
         return $this->getAttribute('width');
     }
 
     /**
-     * @param string $width The new width.
+     * @param mixed $width The new width.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setWidth($width)
+    public function setWidth($width): SVGRect
     {
         return $this->setAttribute('width', $width);
     }
@@ -92,17 +92,17 @@ class SVGRect extends SVGNodeContainer
     /**
      * @return string|null The height.
      */
-    public function getHeight()
+    public function getHeight(): ?string
     {
         return $this->getAttribute('height');
     }
 
     /**
-     * @param string $height The new height.
+     * @param mixed $height The new height.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setHeight($height)
+    public function setHeight($height): SVGRect
     {
         return $this->setAttribute('height', $height);
     }
@@ -110,7 +110,7 @@ class SVGRect extends SVGNodeContainer
     /**
      * @return string|null The x radius of the corners.
      */
-    public function getRX()
+    public function getRX(): ?string
     {
         return $this->getAttribute('rx');
     }
@@ -118,11 +118,11 @@ class SVGRect extends SVGNodeContainer
     /**
      * Sets the x radius of the corners.
      *
-     * @param string $rx The new radius.
+     * @param mixed $rx The new radius.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setRX($rx)
+    public function setRX($rx): SVGRect
     {
         return $this->setAttribute('rx', $rx);
     }
@@ -130,7 +130,7 @@ class SVGRect extends SVGNodeContainer
     /**
      * @return string|null The y radius of the corners.
      */
-    public function getRY()
+    public function getRY(): ?string
     {
         return $this->getAttribute('ry');
     }
@@ -138,11 +138,11 @@ class SVGRect extends SVGNodeContainer
     /**
      * Sets the y radius of the corners.
      *
-     * @param string $ry The new radius.
+     * @param mixed $ry The new radius.
      *
      * @return $this This node instance, for call chaining.
      */
-    public function setRY($ry)
+    public function setRY($ry): SVGRect
     {
         return $this->setAttribute('ry', $ry);
     }
@@ -150,7 +150,7 @@ class SVGRect extends SVGNodeContainer
     /**
      * @inheritdoc
      */
-    public function rasterize(SVGRasterizer $rasterizer)
+    public function rasterize(SVGRasterizer $rasterizer): void
     {
         if ($this->getComputedStyle('display') === 'none') {
             return;
