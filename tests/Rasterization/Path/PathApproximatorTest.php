@@ -28,9 +28,9 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame([
             [
-                [20, 40],
-                [60, 60],
-                [20, 40],
+                [20.0, 40.0],
+                [60.0, 60.0],
+                [20.0, 40.0],
             ],
         ], $result);
     }
@@ -52,9 +52,9 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame([
             [
-                [60, 200],
-                [180, 300],
-                [60, 200],
+                [60.0, 200.0],
+                [180.0, 300.0],
+                [60.0, 200.0],
             ],
         ], $result);
     }
@@ -74,8 +74,8 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame([
             [
-                [10, 20],
-                [50, 40],
+                [10.0, 20.0],
+                [50.0, 40.0],
             ],
         ], $result);
     }
@@ -119,13 +119,13 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->assertSame([
             [
-                [40, 70],
-                [57, 89],
-                [37, 41],
+                [40.0, 70.0],
+                [57.0, 89.0],
+                [37.0, 41.0],
             ],
             [
-                [-63, -259],
-                [-44, -236],
+                [-63.0, -259.0],
+                [-44.0, -236.0],
             ],
         ], $approx->getSubpaths());
 
@@ -144,13 +144,13 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->assertSame([
             [
-                [40 * 3 - 40, 70 * 5 + 90],
-                [57 * 3 - 40, 89 * 5 + 90],
-                [37 * 3 - 40, 41 * 5 + 90],
+                [40.0 * 3 - 40, 70.0 * 5 + 90],
+                [57.0 * 3 - 40, 89.0 * 5 + 90],
+                [37.0 * 3 - 40, 41.0 * 5 + 90],
             ],
             [
-                [-63 * 3 - 40, -259 * 5 + 90],
-                [-44 * 3 - 40, -236 * 5 + 90],
+                [-63.0 * 3 - 40, -259.0 * 5 + 90],
+                [-44.0 * 3 - 40, -236.0 * 5 + 90],
             ],
         ], $approx->getSubpaths());
     }
@@ -165,9 +165,9 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->assertSame([
             [
-                [10, 20],
-                [180, 20],
-                [370, 20],
+                [10.0, 20.0],
+                [180.0, 20.0],
+                [370.0, 20.0],
             ],
         ], $approx->getSubpaths());
 
@@ -183,9 +183,9 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->assertSame([
             [
-                [10 * 3 - 40, 190],
-                [180 * 3 - 40, 190],
-                [370 * 3 - 40, 190],
+                [10.0 * 3 - 40, 190.0],
+                [180.0 * 3 - 40, 190.0],
+                [370.0 * 3 - 40, 190.0],
             ],
         ], $approx->getSubpaths());
     }
@@ -200,9 +200,9 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->assertSame([
             [
-                [10, 20],
-                [10, 190],
-                [10, 370],
+                [10.0, 20.0],
+                [10.0, 190.0],
+                [10.0, 370.0],
             ],
         ], $approx->getSubpaths());
 
@@ -218,9 +218,9 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->assertSame([
             [
-                [-10, 20 * 5 + 90],
-                [-10, 190 * 5 + 90],
-                [-10, 370 * 5 + 90],
+                [-10.0, 20.0 * 5 + 90],
+                [-10.0, 190.0 * 5 + 90],
+                [-10.0, 370.0 * 5 + 90],
             ],
         ], $approx->getSubpaths());
     }
@@ -487,13 +487,13 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
             ]);
             $this->assertSame([
                 [
-                    [10, 20],
-                    [50, 70],
-                    [10, 20],
+                    [10.0, 20.0],
+                    [50.0, 70.0],
+                    [10.0, 20.0],
                 ],
                 [
-                    [10, 20],
-                    [23, 37],
+                    [10.0, 20.0],
+                    [23.0, 37.0],
                 ],
             ], $approx->getSubpaths());
 
@@ -511,18 +511,18 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
             ]);
             $this->assertSame([
                 [
-                    [10, 20],
-                    [10, 20],
+                    [10.0, 20.0],
+                    [10.0, 20.0],
                 ],
                 [
-                    [30, 50],
-                    [60, 100],
-                    [30, 50],
-                    [30, 50],
+                    [30.0, 50.0],
+                    [60.0, 100.0],
+                    [30.0, 50.0],
+                    [30.0, 50.0],
                 ],
                 [
-                    [30, 50],
-                    [30, 50],
+                    [30.0, 50.0],
+                    [30.0, 50.0],
                 ],
             ], $approx->getSubpaths());
         }

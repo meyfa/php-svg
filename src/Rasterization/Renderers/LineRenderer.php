@@ -19,7 +19,7 @@ class LineRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry)
+    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): array
     {
         $x1 = $options['x1'];
         $y1 = $options['y1'];
@@ -40,7 +40,7 @@ class LineRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function renderFill($image, array $params, $color)
+    protected function renderFill($image, $params, int $color): void
     {
         // can't fill
     }
@@ -48,7 +48,7 @@ class LineRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function renderStroke($image, array $params, $color, $strokeWidth)
+    protected function renderStroke($image, $params, int $color, float $strokeWidth): void
     {
         imagesetthickness($image, round($strokeWidth));
         imageline($image, $params['x1'], $params['y1'], $params['x2'], $params['y2'], $color);

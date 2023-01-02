@@ -6,6 +6,7 @@ use InvalidArgumentException;
 use RuntimeException;
 use SVG\Fonts\FontRegistry;
 use SVG\Nodes\SVGNode;
+use SVG\Rasterization\Renderers\Renderer;
 use SVG\Rasterization\Transform\Transform;
 use SVG\Utilities\Units\Length;
 use SVG\Utilities\Colors\Color;
@@ -54,15 +55,21 @@ class SVGRasterizer
     private $transformStack;
 
     /**
-     * @param string $docWidth   The original SVG document width, as a string.
-     * @param string $docHeight  The original SVG document height, as a string.
-     * @param float[] $viewBox   The document's viewBox.
-     * @param int $width         The output image width, in pixels.
-     * @param int $height        The output image height, in pixels.
-     * @param string $background The background color (hex/rgb[a]/hsl[a]/...).
+     * @param string|null $docWidth   The original SVG document width, as a string.
+     * @param string|null $docHeight  The original SVG document height, as a string.
+     * @param float[]|null $viewBox   The document's viewBox.
+     * @param int $width              The output image width, in pixels.
+     * @param int $height             The output image height, in pixels.
+     * @param string|null $background The background color (hex/rgb[a]/hsl[a]/...).
      */
-    public function __construct($docWidth, $docHeight, $viewBox, $width, $height, $background = null)
-    {
+    public function __construct(
+        ?string $docWidth,
+        ?string $docHeight,
+        ?array $viewBox,
+        int $width,
+        int $height,
+        ?string $background = null
+    ) {
         $this->viewBox = empty($viewBox) ? null : $viewBox;
 
         $this->width  = $width;
@@ -73,8 +80,8 @@ class SVGRasterizer
         $this->docWidth  = Length::convert($docWidth ?: '100%', $width);
         $this->docHeight = Length::convert($docHeight ?: '100%', $height);
 
-        $scaleX =  $width / (!empty($viewBox) ? $viewBox[2] : $this->docWidth);
-        $scaleY =  $height / (!empty($viewBox) ? $viewBox[3] : $this->docHeight);
+        $scaleX =  $width / (!empty($viewBox) ? $viewBox[2] : $this->docWidth ?? 0);
+        $scaleY =  $height / (!empty($viewBox) ? $viewBox[3] : $this->docHeight ?? 0);
         $this->diagonalScale = hypot($scaleX, $scaleY) / M_SQRT2;
 
         $offsetX = !empty($viewBox) ? -($viewBox[0] * $scaleX) : 0;
@@ -98,13 +105,13 @@ class SVGRasterizer
      *
      * The returned image supports and is filled with transparency.
      *
-     * @param int $width         The output image width, in pixels.
-     * @param int $height        The output image height, in pixels.
-     * @param string $background The background color (hex/rgb[a]/hsl[a]/...).
+     * @param int $width              The output image width, in pixels.
+     * @param int $height             The output image height, in pixels.
+     * @param string|null $background The background color (hex/rgb[a]/hsl[a]/...).
      *
      * @return resource The created GD image resource.
      */
-    private static function createImage($width, $height, $background)
+    private static function createImage(int $width, int $height, ?string $background)
     {
         $img = imagecreatetruecolor($width, $height);
 
@@ -131,7 +138,7 @@ class SVGRasterizer
      *
      * @return void
      */
-    private static function createDependencies()
+    private static function createDependencies(): void
     {
         if (isset(self::$renderers)) {
             return;
@@ -153,10 +160,10 @@ class SVGRasterizer
      *
      * @param string $id The id of a registered renderer instance.
      *
-     * @return Renderers\Renderer The requested renderer.
-     * @throws \InvalidArgumentException If no such renderer exists.
+     * @return Renderer The requested renderer.
+     * @throws InvalidArgumentException If no such renderer exists.
      */
-    private static function getRenderer($id)
+    private static function getRenderer(string $id): Renderer
     {
         if (!isset(self::$renderers[$id])) {
             throw new InvalidArgumentException('no such renderer: ' . $id);
@@ -182,30 +189,31 @@ class SVGRasterizer
      * stroke/fill attributes etc.
      *
      * @param string  $rendererId The id of the renderer to use.
-     * @param mixed[] $params     An array of options to pass to the renderer.
+     * @param array $params       An array of options to pass to the renderer.
      * @param SVGNode $context    The SVGNode that serves as drawing context.
      *
-     * @return mixed Whatever the renderer returned (in most cases void).
-     * @throws \InvalidArgumentException If no such renderer exists.
+     * @return void
+     *
+     * @throws InvalidArgumentException If no such renderer exists.
      */
-    public function render($rendererId, array $params, SVGNode $context)
+    public function render(string $rendererId, array $params, SVGNode $context): void
     {
         $renderer = self::getRenderer($rendererId);
-        return $renderer->render($this, $params, $context);
+        $renderer->render($this, $params, $context);
     }
 
     /**
-     * @return float The original SVG document width, in pixels.
+     * @return float|null The original SVG document width, in pixels.
      */
-    public function getDocumentWidth()
+    public function getDocumentWidth(): ?float
     {
         return $this->docWidth;
     }
 
     /**
-     * @return float The original SVG document height, in pixels.
+     * @return float|null The original SVG document height, in pixels.
      */
-    public function getDocumentHeight()
+    public function getDocumentHeight(): ?float
     {
         return $this->docHeight;
     }
@@ -219,7 +227,7 @@ class SVGRasterizer
      *
      * @return float The normalized diagonal length.
      */
-    public function getNormalizedDiagonal()
+    public function getNormalizedDiagonal(): float
     {
         // https://svgwg.org/svg2-draft/coords.html#Units
 
@@ -228,13 +236,13 @@ class SVGRasterizer
         // specified, then the normalized diagonal of the SVG viewport must be used. The normalized diagonal length must
         // be calculated with sqrt((width)**2 + (height)**2)/sqrt(2).
 
-        return hypot($this->docWidth, $this->docHeight) / M_SQRT2;
+        return hypot($this->docWidth ?? 0, $this->docHeight ?? 0) / M_SQRT2;
     }
 
     /**
      * @return int The output image width, in pixels.
      */
-    public function getWidth()
+    public function getWidth(): int
     {
         return $this->width;
     }
@@ -242,7 +250,7 @@ class SVGRasterizer
     /**
      * @return int The output image height, in pixels.
      */
-    public function getHeight()
+    public function getHeight(): int
     {
         return $this->height;
     }
@@ -253,7 +261,7 @@ class SVGRasterizer
      *
      * @return float The scaling factor of the view diagonal.
      */
-    public function getDiagonalScale()
+    public function getDiagonalScale(): float
     {
         return $this->diagonalScale;
     }
@@ -261,7 +269,7 @@ class SVGRasterizer
     /**
      * @return float[]|null The document's viewBox.
      */
-    public function getViewBox()
+    public function getViewBox(): ?array
     {
         return $this->viewBox;
     }
@@ -275,7 +283,7 @@ class SVGRasterizer
      *
      * @return Transform The created transform.
      */
-    public function getCurrentTransform()
+    public function getCurrentTransform(): Transform
     {
         return $this->transformStack[count($this->transformStack) - 1];
     }
@@ -287,7 +295,7 @@ class SVGRasterizer
      *
      * @return Transform The copy of the current transform, ready to have operations appended to it.
      */
-    public function pushTransform()
+    public function pushTransform(): Transform
     {
         $nextTransform = clone $this->transformStack[count($this->transformStack) - 1];
         $this->transformStack[] = $nextTransform;
@@ -302,7 +310,7 @@ class SVGRasterizer
      * @return void
      * @throws RuntimeException If trying to pop a transform but the stack contains only the initial transform.
      */
-    public function popTransform()
+    public function popTransform(): void
     {
         if (count($this->transformStack) <= 1) {
             throw new RuntimeException('popTransform() called with no transform on the stack!');

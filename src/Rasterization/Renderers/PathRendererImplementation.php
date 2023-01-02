@@ -23,7 +23,7 @@ final class PathRendererImplementation
      * @param string    $fillRule The fill rule ('nonzero' or 'evenodd').
      * @return void
      */
-    public static function fillMultipath($image, array $subpaths, $color, $fillRule = 'nonzero')
+    public static function fillMultipath($image, array $subpaths, int $color, string $fillRule = 'nonzero'): void
     {
         // whether to use the evenodd rule (vs. nonzero winding)
         $evenOdd = $fillRule === 'evenodd';
@@ -138,7 +138,7 @@ final class PathRendererImplementation
      * @param float    $strokeWidth The stroke width.
      * @return void
      */
-    public static function strokeOpenSubpath($image, array $points, $color, $strokeWidth)
+    public static function strokeOpenSubpath($image, array $points, int $color, float $strokeWidth): void
     {
         // require at least 2 coordinate pairs to stroke a line
         if (count($points) < 4) {
@@ -172,7 +172,7 @@ final class PathRendererImplementation
      * @param float    $strokeWidth The stroke width.
      * @return void
      */
-    public static function strokeClosedSubpath($image, array $points, $color, $strokeWidth)
+    public static function strokeClosedSubpath($image, array $points, int $color, float $strokeWidth): void
     {
         // imagepolygon() requires at least 3 coordinate pairs
         if (count($points) < 6) {

@@ -28,7 +28,7 @@ class PolygonBuilder
      * @param float $posX The starting x position.
      * @param float $posY The starting y position.
      */
-    public function __construct($posX = 0.0, $posY = 0.0)
+    public function __construct(float $posX = 0.0, float $posY = 0.0)
     {
         $this->posX = $posX;
         $this->posY = $posY;
@@ -39,7 +39,7 @@ class PolygonBuilder
      *
      * @return array[] An array of absolute points (which are float 2-tuples).
      */
-    public function build()
+    public function build(): array
     {
         return $this->points;
     }
@@ -49,7 +49,7 @@ class PolygonBuilder
      *
      * @return float[]|null The first point, or null.
      */
-    public function getFirstPoint()
+    public function getFirstPoint(): ?array
     {
         if (empty($this->points)) {
             return null;
@@ -62,7 +62,7 @@ class PolygonBuilder
      *
      * @return float[]|null The last point, or null.
      */
-    public function getLastPoint()
+    public function getLastPoint(): ?array
     {
         if (empty($this->points)) {
             return null;
@@ -79,7 +79,7 @@ class PolygonBuilder
      *
      * @return float[] The current position (either last point, or initial pos).
      */
-    public function getPosition()
+    public function getPosition(): array
     {
         return [$this->posX, $this->posY];
     }
@@ -95,7 +95,7 @@ class PolygonBuilder
      *
      * @return void
      */
-    public function addPoint($x, $y)
+    public function addPoint(?float $x, ?float $y): void
     {
         $x = $x ?? $this->posX;
         $y = $y ?? $this->posY;
@@ -119,7 +119,7 @@ class PolygonBuilder
      *
      * @return void
      */
-    public function addPointRelative($x, $y)
+    public function addPointRelative(?float $x, ?float $y): void
     {
         $this->posX += $x ?: 0;
         $this->posY += $y ?: 0;
@@ -134,7 +134,7 @@ class PolygonBuilder
      *
      * @return void
      */
-    public function addPoints(array $points)
+    public function addPoints(array $points): void
     {
         $this->points = array_merge($this->points, $points);
 

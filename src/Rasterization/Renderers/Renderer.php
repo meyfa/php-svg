@@ -30,10 +30,10 @@ abstract class Renderer
      * are dealt with by the renderer as needed.
      *
      * @param SVGRasterizer $rasterizer The rasterizer to render to.
-     * @param mixed[]       $options    Associative array of renderer options.
+     * @param array         $options    Associative array of renderer options.
      * @param SVGNode       $context    The SVGNode serving as the context.
      *
      * @return void
      */
-    abstract public function render(SVGRasterizer $rasterizer, array $options, SVGNode $context);
+    abstract public function render(SVGRasterizer $rasterizer, array $options, SVGNode $context): void;
 }

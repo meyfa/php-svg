@@ -21,7 +21,7 @@ class RectRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry)
+    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): array
     {
         $w = $options['width'];
         $h = $options['height'];
@@ -67,7 +67,7 @@ class RectRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function renderFill($image, array $params, $color)
+    protected function renderFill($image, $params, int $color): void
     {
         if ($params['empty']) {
             return;
@@ -88,7 +88,7 @@ class RectRenderer extends MultiPassRenderer
         );
     }
 
-    private function renderFillRounded($image, array $params, $color)
+    private function renderFillRounded($image, array $params, int $color): void
     {
         $x1 = $params['x1'];
         $y1 = $params['y1'];
@@ -131,7 +131,7 @@ class RectRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function renderStroke($image, array $params, $color, $strokeWidth)
+    protected function renderStroke($image, $params, int $color, float $strokeWidth): void
     {
         if ($params['empty']) {
             return;
@@ -195,7 +195,7 @@ class RectRenderer extends MultiPassRenderer
         );
     }
 
-    private function renderStrokeRounded($image, array $params, $color, $strokeWidth)
+    private function renderStrokeRounded($image, array $params, int $color, float $strokeWidth): void
     {
         $x1 = $params['x1'];
         $y1 = $params['y1'];

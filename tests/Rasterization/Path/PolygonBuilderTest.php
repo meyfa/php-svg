@@ -36,7 +36,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         $obj->addPoint(10, 20);
         $obj->addPoint(37.1, 42.2);
         $this->assertSame([
-            [10, 20],
+            [10.0, 20.0],
             [37.1, 42.2],
         ], $obj->build());
     }
@@ -54,7 +54,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         // should return the first point
         $obj->addPoint(10, 20);
         $obj->addPoint(37.1, 42.2);
-        $this->assertSame([10, 20], $obj->getFirstPoint());
+        $this->assertSame([10.0, 20.0], $obj->getFirstPoint());
     }
 
     /**
@@ -81,7 +81,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         $obj = new PolygonBuilder(10, 20);
 
         // should return constructor coordinates at first
-        $this->assertSame([10, 20], $obj->getPosition());
+        $this->assertSame([10.0, 20.0], $obj->getPosition());
 
         // should return the last point added
         $obj->addPoint(37.1, 42.2);
@@ -98,11 +98,11 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         // should add the coordinates
         $obj->addPoint(10, 20);
         $this->assertSame([
-            [10, 20],
+            [10.0, 20.0],
         ], $obj->build());
         $obj->addPoint(37.1, 42.2);
         $this->assertSame([
-            [10, 20],
+            [10.0, 20.0],
             [37.1, 42.2],
         ], $obj->build());
 
@@ -110,10 +110,10 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
         $obj->addPoint(0, null);
         $obj->addPoint(null, 0);
         $this->assertSame([
-            [10, 20],
+            [10.0, 20.0],
             [37.1, 42.2],
-            [0, 42.2],
-            [0, 0],
+            [0.0, 42.2],
+            [0.0, 0.0],
         ], $obj->build());
     }
 
@@ -159,7 +159,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
             [100, 200],
         ]);
         $this->assertSame([
-            [10, 20],
+            [10.0, 20.0],
             [47.1, 62.2],
             [100, 200],
         ], $obj->build());

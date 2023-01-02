@@ -19,7 +19,7 @@ class EllipseRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry)
+    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): array
     {
         $cx = $options['cx'];
         $cy = $options['cy'];
@@ -40,7 +40,7 @@ class EllipseRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function renderFill($image, array $params, $color)
+    protected function renderFill($image, $params, int $color): void
     {
         imagefilledellipse($image, $params['cx'], $params['cy'], $params['width'], $params['height'], $color);
     }
@@ -48,7 +48,7 @@ class EllipseRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function renderStroke($image, array $params, $color, $strokeWidth)
+    protected function renderStroke($image, $params, int $color, float $strokeWidth): void
     {
         imagesetthickness($image, round($strokeWidth));
 
