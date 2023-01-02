@@ -44,7 +44,7 @@ class Transform
      *
      * @return Transform The new transform.
      */
-    public static function identity()
+    public static function identity(): Transform
     {
         return new self([1, 0, 0, 1, 0, 0]);
     }
@@ -59,7 +59,7 @@ class Transform
      * @param float $y A reference to the y coordinate. This will be updated with the transform result.
      * @return void
      */
-    public function map(&$x, &$y)
+    public function map(float &$x, float &$y): void
     {
         $mappedX = $this->matrix[0] * $x + $this->matrix[2] * $y + $this->matrix[4];
         $mappedY = $this->matrix[1] * $x + $this->matrix[3] * $y + $this->matrix[5];
@@ -76,7 +76,7 @@ class Transform
      * @param array $destination A reference to the destination array, into which two new entries will be appended.
      * @return void
      */
-    public function mapInto($x, $y, array &$destination)
+    public function mapInto(float $x, float $y, array &$destination): void
     {
         $this->map($x, $y);
         $destination[] = $x;
@@ -91,7 +91,7 @@ class Transform
      * @param float $height The original height.
      * @return void
      */
-    public function resize(&$width, &$height)
+    public function resize(float &$width, float &$height): void
     {
         $width  *= hypot($this->matrix[0], $this->matrix[1]);
         $height *= hypot($this->matrix[2], $this->matrix[3]);
@@ -117,7 +117,7 @@ class Transform
      * @param Transform $other The transform to multiply this one with.
      * @return void
      */
-    public function multiply(Transform $other)
+    public function multiply(Transform $other): void
     {
         $this->matrix = [
             $other->matrix[0] * $this->matrix[0] + $other->matrix[1] * $this->matrix[2],
@@ -137,7 +137,7 @@ class Transform
      * @param float $dy The vertical translation distance in terms of the current transform space.
      * @return void
      */
-    public function translate($dx, $dy)
+    public function translate(float $dx, float $dy): void
     {
         /*
          * |a c e|     |1  0  dx|     |a  c  a*dx+c*dy+e|
@@ -157,7 +157,7 @@ class Transform
      * @param float $sy The vertical scaling factor in terms of the current transform space.
      * @return void
      */
-    public function scale($sx, $sy)
+    public function scale(float $sx, float $sy): void
     {
         /*
          * |a c e|     |sx  0   0|     |a*sx  c*sy  e|
@@ -178,7 +178,7 @@ class Transform
      * @param float $radians The rotation angle (positive values representing clockwise rotations).
      * @return void
      */
-    public function rotate($radians)
+    public function rotate(float $radians): void
     {
         /*
          * |a c e|     |cos(r)  -sin(t)  0|     |a*cos(t)+c*sin(t)  c*cos(t)-a*sin(t)  e|
@@ -209,7 +209,7 @@ class Transform
      * @param float $radians The skew angle.
      * @return void
      */
-    public function skewX($radians)
+    public function skewX(float $radians): void
     {
         /*
          * |a c e|     |1  tan(t)  0|     |a  a*tan(t)+c  e|
@@ -230,7 +230,7 @@ class Transform
      * @param float $radians The skew angle.
      * @return void
      */
-    public function skewY($radians)
+    public function skewY(float $radians): void
     {
         /*
          * |a c e|     |1       0  0|     |a+c*tan(t)  c  e|

@@ -19,7 +19,7 @@ class PolygonRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry)
+    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): array
     {
         $points = [];
         foreach ($options['points'] as $point) {
@@ -36,7 +36,7 @@ class PolygonRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function renderFill($image, array $params, $color)
+    protected function renderFill($image, $params, int $color): void
     {
         // Filling a polygon is equivalent to filling a path containing just a single polygonal subpath.
         PathRendererImplementation::fillMultipath($image, [$params['points']], $color, $params['fill-rule']);
@@ -45,7 +45,7 @@ class PolygonRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function renderStroke($image, array $params, $color, $strokeWidth)
+    protected function renderStroke($image, $params, int $color, float $strokeWidth): void
     {
         if ($params['open']) {
             PathRendererImplementation::strokeOpenSubpath($image, $params['points'], $color, $strokeWidth);

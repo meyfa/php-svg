@@ -21,7 +21,7 @@ class ImageRenderer extends Renderer
     /**
      * @inheritdoc
      */
-    public function render(SVGRasterizer $rasterizer, array $options, SVGNode $context)
+    public function render(SVGRasterizer $rasterizer, array $options, SVGNode $context): void
     {
         $transform = $rasterizer->getCurrentTransform();
 
@@ -67,7 +67,7 @@ class ImageRenderer extends Renderer
      *
      * @return resource The loaded image.
      */
-    private function loadImage($href, $w, $h)
+    private function loadImage(string $href, int $w, int $h)
     {
         $content = $this->loadImageContent($href);
 
@@ -86,7 +86,7 @@ class ImageRenderer extends Renderer
      *
      * @return string The image content.
      */
-    private function loadImageContent($href)
+    private function loadImageContent(string $href): string
     {
         $dataPrefix = 'data:';
 

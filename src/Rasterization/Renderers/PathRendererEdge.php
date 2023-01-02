@@ -41,7 +41,7 @@ class PathRendererEdge
      * @param $x2 float Second point X.
      * @param $y2 float Second point Y.
      */
-    public function __construct($x1, $y1, $x2, $y2)
+    public function __construct(float $x1, float $y1, float $x2, float $y2)
     {
         $this->minY = min($y1, $y2);
         $this->maxY = max($y1, $y2);
@@ -59,7 +59,7 @@ class PathRendererEdge
      * @param $b self The second edge.
      * @return int Comparison result.
      */
-    public static function compareMaxY($a, $b)
+    public static function compareMaxY(self $a, self $b): int
     {
         if ($a->maxY < $b->maxY) {
             return 1;
@@ -76,7 +76,7 @@ class PathRendererEdge
      * @param $b self The second edge.
      * @return int Comparison result.
      */
-    public static function compareX($a, $b)
+    public static function compareX(self $a, self $b): int
     {
         if ($a->x < $b->x) {
             return 1;

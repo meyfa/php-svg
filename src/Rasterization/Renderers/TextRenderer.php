@@ -23,7 +23,7 @@ class TextRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry)
+    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): array
     {
         // this assumes there is no rotation or skew, but that's fine, we can't deal with that anyway
         $size1 = $options['fontSize'];
@@ -64,7 +64,7 @@ class TextRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function renderFill($image, array $params, $color)
+    protected function renderFill($image, $params, int $color): void
     {
         imagettftext(
             $image,
@@ -81,7 +81,7 @@ class TextRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function renderStroke($image, array $params, $color, $strokeWidth)
+    protected function renderStroke($image, $params, int $color, float $strokeWidth): void
     {
         $x = $params['x'];
         $y = $params['y'];

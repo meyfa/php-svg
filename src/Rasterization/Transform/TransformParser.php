@@ -11,11 +11,11 @@ final class TransformParser
      * passed as an argument. In that case, no new Transform object will be allocated, and the given one will be used
      * as the starting point instead.
      *
-     * @param string         $input   The string to parse.
+     * @param string|null    $input   The string to parse.
      * @param Transform|null $applyTo The optional starting Transform. If not provided, the identity will be used.
      * @return Transform Either the mutated argument transform, or the newly computed transform.
      */
-    public static function parseTransformString($input, Transform $applyTo = null)
+    public static function parseTransformString(?string $input, Transform $applyTo = null): Transform
     {
         $transform = $applyTo ?? Transform::identity();
         if ($input == null) {
@@ -42,7 +42,7 @@ final class TransformParser
         return $transform;
     }
 
-    private static function splitArguments($argumentString)
+    private static function splitArguments(string $argumentString): array
     {
         $args = [];
         if ($argumentString !== '') {
@@ -59,7 +59,7 @@ final class TransformParser
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private static function translate(Transform $transform, array $arguments)
+    private static function translate(Transform $transform, array $arguments): void
     {
         if (count($arguments) === 2) {
             $transform->translate((float) $arguments[0], (float) $arguments[1]);
@@ -70,7 +70,7 @@ final class TransformParser
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private static function scale(Transform $transform, array $arguments)
+    private static function scale(Transform $transform, array $arguments): void
     {
         if (count($arguments) === 2) {
             $transform->scale((float) $arguments[0], (float) $arguments[1]);
@@ -81,7 +81,7 @@ final class TransformParser
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private static function rotate(Transform $transform, array $arguments)
+    private static function rotate(Transform $transform, array $arguments): void
     {
         if (count($arguments) === 1) {
             $transform->rotate(deg2rad((float) $arguments[0]));
@@ -92,7 +92,7 @@ final class TransformParser
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private static function skewX(Transform $transform, array $arguments)
+    private static function skewX(Transform $transform, array $arguments): void
     {
         if (count($arguments) === 1) {
             $transform->skewX(deg2rad((float) $arguments[0]));
@@ -103,7 +103,7 @@ final class TransformParser
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private static function skewY(Transform $transform, array $arguments)
+    private static function skewY(Transform $transform, array $arguments): void
     {
         if (count($arguments) === 1) {
             $transform->skewY(deg2rad((float) $arguments[0]));
@@ -114,7 +114,7 @@ final class TransformParser
      * @SuppressWarnings("unused")
      * @noinspection PhpUnusedPrivateMethodInspection
      */
-    private static function matrix(Transform $transform, array $arguments)
+    private static function matrix(Transform $transform, array $arguments): void
     {
         if (count($arguments) === 6) {
             $transform->multiply(new Transform(array_map('floatval', $arguments)));
