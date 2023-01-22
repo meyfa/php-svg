@@ -23,7 +23,7 @@ class TextRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): array
+    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): ?array
     {
         // this assumes there is no rotation or skew, but that's fine, we can't deal with that anyway
         $size1 = $options['fontSize'];
@@ -39,6 +39,10 @@ class TextRenderer extends MultiPassRenderer
             if ($matchingFont !== null) {
                 $fontPath = $matchingFont->getPath();
             }
+        }
+
+        if (!isset($fontPath)) {
+            return null;
         }
 
         // text-anchor

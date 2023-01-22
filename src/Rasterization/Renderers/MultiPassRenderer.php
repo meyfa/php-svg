@@ -25,6 +25,9 @@ abstract class MultiPassRenderer extends Renderer
         $transform = $rasterizer->getCurrentTransform();
 
         $params = $this->prepareRenderParams($options, $transform, $rasterizer->getFontRegistry());
+        if (!isset($params)) {
+            return;
+        }
 
         $paintOrder = self::getPaintOrder($context);
         foreach ($paintOrder as $paint) {
@@ -75,19 +78,19 @@ abstract class MultiPassRenderer extends Renderer
     }
 
     /**
-     * Converts the options array into a new parameters array that the render
-     * methods can make more sense of.
+     * Converts the options array into a new parameters array that the render methods can make more sense of.
      *
-     * Specifically, the intention is to allow subclasses to outsource
-     * coordinate translation, approximation of curves and the like to this
-     * method rather than dealing with it in the render methods. This shall
-     * encourage single passes over the input data (for performance reasons).
+     * Specifically, the intention is to allow subclasses to outsource coordinate translation, approximation of curves
+     * and the like to this method rather than dealing with it in the render methods. This shall encourage single passes
+     * over the input data (for performance reasons).
+     *
+     * If this method determines that rendering isn't possible (e.g. because the shape is empty), it shall return null.
      *
      * @param array             $options      The associative array of raw options.
      * @param Transform         $transform    The coordinate transform to apply, to go from user to output coordinates.
      * @param FontRegistry|null $fontRegistry The font registry to use for text rendering.
      *
-     * @return array The new associative array of computed render parameters.
+     * @return array|null The new associative array of computed render parameters, if there is something to render.
      */
     abstract protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry);
 

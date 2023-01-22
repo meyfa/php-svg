@@ -21,14 +21,14 @@ class RectRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): array
+    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): ?array
     {
         $w = $options['width'];
         $h = $options['height'];
         $transform->resize($w, $h);
 
         if ($w <= 0 || $h <= 0) {
-            return ['empty' => true];
+            return null;
         }
 
         $x1 = $options['x'];
@@ -54,7 +54,6 @@ class RectRenderer extends MultiPassRenderer
         }
 
         return [
-            'empty' => false,
             'x1' => $x1,
             'y1' => $y1,
             'x2' => $x1 + $w - 1,
@@ -69,10 +68,6 @@ class RectRenderer extends MultiPassRenderer
      */
     protected function renderFill($image, $params, int $color): void
     {
-        if ($params['empty']) {
-            return;
-        }
-
         if ($params['rx'] != 0 || $params['ry'] != 0) {
             $this->renderFillRounded($image, $params, $color);
             return;
@@ -133,10 +128,6 @@ class RectRenderer extends MultiPassRenderer
      */
     protected function renderStroke($image, $params, int $color, float $strokeWidth): void
     {
-        if ($params['empty']) {
-            return;
-        }
-
         imagesetthickness($image, round($strokeWidth));
 
         if ($params['rx'] != 0 || $params['ry'] != 0) {

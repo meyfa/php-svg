@@ -19,7 +19,7 @@ class PolygonRenderer extends MultiPassRenderer
     /**
      * @inheritdoc
      */
-    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): array
+    protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): ?array
     {
         $points = [];
         foreach ($options['points'] as $point) {
