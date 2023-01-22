@@ -215,11 +215,11 @@ require __DIR__ . '/vendor/autoload.php';
 
 use SVG\SVG;
 
-// load a set of fonts
-SVG::addFont(FONTS_DIR . 'Ubuntu-Regular.ttf');
-SVG::addFont(FONTS_DIR . 'Ubuntu-Bold.ttf');
-SVG::addFont(FONTS_DIR . 'Ubuntu-Italic.ttf');
-SVG::addFont(FONTS_DIR . 'Ubuntu-BoldItalic.ttf');
+// load a set of fonts from the "fonts" directory relative to the script directory
+SVG::addFont(__DIR__ . '/fonts/Ubuntu-Regular.ttf');
+SVG::addFont(__DIR__ . '/fonts/Ubuntu-Bold.ttf');
+SVG::addFont(__DIR__ . '/fonts/Ubuntu-Italic.ttf');
+SVG::addFont(__DIR__ . '/fonts/Ubuntu-BoldItalic.ttf');
 
 $image = SVG::fromString('
 <svg width="220" height="220">
@@ -236,6 +236,9 @@ $image = SVG::fromString('
 header('Content-Type: image/png');
 imagepng($image->toRasterImage(220, 220));
 ```
+
+Note that PHP often behaves unexpectedly when using relative paths, especially with fonts. Hence, it is recommended to
+use absolute paths, or use the `__DIR__` constant to prepend the directory of the current script.
 
 
 ## Document model
