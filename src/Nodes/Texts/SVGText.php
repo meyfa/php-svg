@@ -85,7 +85,8 @@ class SVGText extends SVGNodeContainer
         //       https://www.w3.org/TR/SVG11/text.html#FontSizeProperty
         //       "Percentages: refer to parent element's font size"
         // For now, assume the standard font size of 16px as reference size
-        $fontSize = Length::convert($this->getComputedStyle('font-size'), 16);
+        // Default to 16px if font size could not be parsed
+        $fontSize = Length::convert($this->getComputedStyle('font-size'), 16) ?? 16;
 
         $rasterizer->render('text', [
             'x'          => Length::convert($this->getAttribute('x'), $rasterizer->getDocumentWidth()),
