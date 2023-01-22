@@ -31,17 +31,6 @@ class TextRenderer extends MultiPassRenderer
         $transform->resize($size1, $size2);
         $size = min($size1, $size2);
 
-        // text-anchor
-        $anchorOffset = 0;
-        if ($options['anchor'] === 'middle' || $options['anchor'] === 'end') {
-            $width = self::calculateTextWidth($options['text'], $options['font_path'], $size);
-            $anchorOffset = $options['anchor'] === 'middle' ? ($width / 2) : $width;
-        }
-
-        $x = $options['x'];
-        $y = $options['y'];
-        $transform->map($x, $y);
-
         $fontPath = null;
         if (isset($fontRegistry)) {
             $isItalic = $options['fontStyle'] === 'italic' || $options['fontStyle'] === 'oblique';
@@ -52,11 +41,22 @@ class TextRenderer extends MultiPassRenderer
             }
         }
 
+        // text-anchor
+        $anchorOffset = 0;
+        if ($options['anchor'] === 'middle' || $options['anchor'] === 'end') {
+            $width = self::calculateTextWidth($options['text'], $fontPath, $size);
+            $anchorOffset = $options['anchor'] === 'middle' ? ($width / 2) : $width;
+        }
+
+        $x = $options['x'];
+        $y = $options['y'];
+        $transform->map($x, $y);
+
         return [
             'x'         => $x - $anchorOffset,
             'y'         => $y,
             'size'      => $size,
-            'font_path' => $fontPath,
+            'fontPath'  => $fontPath,
             'text'      => $options['text'],
         ];
     }
@@ -73,7 +73,7 @@ class TextRenderer extends MultiPassRenderer
             $params['x'],
             $params['y'],
             $color,
-            $params['font_path'],
+            $params['fontPath'],
             $params['text']
         );
     }
@@ -89,7 +89,7 @@ class TextRenderer extends MultiPassRenderer
 
         for ($c1 = ($x - abs($px)); $c1 <= ($x + abs($px)); $c1++) {
             for ($c2 = ($y - abs($px)); $c2 <= ($y + abs($px)); $c2++) {
-                imagettftext($image, $params['size'], 0, $c1, $c2, $color, $params['font_path'], $params['text']);
+                imagettftext($image, $params['size'], 0, $c1, $c2, $color, $params['fontPath'], $params['text']);
             }
         }
     }
