@@ -339,6 +339,25 @@ Consider the following node:
 * `fill`, `stroke` and `stroke-width` are styles.
 
 
+## Debugging
+
+If you aren't getting any output but only a blank page, try temporarily enabling PHP's error reporting to find the cause
+of the problem.
+
+```php
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+// ... rest of the script ...
+```
+
+Make sure you disable this again when you're done, as it may leak sensitive information about your server setup.
+Additionally, ensure you're not setting the `Content-Type` header to an image format in this mode, as your browser will
+try to render the error message as an image, which won't work.
+
+Alternatively, you may attempt to find your server's error log file. Its location depends on how you're running PHP.
+
+
 ## Contributing
 
 This project is available to the community for free, and there is still a lot of work to do.
