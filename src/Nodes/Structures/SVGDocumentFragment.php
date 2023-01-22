@@ -21,6 +21,7 @@ class SVGDocumentFragment extends SVGNodeContainer
         'stroke'        => 'none',
         'stroke-width'  => '1',
         'opacity'       => '1',
+        'font-size'     => '16px',
     ];
 
     /**

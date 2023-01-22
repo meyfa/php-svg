@@ -112,6 +112,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('none', $obj->getComputedStyle('stroke'));
         $this->assertSame('1', $obj->getComputedStyle('stroke-width'));
         $this->assertSame('1', $obj->getComputedStyle('opacity'));
+        $this->assertSame('16px', $obj->getComputedStyle('font-size'));
 
         // should return null for non-defined styles
         $this->assertNull($obj->getComputedStyle('undefined-test-style'));
