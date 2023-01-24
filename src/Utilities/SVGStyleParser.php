@@ -53,13 +53,15 @@ abstract class SVGStyleParser
         preg_match_all('/(?ims)([a-z0-9\s\,\.\:#_\-@^*()\[\]\"\'=]+)\{([^\}]*)\}/', $css, $arr);
 
         foreach ($arr[0] as $i => $x) {
-            $selectors = explode(',', Str::trim($arr[1][$i]));
+            $selectors = array_map(function (string $selector) {
+                return Str::trim($selector);
+            }, explode(',', Str::trim($arr[1][$i])));
             if (in_array($selectors[0], ['@font-face', '@keyframes', '@media'])) {
                 continue;
             }
             $rules = self::parseStyles(Str::trim($arr[2][$i]));
             foreach ($selectors as $selector) {
-                $result[Str::trim($selector)] = $rules;
+                $result[$selector] = array_merge($result[$selector] ?? [], $rules);
             }
         }
 

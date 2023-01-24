@@ -29,4 +29,11 @@ class SVGStyleParserTest extends \PHPUnit\Framework\TestCase
 
         $this->assertCount(0, $result);
     }
+
+    public function testParseDuplicateSelectors()
+    {
+        $result = SVGStyleParser::parseCss('svg {background-color: beige;}; svg {stroke: none;} svg { fill: blue }');
+
+        $this->assertSame(['svg' => ['background-color' => 'beige', 'stroke' => 'none', 'fill' => 'blue']], $result);
+    }
 }
