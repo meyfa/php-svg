@@ -10,7 +10,7 @@ jobs:
   phpcs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup PHP and PHPCS
         uses: shivammathur/setup-php@v2
@@ -24,7 +24,7 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache Composer packages
         uses: actions/cache@v3
@@ -45,7 +45,7 @@ jobs:
       matrix:
         php-versions: ['7.3', '7.4', '8.0', '8.1', '8.2']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup PHP ${{ matrix.php-versions }}
         uses: shivammathur/setup-php@v2
@@ -56,7 +56,7 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache Composer packages
         uses: actions/cache@v3
@@ -74,7 +74,7 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup PHP with tools
         uses: shivammathur/setup-php@v2
@@ -84,7 +84,7 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache Composer packages
         uses: actions/cache@v3
