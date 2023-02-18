@@ -10,6 +10,11 @@ class Move extends AbstractPathDataInstruction
     ) {
     }
 
+    public static function getNames(): array
+    {
+        return ['M'];
+    }
+
     public function getName(): string
     {
         return 'M';

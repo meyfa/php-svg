@@ -12,6 +12,11 @@ class RelativeMove extends AbstractPathDataInstruction
     ) {
     }
 
+    public static function getNames(): array
+    {
+        return ['m'];
+    }
+
     public function getName(): string
     {
         return 'm';

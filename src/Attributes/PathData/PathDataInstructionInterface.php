@@ -4,6 +4,16 @@ namespace SVG\Attributes\PathData;
 
 interface PathDataInstructionInterface
 {
+    /**
+     * Gets the name of this class can handle
+     *
+     * @return string[]
+     */
+    public static function getNames(): array;
+
+    /**
+     * Gets the name of the current instruction
+     */
     public function getName(): string;
 
     public function requiresPrevious(): bool;
@@ -24,5 +34,8 @@ interface PathDataInstructionInterface
      */
     public function getLastPoint(): array;
 
+    /**
+     * @param callable(): PathDataInstructionInterface $transformator
+     */
     public function transform(callable $transformator): PathDataInstructionInterface;
 }
