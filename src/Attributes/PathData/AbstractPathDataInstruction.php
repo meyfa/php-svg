@@ -4,7 +4,7 @@ namespace SVG\Attributes\PathData;
 
 abstract class AbstractPathDataInstruction implements PathDataInstructionInterface
 {
-    private ?PathDataInstructionInterface $previous;
+    private ?PathDataInstructionInterface $previous = null;
 
     protected bool $requiresPrevious = false;
 
@@ -16,7 +16,7 @@ abstract class AbstractPathDataInstruction implements PathDataInstructionInterfa
     public function getPrevious(): ?PathDataInstructionInterface
     {
         if ($this->requiresPrevious() && !isset($this->previous)) {
-            throw new \LogicException("This instruction requires previous element to be set!");
+            throw new \LogicException(sprintf("This %s instruction requires previous element to be set!", get_class($this)));
         }
 
         return $this->previous;
@@ -25,5 +25,7 @@ abstract class AbstractPathDataInstruction implements PathDataInstructionInterfa
     public function setPrevious(?PathDataInstructionInterface $previousInstruction): static
     {
         $this->previous = $previousInstruction;
+
+        return $this;
     }
 }
