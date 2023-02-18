@@ -2,7 +2,7 @@
 
 namespace SVG\Attributes\PathData;
 
-interface PathDataInstructionInterface
+interface PathDataCommandInterface
 {
     /**
      * Gets the name of this class can handle
@@ -18,24 +18,24 @@ interface PathDataInstructionInterface
 
     public function requiresPrevious(): bool;
 
-    public function getPrevious(): ?PathDataInstructionInterface;
+    public function getPrevious(): ?PathDataCommandInterface;
 
-    public function setPrevious(?PathDataInstructionInterface $previousInstruction): static;
+    public function setPrevious(?PathDataCommandInterface $previousInstruction): static;
 
     public function __toString(): string;
 
     /**
-     * @return array{0: float, 1: float}
+     * @return array{0: float, 1: float}  Array of coordinates of all used points
      */
     public function getPoints(): array;
 
     /**
-     * @return array{0: float, 1: float}[]
+     * @return array{0: float, 1: float}[]  Absolute coordinates of last point
      */
     public function getLastPoint(): array;
 
     /**
      * @param callable(): PathDataInstructionInterface $transformator
      */
-    public function transform(callable $transformator): PathDataInstructionInterface;
+    public function transform(callable $transformator): PathDataCommandInterface;
 }

@@ -2,7 +2,7 @@
 
 namespace SVG\Attributes\PathData;
 
-class Move extends AbstractPathDataInstruction
+class Move extends AbstractPathDataCommand
 {
     public function __construct(
         public float $x,
@@ -35,7 +35,7 @@ class Move extends AbstractPathDataInstruction
         return $this->getPoints()[0];
     }
 
-    public function transform(callable $transformator): PathDataInstructionInterface
+    public function transform(callable $transformator): PathDataCommandInterface
     {
         list($this->x, $this->y) = $transformator([$this->x, $this->y]);
 

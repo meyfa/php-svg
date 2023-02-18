@@ -2,7 +2,7 @@
 
 namespace SVG\Attributes\PathData;
 
-class ClosePath extends AbstractPathDataInstruction
+class ClosePath extends AbstractPathDataCommand
 {
     protected bool $requiresPrevious = true;
 
@@ -31,7 +31,7 @@ class ClosePath extends AbstractPathDataInstruction
         return $this->getPrevious()->getLastPoint();
     }
 
-    public function transform(callable $transformator): PathDataInstructionInterface
+    public function transform(callable $transformator): PathDataCommandInterface
     {
         return $this;
     }

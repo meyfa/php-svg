@@ -4,7 +4,7 @@ namespace SVG\Attributes;
 
 use SVG\Attributes\PathData\ClosePath;
 use SVG\Attributes\PathData\Move;
-use SVG\Attributes\PathData\PathDataInstructionInterface;
+use SVG\Attributes\PathData\PathDataCommandInterface;
 use SVG\Attributes\PathData\RelativeMove;
 use SVG\Attributes\SVGPathData;
 
@@ -46,7 +46,7 @@ class SVGPathDataTest extends \PHPUnit\Framework\TestCase
         $pathData = new SVGPathData();
 
         foreach ($instructions as $instruction) {
-            $pathData->addInstruction($instruction);
+            $pathData->addCommand($instruction);
         }
 
         $this->assertSame($expectedPath, $pathData->__toString());

@@ -2,7 +2,7 @@
 
 namespace SVG\Attributes\PathData;
 
-class RelativeMove extends AbstractPathDataInstruction
+class RelativeMove extends AbstractPathDataCommand
 {
     protected bool $requiresPrevious = true;
 
@@ -44,7 +44,7 @@ class RelativeMove extends AbstractPathDataInstruction
         return $this->getPoints()[0];
     }
 
-    public function transform(callable $transformator): PathDataInstructionInterface
+    public function transform(callable $transformator): PathDataCommandInterface
     {
         list($this->x, $this->y) = $transformator([$this->x, $this->y]);
 

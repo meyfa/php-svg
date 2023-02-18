@@ -4,7 +4,7 @@ namespace SVG\Attributes;
 
 use SVG\Attributes\PathData\ClosePath;
 use SVG\Attributes\PathData\Move;
-use SVG\Attributes\PathData\PathDataInstructionInterface;
+use SVG\Attributes\PathData\PathDataCommandInterface;
 use SVG\Attributes\PathData\RelativeMove;
 
 class SVGPathData implements SVGAttributeInterface, \Iterator, \Countable
@@ -12,45 +12,45 @@ class SVGPathData implements SVGAttributeInterface, \Iterator, \Countable
     public const ATTRIBUTE_NAME = 'd';
 
     /**
-     * @var class-string<PathDataInstructionInterface>[]
+     * @var class-string<PathDataCommandInterface>[]
      */
-    public static array $instructions = [
+    public static array $commands = [
         Move::class,
         RelativeMove::class,
         ClosePath::class
     ];
 
-    private ?PathDataInstructionInterface $head = null;
+    private ?PathDataCommandInterface $head = null;
 
-    private ?PathDataInstructionInterface $iteratorCurrent = null;
+    private ?PathDataCommandInterface $iteratorCurrent = null;
 
     public static function fromString(string $pathDataString): SVGPathData
     {
         $pathData = new static();
 
-        $instructions = [];
-        preg_match_all("/\s*([a-z])\s*([^a-z]+)*/i", $pathDataString, $instructions);
+        $cmdStrings = [];
+        preg_match_all("/\s*([a-z])\s*([^a-z]+)*/i", $pathDataString, $cmdStrings);
 
-        foreach ($instructions[0] as $instructionString) {
-            $instructionParts = explode(" ", $instructionString);
-            $instructionParts = array_map(fn ($instruction) => trim($instruction), $instructionParts);
-            $instructionName = array_shift($instructionParts);
+        foreach ($cmdStrings[0] as $cmdString) {
+            $cmdParts = explode(" ", $cmdString);
+            $cmdParts = array_map(fn ($cmdPart) => trim($cmdPart), $cmdParts);
+            $cmdName = array_shift($cmdParts);
 
-            $instructionClass = null;
+            $cmdClass = null;
 
-            foreach (self::$instructions as $instructionClassCandidate) {
-                if (in_array($instructionName, $instructionClassCandidate::getNames())) {
-                    $instructionClass = $instructionClassCandidate;
+            foreach (self::$commands as $cmdClassCandidate) {
+                if (in_array($cmdName, $cmdClassCandidate::getNames())) {
+                    $cmdClass = $cmdClassCandidate;
                     break;
                 }
             }
 
-            if (!$instructionClass) {
-                throw new \RuntimeException(sprintf("Couldn't parse '%s' SVG path part", $instructionString));
+            if (!$cmdClass) {
+                throw new \RuntimeException(sprintf("Couldn't parse '%s' SVG path part", $cmdString));
             }
 
-            $instruction = new $instructionClass(...$instructionParts);
-            $pathData->addInstruction($instruction);
+            $cmd = new $cmdClass(...$cmdParts);
+            $pathData->addCommand($cmd);
         }
 
         return $pathData;
@@ -65,47 +65,47 @@ class SVGPathData implements SVGAttributeInterface, \Iterator, \Countable
     {
         $d = [];
 
-        $instruction = $this->head;
+        $command = $this->head;
 
-        while ($instruction) {
-            array_unshift($d, $instruction->__toString());
-            $instruction = $instruction->getPrevious();
+        while ($command) {
+            array_unshift($d, $command->__toString());
+            $command = $command->getPrevious();
         }
 
         return join(' ', $d);
     }
 
-    public function addInstruction(PathDataInstructionInterface $instruction): self
+    public function addCommand(PathDataCommandInterface $command): self
     {
         if ($this->head) {
-            $instruction->setPrevious($this->head);
+            $command->setPrevious($this->head);
         }
-        $this->head = $instruction;
+        $this->head = $command;
 
         return $this;
     }
 
     /**
-     * @param callable(): PathDataInstructionInterface $transformator
+     * @param callable(): PathDataCommandInterface $transformator
      */
     public function transform(callable $transformator): void
     {
-        $instruction = $this->head;
-        // instruction following the currently looped one
-        // initially it's empty, as we loop from end, and last instruction is not followed by anything
-        $nextInstruction = null;
+        $command = $this->head;
+        // command following the currently looped one
+        // initially it's empty, as we loop from end, and last command is not followed by anything
+        $nextCmd = null;
 
-        while ($instruction) {
-            $transformedInstruction = $instruction->transform($transformator);
+        while ($command) {
+            $transformedCommand = $command->transform($transformator);
 
-            if ($transformedInstruction !== $instruction) {
-                // if instruction returned a different instance it needs to be replaced in a chaing
-                $transformedInstruction->setPrevious($instruction->getPrevious());
-                $nextInstruction->setPrevious($transformedInstruction);
+            if ($transformedCommand !== $command) {
+                // if command returned a different instance it needs to be replaced in a chaing
+                $transformedCommand->setPrevious($command->getPrevious());
+                $nextCmd->setPrevious($transformedCommand);
             }
 
-            $nextInstruction = $instruction;
-            $instruction = $instruction->getPrevious();
+            $nextCmd = $command;
+            $command = $command->getPrevious();
         }
     }
 
@@ -116,18 +116,18 @@ class SVGPathData implements SVGAttributeInterface, \Iterator, \Countable
 
     public function key(): int
     {
-        $instruction = $this->head;
+        $command = $this->head;
         $index = 0;
 
-        while ($instruction) {
+        while ($command) {
             $index--;
-            $instruction = $instruction->getPrevious();
+            $command = $command->getPrevious();
         }
 
         return $index;
     }
 
-    public function current(): ?PathDataInstructionInterface
+    public function current(): ?PathDataCommandInterface
     {
         return $this->iteratorCurrent ?? $this->head;
     }
@@ -146,11 +146,11 @@ class SVGPathData implements SVGAttributeInterface, \Iterator, \Countable
     {
         $count = 0;
 
-        $instruction = $this->head;
+        $command = $this->head;
 
-        while ($instruction) {
+        while ($command) {
             $count++;
-            $instruction = $instruction->getPrevious();
+            $command = $command->getPrevious();
         }
 
         return $count;
