@@ -4,6 +4,8 @@ namespace SVG\Attributes\PathData;
 
 class Move extends AbstractPathDataCommand
 {
+    protected bool $requiresPrevious = false;
+
     public function __construct(
         public float $x,
         public float $y,

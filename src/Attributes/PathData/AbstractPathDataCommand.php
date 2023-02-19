@@ -6,7 +6,7 @@ abstract class AbstractPathDataCommand implements PathDataCommandInterface
 {
     private ?PathDataCommandInterface $previous = null;
 
-    protected bool $requiresPrevious = false;
+    protected bool $requiresPrevious = true;
 
     public function requiresPrevious(): bool
     {
