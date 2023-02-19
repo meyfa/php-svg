@@ -4,8 +4,6 @@ namespace SVG\Attributes\PathData;
 
 class RelativeMove extends AbstractPathDataCommand
 {
-    protected bool $requiresPrevious = true;
-
     public function __construct(
         public float $dx,
         public float $dy,
@@ -46,7 +44,11 @@ class RelativeMove extends AbstractPathDataCommand
 
     public function transform(callable $transformator): PathDataCommandInterface
     {
-        list($this->x, $this->y) = $transformator([$this->x, $this->y]);
+        list($x, $y) = $this->getPoints()[0];
+        list($newX, $newY) = $transformator([$x, $y]);
+
+        $this->dx += $newX - $x;
+        $this->dy += $newY - $y;
 
         return $this;
     }

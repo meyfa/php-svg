@@ -2,10 +2,18 @@
 
 namespace SVG\Attributes;
 
+use SVG\Attributes\PathData\BezierCurve;
 use SVG\Attributes\PathData\ClosePath;
+use SVG\Attributes\PathData\HorizontalLine;
+use SVG\Attributes\PathData\Line;
 use SVG\Attributes\PathData\Move;
 use SVG\Attributes\PathData\PathDataCommandInterface;
+use SVG\Attributes\PathData\RelativeBezierCurve;
+use SVG\Attributes\PathData\RelativeHorizontalLine;
+use SVG\Attributes\PathData\RelativeLine;
 use SVG\Attributes\PathData\RelativeMove;
+use SVG\Attributes\PathData\RelativeVerticalLine;
+use SVG\Attributes\PathData\VerticalLine;
 
 class SVGPathData implements SVGAttributeInterface, \Iterator, \Countable
 {
@@ -15,9 +23,17 @@ class SVGPathData implements SVGAttributeInterface, \Iterator, \Countable
      * @var class-string<PathDataCommandInterface>[]
      */
     public static array $commands = [
+        ClosePath::class,
         Move::class,
         RelativeMove::class,
-        ClosePath::class
+        Line::class,
+        RelativeLine::class,
+        BezierCurve::class,
+        RelativeBezierCurve::class,
+        HorizontalLine::class,
+        RelativeHorizontalLine::class,
+        VerticalLine::class,
+        RelativeVerticalLine::class,
     ];
 
     private ?PathDataCommandInterface $head = null;
@@ -46,7 +62,7 @@ class SVGPathData implements SVGAttributeInterface, \Iterator, \Countable
             }
 
             if (!$cmdClass) {
-                throw new \RuntimeException(sprintf("Couldn't parse '%s' SVG path part", $cmdString));
+                throw new \RuntimeException(sprintf("Couldn't find class for '%s' SVG path part", $cmdString));
             }
 
             $cmd = new $cmdClass(...$cmdParts);
