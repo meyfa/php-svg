@@ -2,16 +2,20 @@
 
 namespace SVG\Attributes;
 
+use SVG\Attributes\PathData\ArcCurve;
 use SVG\Attributes\PathData\BezierCurve;
 use SVG\Attributes\PathData\ClosePath;
 use SVG\Attributes\PathData\HorizontalLine;
 use SVG\Attributes\PathData\Line;
 use SVG\Attributes\PathData\Move;
 use SVG\Attributes\PathData\PathDataCommandInterface;
+use SVG\Attributes\PathData\QuadraticCurve;
+use SVG\Attributes\PathData\RelativeArcCurve;
 use SVG\Attributes\PathData\RelativeBezierCurve;
 use SVG\Attributes\PathData\RelativeHorizontalLine;
 use SVG\Attributes\PathData\RelativeLine;
 use SVG\Attributes\PathData\RelativeMove;
+use SVG\Attributes\PathData\RelativeQuadraticCurve;
 use SVG\Attributes\PathData\RelativeVerticalLine;
 use SVG\Attributes\PathData\VerticalLine;
 
@@ -30,6 +34,10 @@ class SVGPathData implements SVGAttributeInterface, \Iterator, \Countable
         RelativeLine::class,
         BezierCurve::class,
         RelativeBezierCurve::class,
+        ArcCurve::class,
+        RelativeArcCurve::class,
+        QuadraticCurve::class,
+        RelativeQuadraticCurve::class,
         HorizontalLine::class,
         RelativeHorizontalLine::class,
         VerticalLine::class,
