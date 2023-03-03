@@ -59,7 +59,7 @@ class BezierCurve extends AbstractPathDataCommand
 
     public function __toString(): string
     {
-        $lastPoint = $this->x1 === null
+        $firstPoint = $this->x1 === null
             ? ""
             : " {$this->x1} {$this->y1}";
 

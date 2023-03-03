@@ -4,8 +4,8 @@ namespace SVG\Attributes\PathData;
 
 class QuadraticCurve extends AbstractPathDataCommand
 {
-    public float $x1;
-    public float $y1;
+    public ?float $x1;
+    public ?float $y1;
 
     public float $x;
     public float $y;
@@ -21,10 +21,10 @@ class QuadraticCurve extends AbstractPathDataCommand
         }
 
         if ($x2 === null) {
-            $this->x = $x1;
-            $this->y = $y1;
-
-            return;
+            $x2 = $x1;
+            $y2 = $y1;
+            $x1 = null;
+            $y1 = null;
         }
 
         $this->x1 = $x1;
@@ -45,7 +45,7 @@ class QuadraticCurve extends AbstractPathDataCommand
 
     public function __toString(): string
     {
-        $firstPoint = $this->x1 !== null ? "{$this->x1} ${$this->x2} " : "";
+        $firstPoint = $this->x1 !== null ? "{$this->x1} {$this->y1} " : "";
 
         return "{$this->getName()} {$firstPoint}{$this->x} {$this->y}";
     }

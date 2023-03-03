@@ -28,7 +28,7 @@ class RelativeVerticalLine extends AbstractPathDataCommand
 
     public function getY(): int
     {
-        return $this->getPrevious()->getLastPoint()[1] + $dy;
+        return $this->getPrevious()->getLastPoint()[1] + $this->dy;
     }
 
     public function getX(): int

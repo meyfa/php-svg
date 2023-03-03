@@ -33,7 +33,7 @@ class RelativeHorizontalLine extends AbstractPathDataCommand
 
     public function getX(): int
     {
-        return $this->getPrevious()->getLastPoint()[0] + $dx;
+        return $this->getPrevious()->getLastPoint()[0] + $this->dx;
     }
 
     public function getPoints(): array
