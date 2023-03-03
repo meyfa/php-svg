@@ -33,9 +33,4 @@ interface PathDataCommandInterface
      * @return array{0: float, 1: float}[]  Absolute coordinates of last point
      */
     public function getLastPoint(): array;
-
-    /**
-     * @param callable(): PathDataInstructionInterface $transformator
-     */
-    public function transform(callable $transformator): PathDataCommandInterface;
 }

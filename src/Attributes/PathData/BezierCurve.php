@@ -84,39 +84,4 @@ class BezierCurve extends AbstractPathDataCommand
     {
         return [$this->x, $this->y];
     }
-
-    public function transform(callable $transformator): PathDataCommandInterface
-    {
-        if ($this->x1 !== null) {
-            list($this->x1, $this->y1) = $transformator([$this->x1, $this->y1]);
-        } else {
-            $prevPoints = $this->getPrevious()->getPoints();
-            $midPoint = array_pop($prevPoints);
-
-            if ($this->getPrevious() instanceof BezierCurve) {
-                $bezPoint = array_pop($prevPoints);
-            } else {
-                /**
-                 * If the S command doesn't follow another S or C command, then
-                 * the current position of the cursor is used as the first control point.
-                 */
-                $bezPoint = $midPoint;
-            }
-
-            $virtualX1 = $midPoint[0] + $midPoint[0] - $bezPoint[0];
-            $virtualY1 = $midPoint[1] + $midPoint[1] - $bezPoint[1];
-
-            list($transformedX1, $transformedY1) = $transformator([$this->virtualX1, $this->virtualY1], true);
-
-            if ($transformedX1 !== $virtualX1 || $transformedY1 !== $virtualY1) {
-                $this->x1 = $transformedX1;
-                $this->y1 = $transformedY1;
-            }
-        }
-
-        list($this->x2, $this->y2) = $transformator([$this->x2, $this->y2]);
-        list($this->x, $this->y) = $transformator([$this->x, $this->y]);
-
-        return $this;
-    }
 }

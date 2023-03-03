@@ -110,6 +110,9 @@ class SVGPathData implements SVGAttributeInterface, \Iterator, \Countable
     }
 
     /**
+     * This is similar to Array map functions. Each command will be run through provided $transformator function
+     * that can either returned same instance (modified or not) or another one that will replace the existing command
+     *
      * @param callable(): PathDataCommandInterface $transformator
      */
     public function transform(callable $transformator): void
@@ -120,7 +123,7 @@ class SVGPathData implements SVGAttributeInterface, \Iterator, \Countable
         $nextCmd = null;
 
         while ($command) {
-            $transformedCommand = $command->transform($transformator);
+            $transformedCommand = $transformator($command);
 
             if ($transformedCommand !== $command) {
                 // if command returned a different instance it needs to be replaced in a chaing

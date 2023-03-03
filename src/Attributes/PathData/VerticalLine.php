@@ -40,16 +40,4 @@ class VerticalLine extends AbstractPathDataCommand
     {
         return $this->getPoints()[0];
     }
-
-    public function transform(callable $transformator): PathDataCommandInterface
-    {
-        $x = $this->getX();
-        list($newX, $this->y) = $transformator([$x, $this->y]);
-
-        if ($newX !== $x) {
-            return new Line($newX, $this->y);
-        }
-
-        return $this;
-    }
 }

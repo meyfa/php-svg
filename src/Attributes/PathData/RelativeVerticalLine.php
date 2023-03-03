@@ -45,20 +45,4 @@ class RelativeVerticalLine extends AbstractPathDataCommand
     {
         return $this->getPoints()[0];
     }
-
-    public function transform(callable $transformator): PathDataCommandInterface
-    {
-        $x = $this->getX();
-        $y = $this->getY();
-
-        list($newX, $newY) = $transformator([$x, $y]);
-
-        $this->dy += $newY - $Y;
-
-        if ($newX !== $X) {
-            return new RelativeLine($newX - $x, $this->y);
-        }
-
-        return $this;
-    }
 }

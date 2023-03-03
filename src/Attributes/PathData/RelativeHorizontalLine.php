@@ -45,20 +45,4 @@ class RelativeHorizontalLine extends AbstractPathDataCommand
     {
         return $this->getPoints()[0];
     }
-
-    public function transform(callable $transformator): PathDataCommandInterface
-    {
-        $x = $this->getX();
-        $y = $this->getY();
-
-        list($newX, $newY) = $transformator([$x, $y]);
-
-        $this->dx += $newX - $x;
-
-        if ($newY !== $y) {
-            return new RelativeLine($this->x, $newY - $y);
-        }
-
-        return $this;
-    }
 }

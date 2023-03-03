@@ -41,15 +41,4 @@ class RelativeMove extends AbstractPathDataCommand
     {
         return $this->getPoints()[0];
     }
-
-    public function transform(callable $transformator): PathDataCommandInterface
-    {
-        list($x, $y) = $this->getPoints()[0];
-        list($newX, $newY) = $transformator([$x, $y]);
-
-        $this->dx += $newX - $x;
-        $this->dy += $newY - $y;
-
-        return $this;
-    }
 }

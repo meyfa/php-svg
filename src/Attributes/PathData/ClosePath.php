@@ -30,9 +30,4 @@ class ClosePath extends AbstractPathDataCommand
     {
         return $this->getPrevious()->getLastPoint();
     }
-
-    public function transform(callable $transformator): PathDataCommandInterface
-    {
-        return $this;
-    }
 }

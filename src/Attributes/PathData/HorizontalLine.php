@@ -40,16 +40,4 @@ class HorizontalLine extends AbstractPathDataCommand
     {
         return $this->getPoints()[0];
     }
-
-    public function transform(callable $transformator): PathDataCommandInterface
-    {
-        $y = $this->getY();
-        list($this->x, $newY) = $transformator([$this->x, $y]);
-
-        if ($newY !== $y) {
-            return new Line($this->x, $newY);
-        }
-
-        return $this;
-    }
 }

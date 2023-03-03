@@ -41,11 +41,4 @@ class ArcCurve extends AbstractPathDataCommand
     {
         return $this->getPoints()[0];
     }
-
-    public function transform(callable $transformator): PathDataCommandInterface
-    {
-        list($this->x, $this->y) = $transformator([$this->x, $this->y]);
-
-        return $this;
-    }
 }

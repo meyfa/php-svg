@@ -71,48 +71,4 @@ class RelativeQuadraticCurve extends AbstractPathDataCommand
 
         return [$x + $this->dx, $y + $this->dy];
     }
-
-    public function transform(callable $transformator): PathDataCommandInterface
-    {
-        if ($this->dx1 !== null) {
-            list($this->dx1, $this->dy1) = $transformator([$this->dx1, $this->dy1]);
-        } else {
-            $prevPoints = $this->getPrevious()->getPoints();
-            $midPoint = array_pop($prevPoints);
-
-            if ($this->getPrevious() instanceof QuadraticCurve) {
-                $bezPoint = array_pop($prevPoints);
-            } else {
-                /**
-                 * If the T command doesn't follow another T or Q command, then
-                 * the current position of the cursor is used as the first control point.
-                 */
-                $bezPoint = $midPoint;
-            }
-
-            $virtualX1 = $midPoint[0] + $midPoint[0] - $bezPoint[0];
-            $virtualY1 = $midPoint[1] + $midPoint[1] - $bezPoint[1];
-
-            list($transformedX1, $transformedY1) = $transformator([$this->virtualX1, $this->virtualY1], true);
-
-            if ($transformedX1 !== $virtualX1 || $transformedY1 !== $virtualY1) {
-                $this->dx1 = $transformedX1;
-                $this->dy1 = $transformedY1;
-            }
-        }
-
-        list($this->dx, $this->dy) = $transformator([$this->dx, $this->dy]);
-
-        return $this;
-    }
-
-    private function transformPointDiff(array $point): array
-    {
-        list($newX, $newY) = $transformator($point);
-
-        return [
-            $newX - $point[0],
-            $newY - $point[1],
-        ];
-    }
 }
