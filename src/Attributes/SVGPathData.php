@@ -113,7 +113,7 @@ class SVGPathData implements SVGAttributeInterface, \Iterator, \Countable
      * This is similar to Array map functions. Each command will be run through provided $transformator function
      * that can either returned same instance (modified or not) or another one that will replace the existing command
      *
-     * @param callable(): PathDataCommandInterface $transformator
+     * @param callable(PathDataCommandInterface $command): PathDataCommandInterface $transformator
      */
     public function transform(callable $transformator): void
     {
