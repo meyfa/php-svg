@@ -204,4 +204,25 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
 
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-empty.png'));
     }
+
+    public function testDefaultsXAndYToZero()
+    {
+        $obj = new RectRenderer();
+
+        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context->setStyle('fill', '#FFFFFF');
+        $context->setStyle('stroke', '#000000');
+        $context->setStyle('stroke-width', '5px');
+
+        $rasterizer = new SVGRasterizer('40px', '40px', null, 40, 40);
+        $obj->render($rasterizer, [
+            'x' => null,
+            'y' => null,
+            'width' => 20,
+            'height' => 16,
+        ], $context);
+        $img = $rasterizer->finish();
+
+        $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-x0y0.png'));
+    }
 }
