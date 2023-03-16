@@ -31,8 +31,8 @@ class RectRenderer extends MultiPassRenderer
             return null;
         }
 
-        $x1 = $options['x'];
-        $y1 = $options['y'];
+        $x1 = $options['x'] ?? 0;
+        $y1 = $options['y'] ?? 0;
         $transform->map($x1, $y1);
 
         // Corner radii may at most be (width-1)/2 pixels long.
