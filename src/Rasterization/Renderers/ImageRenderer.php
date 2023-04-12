@@ -25,12 +25,17 @@ class ImageRenderer extends Renderer
     {
         $transform = $rasterizer->getCurrentTransform();
 
-        $x      = $options['x'];
-        $y      = $options['y'];
+        $x      = $options['x'] ?? 0;
+        $y      = $options['y'] ?? 0;
         $transform->map($x, $y);
 
-        $width  = $options['width'];
-        $height = $options['height'];
+        // TODO support "auto" values for width and height
+
+        $width  = $options['width'] ?? 0;
+        $height = $options['height'] ?? 0;
+        if ($width <= 0 || $height <= 0) {
+            return;
+        }
         $transform->resize($width, $height);
 
         $image = $rasterizer->getImage();
