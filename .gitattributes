@@ -1,4 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Remove unnecessary files from Composer package
 /.github/ export-ignore
 /tests/ export-ignore
