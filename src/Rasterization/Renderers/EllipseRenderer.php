@@ -21,12 +21,12 @@ class EllipseRenderer extends MultiPassRenderer
      */
     protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): ?array
     {
-        $cx = $options['cx'];
-        $cy = $options['cy'];
+        $cx = $options['cx'] ?? 0;
+        $cy = $options['cy'] ?? 0;
         $transform->map($cx, $cy);
 
-        $width = $options['rx'] * 2;
-        $height = $options['ry'] * 2;
+        $width = ($options['rx'] ?? $options['ry'] ?? 0) * 2;
+        $height = ($options['ry'] ?? $options['rx'] ?? 0) * 2;
         $transform->resize($width, $height);
 
         return [
