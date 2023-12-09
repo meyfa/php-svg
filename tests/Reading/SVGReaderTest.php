@@ -17,6 +17,8 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
     private $xmlUnknown;
     private $xmlValue;
     private $xmlEntities;
+    private $xmlNoXmlns;
+    private $xmlOnlyOtherXmlns;
 
     public function setUp(): void
     {

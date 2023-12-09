@@ -143,7 +143,7 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertEqualsWithDelta(20, $result[$n - 1][0], 0.1);
         $this->assertEqualsWithDelta(10, $result[$n - 1][1], 0.1);
         // test some point roughly in the middle
-        $this->assertEqualsWithDelta(15, $result[$n / 2][0], 1);
-        $this->assertEqualsWithDelta(15, $result[$n / 2][1], 1);
+        $this->assertEqualsWithDelta(15, $result[(int)($n / 2)][0], 1);
+        $this->assertEqualsWithDelta(15, $result[(int)($n / 2)][1], 1);
     }
 }

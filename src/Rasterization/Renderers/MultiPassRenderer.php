@@ -164,7 +164,7 @@ abstract class MultiPassRenderer extends Renderer
         $opacity = self::calculateTotalOpacity($context) * $specificOpacity;
         $a = 127 - $opacity * (int) ($color[3] * 127 / 255);
 
-        return $rgb | ($a << 24);
+        return $rgb | ((int)$a << 24);
     }
 
     /**
