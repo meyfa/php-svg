@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Utilities\Units\Length;
+namespace SVG\Utilities\Units;
 
 /**
  * @covers \SVG\Utilities\Units\Length

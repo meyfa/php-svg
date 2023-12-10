@@ -1,10 +1,9 @@
 <?php
 
-namespace SVG;
+namespace SVG\Rasterization\Renderers;
 
 use AssertGD\GDSimilarityConstraint;
 use SVG\Rasterization\SVGRasterizer;
-use SVG\Rasterization\Renderers\RectRenderer;
 
 /**
  * @requires extension gd

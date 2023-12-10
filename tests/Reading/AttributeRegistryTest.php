@@ -1,9 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SimpleXMLElement;
-use SVG\Reading\AttributeRegistry;
+namespace SVG\Reading;
 
 /**
  * @coversDefaultClass \SVG\Reading\AttributeRegistry

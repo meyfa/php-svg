@@ -1,9 +1,8 @@
 <?php
 
-namespace SVG;
+namespace SVG\Rasterization\Renderers;
 
 use AssertGD\GDSimilarityConstraint;
-use SVG\Rasterization\Renderers\PolygonRenderer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**

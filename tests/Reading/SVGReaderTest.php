@@ -1,11 +1,9 @@
 <?php
 
-namespace SVG;
-
-use SVG\Reading\SVGReader;
+namespace SVG\Reading;
 
 /**
- * @covers SVG\Reading\SVGReader
+ * @covers \SVG\Reading\SVGReader
  *
  * @SuppressWarnings(PHPMD)
  */

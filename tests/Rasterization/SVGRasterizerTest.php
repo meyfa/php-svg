@@ -1,10 +1,9 @@
 <?php
 
-namespace SVG;
+namespace SVG\Rasterization;
 
 use AssertGD\GDSimilarityConstraint;
 use Exception;
-use SVG\Rasterization\SVGRasterizer;
 
 /**
  * @requires extension gd

@@ -1,9 +1,8 @@
 <?php
 
-namespace SVG;
+namespace SVG\Nodes\Structures;
 
 use AssertGD\GDSimilarityConstraint;
-use SVG\Nodes\Structures\SVGDocumentFragment;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Structures\SVGDocumentFragment

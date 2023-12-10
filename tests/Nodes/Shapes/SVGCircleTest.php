@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Nodes\Shapes\SVGCircle;
+namespace SVG\Nodes\Shapes;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Shapes\SVGCircle

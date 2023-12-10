@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Nodes\Structures\SVGScript;
+namespace SVG\Nodes\Structures;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Structures\SVGScript

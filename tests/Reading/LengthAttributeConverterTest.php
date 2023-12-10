@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Reading\LengthAttributeConverter;
+namespace SVG\Reading;
 
 /**
  * @covers \SVG\Reading\LengthAttributeConverter

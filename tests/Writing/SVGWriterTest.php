@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Writing\SVGWriter;
+namespace SVG\Writing;
 
 /**
  * @covers \SVG\Writing\SVGWriter

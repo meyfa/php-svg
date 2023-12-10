@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Nodes\Embedded\SVGImage;
+namespace SVG\Nodes\Embedded;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Embedded\SVGImage

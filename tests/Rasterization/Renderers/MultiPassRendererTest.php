@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Rasterization\Renderers\MultiPassRenderer;
+namespace SVG\Rasterization\Renderers;
 
 /**
  * @requires extension gd

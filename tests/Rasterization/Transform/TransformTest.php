@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Rasterization\Transform\Transform;
+namespace SVG\Rasterization\Transform;
 
 /**
  * @coversDefaultClass \SVG\Rasterization\Transform\Transform

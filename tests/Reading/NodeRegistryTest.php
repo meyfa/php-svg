@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Reading\NodeRegistry;
+namespace SVG\Reading;
 
 /**
  * @covers \SVG\Reading\NodeRegistry

@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Nodes\Texts\SVGText;
+namespace SVG\Nodes\Texts;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Texts\SVGText
