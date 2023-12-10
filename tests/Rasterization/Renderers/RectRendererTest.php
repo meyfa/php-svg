@@ -3,6 +3,7 @@
 namespace SVG\Rasterization\Renderers;
 
 use AssertGD\GDSimilarityConstraint;
+use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -17,7 +18,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new RectRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', 'none');
         $context->setStyle('stroke', '#FF0000');
         $context->setStyle('stroke-width', '1px');
@@ -36,7 +37,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new RectRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', 'none');
         $context->setStyle('stroke', '#FF0000');
         $context->setStyle('stroke-width', '3px');
@@ -55,7 +56,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new RectRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', 'none');
         $context->setStyle('stroke', 'rgba(255, 0, 0, 0.5)');
         $context->setStyle('stroke-width', '3px');
@@ -74,7 +75,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new RectRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', '#FF0000');
         $context->setStyle('stroke', 'none');
 
@@ -92,7 +93,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new RectRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', 'rgba(255, 0, 0, 0.5)');
         $context->setStyle('stroke', 'none');
 
@@ -110,7 +111,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new RectRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', 'rgba(255, 255, 255, 0.5)');
         $context->setStyle('stroke', 'rgba(0, 0, 0, 0.5)');
         $context->setStyle('stroke-width', '5px');
@@ -129,7 +130,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new RectRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', 'none');
         $context->setStyle('stroke', '#FF0000');
         $context->setStyle('stroke-width', '1px');
@@ -149,7 +150,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new RectRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', '#FF0000');
         $context->setStyle('stroke', 'none');
 
@@ -168,7 +169,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new RectRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', '#FF0000');
         $context->setStyle('stroke', '#0000FF');
         $context->setStyle('stroke-width', '1px');
@@ -188,7 +189,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new RectRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', '#FF0000');
         $context->setStyle('stroke', '#0000FF');
         $context->setStyle('stroke-width', '1px');
@@ -208,7 +209,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new RectRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', '#FFFFFF');
         $context->setStyle('stroke', '#000000');
         $context->setStyle('stroke-width', '5px');

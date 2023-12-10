@@ -2,6 +2,8 @@
 
 namespace SVG\Nodes\Shapes;
 
+use SVG\Rasterization\SVGRasterizer;
+
 /**
  * @coversDefaultClass \SVG\Nodes\Shapes\SVGCircle
  * @covers ::<!public>
@@ -116,7 +118,7 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new SVGCircle(37, 42, 100);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

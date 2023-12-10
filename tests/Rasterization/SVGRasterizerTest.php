@@ -4,6 +4,7 @@ namespace SVG\Rasterization;
 
 use AssertGD\GDSimilarityConstraint;
 use Exception;
+use SVG\Nodes\SVGNode;
 
 /**
  * @requires extension gd
@@ -210,7 +211,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
         $this->expectException('\InvalidArgumentException');
 
         $obj = new SVGRasterizer(10, 20, [], 100, 200);
-        $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $mockChild = $this->getMockForAbstractClass(SVGNode::class);
         $obj->render('invalid_render_id', ['option' => 'value'], $mockChild);
     }
 

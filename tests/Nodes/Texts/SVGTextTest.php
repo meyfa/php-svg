@@ -2,6 +2,8 @@
 
 namespace SVG\Nodes\Texts;
 
+use SVG\Rasterization\SVGRasterizer;
+
 /**
  * @coversDefaultClass \SVG\Nodes\Texts\SVGText
  * @covers ::<!public>
@@ -19,7 +21,7 @@ class SVGTextTest extends \PHPUnit\Framework\TestCase
 
         $obj = new SVGText('foo', 10, 10);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

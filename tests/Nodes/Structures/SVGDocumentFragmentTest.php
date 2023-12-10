@@ -3,6 +3,8 @@
 namespace SVG\Nodes\Structures;
 
 use AssertGD\GDSimilarityConstraint;
+use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Structures\SVGDocumentFragment
@@ -210,14 +212,14 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGDocumentFragment();
         $obj->addChild(
             // <container>
-            $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+            $this->getMockForAbstractClass(SVGNodeContainer::class)->addChild(
                 // <node />
-                $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+                $this->getMockForAbstractClass(SVGNode::class)
             )->addChild(
                 // <container>
-                $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+                $this->getMockForAbstractClass(SVGNodeContainer::class)->addChild(
                     // <node id="foobar" />
-                    $expected = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+                    $expected = $this->getMockForAbstractClass(SVGNode::class)
                         ->setAttribute('id', 'foobar')
                 )
                 // </container>
@@ -226,9 +228,9 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         );
         $obj->addChild(
             // <container>
-            $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+            $this->getMockForAbstractClass(SVGNodeContainer::class)->addChild(
                 // <node id="foobar" />
-                $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+                $this->getMockForAbstractClass(SVGNode::class)
                     ->setAttribute('id', 'foobar')
             )
             // </container>

@@ -2,6 +2,8 @@
 
 namespace SVG\Reading;
 
+use SVG\SVG;
+
 /**
  * @covers \SVG\Reading\SVGReader
  *
@@ -77,7 +79,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         // should return an instance of SVG
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xml);
-        $this->assertInstanceOf('\SVG\SVG', $result);
+        $this->assertInstanceOf(SVG::class, $result);
 
         // should return null when parsing fails
         $result = $svgReader->parseString('<rect />');

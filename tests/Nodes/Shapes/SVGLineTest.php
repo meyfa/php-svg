@@ -2,6 +2,8 @@
 
 namespace SVG\Nodes\Shapes;
 
+use SVG\Rasterization\SVGRasterizer;
+
 /**
  * @coversDefaultClass \SVG\Nodes\Shapes\SVGLine
  * @covers ::<!public>
@@ -144,7 +146,7 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new SVGLine(11, 12, 13, 14);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

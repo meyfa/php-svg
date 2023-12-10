@@ -2,6 +2,8 @@
 
 namespace SVG\Nodes\Embedded;
 
+use SVG\Rasterization\SVGRasterizer;
+
 /**
  * @coversDefaultClass \SVG\Nodes\Embedded\SVGImage
  * @covers ::<!public>
@@ -181,7 +183,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new SVGImage('test-href', 10, 10, 100, 100);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
