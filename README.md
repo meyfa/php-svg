@@ -44,8 +44,8 @@ always work, even without any extension.
 This package is available on [Packagist](https://packagist.org/packages/meyfa/php-svg) and can be installed with
 Composer:
 
-```
-$ composer require meyfa/php-svg
+```bash
+composer require meyfa/php-svg
 ```
 
 This adds a dependency to your composer.json file. If you haven't already, setup autoloading for Composer dependencies
