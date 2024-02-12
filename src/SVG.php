@@ -4,6 +4,9 @@ namespace SVG;
 
 use SVG\Fonts\FontRegistry;
 use SVG\Nodes\Structures\SVGDocumentFragment;
+use SVG\Rasterization\BaseRasterImage;
+use SVG\Rasterization\RasterizerBuilder;
+use SVG\Rasterization\RasterizerFactory;
 use SVG\Rasterization\SVGRasterizer;
 use SVG\Reading\SVGReader;
 use SVG\Writing\SVGWriter;
@@ -23,12 +26,21 @@ class SVG
     private $document;
 
     /**
+     * @var RasterizerFactory $rasterizer
+     */
+    private $rasterizer;
+
+    /**
      * @param mixed $width    The image's width (any CSS length).
      * @param mixed $height   The image's height (any CSS length).
      */
-    public function __construct($width = null, $height = null)
+    public function __construct($width = null, $height = null, $rasterizer = null)
     {
         $this->document = new SVGDocumentFragment($width, $height);
+
+        if ($rasterizer === null) {
+            $this->rasterizer = new RasterizerFactory();
+        }
     }
 
     /**
@@ -51,19 +63,23 @@ class SVG
      * @param int $height             The target canvas's height, in pixels.
      * @param string|null $background The background color (hex/rgb[a]/hsl[a]/...).
      *
-     * @return resource The rasterized image as a GD resource (with alpha).
+     * @return BaseRasterImage The rasterized image as a GD resource (with alpha).
      */
-    public function toRasterImage(int $width, int $height, ?string $background = null)
+    public function toRasterImage(int $width, int $height, ?string $rasterizerClass = null, ?string $background = null)
     {
-        $docWidth  = $this->document->getWidth();
-        $docHeight = $this->document->getHeight();
-        $viewBox = $this->document->getViewBox();
+//        $docWidth  = $this->document->getWidth();
+//        $docHeight = $this->document->getHeight();
+//        $viewBox = $this->document->getViewBox();
+//
+//        $rasterizer = new SVGRasterizer($docWidth, $docHeight, $viewBox, $width, $height, $background);
+//        $rasterizer->setFontRegistry(self::getFontRegistry());
+//        $this->document->rasterize($rasterizer);
+//
+//        return $rasterizer->finish();
 
-        $rasterizer = new SVGRasterizer($docWidth, $docHeight, $viewBox, $width, $height, $background);
-        $rasterizer->setFontRegistry(self::getFontRegistry());
-        $this->document->rasterize($rasterizer);
+        $rasterizer = $this->rasterizer->create($width, $height, $this, $rasterizerClass, $background);
 
-        return $rasterizer->finish();
+        return $rasterizer->rasterize($this->document);
     }
 
     /**
@@ -132,7 +148,7 @@ class SVG
     /**
      * @return FontRegistry The singleton font registry.
      */
-    private static function getFontRegistry(): FontRegistry
+    public static function getFontRegistry(): FontRegistry
     {
         if (!isset(self::$fontRegistry)) {
             self::$fontRegistry = new FontRegistry();

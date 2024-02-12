@@ -5,6 +5,7 @@ namespace SVG\Rasterization;
 use InvalidArgumentException;
 use RuntimeException;
 use SVG\Fonts\FontRegistry;
+use SVG\Nodes\Structures\SVGDocumentFragment;
 use SVG\Nodes\SVGNode;
 use SVG\Rasterization\Renderers\Renderer;
 use SVG\Rasterization\Transform\Transform;
@@ -23,33 +24,20 @@ use SVG\Utilities\Colors\Color;
  *
  * @SuppressWarnings("coupling")
  */
-class SVGRasterizer
+class SVGRasterizer extends BaseRasterizer
 {
     /** @var Renderers\Renderer[] $renderers Map of shapes to renderers. */
     private static $renderers;
-
-    private $fontRegistry;
 
     /**
      * @var float[] The document's viewBox (x, y, w, h).
      */
     private $viewBox;
 
-    /**
-     * @var int $width  The output image width, in pixels.
-     */
-    private $width;
-    /**
-     * @var int $height The output image height, in pixels.
-     */
-    private $height;
-
     /** @var resource $outImage The output image as a GD resource. */
     private $outImage;
 
     // precomputed properties for getter methods, used often during render
-    private $docWidth;
-    private $docHeight;
     private $diagonalScale;
 
     private $transformStack;
@@ -70,6 +58,7 @@ class SVGRasterizer
         int $height,
         ?string $background = null
     ) {
+//        parent::__construct($docWidth, $docHeight, $width, $height);
         $this->viewBox = empty($viewBox) ? null : $viewBox;
 
         $this->width  = $width;
@@ -169,16 +158,6 @@ class SVGRasterizer
             throw new InvalidArgumentException('no such renderer: ' . $id);
         }
         return self::$renderers[$id];
-    }
-
-    public function setFontRegistry(FontRegistry $fontRegistry): void
-    {
-        $this->fontRegistry = $fontRegistry;
-    }
-
-    public function getFontRegistry(): ?FontRegistry
-    {
-        return $this->fontRegistry;
     }
 
     /**
@@ -334,5 +313,11 @@ class SVGRasterizer
     public function getImage()
     {
         return $this->outImage;
+    }
+
+    public function rasterize(SVGDocumentFragment $document): BaseRasterImage
+    {
+        $document->rasterize($this);
+        return new GdRasterImage($this->finish());
     }
 }

@@ -78,7 +78,7 @@ class ImageRenderer extends Renderer
 
         if (strpos($content, '<svg') !== false && strrpos($content, '</svg>') !== false) {
             $svg = SVG::fromString($content);
-            return $svg->toRasterImage($w, $h);
+            return $svg->toRasterImage($w, $h)->getResource();
         }
 
         return imagecreatefromstring($content);
