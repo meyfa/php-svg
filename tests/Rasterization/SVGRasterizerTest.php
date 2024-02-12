@@ -4,6 +4,7 @@ namespace SVG;
 
 use AssertGD\GDSimilarityConstraint;
 use Exception;
+use SVG\Rasterization\BaseRasterizerTest;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
