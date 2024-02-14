@@ -11,7 +11,7 @@ use SVG\Writing\SVGWriter;
  */
 class SVGWriterTest extends \PHPUnit\Framework\TestCase
 {
-    private $xmlDeclaration = '<?xml version="1.0" encoding="utf-8"?>';
+    private string $xmlDeclaration = '<?xml version="1.0" encoding="utf-8"?>';
 
     public function testShouldIncludeXMLDeclaration()
     {

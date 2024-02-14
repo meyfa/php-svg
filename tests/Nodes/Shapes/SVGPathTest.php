@@ -12,8 +12,8 @@ use SVG\Nodes\Shapes\SVGPath;
  */
 class SVGPathTest extends \PHPUnit\Framework\TestCase
 {
-    private static $sampleDescription = 'M100,100 h20 Z M200,200 h20';
-    private static $sampleCommands = [
+    private static string $sampleDescription = 'M100,100 h20 Z M200,200 h20';
+    private static array $sampleCommands = [
         ['id' => 'M', 'args' => [100.0, 100.0]],
         ['id' => 'h', 'args' => [20.0]],
         ['id' => 'Z', 'args' => []],

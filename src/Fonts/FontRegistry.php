@@ -4,7 +4,7 @@ namespace SVG\Fonts;
 
 class FontRegistry
 {
-    private $fontFiles = [];
+    private array $fontFiles = [];
 
     public function addFont(string $filePath): void
     {

@@ -12,7 +12,7 @@ namespace SVG\Reading;
  */
 class LengthAttributeConverter implements AttributeConverter
 {
-    private static $instance;
+    private static LengthAttributeConverter $instance;
 
     /**
      * @codeCoverageIgnore

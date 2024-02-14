@@ -12,11 +12,11 @@ use SVG\Rasterization\Renderers\MultiPassRenderer;
  */
 class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
 {
-    private static $sampleOptions = [
+    private static array $sampleOptions = [
         'option1' => 'option1-value',
         'option2' => 'option2-value',
     ];
-    private static $sampleParams = [
+    private static array $sampleParams = [
         'param1' => 'param1-value',
         'param2' => 'param2-value',
     ];

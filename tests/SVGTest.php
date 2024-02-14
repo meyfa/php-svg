@@ -12,8 +12,8 @@ use SVG\SVG;
  */
 class SVGTest extends \PHPUnit\Framework\TestCase
 {
-    private $xml;
-    private $xmlNoDeclaration;
+    private string $xml;
+    private string $xmlNoDeclaration;
 
     public function setUp(): void
     {

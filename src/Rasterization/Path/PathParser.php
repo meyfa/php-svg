@@ -13,7 +13,7 @@ class PathParser
     /**
      * @var int[] $commandLengths A map of command ids to their argument counts.
      */
-    private static $commandLengths = [
+    private static array $commandLengths = [
         'M' => 2,   'm' => 2,   // MoveTo
         'L' => 2,   'l' => 2,   // LineTo
         'H' => 1,   'h' => 1,   // LineToHorizontal

@@ -14,7 +14,7 @@ class NodeRegistry
     /**
     * @var string[] $nodeTypes Map of tag names to fully-qualified class names.
     */
-    private static $nodeTypes = [
+    private static array $nodeTypes = [
         'foreignObject'         => 'SVG\Nodes\Embedded\SVGForeignObject',
         'image'                 => 'SVG\Nodes\Embedded\SVGImage',
 

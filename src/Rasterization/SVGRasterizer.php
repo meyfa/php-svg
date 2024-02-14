@@ -28,31 +28,31 @@ class SVGRasterizer
     /** @var Renderers\Renderer[] $renderers Map of shapes to renderers. */
     private static $renderers;
 
-    private $fontRegistry;
+    private ?FontRegistry $fontRegistry;
 
     /**
      * @var float[] The document's viewBox (x, y, w, h).
      */
-    private $viewBox;
+    private ?array $viewBox;
 
     /**
      * @var int $width  The output image width, in pixels.
      */
-    private $width;
+    private int $width;
     /**
      * @var int $height The output image height, in pixels.
      */
-    private $height;
+    private int $height;
 
     /** @var resource $outImage The output image as a GD resource. */
     private $outImage;
 
     // precomputed properties for getter methods, used often during render
-    private $docWidth;
-    private $docHeight;
+    private ?float $docWidth;
+    private ?float $docHeight;
     private $diagonalScale;
 
-    private $transformStack;
+    private array $transformStack;
 
     /**
      * @param string|null $docWidth   The original SVG document width, as a string.

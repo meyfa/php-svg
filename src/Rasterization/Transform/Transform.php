@@ -19,7 +19,7 @@ namespace SVG\Rasterization\Transform;
  */
 class Transform
 {
-    private $matrix;
+    private array $matrix;
 
     /**
      * Create a transform from the given matrix. The entries [a, b, c, d, e, f] represent the following matrix:
