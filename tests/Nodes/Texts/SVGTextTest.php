@@ -15,13 +15,13 @@ class SVGTextTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterizeShouldHaveDefaultFontSize()
+    public function testRasterizeShouldHaveDefaultFontSize(): void
     {
         // Test for https://github.com/meyfa/php-svg/issues/195
 
         $obj = new SVGText('foo', 10, 10);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(\SVG\Rasterization\SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

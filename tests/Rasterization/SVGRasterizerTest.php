@@ -18,7 +18,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getDocumentWidth
      */
-    public function testGetDocumentWidth()
+    public function testGetDocumentWidth(): void
     {
         // should return parsed unit relative to target size
         $obj = new SVGRasterizer('50%', '50%', null, 100, 200);
@@ -34,7 +34,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getDocumentHeight
      */
-    public function testGetDocumentHeight()
+    public function testGetDocumentHeight(): void
     {
         // should return parsed unit relative to target size
         $obj = new SVGRasterizer('50%', '50%', null, 100, 200);
@@ -50,7 +50,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getNormalizedDiagonal
      */
-    public function testGetNormalizedDiagonal()
+    public function testGetNormalizedDiagonal(): void
     {
         // should return the correct length
         $obj = new SVGRasterizer('50%', '50%', null, 100, 200);
@@ -61,7 +61,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getWidth
      */
-    public function testGetWidth()
+    public function testGetWidth(): void
     {
         // should return the constructor parameter
         $obj = new SVGRasterizer(10, 20, null, 100, 200);
@@ -72,7 +72,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getHeight
      */
-    public function testGetHeight()
+    public function testGetHeight(): void
     {
         // should return the constructor parameter
         $obj = new SVGRasterizer(10, 20, null, 100, 200);
@@ -83,7 +83,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getDiagonalScale
      */
-    public function testGetDiagonalScale()
+    public function testGetDiagonalScale(): void
     {
         // should use viewBox dimension when available
         $obj = new SVGRasterizer(10, 20, [37, 42, 25, 100], 100, 200);
@@ -100,7 +100,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getViewbox
      */
-    public function testGetViewbox()
+    public function testGetViewbox(): void
     {
         // should return the constructor parameter
         $obj = new SVGRasterizer(10, 20, [37, 42, 25, 100], 100, 200);
@@ -116,7 +116,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getImage
      */
-    public function testGetImage()
+    public function testGetImage(): void
     {
         $obj = new SVGRasterizer(10, 20, [], 100, 200);
 
@@ -139,7 +139,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getCurrentTransform
      */
-    public function testGetCurrentTransform()
+    public function testGetCurrentTransform(): void
     {
         // should use viewBox dimension when available
         $obj = new SVGRasterizer(10, 20, [37, 42, 25, 80], 100, 160);
@@ -164,7 +164,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
      * @covers ::pushTransform
      * @covers ::popTransform
      */
-    public function testTransformStack()
+    public function testTransformStack(): void
     {
         $obj = new SVGRasterizer(10, 20, [37, 42, 25, 80], 100, 160);
 
@@ -206,19 +206,19 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::render
      */
-    public function testRenderWithNoSuchRenderId()
+    public function testRenderWithNoSuchRenderId(): void
     {
         $this->expectException('\InvalidArgumentException');
 
         $obj = new SVGRasterizer(10, 20, [], 100, 200);
-        $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $mockChild = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
         $obj->render('invalid_render_id', ['option' => 'value'], $mockChild);
     }
 
     /**
      * @covers \SVG\Rasterization\SVGRasterizer
      */
-    public function testShouldRenderBackgroundTransparent()
+    public function testShouldRenderBackgroundTransparent(): void
     {
         $obj = new SVGRasterizer(32, 32, [], 32, 32, null);
         $img = $obj->finish();
@@ -231,7 +231,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers \SVG\Rasterization\SVGRasterizer
      */
-    public function testShouldRenderBackgroundSolidWhite()
+    public function testShouldRenderBackgroundSolidWhite(): void
     {
         $obj = new SVGRasterizer(32, 32, [], 32, 32, "#FFFFFF");
         $img = $obj->finish();
@@ -244,7 +244,7 @@ class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers \SVG\Rasterization\SVGRasterizer
      */
-    public function testShouldRenderBackgroundWhiteSemitransparent()
+    public function testShouldRenderBackgroundWhiteSemitransparent(): void
     {
         $obj = new SVGRasterizer(32, 32, [], 32, 32, "rgba(255,255,255,.5)");
         $img = $obj->finish();

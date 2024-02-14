@@ -12,7 +12,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGStyle extends SVGNodeContainer implements CDataContainer
 {
-    const TAG_NAME = 'style';
+    public const TAG_NAME = 'style';
 
     /**
      * @param string $css   The CSS data rules.

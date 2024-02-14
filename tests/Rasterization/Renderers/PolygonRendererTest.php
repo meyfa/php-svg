@@ -14,7 +14,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class PolygonRendererTest extends \PHPUnit\Framework\TestCase
 {
-    public function testShouldNotFailForTooFewPoints()
+    public function testShouldNotFailForTooFewPoints(): void
     {
         // ensures that there is no crash in case fewer than 3 points are provided,
         // which might trip up the fill or stroke algorithms if they don't check for it
@@ -22,7 +22,7 @@ class PolygonRendererTest extends \PHPUnit\Framework\TestCase
 
         $obj = new PolygonRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
         $context->setStyle('fill', '#FF0000');
         $context->setStyle('stroke', '#0000FF');
         $context->setStyle('stroke-width', '1px');
@@ -51,11 +51,11 @@ class PolygonRendererTest extends \PHPUnit\Framework\TestCase
         ], $context);
     }
 
-    public function testShouldRespectFillRule()
+    public function testShouldRespectFillRule(): void
     {
         $obj = new PolygonRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
         $context->setStyle('fill', '#FF0000');
         $context->setStyle('stroke', 'none');
 

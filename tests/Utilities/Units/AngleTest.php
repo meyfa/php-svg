@@ -11,7 +11,7 @@ use SVG\Utilities\Units\Angle;
  */
 class AngleTest extends \PHPUnit\Framework\TestCase
 {
-    public function testConvert()
+    public function testConvert(): void
     {
         // degrees
         $this->assertEquals(15.5, Angle::convert('15.5deg'));

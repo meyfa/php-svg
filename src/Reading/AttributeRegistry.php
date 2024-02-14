@@ -50,9 +50,9 @@ class AttributeRegistry
      * for SVG attribute to CSS property conversion.
      */
     private static $styleConverters = [
-        'font-size'         => 'SVG\Reading\LengthAttributeConverter',
-        'letter-spacing'    => 'SVG\Reading\LengthAttributeConverter',
-        'word-spacing'      => 'SVG\Reading\LengthAttributeConverter',
+        'font-size'         => \SVG\Reading\LengthAttributeConverter::class,
+        'letter-spacing'    => \SVG\Reading\LengthAttributeConverter::class,
+        'word-spacing'      => \SVG\Reading\LengthAttributeConverter::class,
     ];
 
     /**

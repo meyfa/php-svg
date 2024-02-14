@@ -12,13 +12,13 @@ use SVG\Rasterization\Transform\TransformParser;
  */
 class TransformParserTest extends \PHPUnit\Framework\TestCase
 {
-    private function assertMap(Transform $t, array $expected, array $source)
+    private function assertMap(Transform $t, array $expected, array $source): void
     {
         $t->map($source[0], $source[1]);
         $this->assertEquals($expected, $source);
     }
 
-    public function testParseTransformString()
+    public function testParseTransformString(): void
     {
         $transform = TransformParser::parseTransformString('translate(10,20) scale(3,7) rotate(90)');
         $this->assertMap($transform, [-290, 720], [100, 100]);

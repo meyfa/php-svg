@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGTSpan extends SVGNodeContainer
 {
-    const TAG_NAME = 'tspan';
+    public const TAG_NAME = 'tspan';
 
     public function __construct()
     {

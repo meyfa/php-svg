@@ -25,11 +25,11 @@ final class Color
 
         // pass on to dedicated functions depending on notation
         if (preg_match('/^#([0-9A-F]+)$/i', $color, $matches)) {
-            list($r, $g, $b, $a) = self::parseHexComponents($matches[1]);
+            [$r, $g, $b, $a] = self::parseHexComponents($matches[1]);
         } elseif (preg_match('/^rgba?\((.*)\)$/', $color, $matches)) {
-            list($r, $g, $b, $a) = self::parseRGBAComponents($matches[1]);
+            [$r, $g, $b, $a] = self::parseRGBAComponents($matches[1]);
         } elseif (preg_match('/^hsla?\((.*)\)$/', $color, $matches)) {
-            list($r, $g, $b, $a) = self::parseHSLAComponents($matches[1]);
+            [$r, $g, $b, $a] = self::parseHSLAComponents($matches[1]);
         }
 
         // any illegal component invalidates all components
@@ -176,7 +176,7 @@ final class Color
         // convert HSL to RGB
         $r = $g = $b = null;
         if (isset($h) && isset($s) && isset($l)) {
-            list($r, $g, $b) = self::convertHSLtoRGB($h, $s, $l);
+            [$r, $g, $b] = self::convertHSLtoRGB($h, $s, $l);
         }
         // add alpha
         $a = count($params) < 4 ? 255 : self::parseRGBAComponent($params[3], 1, 255);

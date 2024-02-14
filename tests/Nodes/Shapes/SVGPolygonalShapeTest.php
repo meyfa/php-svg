@@ -9,7 +9,7 @@ use SVG\Nodes\Shapes\SVGPolygonalShape;
  */
 class SVGPolygonalShapeSubclass extends SVGPolygonalShape
 {
-    const TAG_NAME = 'test_subclass';
+    public const TAG_NAME = 'test_subclass';
 
     public function __construct(array $points = null)
     {
@@ -32,7 +32,7 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should not set attribute if nothing is provided
         $obj = new SVGPolygonalShapeSubclass();
@@ -62,7 +62,7 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::addPoint
      */
-    public function testAddPoint()
+    public function testAddPoint(): void
     {
         $obj = new SVGPolygonalShapeSubclass();
 
@@ -91,7 +91,7 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::removePoint
      */
-    public function testRemovePoint()
+    public function testRemovePoint(): void
     {
         $obj = new SVGPolygonalShapeSubclass([
             [42.5, 43.5],
@@ -121,7 +121,7 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::countPoints
      */
-    public function testCountPoints()
+    public function testCountPoints(): void
     {
         $obj = new SVGPolygonalShapeSubclass([
             [42.5, 43.5],
@@ -155,7 +155,7 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getPoints
      */
-    public function testGetPoints()
+    public function testGetPoints(): void
     {
         $obj = new SVGPolygonalShapeSubclass();
 
@@ -187,7 +187,7 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getPoint
      */
-    public function testGetPoint()
+    public function testGetPoint(): void
     {
         $obj = new SVGPolygonalShapeSubclass([
             [42.5, 43.5],
@@ -202,7 +202,7 @@ class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setPoint
      */
-    public function testSetPoint()
+    public function testSetPoint(): void
     {
         $obj = new SVGPolygonalShapeSubclass([
             [42.5, 43.5],

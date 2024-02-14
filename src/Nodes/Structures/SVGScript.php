@@ -11,7 +11,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGScript extends SVGNodeContainer implements CDataContainer
 {
-    const TAG_NAME = 'script';
+    public const TAG_NAME = 'script';
 
     /**
      * @param string $content The script content.

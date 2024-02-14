@@ -33,30 +33,30 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testRenderShouldCallPrepare()
+    public function testRenderShouldCallPrepare(): void
     {
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(10, 20, null, 100, 200);
-        $node = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $node = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
 
         // should call prepareRenderParams with correct arguments
-        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\MultiPassRenderer');
+        $obj = $this->getMockForAbstractClass(\SVG\Rasterization\Renderers\MultiPassRenderer::class);
         $obj->expects($this->once())->method('prepareRenderParams')->with(
             $this->identicalTo(self::$sampleOptions),
-            $this->isInstanceOf('\SVG\Rasterization\Transform\Transform')
+            $this->isInstanceOf(\SVG\Rasterization\Transform\Transform::class)
         )->willReturn(self::$sampleParams);
         $obj->render($rasterizer, self::$sampleOptions, $node);
 
         imagedestroy($rasterizer->getImage());
     }
 
-    public function testRenderShouldCallRenderFill()
+    public function testRenderShouldCallRenderFill(): void
     {
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(10, 20, null, 100, 200);
-        $node = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $node = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
 
         // should call renderFill with correct fill color
         $node->setStyle('fill', '#AAAAAA');
-        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\MultiPassRenderer');
+        $obj = $this->getMockForAbstractClass(\SVG\Rasterization\Renderers\MultiPassRenderer::class);
         $obj->method('prepareRenderParams')->willReturn(self::$sampleParams);
         $obj->expects($this->once())->method('renderFill')->with(
             $this->isGdImage(),
@@ -67,7 +67,7 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
 
         // should not call renderFill with 'fill: none' style
         $node->setStyle('fill', 'none');
-        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\MultiPassRenderer');
+        $obj = $this->getMockForAbstractClass(\SVG\Rasterization\Renderers\MultiPassRenderer::class);
         $obj->method('prepareRenderParams')->willReturn(self::$sampleParams);
         $obj->expects($this->never())->method('renderFill');
         $obj->render($rasterizer, self::$sampleOptions, $node);
@@ -75,15 +75,15 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
         imagedestroy($rasterizer->getImage());
     }
 
-    public function testRenderShouldCallRenderStroke()
+    public function testRenderShouldCallRenderStroke(): void
     {
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(10, 20, null, 100, 200);
-        $node = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $node = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
 
         // should call renderStroke with correct stroke color and width
         $node->setStyle('stroke', '#BBBBBB');
         $node->setStyle('stroke-width', '2px');
-        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\MultiPassRenderer');
+        $obj = $this->getMockForAbstractClass(\SVG\Rasterization\Renderers\MultiPassRenderer::class);
         $obj->method('prepareRenderParams')->willReturn(self::$sampleParams);
         $obj->expects($this->once())->method('renderStroke')->with(
             $this->isGdImage(),
@@ -95,7 +95,7 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
 
         // should not call renderStroke with 'stroke: none' style
         $node->setStyle('stroke', 'none');
-        $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\MultiPassRenderer');
+        $obj = $this->getMockForAbstractClass(\SVG\Rasterization\Renderers\MultiPassRenderer::class);
         $obj->method('prepareRenderParams')->willReturn(self::$sampleParams);
         $obj->expects($this->never())->method('renderStroke');
         $obj->render($rasterizer, self::$sampleOptions, $node);
@@ -103,16 +103,16 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
         imagedestroy($rasterizer->getImage());
     }
 
-    public function testRenderShouldRespectFillOpacity()
+    public function testRenderShouldRespectFillOpacity(): void
     {
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(10, 20, null, 100, 200);
-        $node = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $node = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
 
         // should use fill-opacity for the alpha value (try with a few different notations)
         foreach (['0.5', '.5', '50%', '  0.5  ', '  50%  '] as $fillOpacity) {
             $node->setStyle('fill', '#AAAAAA');
             $node->setStyle('fill-opacity', $fillOpacity);
-            $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\MultiPassRenderer');
+            $obj = $this->getMockForAbstractClass(\SVG\Rasterization\Renderers\MultiPassRenderer::class);
             $obj->method('prepareRenderParams')->willReturn(self::$sampleParams);
             $obj->expects($this->once())->method('renderFill')->with(
                 $this->isGdImage(),
@@ -125,17 +125,17 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
         imagedestroy($rasterizer->getImage());
     }
 
-    public function testRenderShouldRespectStrokeOpacity()
+    public function testRenderShouldRespectStrokeOpacity(): void
     {
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(10, 20, null, 100, 200);
-        $node = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $node = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
 
         // should use stroke-opacity for the alpha value (try with a few different notations)
         foreach (['0.5', '.5', '50%', '  0.5  ', '  50%  '] as $strokeOpacity) {
             $node->setStyle('stroke', '#BBBBBB');
             $node->setStyle('stroke-opacity', $strokeOpacity);
             $node->setStyle('stroke-width', '2px');
-            $obj = $this->getMockForAbstractClass('\SVG\Rasterization\Renderers\MultiPassRenderer');
+            $obj = $this->getMockForAbstractClass(\SVG\Rasterization\Renderers\MultiPassRenderer::class);
             $obj->method('prepareRenderParams')->willReturn(self::$sampleParams);
             $obj->expects($this->once())->method('renderStroke')->with(
                 $this->isGdImage(),

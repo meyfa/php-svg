@@ -15,7 +15,7 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should not set any attributes by default
         $obj = new SVGLine();
@@ -34,7 +34,7 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getX1
      */
-    public function testGetX1()
+    public function testGetX1(): void
     {
         $obj = new SVGLine();
 
@@ -46,7 +46,7 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setX1
      */
-    public function testSetX1()
+    public function testSetX1(): void
     {
         $obj = new SVGLine();
 
@@ -61,7 +61,7 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getY1
      */
-    public function testGetY1()
+    public function testGetY1(): void
     {
         $obj = new SVGLine();
 
@@ -73,7 +73,7 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setY1
      */
-    public function testSetY1()
+    public function testSetY1(): void
     {
         $obj = new SVGLine();
 
@@ -88,7 +88,7 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getX2
      */
-    public function testGetX2()
+    public function testGetX2(): void
     {
         $obj = new SVGLine();
 
@@ -100,7 +100,7 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setX2
      */
-    public function testSetX2()
+    public function testSetX2(): void
     {
         $obj = new SVGLine();
 
@@ -115,7 +115,7 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getY2
      */
-    public function testGetY2()
+    public function testGetY2(): void
     {
         $obj = new SVGLine();
 
@@ -127,7 +127,7 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setY2
      */
-    public function testSetY2()
+    public function testSetY2(): void
     {
         $obj = new SVGLine();
 
@@ -142,11 +142,11 @@ class SVGLineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterize()
+    public function testRasterize(): void
     {
         $obj = new SVGLine(11, 12, 13, 14);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(\SVG\Rasterization\SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

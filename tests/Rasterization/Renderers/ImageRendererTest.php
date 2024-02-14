@@ -9,7 +9,7 @@ use SVG\Rasterization\SVGRasterizer;
 
 class SVGNodeClass extends SVGNode
 {
-    const TAG_NAME = 'test_subclass';
+    public const TAG_NAME = 'test_subclass';
 
     /**
      * @inheritdoc
@@ -27,7 +27,7 @@ class SVGNodeClass extends SVGNode
  */
 class ImageRendererTest extends \PHPUnit\Framework\TestCase
 {
-    public function testRender()
+    public function testRender(): void
     {
         $obj = new ImageRenderer();
 
@@ -46,7 +46,7 @@ class ImageRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-image.png'));
     }
 
-    public function testDefaultsXAndYToZero()
+    public function testDefaultsXAndYToZero(): void
     {
         $obj = new ImageRenderer();
 

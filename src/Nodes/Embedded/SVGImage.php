@@ -14,7 +14,7 @@ use SVG\Utilities\Units\Length;
  */
 class SVGImage extends SVGNodeContainer
 {
-    const TAG_NAME = 'image';
+    public const TAG_NAME = 'image';
 
     /**
      * @param string|null $href   The image path, URL or URI.

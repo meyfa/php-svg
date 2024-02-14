@@ -35,7 +35,7 @@ abstract class SVGPolygonalShape extends SVGNodeContainer
     public function addPoint($a, $b = null): SVGPolygonalShape
     {
         if (is_array($a)) {
-            list($a, $b) = $a;
+            [$a, $b] = $a;
         }
 
         $pointsAttribute = $this->getAttribute('points') ?: '';

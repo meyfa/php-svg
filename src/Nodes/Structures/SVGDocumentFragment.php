@@ -13,7 +13,7 @@ use SVG\Utilities\Units\Length;
  */
 class SVGDocumentFragment extends SVGNodeContainer
 {
-    const TAG_NAME = 'svg';
+    public const TAG_NAME = 'svg';
 
     /** @var array $initialStyles A map of style keys to their defaults. */
     private static $initialStyles = [

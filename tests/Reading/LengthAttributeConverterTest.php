@@ -11,7 +11,7 @@ use SVG\Reading\LengthAttributeConverter;
  */
 class LengthAttributeConverterTest extends \PHPUnit\Framework\TestCase
 {
-    public function testShouldQualifyUnitlessNumbers()
+    public function testShouldQualifyUnitlessNumbers(): void
     {
         $obj = LengthAttributeConverter::getInstance();
 
@@ -24,7 +24,7 @@ class LengthAttributeConverterTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('-42.123px', $obj->convert('-42.123'));
     }
 
-    public function testShouldTrimWhitespace()
+    public function testShouldTrimWhitespace(): void
     {
         $obj = LengthAttributeConverter::getInstance();
 
@@ -33,7 +33,7 @@ class LengthAttributeConverterTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('-42.123px', $obj->convert(" \n -42.123 \n "));
     }
 
-    public function testShouldIgnoreOtherValues()
+    public function testShouldIgnoreOtherValues(): void
     {
         $obj = LengthAttributeConverter::getInstance();
 

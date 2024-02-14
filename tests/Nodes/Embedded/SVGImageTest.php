@@ -15,7 +15,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should not set any attributes by default
         $obj = new SVGImage();
@@ -35,7 +35,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getHref
      */
-    public function testGetHref()
+    public function testGetHref(): void
     {
         // should return xlink:href when available
         $obj = new SVGImage();
@@ -56,7 +56,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setHref
      */
-    public function testSetHref()
+    public function testSetHref(): void
     {
         $obj = new SVGImage();
 
@@ -71,7 +71,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getX
      */
-    public function testGetX()
+    public function testGetX(): void
     {
         $obj = new SVGImage();
 
@@ -83,7 +83,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setX
      */
-    public function testSetX()
+    public function testSetX(): void
     {
         $obj = new SVGImage();
 
@@ -98,7 +98,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getY
      */
-    public function testGetY()
+    public function testGetY(): void
     {
         $obj = new SVGImage();
 
@@ -110,7 +110,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setY
      */
-    public function testSetY()
+    public function testSetY(): void
     {
         $obj = new SVGImage();
 
@@ -125,7 +125,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getWidth
      */
-    public function testGetWidth()
+    public function testGetWidth(): void
     {
         $obj = new SVGImage();
 
@@ -137,7 +137,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setWidth
      */
-    public function testSetWidth()
+    public function testSetWidth(): void
     {
         $obj = new SVGImage();
 
@@ -152,7 +152,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getHeight
      */
-    public function testGetHeight()
+    public function testGetHeight(): void
     {
         $obj = new SVGImage();
 
@@ -164,7 +164,7 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setHeight
      */
-    public function testSetHeight()
+    public function testSetHeight(): void
     {
         $obj = new SVGImage();
 
@@ -179,11 +179,11 @@ class SVGImageTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterize()
+    public function testRasterize(): void
     {
         $obj = new SVGImage('test-href', 10, 10, 100, 100);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(\SVG\Rasterization\SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

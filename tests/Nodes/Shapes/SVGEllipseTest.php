@@ -15,7 +15,7 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should not set any attributes by default
         $obj = new SVGEllipse();
@@ -34,7 +34,7 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getCenterX
      */
-    public function testGetCenterX()
+    public function testGetCenterX(): void
     {
         $obj = new SVGEllipse();
 
@@ -46,7 +46,7 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setCenterX
      */
-    public function testSetCenterX()
+    public function testSetCenterX(): void
     {
         $obj = new SVGEllipse();
 
@@ -61,7 +61,7 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getCenterY
      */
-    public function testGetCenterY()
+    public function testGetCenterY(): void
     {
         $obj = new SVGEllipse();
 
@@ -73,7 +73,7 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setCenterY
      */
-    public function testSetCenterY()
+    public function testSetCenterY(): void
     {
         $obj = new SVGEllipse();
 
@@ -88,7 +88,7 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getRadiusX
      */
-    public function testGetRadiusX()
+    public function testGetRadiusX(): void
     {
         $obj = new SVGEllipse();
 
@@ -100,7 +100,7 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setRadiusX
      */
-    public function testSetRadiusX()
+    public function testSetRadiusX(): void
     {
         $obj = new SVGEllipse();
 
@@ -115,7 +115,7 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getRadiusY
      */
-    public function testGetRadiusY()
+    public function testGetRadiusY(): void
     {
         $obj = new SVGEllipse();
 
@@ -127,7 +127,7 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setRadiusY
      */
-    public function testSetRadiusY()
+    public function testSetRadiusY(): void
     {
         $obj = new SVGEllipse();
 
@@ -142,11 +142,11 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterize()
+    public function testRasterize(): void
     {
         $obj = new SVGEllipse(37, 42, 100, 200);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(\SVG\Rasterization\SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

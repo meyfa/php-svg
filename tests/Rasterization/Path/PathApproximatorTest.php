@@ -14,7 +14,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
 {
     // general tests
 
-    public function testApproximate()
+    public function testApproximate(): void
     {
         $approx = new PathApproximator(Transform::identity());
         $cmds = [
@@ -35,7 +35,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         ], $result);
     }
 
-    public function testApproximateWithTransform()
+    public function testApproximateWithTransform(): void
     {
         $transform = Transform::identity();
         $transform->scale(3, 5);
@@ -59,7 +59,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         ], $result);
     }
 
-    public function testApproximateStopsAtInvalidCommand()
+    public function testApproximateStopsAtInvalidCommand(): void
     {
         $approx = new PathApproximator(Transform::identity());
         $cmds = [
@@ -82,7 +82,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
 
     // tests more specific to each path command
 
-    public function testMoveTo()
+    public function testMoveTo(): void
     {
         // https://www.w3.org/TR/SVG/paths.html#PathDataMovetoCommands
         // "A path data segment (if there is one) must begin with a "moveto" command."
@@ -106,7 +106,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertSame([], $approx->getSubpaths());
     }
 
-    public function testLineTo()
+    public function testLineTo(): void
     {
         $approx = new PathApproximator(Transform::identity());
         $approx->approximate([
@@ -155,7 +155,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         ], $approx->getSubpaths());
     }
 
-    public function testLineToHorizontal()
+    public function testLineToHorizontal(): void
     {
         $approx = new PathApproximator(Transform::identity());
         $approx->approximate([
@@ -190,7 +190,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         ], $approx->getSubpaths());
     }
 
-    public function testLineToVertical()
+    public function testLineToVertical(): void
     {
         $approx = new PathApproximator(Transform::identity());
         $approx->approximate([
@@ -225,7 +225,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         ], $approx->getSubpaths());
     }
 
-    public function testCurveToCubic()
+    public function testCurveToCubic(): void
     {
         // Simple test: draw cubic curves representing straight lines
         $approx = new PathApproximator(Transform::identity());
@@ -249,16 +249,16 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertLessThan(0.6 * count($subpaths[0]), $corner);
         // expect everything before to be a straight horizontal line
         for ($i = 1; $i <= $corner; ++$i) {
-            list($xPrev, $yPrev) = $subpaths[0][$i - 1];
-            list($x, $y) = $subpaths[0][$i];
+            [$xPrev, $yPrev] = $subpaths[0][$i - 1];
+            [$x, $y] = $subpaths[0][$i];
             $this->assertGreaterThanOrEqual($xPrev, $x);
             $this->assertLessThanOrEqual(20, $x);
             $this->assertEquals($yPrev, $y);
         }
         // expect everything after to be a straight vertical line
         for ($i = $corner + 1; $i < count($subpaths[0]); ++$i) {
-            list($xPrev, $yPrev) = $subpaths[0][$i - 1];
-            list($x, $y) = $subpaths[0][$i];
+            [$xPrev, $yPrev] = $subpaths[0][$i - 1];
+            [$x, $y] = $subpaths[0][$i];
             $this->assertEquals($xPrev, $x);
             $this->assertGreaterThanOrEqual($yPrev, $y);
             $this->assertLessThanOrEqual(30, $y);
@@ -278,7 +278,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertLessThan(4.5 * count($subpaths[0]), count($subpaths2[0]));
     }
 
-    public function testCurveToCubicSmooth()
+    public function testCurveToCubicSmooth(): void
     {
         // without preceding CurveToCubic
         $approx = new PathApproximator(Transform::identity());
@@ -293,7 +293,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals([10, 20], $subpaths[0][0]);
         $this->assertEquals([20, 20], $subpaths[0][count($subpaths[0]) - 1]);
         // check center (the curve should bend downwards about halfway to the only control point)
-        list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) / 2)];
+        [$x, $y] = $subpaths[0][ceil(count($subpaths[0]) / 2)];
         $this->assertEqualsWithDelta(15, $x, 1.0);
         $this->assertEqualsWithDelta(25, $y, 1.0);
 
@@ -313,20 +313,20 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals([30, 20], $subpaths[0][count($subpaths[0]) - 1]);
         // The curve should first bend down due to 'C', then bend up due to the reflected 's'.
         // - check at 1/4 from beginning
-        list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) * 0.25)];
+        [$x, $y] = $subpaths[0][ceil(count($subpaths[0]) * 0.25)];
         $this->assertEqualsWithDelta(15, $x, 1.0);
         $this->assertEqualsWithDelta(27.5, $y, 1.0);
         // - check at 1/2 from beginning
-        list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) * 0.5)];
+        [$x, $y] = $subpaths[0][ceil(count($subpaths[0]) * 0.5)];
         $this->assertEqualsWithDelta(20, $x, 1.0);
         $this->assertEqualsWithDelta(20, $y, 1.0);
         // - check at 3/4 from beginning
-        list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) * 0.75)];
+        [$x, $y] = $subpaths[0][ceil(count($subpaths[0]) * 0.75)];
         $this->assertEqualsWithDelta(25, $x, 1.0);
         $this->assertEqualsWithDelta(12.5, $y, 1.0);
     }
 
-    public function testCurveToQuadratic()
+    public function testCurveToQuadratic(): void
     {
         // Simple test: draw quadratic curves representing straight lines
         $approx = new PathApproximator(Transform::identity());
@@ -350,16 +350,16 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertLessThan(0.6 * count($subpaths[0]), $corner);
         // expect everything before to be a straight horizontal line
         for ($i = 1; $i <= $corner; ++$i) {
-            list($xPrev, $yPrev) = $subpaths[0][$i - 1];
-            list($x, $y) = $subpaths[0][$i];
+            [$xPrev, $yPrev] = $subpaths[0][$i - 1];
+            [$x, $y] = $subpaths[0][$i];
             $this->assertGreaterThanOrEqual($xPrev, $x);
             $this->assertLessThanOrEqual(20, $x);
             $this->assertEqualsWithDelta($yPrev, $y, 10e-12);
         }
         // expect everything after to be a straight vertical line
         for ($i = $corner + 1; $i < count($subpaths[0]); ++$i) {
-            list($xPrev, $yPrev) = $subpaths[0][$i - 1];
-            list($x, $y) = $subpaths[0][$i];
+            [$xPrev, $yPrev] = $subpaths[0][$i - 1];
+            [$x, $y] = $subpaths[0][$i];
             $this->assertEqualsWithDelta($xPrev, $x, 10e-12);
             $this->assertGreaterThanOrEqual($yPrev, $y);
             $this->assertLessThanOrEqual(30, $y);
@@ -379,7 +379,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertLessThan(4.5 * count($subpaths[0]), count($subpaths2[0]));
     }
 
-    public function testCurveToQuadraticSmooth()
+    public function testCurveToQuadraticSmooth(): void
     {
         // without preceding CurveToQuadratic
         $approx = new PathApproximator(Transform::identity());
@@ -394,7 +394,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals([10, 20], $subpaths[0][0]);
         $this->assertEquals([20, 20], $subpaths[0][count($subpaths[0]) - 1]);
         // check center (the curve should represent a flat horizontal line)
-        list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) / 2)];
+        [$x, $y] = $subpaths[0][ceil(count($subpaths[0]) / 2)];
         $this->assertEqualsWithDelta(15, $x, 1.0);
         $this->assertEqualsWithDelta(20, $y, 1.0);
 
@@ -414,20 +414,20 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals([30, 20], $subpaths[0][count($subpaths[0]) - 1]);
         // The curve should first bend down due to 'Q', then bend up due to the reflected 't'.
         // - check at 1/4 from beginning
-        list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) * 0.25)];
+        [$x, $y] = $subpaths[0][ceil(count($subpaths[0]) * 0.25)];
         $this->assertEqualsWithDelta(15, $x, 1.0);
         $this->assertEqualsWithDelta(25, $y, 1.0);
         // - check at 1/2 from beginning
-        list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) * 0.5)];
+        [$x, $y] = $subpaths[0][ceil(count($subpaths[0]) * 0.5)];
         $this->assertEqualsWithDelta(20, $x, 1.0);
         $this->assertEqualsWithDelta(20, $y, 1.0);
         // - check at 3/4 from beginning
-        list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) * 0.75)];
+        [$x, $y] = $subpaths[0][ceil(count($subpaths[0]) * 0.75)];
         $this->assertEqualsWithDelta(25, $x, 1.0);
         $this->assertEqualsWithDelta(15, $y, 1.0);
     }
 
-    public function testArcTo()
+    public function testArcTo(): void
     {
         // Run the following test once for the absolute command and once for the relative command.
         // The coordinates are chosen so that the output should be equal.
@@ -449,14 +449,14 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
             $this->assertEquals([20, 20], $subpaths[0][count($subpaths[0]) - 1]);
             // points in between should have x >= 10 && x <= 20 and y >= 20, y <= 30
             foreach ($subpaths[0] as $point) {
-                list($x, $y) = $point;
+                [$x, $y] = $point;
                 $this->assertGreaterThanOrEqual(10, $x);
                 $this->assertLessThanOrEqual(20, $x);
                 $this->assertGreaterThanOrEqual(20, $y);
                 $this->assertLessThanOrEqual(30, $y);
             }
             // midpoint should roughly be at [15, 30]
-            list($x, $y) = $subpaths[0][ceil(count($subpaths[0]) / 2)];
+            [$x, $y] = $subpaths[0][ceil(count($subpaths[0]) / 2)];
             $this->assertEqualsWithDelta(15, $x, 0.5);
             $this->assertEqualsWithDelta(30, $y, 0.5);
         }
@@ -474,7 +474,7 @@ class PathApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertLessThan(4.5 * count($subpaths[0]), count($subpaths2[0]));
     }
 
-    public function testClosePath()
+    public function testClosePath(): void
     {
         // try with both 'z' and 'Z', which should behave the same
         foreach (['z', 'Z'] as $closeCommand) {

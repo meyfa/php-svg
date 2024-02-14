@@ -13,11 +13,11 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class TextRendererTest extends \PHPUnit\Framework\TestCase
 {
-    public function testShouldNotFailWithoutRegisteredFont()
+    public function testShouldNotFailWithoutRegisteredFont(): void
     {
         $obj = new TextRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
 
         $rasterizer = new SVGRasterizer('40px', '80px', null, 4, 8);
         $obj->render($rasterizer, [

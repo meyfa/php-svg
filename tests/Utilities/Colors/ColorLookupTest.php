@@ -11,7 +11,7 @@ use SVG\Utilities\Colors\ColorLookup;
  */
 class ColorLookupTest extends \PHPUnit\Framework\TestCase
 {
-    public function testGet()
+    public function testGet(): void
     {
         // named colors
         $this->assertEquals([0, 0, 0, 255], ColorLookup::get('black'));

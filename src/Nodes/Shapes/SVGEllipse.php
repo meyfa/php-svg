@@ -13,7 +13,7 @@ use SVG\Utilities\Units\Length;
  */
 class SVGEllipse extends SVGNodeContainer
 {
-    const TAG_NAME = 'ellipse';
+    public const TAG_NAME = 'ellipse';
 
     /**
      * @param mixed $cx The center's x coordinate.

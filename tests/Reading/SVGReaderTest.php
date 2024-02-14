@@ -74,19 +74,19 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->xmlEntities .= '</svg>';
     }
 
-    public function testShouldReturnAnImageOrNull()
+    public function testShouldReturnAnImageOrNull(): void
     {
         // should return an instance of SVG
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xml);
-        $this->assertInstanceOf('\SVG\SVG', $result);
+        $this->assertInstanceOf(\SVG\SVG::class, $result);
 
         // should return null when parsing fails
         $result = $svgReader->parseString('<rect />');
         $this->assertNull($result);
     }
 
-    public function testShouldSetAllAttributesAndNamespaces()
+    public function testShouldSetAllAttributesAndNamespaces(): void
     {
         // should retain all document attributes and namespaces
         $svgReader = new SVGReader();
@@ -128,7 +128,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         ], $rect->getSerializableAttributes());
     }
 
-    public function testShouldSetStyles()
+    public function testShouldSetStyles(): void
     {
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xml);
@@ -143,7 +143,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('#AABBCC', $rect->getStyle('stroke'));
     }
 
-    public function testShouldConvertUnitlessCSSLengths()
+    public function testShouldConvertUnitlessCSSLengths(): void
     {
         $code  = '<svg xmlns="http://www.w3.org/2000/svg">';
         $code .= '<text font-size="11" letter-spacing="2" word-spacing="3">foo</text>';
@@ -159,7 +159,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('3px', $text->getStyle('word-spacing'));
     }
 
-    public function testShouldRecursivelyAddChildren()
+    public function testShouldRecursivelyAddChildren(): void
     {
         // should recursively add all child nodes
         $svgReader = new SVGReader();
@@ -184,7 +184,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         ], $ellipse->getSerializableAttributes());
     }
 
-    public function testShouldWorkWithoutAnyXmlns()
+    public function testShouldWorkWithoutAnyXmlns(): void
     {
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xmlNoXmlns);
@@ -195,7 +195,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('10', $doc->getChild(0)->getAttribute('cx'));
     }
 
-    public function testShouldWorkWithoutMainXmlns()
+    public function testShouldWorkWithoutMainXmlns(): void
     {
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xmlOnlyOtherXmlns);
@@ -207,7 +207,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('bar', $doc->getChild(0)->getAttribute('xlink:foo'));
     }
 
-    public function testShouldRetrieveUnknownNodes()
+    public function testShouldRetrieveUnknownNodes(): void
     {
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xmlUnknown);
@@ -227,7 +227,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('baz', $doc->getChild(1)->getChild(0)->getName());
     }
 
-    public function testShouldSetValue()
+    public function testShouldSetValue(): void
     {
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xmlValue);
@@ -237,7 +237,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('hello world', $doc->getChild(0)->getValue());
     }
 
-    public function testShouldDecodeEntities()
+    public function testShouldDecodeEntities(): void
     {
         $svgReader = new SVGReader();
         $result = $svgReader->parseString($this->xmlEntities);
@@ -254,7 +254,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('" foo&bar>', $doc->getChild(1)->getValue());
     }
 
-    public function testShouldRemoveCDataForStyles()
+    public function testShouldRemoveCDataForStyles(): void
     {
         // should remove CDATA
         $code  = '<svg xmlns="http://www.w3.org/2000/svg">';
@@ -266,7 +266,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('g {display:none;}', $doc->getChild(0)->getValue());
     }
 
-    public function testChildKeepsNamespaces()
+    public function testChildKeepsNamespaces(): void
     {
         $code  = '<svg xmlns="http://www.w3.org/2000/svg">';
         $code .= '<foreignObject width="500" height="500" x="20" y="20">';
@@ -282,7 +282,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertStringContainsString('<div xmlns="http://www.w3.org/1999/xhtml" xmlns:foo="bar">', '' . $result);
     }
 
-    public function testParsesChildNamespacedAttributes()
+    public function testParsesChildNamespacedAttributes(): void
     {
         $code  = '<svg xmlns="http://www.w3.org/2000/svg">';
         $code .= '<foreignObject width="500" height="500" x="20" y="20">';
@@ -298,7 +298,7 @@ class SVGReaderTest extends \PHPUnit\Framework\TestCase
         $this->assertStringContainsString('<p foo:xxx="yyy">', '' . $result);
     }
 
-    public function testShouldRetrieveNamespacedNodes()
+    public function testShouldRetrieveNamespacedNodes(): void
     {
         $code  = '<?xml version="1.0" encoding="utf-8"?>';
         $code .= '<svg xmlns="http://www.w3.org/2000/svg">';

@@ -15,7 +15,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should not set any attributes by default
         $obj = new SVGRect();
@@ -34,7 +34,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getX
      */
-    public function testGetX()
+    public function testGetX(): void
     {
         $obj = new SVGRect();
 
@@ -46,7 +46,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setX
      */
-    public function testSetX()
+    public function testSetX(): void
     {
         $obj = new SVGRect();
 
@@ -61,7 +61,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getY
      */
-    public function testGetY()
+    public function testGetY(): void
     {
         $obj = new SVGRect();
 
@@ -73,7 +73,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setY
      */
-    public function testSetY()
+    public function testSetY(): void
     {
         $obj = new SVGRect();
 
@@ -88,7 +88,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getWidth
      */
-    public function testGetWidth()
+    public function testGetWidth(): void
     {
         $obj = new SVGRect();
 
@@ -100,7 +100,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setWidth
      */
-    public function testSetWidth()
+    public function testSetWidth(): void
     {
         $obj = new SVGRect();
 
@@ -115,7 +115,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getHeight
      */
-    public function testGetHeight()
+    public function testGetHeight(): void
     {
         $obj = new SVGRect();
 
@@ -127,7 +127,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setHeight
      */
-    public function testSetHeight()
+    public function testSetHeight(): void
     {
         $obj = new SVGRect();
 
@@ -142,7 +142,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getRX
      */
-    public function testGetRX()
+    public function testGetRX(): void
     {
         $obj = new SVGRect();
 
@@ -154,7 +154,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setRX
      */
-    public function testSetRX()
+    public function testSetRX(): void
     {
         $obj = new SVGRect();
 
@@ -169,7 +169,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getRY
      */
-    public function testGetRY()
+    public function testGetRY(): void
     {
         $obj = new SVGRect();
 
@@ -181,7 +181,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setRY
      */
-    public function testSetRY()
+    public function testSetRY(): void
     {
         $obj = new SVGRect();
 
@@ -196,13 +196,13 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterize()
+    public function testRasterize(): void
     {
         $obj = new SVGRect(37, 42, 100, 200);
         $obj->setAttribute('rx', 15);
         $obj->setAttribute('ry', 25);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(\SVG\Rasterization\SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

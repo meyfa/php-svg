@@ -16,7 +16,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         $container = new \SVG\Nodes\Structures\SVGGroup();
 
@@ -34,7 +34,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::isRoot
      */
-    public function testIsRoot()
+    public function testIsRoot(): void
     {
         // should return true by default
         $obj = new SVGDocumentFragment();
@@ -49,7 +49,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getWidth
      */
-    public function testGetWidth()
+    public function testGetWidth(): void
     {
         $obj = new SVGDocumentFragment();
 
@@ -61,7 +61,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setWidth
      */
-    public function testSetWidth()
+    public function testSetWidth(): void
     {
         $obj = new SVGDocumentFragment();
 
@@ -76,7 +76,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getHeight
      */
-    public function testGetHeight()
+    public function testGetHeight(): void
     {
         $obj = new SVGDocumentFragment();
 
@@ -88,7 +88,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setHeight
      */
-    public function testSetHeight()
+    public function testSetHeight(): void
     {
         $obj = new SVGDocumentFragment();
 
@@ -103,7 +103,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getComputedStyle
      */
-    public function testGetComputedStyle()
+    public function testGetComputedStyle(): void
     {
         $obj = new SVGDocumentFragment();
 
@@ -125,7 +125,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getSerializableNamespaces
      */
-    public function testGetSerializableNamespaces()
+    public function testGetSerializableNamespaces(): void
     {
         // should include 'xmlns' and 'xmlns:xlink' namespaces for root
         $obj = new SVGDocumentFragment();
@@ -161,7 +161,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getSerializableAttributes
      */
-    public function testGetSerializableAttributes()
+    public function testGetSerializableAttributes(): void
     {
         $container = new \SVG\Nodes\Structures\SVGGroup();
 
@@ -196,7 +196,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getElementById
      */
-    public function testGetElementById()
+    public function testGetElementById(): void
     {
         // should return null if not found
         $obj = new SVGDocumentFragment();
@@ -211,14 +211,14 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGDocumentFragment();
         $obj->addChild(
             // <container>
-            $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+            $this->getMockForAbstractClass(\SVG\Nodes\SVGNodeContainer::class)->addChild(
                 // <node />
-                $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+                $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class)
             )->addChild(
                 // <container>
-                $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+                $this->getMockForAbstractClass(\SVG\Nodes\SVGNodeContainer::class)->addChild(
                     // <node id="foobar" />
-                    $expected = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+                    $expected = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class)
                         ->setAttribute('id', 'foobar')
                 )
                 // </container>
@@ -227,9 +227,9 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
         );
         $obj->addChild(
             // <container>
-            $this->getMockForAbstractClass('\SVG\Nodes\SVGNodeContainer')->addChild(
+            $this->getMockForAbstractClass(\SVG\Nodes\SVGNodeContainer::class)->addChild(
                 // <node id="foobar" />
-                $this->getMockForAbstractClass('\SVG\Nodes\SVGNode')
+                $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class)
                     ->setAttribute('id', 'foobar')
             )
             // </container>
@@ -243,7 +243,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
      * @requires extension gd
      * @coversNothing
      */
-    public function testRasterize_empty()
+    public function testRasterize_empty(): void
     {
         $obj = new SVGDocumentFragment('2px', '2px');
 
@@ -264,7 +264,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
      * @requires extension gd
      * @coversNothing
      */
-    public function testRasterize_object_unscaled()
+    public function testRasterize_object_unscaled(): void
     {
         $obj = new SVGDocumentFragment('20px', '40px');
 
@@ -289,7 +289,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
      * @requires extension gd
      * @coversNothing
      */
-    public function testRasterize_object_scaledUp()
+    public function testRasterize_object_scaledUp(): void
     {
         $obj = new SVGDocumentFragment('10px', '20px');
 
@@ -314,7 +314,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
      * @requires extension gd
      * @coversNothing
      */
-    public function testRasterize_object_scaledDown()
+    public function testRasterize_object_scaledDown(): void
     {
         $obj = new SVGDocumentFragment('40px', '80px');
 
@@ -339,7 +339,7 @@ class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
      * @requires extension gd
      * @coversNothing
      */
-    public function testRasterize_object_viewBox()
+    public function testRasterize_object_viewBox(): void
     {
         $obj = new SVGDocumentFragment('100%', '100%');
         $obj->setAttribute('viewBox', '100 100 2 4');

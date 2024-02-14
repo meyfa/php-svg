@@ -15,7 +15,7 @@ class SVGDefsTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should not set any attributes by default
         $obj = new SVGDefs();
@@ -25,14 +25,14 @@ class SVGDefsTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterize()
+    public function testRasterize(): void
     {
         $obj = new SVGDefs();
 
-        $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $mockChild = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
         $obj->addChild($mockChild);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(\SVG\Rasterization\SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

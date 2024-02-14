@@ -15,7 +15,7 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should set empty points by default
         $obj = new SVGPolyline();
@@ -33,7 +33,7 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterize()
+    public function testRasterize(): void
     {
         $points = [
             [42.5, 42.5],
@@ -42,7 +42,7 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
 
         $obj = new SVGPolyline($points);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(\SVG\Rasterization\SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -73,7 +73,7 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterizeShouldRespectFillRule()
+    public function testRasterizeShouldRespectFillRule(): void
     {
         $points = [
             [42.5, 42.5],
@@ -94,7 +94,7 @@ class SVGPolylineTest extends \PHPUnit\Framework\TestCase
             'foo' => 'foo',
         ];
         foreach ($attributeToExpectedFillRule as $attribute => $expectedFillRule) {
-            $rasterizer = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+            $rasterizer = $this->getMockBuilder(\SVG\Rasterization\SVGRasterizer::class)
                 ->disableOriginalConstructor()
                 ->getMock();
 

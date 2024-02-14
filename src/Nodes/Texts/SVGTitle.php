@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGTitle extends SVGNodeContainer
 {
-    const TAG_NAME = 'title';
+    public const TAG_NAME = 'title';
 
     public function __construct(string $text = '')
     {

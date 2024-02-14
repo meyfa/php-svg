@@ -24,7 +24,7 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should not set any attributes by default
         $obj = new SVGPath();
@@ -40,7 +40,7 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getDescription
      */
-    public function testGetDescription()
+    public function testGetDescription(): void
     {
         $obj = new SVGPath();
 
@@ -52,7 +52,7 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setDescription
      */
-    public function testSetDescription()
+    public function testSetDescription(): void
     {
         $obj = new SVGPath();
 
@@ -67,11 +67,11 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterizeWithNull()
+    public function testRasterizeWithNull(): void
     {
         $obj = new SVGPath();
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(\SVG\Rasterization\SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -83,12 +83,12 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterize()
+    public function testRasterize(): void
     {
         $obj = new SVGPath(self::$sampleDescription);
 
         // setup mocks
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(\SVG\Rasterization\SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -118,7 +118,7 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterizeShouldRespectFillRule()
+    public function testRasterizeShouldRespectFillRule(): void
     {
         $obj = new SVGPath(self::$sampleDescription);
 
@@ -134,7 +134,7 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
             'foo' => 'foo',
         ];
         foreach ($attributeToExpectedFillRule as $attribute => $expectedFillRule) {
-            $rasterizer = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+            $rasterizer = $this->getMockBuilder(\SVG\Rasterization\SVGRasterizer::class)
                 ->disableOriginalConstructor()
                 ->getMock();
 

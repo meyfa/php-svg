@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGLinearGradient extends SVGNodeContainer
 {
-    const TAG_NAME = 'linearGradient';
+    public const TAG_NAME = 'linearGradient';
 
     public function __construct()
     {

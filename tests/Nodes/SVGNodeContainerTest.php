@@ -6,7 +6,7 @@ use SVG\Nodes\SVGNodeContainer;
 
 class SVGNodeContainerSubclass extends SVGNodeContainer
 {
-    const TAG_NAME = 'test_subclass';
+    public const TAG_NAME = 'test_subclass';
 }
 
 /**
@@ -21,7 +21,7 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::addChild
      */
-    public function testAddChild()
+    public function testAddChild(): void
     {
         $obj = new SVGNodeContainerSubclass();
         $obj2 = new SVGNodeContainerSubclass();
@@ -67,7 +67,7 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::removeChild
      */
-    public function testRemoveChild()
+    public function testRemoveChild(): void
     {
         $obj = new SVGNodeContainerSubclass();
         $child = new SVGNodeContainerSubclass();
@@ -97,7 +97,7 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setChild
      */
-    public function testSetChild()
+    public function testSetChild(): void
     {
         $obj = new SVGNodeContainerSubclass();
         $obj2 = new SVGNodeContainerSubclass();
@@ -129,14 +129,14 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterize()
+    public function testRasterize(): void
     {
         $obj = new SVGNodeContainerSubclass();
 
-        $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $mockChild = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
         $obj->addChild($mockChild);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(\SVG\Rasterization\SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -152,7 +152,7 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getElementsByTagName
      */
-    public function testGetElementsByTagName()
+    public function testGetElementsByTagName(): void
     {
         $obj = new SVGNodeContainerSubclass();
         $root_0 = new \SVG\Nodes\Structures\SVGGroup();
@@ -198,7 +198,7 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getElementsByClassName
      */
-    public function testGetElementsByClassName()
+    public function testGetElementsByClassName(): void
     {
         $obj = new SVGNodeContainerSubclass();
         $root_0 = new \SVG\Nodes\Structures\SVGGroup();
@@ -261,11 +261,11 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getContainerStyleForNode
      */
-    public function testGetContainerStyleForNode()
+    public function testGetContainerStyleForNode(): void
     {
         $obj = new SVGNodeContainerSubclass();
 
-        $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $mockChild = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
         $obj->addChild($mockChild);
 
         $this->assertCount(0, $obj->getContainerStyleForNode($mockChild));
@@ -274,11 +274,11 @@ class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getContainerStyleByPattern
      */
-    public function testGetContainerStyleByPattern()
+    public function testGetContainerStyleByPattern(): void
     {
         $obj = new SVGNodeContainerSubclass();
 
-        $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $mockChild = $this->getMockForAbstractClass(\SVG\Nodes\SVGNode::class);
         $obj->addChild($mockChild);
 
         $this->assertCount(0, $obj->getContainerStyleByPattern('/^(\d+)?\.\d+$/'));

@@ -13,7 +13,7 @@ use SVG\Utilities\Units\Length;
  */
 class SVGCircle extends SVGNodeContainer
 {
-    const TAG_NAME = 'circle';
+    public const TAG_NAME = 'circle';
 
     /**
      * @param mixed $cx The center's x coordinate.

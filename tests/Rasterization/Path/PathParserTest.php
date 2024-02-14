@@ -11,7 +11,7 @@ use SVG\Rasterization\Path\PathParser;
  */
 class PathParserTest extends \PHPUnit\Framework\TestCase
 {
-    public function testShouldSplitCorrectly()
+    public function testShouldSplitCorrectly(): void
     {
         $obj = new PathParser();
 
@@ -29,7 +29,7 @@ class PathParserTest extends \PHPUnit\Framework\TestCase
         ], $obj->parse(' M10,10 l +10 -10 h .5e2 v 100e-1 l7-7 h.5 z H0z'));
     }
 
-    public function testShouldSupportRepeatedCommands()
+    public function testShouldSupportRepeatedCommands(): void
     {
         $obj = new PathParser();
 
@@ -45,7 +45,7 @@ class PathParserTest extends \PHPUnit\Framework\TestCase
         ], $obj->parse('L10,10 20,20 h 5 5 5 q 10 10 20 20 50 50 60 60'));
     }
 
-    public function testShouldTreatImplicitMoveToLikeLineTo()
+    public function testShouldTreatImplicitMoveToLikeLineTo(): void
     {
         $obj = new PathParser();
 
@@ -59,7 +59,7 @@ class PathParserTest extends \PHPUnit\Framework\TestCase
         ], $obj->parse('M10,10 20,20, 20,10 m-10,0 -10,-5'));
     }
 
-    public function testShouldAbortOnError()
+    public function testShouldAbortOnError(): void
     {
         $obj = new PathParser();
 

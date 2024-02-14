@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGFEConvolveMatrix extends SVGNodeContainer
 {
-    const TAG_NAME = 'feConvolveMatrix';
+    public const TAG_NAME = 'feConvolveMatrix';
 
     public function __construct()
     {

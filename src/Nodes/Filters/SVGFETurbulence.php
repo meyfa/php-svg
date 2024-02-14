@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGFETurbulence extends SVGNodeContainer
 {
-    const TAG_NAME = 'feTurbulence';
+    public const TAG_NAME = 'feTurbulence';
 
     public function __construct()
     {

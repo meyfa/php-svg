@@ -59,7 +59,7 @@ final class PathRendererImplementation
         imagesetthickness($image, 1);
 
         // Sort the edges by their maximum y value, descending (i.e., edges that extend further down are sorted first).
-        usort($edges, ['SVG\Rasterization\Renderers\PathRendererEdge', 'compareMaxY']);
+        usort($edges, [\SVG\Rasterization\Renderers\PathRendererEdge::class, 'compareMaxY']);
         // Now the maxY of the entire path is just the maxY of the edge sorted first.
         // Since there is no way to know which edge has the minY, we cannot do the same for that and have to compute
         // it during the loop instead.
@@ -92,7 +92,7 @@ final class PathRendererImplementation
 
             if (!empty($activeEdges)) {
                 // Now sort the active edges from rightmost to leftmost (i.e., by x descending).
-                usort($activeEdges, ['SVG\Rasterization\Renderers\PathRendererEdge', 'compareX']);
+                usort($activeEdges, [\SVG\Rasterization\Renderers\PathRendererEdge::class, 'compareX']);
 
                 $windingNumber = $evenOdd ? 0 : $activeEdges[0]->direction;
 
