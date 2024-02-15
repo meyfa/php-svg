@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGFEGaussianBlur extends SVGNodeContainer
 {
-    const TAG_NAME = 'feGaussianBlur';
+    public const TAG_NAME = 'feGaussianBlur';
 
     public function __construct()
     {

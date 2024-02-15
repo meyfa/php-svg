@@ -14,7 +14,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class TextRendererTest extends \PHPUnit\Framework\TestCase
 {
-    public function testShouldNotFailWithoutRegisteredFont()
+    public function testShouldNotFailWithoutRegisteredFont(): void
     {
         $obj = new TextRenderer();
 

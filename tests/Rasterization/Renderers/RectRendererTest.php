@@ -14,7 +14,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class RectRendererTest extends \PHPUnit\Framework\TestCase
 {
-    public function testShouldRenderStroke()
+    public function testShouldRenderStroke(): void
     {
         $obj = new RectRenderer();
 
@@ -33,7 +33,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke.png'));
     }
 
-    public function testShouldRenderStrokeThick()
+    public function testShouldRenderStrokeThick(): void
     {
         $obj = new RectRenderer();
 
@@ -52,7 +52,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-thick.png'));
     }
 
-    public function testShouldRenderStrokeAlpha()
+    public function testShouldRenderStrokeAlpha(): void
     {
         $obj = new RectRenderer();
 
@@ -71,7 +71,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-alpha.png'));
     }
 
-    public function testShouldRenderFill()
+    public function testShouldRenderFill(): void
     {
         $obj = new RectRenderer();
 
@@ -89,7 +89,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-fill.png'));
     }
 
-    public function testShouldRenderFillAlpha()
+    public function testShouldRenderFillAlpha(): void
     {
         $obj = new RectRenderer();
 
@@ -107,7 +107,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-fill-alpha.png'));
     }
 
-    public function testShouldRenderStrokeAndFill()
+    public function testShouldRenderStrokeAndFill(): void
     {
         $obj = new RectRenderer();
 
@@ -126,7 +126,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-fill.png'));
     }
 
-    public function testShouldRenderStrokeRounded()
+    public function testShouldRenderStrokeRounded(): void
     {
         $obj = new RectRenderer();
 
@@ -146,7 +146,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-stroke-rounded.png'));
     }
 
-    public function testShouldRenderFillRounded()
+    public function testShouldRenderFillRounded(): void
     {
         $obj = new RectRenderer();
 
@@ -165,7 +165,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-fill-rounded.png'));
     }
 
-    public function testDoesNotRenderIfWidthZero()
+    public function testDoesNotRenderIfWidthZero(): void
     {
         $obj = new RectRenderer();
 
@@ -185,7 +185,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-empty.png'));
     }
 
-    public function testDoesNotRenderIfHeightZero()
+    public function testDoesNotRenderIfHeightZero(): void
     {
         $obj = new RectRenderer();
 
@@ -205,7 +205,7 @@ class RectRendererTest extends \PHPUnit\Framework\TestCase
         $this->assertThat($img, new GDSimilarityConstraint('./tests/images/renderer-rect-empty.png'));
     }
 
-    public function testDefaultsXAndYToZero()
+    public function testDefaultsXAndYToZero(): void
     {
         $obj = new RectRenderer();
 

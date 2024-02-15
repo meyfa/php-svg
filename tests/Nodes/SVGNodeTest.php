@@ -4,7 +4,7 @@ namespace SVG\Nodes;
 
 class SVGNodeSubclass extends SVGNode
 {
-    const TAG_NAME = 'test_subclass';
+    public const TAG_NAME = 'test_subclass';
 
     /**
      * @inheritdoc
@@ -26,7 +26,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getName
      */
-    public function testGetName()
+    public function testGetName(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -37,7 +37,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getParent
      */
-    public function testGetParent()
+    public function testGetParent(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -48,7 +48,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getValue
      */
-    public function testGetValue()
+    public function testGetValue(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -59,7 +59,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setValue
      */
-    public function testSetValue()
+    public function testSetValue(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -78,7 +78,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getStyle
      */
-    public function testGetStyle()
+    public function testGetStyle(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -89,7 +89,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setStyle
      */
-    public function testSetStyle()
+    public function testSetStyle(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -132,7 +132,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::removeStyle
      */
-    public function testRemoveStyle()
+    public function testRemoveStyle(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -148,7 +148,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getAttribute
      */
-    public function testGetAttribute()
+    public function testGetAttribute(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -159,7 +159,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setAttribute
      */
-    public function testSetAttribute()
+    public function testSetAttribute(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -191,7 +191,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::removeAttribute
      */
-    public function testRemoveAttribute()
+    public function testRemoveAttribute(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -207,7 +207,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getSerializableNamespaces
      */
-    public function testGetSerializableNamespaces()
+    public function testGetSerializableNamespaces(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -222,7 +222,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getSerializableAttributes
      */
-    public function testGetSerializableAttributes()
+    public function testGetSerializableAttributes(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -240,7 +240,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getSerializableStyles
      */
-    public function testGetSerializableStyles()
+    public function testGetSerializableStyles(): void
     {
         $obj = new SVGNodeSubclass();
 
@@ -256,7 +256,7 @@ class SVGNodeTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getViewBox
      */
-    public function testGetViewBox()
+    public function testGetViewBox(): void
     {
         $obj = new SVGNodeSubclass();
 

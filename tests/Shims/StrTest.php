@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class StrTest extends TestCase
 {
     /** @dataProvider provideTrimsWithDefaultCharacters */
-    public function testTrimsWithDefaultCharacters($input, $expectedResult)
+    public function testTrimsWithDefaultCharacters($input, $expectedResult): void
     {
         $result = Str::trim($input);
         $this->assertSame($expectedResult, $result);
@@ -31,7 +31,7 @@ class StrTest extends TestCase
     }
 
     /** @dataProvider provideTrimsWithCustomCharacters */
-    public function testTrimsWithCustomCharacters($input, $expectedResult)
+    public function testTrimsWithCustomCharacters($input, $expectedResult): void
     {
         $result = Str::trim($input, "NeverGonnaGiveYouUp");
         $this->assertSame($expectedResult, $result);

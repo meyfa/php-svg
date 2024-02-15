@@ -12,7 +12,7 @@ use SVG\Rasterization\Transform\TransformParser;
  */
 class SVGPath extends SVGNodeContainer
 {
-    const TAG_NAME = 'path';
+    public const TAG_NAME = 'path';
 
     private static $pathParser;
 

@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGFilter extends SVGNodeContainer
 {
-    const TAG_NAME = 'filter';
+    public const TAG_NAME = 'filter';
 
     public function __construct()
     {

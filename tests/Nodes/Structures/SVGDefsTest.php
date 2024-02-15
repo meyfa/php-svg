@@ -16,7 +16,7 @@ class SVGDefsTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should not set any attributes by default
         $obj = new SVGDefs();
@@ -26,7 +26,7 @@ class SVGDefsTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterize()
+    public function testRasterize(): void
     {
         $obj = new SVGDefs();
 

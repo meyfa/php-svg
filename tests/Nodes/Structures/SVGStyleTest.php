@@ -14,7 +14,7 @@ class SVGStyleTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should default to empty CSS, type = text/css
         $obj = new SVGStyle();
@@ -30,7 +30,7 @@ class SVGStyleTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getType
      */
-    public function testGetType()
+    public function testGetType(): void
     {
         $obj = new SVGStyle();
         $obj->setAttribute('type', 'test-type');
@@ -41,7 +41,7 @@ class SVGStyleTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setType
      */
-    public function testSetType()
+    public function testSetType(): void
     {
         $obj = new SVGStyle();
         $this->assertInstanceOf(SVGStyle::class, $obj->setType('test-type'));
@@ -54,7 +54,7 @@ class SVGStyleTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterize()
+    public function testRasterize(): void
     {
         $obj = new SVGStyle();
 

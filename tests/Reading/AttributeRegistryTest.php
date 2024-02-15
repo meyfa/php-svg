@@ -13,7 +13,7 @@ class AttributeRegistryTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::isStyle
      */
-    public function testIsStyle()
+    public function testIsStyle(): void
     {
         $this->assertTrue(AttributeRegistry::isStyle('font-size'));
         $this->assertTrue(AttributeRegistry::isStyle('stroke'));
@@ -24,7 +24,7 @@ class AttributeRegistryTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::convertStyleAttribute
      */
-    public function testConvertStyleAttribute()
+    public function testConvertStyleAttribute(): void
     {
         $this->assertSame('42px', AttributeRegistry::convertStyleAttribute('font-size', '42'));
         $this->assertSame('42%', AttributeRegistry::convertStyleAttribute('font-size', '42%'));

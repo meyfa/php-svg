@@ -9,7 +9,7 @@ use SVG\Nodes\SVGNodeContainer;
  */
 class SVGLinkGroup extends SVGNodeContainer
 {
-    const TAG_NAME = 'a';
+    public const TAG_NAME = 'a';
 
     public function __construct()
     {

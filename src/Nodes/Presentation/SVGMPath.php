@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGMPath extends SVGNodeContainer
 {
-    const TAG_NAME = 'mpath';
+    public const TAG_NAME = 'mpath';
 
     public function __construct()
     {

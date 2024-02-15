@@ -222,7 +222,7 @@ class PathApproximator
      */
     private function moveTo(string $id, array $args): void
     {
-        list($x, $y) = $args;
+        [$x, $y] = $args;
         if ($id === 'm') {
             $x += $this->posX;
             $y += $this->posY;
@@ -245,7 +245,7 @@ class PathApproximator
      */
     private function lineTo(string $id, array $args): void
     {
-        list($x, $y) = $args;
+        [$x, $y] = $args;
         if ($id === 'l') {
             $x += $this->posX;
             $y += $this->posY;
@@ -337,7 +337,7 @@ class PathApproximator
         }
 
         $this->cubicOld = $p2;
-        list($this->posX, $this->posY) = $p3;
+        [$this->posX, $this->posY] = $p3;
 
         $this->transform->map($p1[0], $p1[1]);
         $this->transform->map($p2[0], $p2[1]);
@@ -379,7 +379,7 @@ class PathApproximator
         }
 
         $this->cubicOld = $p2;
-        list($this->posX, $this->posY) = $p3;
+        [$this->posX, $this->posY] = $p3;
 
         $this->transform->map($p1[0], $p1[1]);
         $this->transform->map($p2[0], $p2[1]);
@@ -414,7 +414,7 @@ class PathApproximator
         }
 
         $this->quadraticOld = $p1;
-        list($this->posX, $this->posY) = $p2;
+        [$this->posX, $this->posY] = $p2;
 
         $this->transform->map($p1[0], $p1[1]);
         $this->transform->map($p2[0], $p2[1]);
@@ -451,7 +451,7 @@ class PathApproximator
         }
 
         $this->quadraticOld = $p1;
-        list($this->posX, $this->posY) = $p2;
+        [$this->posX, $this->posY] = $p2;
 
         $this->transform->map($p1[0], $p1[1]);
         $this->transform->map($p2[0], $p2[1]);
@@ -494,7 +494,7 @@ class PathApproximator
             $p1[1] += $this->posY;
         }
 
-        list($this->posX, $this->posY) = $p1;
+        [$this->posX, $this->posY] = $p1;
 
         // guess a scale factor
         $scaledRx = $rx;

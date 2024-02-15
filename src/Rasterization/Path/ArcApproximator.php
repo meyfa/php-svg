@@ -59,7 +59,7 @@ class ArcApproximator
         $cosr = cos($rotation);
         $sinr = sin($rotation);
 
-        list($center, $radiusX, $radiusY, $angleStart, $angleDelta) =
+        [$center, $radiusX, $radiusY, $angleStart, $angleDelta] =
             self::endpointToCenter($start, $end, $large, $sweep, $radiusX, $radiusY, $cosr, $sinr);
 
         $dist = abs($end[0] - $start[0]) + abs($end[1] - $start[1]);

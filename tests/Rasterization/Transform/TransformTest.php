@@ -9,21 +9,21 @@ namespace SVG\Rasterization\Transform;
  */
 class TransformTest extends \PHPUnit\Framework\TestCase
 {
-    private function assertMap(Transform $t, array $expected, array $source)
+    private function assertMap(Transform $t, array $expected, array $source): void
     {
         $t->map($source[0], $source[1]);
         $this->assertEqualsWithDelta($expected[0], $source[0], 10e-12);
         $this->assertEqualsWithDelta($expected[1], $source[1], 10e-12);
     }
 
-    private function assertResized(Transform $t, array $expected, array $source)
+    private function assertResized(Transform $t, array $expected, array $source): void
     {
         $t->resize($source[0], $source[1]);
         $this->assertEqualsWithDelta($expected[0], $source[0], 10e-12);
         $this->assertEqualsWithDelta($expected[1], $source[1], 10e-12);
     }
 
-    public function testIdentity()
+    public function testIdentity(): void
     {
         $t = Transform::identity();
         $this->assertMap($t, [0, 0], [0, 0]);
@@ -34,7 +34,7 @@ class TransformTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::resize
      */
-    public function testResize()
+    public function testResize(): void
     {
         $t = Transform::identity();
         $this->assertResized($t, [123, 456], [123, 456]);
@@ -85,7 +85,7 @@ class TransformTest extends \PHPUnit\Framework\TestCase
         $this->assertResized($t, [123 * 3, 456 * 5 * M_SQRT2], [123, 456]);
     }
 
-    public function testMultiply()
+    public function testMultiply(): void
     {
         $t = Transform::identity();
 
@@ -106,7 +106,7 @@ class TransformTest extends \PHPUnit\Framework\TestCase
         $this->assertMap($t, [-1411, 2993], [123, 456]);
     }
 
-    public function testTranslate()
+    public function testTranslate(): void
     {
         $t = Transform::identity();
 
@@ -128,7 +128,7 @@ class TransformTest extends \PHPUnit\Framework\TestCase
         $this->assertMap($t, [713, 1015], [59, 61]);
     }
 
-    public function testScale()
+    public function testScale(): void
     {
         $t = Transform::identity();
 
@@ -151,7 +151,7 @@ class TransformTest extends \PHPUnit\Framework\TestCase
         $this->assertMap($t, [16882, 24069], [59, 61]);
     }
 
-    public function testRotate()
+    public function testRotate(): void
     {
         $t = Transform::identity();
 
@@ -170,7 +170,7 @@ class TransformTest extends \PHPUnit\Framework\TestCase
         $this->assertMap($t, [11 + 298 * M_SQRT2, 13 + 417 * M_SQRT2], [59, 61]);
     }
 
-    public function testSkewX()
+    public function testSkewX(): void
     {
         $t = Transform::identity();
 
@@ -190,7 +190,7 @@ class TransformTest extends \PHPUnit\Framework\TestCase
         $this->assertMap($t, [312 + 122 * M_SQRT2, 434 + 183 * M_SQRT2], [59, 61]);
     }
 
-    public function testSkewY()
+    public function testSkewY(): void
     {
         $t = Transform::identity();
 

@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGRadialGradient extends SVGNodeContainer
 {
-    const TAG_NAME = 'radialGradient';
+    public const TAG_NAME = 'radialGradient';
 
     public function __construct()
     {

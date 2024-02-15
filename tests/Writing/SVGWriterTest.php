@@ -11,21 +11,21 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
 {
     private $xmlDeclaration = '<?xml version="1.0" encoding="utf-8"?>';
 
-    public function testShouldIncludeXMLDeclaration()
+    public function testShouldIncludeXMLDeclaration(): void
     {
         // should start with the XML declaration
         $obj = new SVGWriter();
         $this->assertEquals($this->xmlDeclaration, $obj->getString());
     }
 
-    public function testShouldSupportStandaloneFalse()
+    public function testShouldSupportStandaloneFalse(): void
     {
         // should not prepend the XML declaration
         $obj = new SVGWriter(false);
         $this->assertEquals('', $obj->getString());
     }
 
-    public function testShouldWriteTags()
+    public function testShouldWriteTags(): void
     {
         // should write opening and closing tags for containers
         $obj = new SVGWriter();
@@ -42,7 +42,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expect, $obj->getString());
     }
 
-    public function testShouldWriteAttributes()
+    public function testShouldWriteAttributes(): void
     {
         // should write attributes for containers
         $obj = new SVGWriter();
@@ -53,7 +53,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expect, $obj->getString());
     }
 
-    public function testShouldWriteStyles()
+    public function testShouldWriteStyles(): void
     {
         // should serialize styles correctly
         $obj = new SVGWriter();
@@ -64,7 +64,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expect, $obj->getString());
     }
 
-    public function testShouldWriteChildren()
+    public function testShouldWriteChildren(): void
     {
         // should write children
         $obj = new SVGWriter();
@@ -79,7 +79,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expect, $obj->getString());
     }
 
-    public function testShouldWriteStyleTagInCDATA()
+    public function testShouldWriteStyleTagInCDATA(): void
     {
         // should enclose style tag content in <![CDATA[...]]>
         $obj = new SVGWriter();
@@ -90,7 +90,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expect, $obj->getString());
     }
 
-    public function testShouldEncodeEntities()
+    public function testShouldEncodeEntities(): void
     {
         // should encode entities in attributes
         $obj = new SVGWriter();
@@ -117,7 +117,7 @@ class SVGWriterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expect, $obj->getString());
     }
 
-    public function testShouldWriteValue()
+    public function testShouldWriteValue(): void
     {
         // should add value before closing tag
         $obj = new SVGWriter();

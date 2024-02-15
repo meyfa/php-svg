@@ -34,7 +34,7 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testRenderShouldCallPrepare()
+    public function testRenderShouldCallPrepare(): void
     {
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(10, 20, null, 100, 200);
         $node = $this->getMockForAbstractClass(SVGNode::class);
@@ -50,7 +50,7 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
         imagedestroy($rasterizer->getImage());
     }
 
-    public function testRenderShouldCallRenderFill()
+    public function testRenderShouldCallRenderFill(): void
     {
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(10, 20, null, 100, 200);
         $node = $this->getMockForAbstractClass(SVGNode::class);
@@ -76,7 +76,7 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
         imagedestroy($rasterizer->getImage());
     }
 
-    public function testRenderShouldCallRenderStroke()
+    public function testRenderShouldCallRenderStroke(): void
     {
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(10, 20, null, 100, 200);
         $node = $this->getMockForAbstractClass(SVGNode::class);
@@ -104,7 +104,7 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
         imagedestroy($rasterizer->getImage());
     }
 
-    public function testRenderShouldRespectFillOpacity()
+    public function testRenderShouldRespectFillOpacity(): void
     {
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(10, 20, null, 100, 200);
         $node = $this->getMockForAbstractClass(SVGNode::class);
@@ -126,7 +126,7 @@ class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
         imagedestroy($rasterizer->getImage());
     }
 
-    public function testRenderShouldRespectStrokeOpacity()
+    public function testRenderShouldRespectStrokeOpacity(): void
     {
         $rasterizer = new \SVG\Rasterization\SVGRasterizer(10, 20, null, 100, 200);
         $node = $this->getMockForAbstractClass(SVGNode::class);

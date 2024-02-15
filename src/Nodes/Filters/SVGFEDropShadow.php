@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGFEDropShadow extends SVGNodeContainer
 {
-    const TAG_NAME = 'feDropShadow';
+    public const TAG_NAME = 'feDropShadow';
 
     public function __construct()
     {

@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGUse extends SVGNodeContainer
 {
-    const TAG_NAME = 'use';
+    public const TAG_NAME = 'use';
 
     public function __construct()
     {
