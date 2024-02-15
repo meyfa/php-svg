@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Nodes\Shapes\SVGPolygonalShape;
+namespace SVG\Nodes\Shapes;
 
 /**
  * @SuppressWarnings(PHPMD)

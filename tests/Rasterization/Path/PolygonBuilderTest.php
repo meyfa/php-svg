@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Rasterization\Path\PolygonBuilder;
+namespace SVG\Rasterization\Path;
 
 /**
  * @coversDefaultClass \SVG\Rasterization\Path\PolygonBuilder

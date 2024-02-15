@@ -2,8 +2,71 @@
 
 namespace SVG\Reading;
 
+use SVG\Nodes\Embedded\SVGForeignObject;
+use SVG\Nodes\Embedded\SVGImage;
+use SVG\Nodes\Filters\SVGFEBlend;
+use SVG\Nodes\Filters\SVGFEColorMatrix;
+use SVG\Nodes\Filters\SVGFEComponentTransfer;
+use SVG\Nodes\Filters\SVGFEComposite;
+use SVG\Nodes\Filters\SVGFEConvolveMatrix;
+use SVG\Nodes\Filters\SVGFEDiffuseLighting;
+use SVG\Nodes\Filters\SVGFEDisplacementMap;
+use SVG\Nodes\Filters\SVGFEDistantLight;
+use SVG\Nodes\Filters\SVGFEDropShadow;
+use SVG\Nodes\Filters\SVGFEFlood;
+use SVG\Nodes\Filters\SVGFEFuncA;
+use SVG\Nodes\Filters\SVGFEFuncB;
+use SVG\Nodes\Filters\SVGFEFuncG;
+use SVG\Nodes\Filters\SVGFEFuncR;
+use SVG\Nodes\Filters\SVGFEGaussianBlur;
+use SVG\Nodes\Filters\SVGFEImage;
+use SVG\Nodes\Filters\SVGFEMerge;
+use SVG\Nodes\Filters\SVGFEMergeNode;
+use SVG\Nodes\Filters\SVGFEMorphology;
+use SVG\Nodes\Filters\SVGFEOffset;
+use SVG\Nodes\Filters\SVGFEPointLight;
+use SVG\Nodes\Filters\SVGFESpecularLighting;
+use SVG\Nodes\Filters\SVGFESpotLight;
+use SVG\Nodes\Filters\SVGFETile;
+use SVG\Nodes\Filters\SVGFETurbulence;
+use SVG\Nodes\Filters\SVGFilter;
+use SVG\Nodes\Presentation\SVGAnimate;
+use SVG\Nodes\Presentation\SVGAnimateMotion;
+use SVG\Nodes\Presentation\SVGAnimateTransform;
+use SVG\Nodes\Presentation\SVGLinearGradient;
+use SVG\Nodes\Presentation\SVGMPath;
+use SVG\Nodes\Presentation\SVGRadialGradient;
+use SVG\Nodes\Presentation\SVGSet;
+use SVG\Nodes\Presentation\SVGStop;
+use SVG\Nodes\Presentation\SVGView;
+use SVG\Nodes\Shapes\SVGCircle;
+use SVG\Nodes\Shapes\SVGEllipse;
+use SVG\Nodes\Shapes\SVGLine;
+use SVG\Nodes\Shapes\SVGPath;
+use SVG\Nodes\Shapes\SVGPolygon;
+use SVG\Nodes\Shapes\SVGPolyline;
+use SVG\Nodes\Shapes\SVGRect;
+use SVG\Nodes\Structures\SVGClipPath;
+use SVG\Nodes\Structures\SVGDefs;
+use SVG\Nodes\Structures\SVGDocumentFragment;
+use SVG\Nodes\Structures\SVGGroup;
+use SVG\Nodes\Structures\SVGLinkGroup;
+use SVG\Nodes\Structures\SVGMarker;
+use SVG\Nodes\Structures\SVGMask;
+use SVG\Nodes\Structures\SVGMetadata;
+use SVG\Nodes\Structures\SVGPattern;
+use SVG\Nodes\Structures\SVGScript;
+use SVG\Nodes\Structures\SVGStyle;
+use SVG\Nodes\Structures\SVGSwitch;
+use SVG\Nodes\Structures\SVGSymbol;
+use SVG\Nodes\Structures\SVGUse;
 use SVG\Nodes\SVGNode;
 use SVG\Nodes\SVGGenericNodeType;
+use SVG\Nodes\Texts\SVGDesc;
+use SVG\Nodes\Texts\SVGText;
+use SVG\Nodes\Texts\SVGTextPath;
+use SVG\Nodes\Texts\SVGTitle;
+use SVG\Nodes\Texts\SVGTSpan;
 
 /**
  * This class contains a list of all known SVG node types, and enables dynamic
@@ -15,74 +78,74 @@ class NodeRegistry
     * @var string[] $nodeTypes Map of tag names to fully-qualified class names.
     */
     private static $nodeTypes = [
-        'foreignObject'         => 'SVG\Nodes\Embedded\SVGForeignObject',
-        'image'                 => 'SVG\Nodes\Embedded\SVGImage',
+        'foreignObject'         => SVGForeignObject::class,
+        'image'                 => SVGImage::class,
 
-        'feBlend'               => 'SVG\Nodes\Filters\SVGFEBlend',
-        'feColorMatrix'         => 'SVG\Nodes\Filters\SVGFEColorMatrix',
-        'feComponentTransfer'   => 'SVG\Nodes\Filters\SVGFEComponentTransfer',
-        'feComposite'           => 'SVG\Nodes\Filters\SVGFEComposite',
-        'feConvolveMatrix'      => 'SVG\Nodes\Filters\SVGFEConvolveMatrix',
-        'feDiffuseLighting'     => 'SVG\Nodes\Filters\SVGFEDiffuseLighting',
-        'feDisplacementMap'     => 'SVG\Nodes\Filters\SVGFEDisplacementMap',
-        'feDistantLight'        => 'SVG\Nodes\Filters\SVGFEDistantLight',
-        'feDropShadow'          => 'SVG\Nodes\Filters\SVGFEDropShadow',
-        'feFlood'               => 'SVG\Nodes\Filters\SVGFEFlood',
-        'feFuncA'               => 'SVG\Nodes\Filters\SVGFEFuncA',
-        'feFuncB'               => 'SVG\Nodes\Filters\SVGFEFuncB',
-        'feFuncG'               => 'SVG\Nodes\Filters\SVGFEFuncG',
-        'feFuncR'               => 'SVG\Nodes\Filters\SVGFEFuncR',
-        'feGaussianBlur'        => 'SVG\Nodes\Filters\SVGFEGaussianBlur',
-        'feImage'               => 'SVG\Nodes\Filters\SVGFEImage',
-        'feMerge'               => 'SVG\Nodes\Filters\SVGFEMerge',
-        'feMergeNode'           => 'SVG\Nodes\Filters\SVGFEMergeNode',
-        'feMorphology'          => 'SVG\Nodes\Filters\SVGFEMorphology',
-        'feOffset'              => 'SVG\Nodes\Filters\SVGFEOffset',
-        'fePointLight'          => 'SVG\Nodes\Filters\SVGFEPointLight',
-        'feSpecularLighting'    => 'SVG\Nodes\Filters\SVGFESpecularLighting',
-        'feSpotLight'           => 'SVG\Nodes\Filters\SVGFESpotLight',
-        'feTile'                => 'SVG\Nodes\Filters\SVGFETile',
-        'feTurbulence'          => 'SVG\Nodes\Filters\SVGFETurbulence',
-        'filter'                => 'SVG\Nodes\Filters\SVGFilter',
+        'feBlend'               => SVGFEBlend::class,
+        'feColorMatrix'         => SVGFEColorMatrix::class,
+        'feComponentTransfer'   => SVGFEComponentTransfer::class,
+        'feComposite'           => SVGFEComposite::class,
+        'feConvolveMatrix'      => SVGFEConvolveMatrix::class,
+        'feDiffuseLighting'     => SVGFEDiffuseLighting::class,
+        'feDisplacementMap'     => SVGFEDisplacementMap::class,
+        'feDistantLight'        => SVGFEDistantLight::class,
+        'feDropShadow'          => SVGFEDropShadow::class,
+        'feFlood'               => SVGFEFlood::class,
+        'feFuncA'               => SVGFEFuncA::class,
+        'feFuncB'               => SVGFEFuncB::class,
+        'feFuncG'               => SVGFEFuncG::class,
+        'feFuncR'               => SVGFEFuncR::class,
+        'feGaussianBlur'        => SVGFEGaussianBlur::class,
+        'feImage'               => SVGFEImage::class,
+        'feMerge'               => SVGFEMerge::class,
+        'feMergeNode'           => SVGFEMergeNode::class,
+        'feMorphology'          => SVGFEMorphology::class,
+        'feOffset'              => SVGFEOffset::class,
+        'fePointLight'          => SVGFEPointLight::class,
+        'feSpecularLighting'    => SVGFESpecularLighting::class,
+        'feSpotLight'           => SVGFESpotLight::class,
+        'feTile'                => SVGFETile::class,
+        'feTurbulence'          => SVGFETurbulence::class,
+        'filter'                => SVGFilter::class,
 
-        'animate'               => 'SVG\Nodes\Presentation\SVGAnimate',
-        'animateMotion'         => 'SVG\Nodes\Presentation\SVGAnimateMotion',
-        'animateTransform'      => 'SVG\Nodes\Presentation\SVGAnimateTransform',
-        'linearGradient'        => 'SVG\Nodes\Presentation\SVGLinearGradient',
-        'mpath'                 => 'SVG\Nodes\Presentation\SVGMPath',
-        'radialGradient'        => 'SVG\Nodes\Presentation\SVGRadialGradient',
-        'set'                   => 'SVG\Nodes\Presentation\SVGSet',
-        'stop'                  => 'SVG\Nodes\Presentation\SVGStop',
-        'view'                  => 'SVG\Nodes\Presentation\SVGView',
+        'animate'               => SVGAnimate::class,
+        'animateMotion'         => SVGAnimateMotion::class,
+        'animateTransform'      => SVGAnimateTransform::class,
+        'linearGradient'        => SVGLinearGradient::class,
+        'mpath'                 => SVGMPath::class,
+        'radialGradient'        => SVGRadialGradient::class,
+        'set'                   => SVGSet::class,
+        'stop'                  => SVGStop::class,
+        'view'                  => SVGView::class,
 
-        'circle'                => 'SVG\Nodes\Shapes\SVGCircle',
-        'ellipse'               => 'SVG\Nodes\Shapes\SVGEllipse',
-        'line'                  => 'SVG\Nodes\Shapes\SVGLine',
-        'path'                  => 'SVG\Nodes\Shapes\SVGPath',
-        'polygon'               => 'SVG\Nodes\Shapes\SVGPolygon',
-        'polyline'              => 'SVG\Nodes\Shapes\SVGPolyline',
-        'rect'                  => 'SVG\Nodes\Shapes\SVGRect',
+        'circle'                => SVGCircle::class,
+        'ellipse'               => SVGEllipse::class,
+        'line'                  => SVGLine::class,
+        'path'                  => SVGPath::class,
+        'polygon'               => SVGPolygon::class,
+        'polyline'              => SVGPolyline::class,
+        'rect'                  => SVGRect::class,
 
-        'clipPath'              => 'SVG\Nodes\Structures\SVGClipPath',
-        'defs'                  => 'SVG\Nodes\Structures\SVGDefs',
-        'svg'                   => 'SVG\Nodes\Structures\SVGDocumentFragment',
-        'g'                     => 'SVG\Nodes\Structures\SVGGroup',
-        'a'                     => 'SVG\Nodes\Structures\SVGLinkGroup',
-        'marker'                => 'SVG\Nodes\Structures\SVGMarker',
-        'mask'                  => 'SVG\Nodes\Structures\SVGMask',
-        'metadata'              => 'SVG\Nodes\Structures\SVGMetadata',
-        'pattern'               => 'SVG\Nodes\Structures\SVGPattern',
-        'script'                => 'SVG\Nodes\Structures\SVGScript',
-        'style'                 => 'SVG\Nodes\Structures\SVGStyle',
-        'switch'                => 'SVG\Nodes\Structures\SVGSwitch',
-        'symbol'                => 'SVG\Nodes\Structures\SVGSymbol',
-        'use'                   => 'SVG\Nodes\Structures\SVGUse',
+        'clipPath'              => SVGClipPath::class,
+        'defs'                  => SVGDefs::class,
+        'svg'                   => SVGDocumentFragment::class,
+        'g'                     => SVGGroup::class,
+        'a'                     => SVGLinkGroup::class,
+        'marker'                => SVGMarker::class,
+        'mask'                  => SVGMask::class,
+        'metadata'              => SVGMetadata::class,
+        'pattern'               => SVGPattern::class,
+        'script'                => SVGScript::class,
+        'style'                 => SVGStyle::class,
+        'switch'                => SVGSwitch::class,
+        'symbol'                => SVGSymbol::class,
+        'use'                   => SVGUse::class,
 
-        'desc'                  => 'SVG\Nodes\Texts\SVGDesc',
-        'text'                  => 'SVG\Nodes\Texts\SVGText',
-        'textPath'              => 'SVG\Nodes\Texts\SVGTextPath',
-        'title'                 => 'SVG\Nodes\Texts\SVGTitle',
-        'tspan'                 => 'SVG\Nodes\Texts\SVGTSpan',
+        'desc'                  => SVGDesc::class,
+        'text'                  => SVGText::class,
+        'textPath'              => SVGTextPath::class,
+        'title'                 => SVGTitle::class,
+        'tspan'                 => SVGTSpan::class,
     ];
 
     /**

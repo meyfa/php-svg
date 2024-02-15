@@ -1,8 +1,8 @@
 <?php
 
-namespace SVG;
+namespace SVG\Nodes\Shapes;
 
-use SVG\Nodes\Shapes\SVGPolygon;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Shapes\SVGPolygon
@@ -42,7 +42,7 @@ class SVGPolygonTest extends \PHPUnit\Framework\TestCase
 
         $obj = new SVGPolygon($points);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -94,7 +94,7 @@ class SVGPolygonTest extends \PHPUnit\Framework\TestCase
             'foo' => 'foo',
         ];
         foreach ($attributeToExpectedFillRule as $attribute => $expectedFillRule) {
-            $rasterizer = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+            $rasterizer = $this->getMockBuilder(SVGRasterizer::class)
                 ->disableOriginalConstructor()
                 ->getMock();
 

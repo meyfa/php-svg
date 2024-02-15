@@ -1,11 +1,9 @@
 <?php
 
-namespace SVG;
-
-use SVG\Rasterization\Path\ArcApproximator;
+namespace SVG\Rasterization\Path;
 
 /**
- * @covers SVG\Rasterization\Path\ArcApproximator
+ * @covers \SVG\Rasterization\Path\ArcApproximator
  *
  * @SuppressWarnings(PHPMD)
  */

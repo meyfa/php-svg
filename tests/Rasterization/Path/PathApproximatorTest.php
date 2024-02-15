@@ -1,8 +1,7 @@
 <?php
 
-namespace SVG;
+namespace SVG\Rasterization\Path;
 
-use SVG\Rasterization\Path\PathApproximator;
 use SVG\Rasterization\Transform\Transform;
 
 /**

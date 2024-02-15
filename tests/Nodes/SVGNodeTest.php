@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Nodes\SVGNode;
+namespace SVG\Nodes;
 
 class SVGNodeSubclass extends SVGNode
 {

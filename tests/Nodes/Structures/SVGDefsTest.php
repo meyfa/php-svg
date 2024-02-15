@@ -1,8 +1,9 @@
 <?php
 
-namespace SVG;
+namespace SVG\Nodes\Structures;
 
-use SVG\Nodes\Structures\SVGDefs;
+use SVG\Nodes\SVGNode;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Structures\SVGDefs
@@ -29,10 +30,10 @@ class SVGDefsTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new SVGDefs();
 
-        $mockChild = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $mockChild = $this->getMockForAbstractClass(SVGNode::class);
         $obj->addChild($mockChild);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

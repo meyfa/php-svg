@@ -1,8 +1,8 @@
 <?php
 
-namespace SVG;
+namespace SVG\Nodes\Shapes;
 
-use SVG\Nodes\Shapes\SVGEllipse;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Shapes\SVGEllipse
@@ -146,7 +146,7 @@ class SVGEllipseTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new SVGEllipse(37, 42, 100, 200);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

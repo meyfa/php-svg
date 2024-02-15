@@ -2,6 +2,7 @@
 
 namespace SVG;
 
+use SVG\Nodes\Structures\SVGDocumentFragment;
 use SVG\SVG;
 
 /**
@@ -54,7 +55,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
         $doc = $image->getDocument();
 
         // should be instanceof the correct class
-        $docFragClass = '\SVG\Nodes\Structures\SVGDocumentFragment';
+        $docFragClass = SVGDocumentFragment::class;
         $this->assertInstanceOf($docFragClass, $doc);
 
         // should be set to root
@@ -118,7 +119,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
         $doc = $image->getDocument();
 
         // should return an instance of SVG
-        $this->assertInstanceOf('\SVG\SVG', $image);
+        $this->assertInstanceOf(SVG::class, $image);
 
         // should have correct width and height
         $this->assertSame('37', $doc->getWidth());
@@ -127,7 +128,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
         // should succeed without xml declaration
         $image = SVG::fromString($this->xmlNoDeclaration);
         $doc = $image->getDocument();
-        $this->assertInstanceOf('\SVG\SVG', $image);
+        $this->assertInstanceOf(SVG::class, $image);
         $this->assertSame('37', $doc->getWidth());
         $this->assertSame('42', $doc->getHeight());
     }
@@ -139,6 +140,6 @@ class SVGTest extends \PHPUnit\Framework\TestCase
     {
         $image = SVG::fromFile(__DIR__ . '/php_test.svg');
 
-        $this->assertInstanceOf('\SVG\SVG', $image);
+        $this->assertInstanceOf(SVG::class, $image);
     }
 }

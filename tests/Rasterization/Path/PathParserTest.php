@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Rasterization\Path\PathParser;
+namespace SVG\Rasterization\Path;
 
 /**
  * @covers \SVG\Rasterization\Path\PathParser

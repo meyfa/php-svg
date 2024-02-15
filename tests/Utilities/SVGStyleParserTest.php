@@ -1,11 +1,9 @@
 <?php
 
-namespace SVG;
-
-use SVG\Utilities\SVGStyleParser;
+namespace SVG\Utilities;
 
 /**
- * @covers SVG\Utilities\SVGStyleParser
+ * @covers \SVG\Utilities\SVGStyleParser
  *
  * @SuppressWarnings(PHPMD)
  */

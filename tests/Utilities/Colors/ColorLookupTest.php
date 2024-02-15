@@ -1,8 +1,6 @@
 <?php
 
-namespace SVG;
-
-use SVG\Utilities\Colors\ColorLookup;
+namespace SVG\Utilities\Colors;
 
 /**
  * @covers \SVG\Utilities\Colors\ColorLookup

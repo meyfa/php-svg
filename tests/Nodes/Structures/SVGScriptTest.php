@@ -1,8 +1,8 @@
 <?php
 
-namespace SVG;
+namespace SVG\Nodes\Structures;
 
-use SVG\Nodes\Structures\SVGScript;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Structures\SVGScript
@@ -32,7 +32,7 @@ class SVGScriptTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new SVGScript();
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

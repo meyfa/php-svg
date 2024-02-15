@@ -1,8 +1,8 @@
 <?php
 
-namespace SVG;
+namespace SVG\Nodes\Shapes;
 
-use SVG\Nodes\Shapes\SVGRect;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Shapes\SVGRect
@@ -202,7 +202,7 @@ class SVGRectTest extends \PHPUnit\Framework\TestCase
         $obj->setAttribute('rx', 15);
         $obj->setAttribute('ry', 25);
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

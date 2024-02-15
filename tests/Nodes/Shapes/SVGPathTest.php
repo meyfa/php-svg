@@ -1,8 +1,8 @@
 <?php
 
-namespace SVG;
+namespace SVG\Nodes\Shapes;
 
-use SVG\Nodes\Shapes\SVGPath;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Shapes\SVGPath
@@ -71,7 +71,7 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new SVGPath();
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -88,7 +88,7 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
         $obj = new SVGPath(self::$sampleDescription);
 
         // setup mocks
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -134,7 +134,7 @@ class SVGPathTest extends \PHPUnit\Framework\TestCase
             'foo' => 'foo',
         ];
         foreach ($attributeToExpectedFillRule as $attribute => $expectedFillRule) {
-            $rasterizer = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+            $rasterizer = $this->getMockBuilder(SVGRasterizer::class)
                 ->disableOriginalConstructor()
                 ->getMock();
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace SVG;
+namespace SVG\Rasterization\Renderers;
 
 use AssertGD\GDSimilarityConstraint;
-use SVG\Rasterization\Renderers\PolygonRenderer;
+use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -22,7 +22,7 @@ class PolygonRendererTest extends \PHPUnit\Framework\TestCase
 
         $obj = new PolygonRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', '#FF0000');
         $context->setStyle('stroke', '#0000FF');
         $context->setStyle('stroke-width', '1px');
@@ -55,7 +55,7 @@ class PolygonRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new PolygonRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
         $context->setStyle('fill', '#FF0000');
         $context->setStyle('stroke', 'none');
 

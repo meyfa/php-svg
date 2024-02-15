@@ -3,6 +3,7 @@
 namespace SVG\Rasterization\Renderers;
 
 use AssertGD\GDSimilarityConstraint;
+use SVG\Nodes\SVGNode;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -17,7 +18,7 @@ class TextRendererTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new TextRenderer();
 
-        $context = $this->getMockForAbstractClass('\SVG\Nodes\SVGNode');
+        $context = $this->getMockForAbstractClass(SVGNode::class);
 
         $rasterizer = new SVGRasterizer('40px', '80px', null, 4, 8);
         $obj->render($rasterizer, [

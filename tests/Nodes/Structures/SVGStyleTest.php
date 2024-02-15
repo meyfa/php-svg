@@ -1,8 +1,8 @@
 <?php
 
-namespace SVG;
+namespace SVG\Nodes\Structures;
 
-use SVG\Nodes\Structures\SVGStyle;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * @coversDefaultClass \SVG\Nodes\Structures\SVGStyle
@@ -44,7 +44,7 @@ class SVGStyleTest extends \PHPUnit\Framework\TestCase
     public function testSetType()
     {
         $obj = new SVGStyle();
-        $this->assertInstanceOf('SVG\Nodes\Structures\SVGStyle', $obj->setType('test-type'));
+        $this->assertInstanceOf(SVGStyle::class, $obj->setType('test-type'));
 
         $this->assertEquals('test-type', $obj->getAttribute('type'));
 
@@ -58,7 +58,7 @@ class SVGStyleTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new SVGStyle();
 
-        $rast = $this->getMockBuilder('\SVG\Rasterization\SVGRasterizer')
+        $rast = $this->getMockBuilder(SVGRasterizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
