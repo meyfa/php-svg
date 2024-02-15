@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGTextPath extends SVGNodeContainer
 {
-    const TAG_NAME = 'textPath';
+    public const TAG_NAME = 'textPath';
 
     public function __construct()
     {

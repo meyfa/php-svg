@@ -9,7 +9,7 @@ namespace SVG\Utilities\Colors;
  */
 class ColorTest extends \PHPUnit\Framework\TestCase
 {
-    public function testParse()
+    public function testParse(): void
     {
         // named colors
         $this->assertEquals([0, 0, 0, 255], Color::parse('black'));

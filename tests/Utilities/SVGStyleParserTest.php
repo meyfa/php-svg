@@ -9,26 +9,26 @@ namespace SVG\Utilities;
  */
 class SVGStyleParserTest extends \PHPUnit\Framework\TestCase
 {
-    public function testParseStylesWithEmptyString()
+    public function testParseStylesWithEmptyString(): void
     {
         $this->assertCount(0, SVGStyleParser::parseStyles(''));
     }
 
-    public function testParseCssWithMatchedElement()
+    public function testParseCssWithMatchedElement(): void
     {
         $result = SVGStyleParser::parseCss('svg {background-color: beige;}');
 
         $this->assertSame('beige', $result['svg']['background-color']);
     }
 
-    public function testParseCssWithSkippedElement()
+    public function testParseCssWithSkippedElement(): void
     {
         $result = SVGStyleParser::parseCss('@font-face {font-family: "Bitstream Vera Serif Bold";}');
 
         $this->assertCount(0, $result);
     }
 
-    public function testParseDuplicateSelectors()
+    public function testParseDuplicateSelectors(): void
     {
         $result = SVGStyleParser::parseCss('svg {background-color: beige;}; svg {stroke: none;} svg { fill: blue }');
 

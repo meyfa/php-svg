@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGSwitch extends SVGNodeContainer
 {
-    const TAG_NAME = 'switch';
+    public const TAG_NAME = 'switch';
 
     public function __construct()
     {

@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGFEDisplacementMap extends SVGNodeContainer
 {
-    const TAG_NAME = 'feDisplacementMap';
+    public const TAG_NAME = 'feDisplacementMap';
 
     public function __construct()
     {

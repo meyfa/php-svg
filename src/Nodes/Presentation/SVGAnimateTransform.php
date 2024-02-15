@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGAnimateTransform extends SVGNodeContainer
 {
-    const TAG_NAME = 'animateTransform';
+    public const TAG_NAME = 'animateTransform';
 
     public function __construct()
     {

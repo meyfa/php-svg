@@ -11,7 +11,7 @@ use SVG\Rasterization\Transform\TransformParser;
  */
 class SVGPolygon extends SVGPolygonalShape
 {
-    const TAG_NAME = 'polygon';
+    public const TAG_NAME = 'polygon';
 
     /**
      * @param array[] $points Array of points (float 2-tuples).

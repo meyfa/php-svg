@@ -15,7 +15,7 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
   /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should not set any attributes by default
         $obj = new SVGCircle();
@@ -33,7 +33,7 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getCenterX
      */
-    public function testGetCenterX()
+    public function testGetCenterX(): void
     {
         $obj = new SVGCircle();
 
@@ -45,7 +45,7 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setCenterX
      */
-    public function testSetCenterX()
+    public function testSetCenterX(): void
     {
         $obj = new SVGCircle();
 
@@ -60,7 +60,7 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getCenterY
      */
-    public function testGetCenterY()
+    public function testGetCenterY(): void
     {
         $obj = new SVGCircle();
 
@@ -72,7 +72,7 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setCenterY
      */
-    public function testSetCenterY()
+    public function testSetCenterY(): void
     {
         $obj = new SVGCircle();
 
@@ -87,7 +87,7 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getRadius
      */
-    public function testGetRadius()
+    public function testGetRadius(): void
     {
         $obj = new SVGCircle();
 
@@ -99,7 +99,7 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::setRadius
      */
-    public function testSetRadius()
+    public function testSetRadius(): void
     {
         $obj = new SVGCircle();
 
@@ -114,7 +114,7 @@ class SVGCircleTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterize()
+    public function testRasterize(): void
     {
         $obj = new SVGCircle(37, 42, 100);
 

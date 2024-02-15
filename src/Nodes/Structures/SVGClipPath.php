@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGClipPath extends SVGNodeContainer
 {
-    const TAG_NAME = 'clipPath';
+    public const TAG_NAME = 'clipPath';
 
     public function __construct(string $id = null)
     {

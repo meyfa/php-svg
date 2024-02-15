@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGFETile extends SVGNodeContainer
 {
-    const TAG_NAME = 'feTile';
+    public const TAG_NAME = 'feTile';
 
     public function __construct()
     {

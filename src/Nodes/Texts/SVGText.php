@@ -25,7 +25,7 @@ use SVG\Utilities\Units\Length;
  */
 class SVGText extends SVGNodeContainer
 {
-    const TAG_NAME = 'text';
+    public const TAG_NAME = 'text';
 
     public function __construct(string $text = '', $x = 0, $y = 0)
     {

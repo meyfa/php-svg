@@ -13,7 +13,7 @@ use SVG\Utilities\Units\Length;
  */
 class SVGRect extends SVGNodeContainer
 {
-    const TAG_NAME = 'rect';
+    public const TAG_NAME = 'rect';
 
     /**
      * @param mixed $x      The x coordinate of the upper left corner.

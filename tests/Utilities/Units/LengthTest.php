@@ -9,7 +9,7 @@ namespace SVG\Utilities\Units;
  */
 class LengthTest extends \PHPUnit\Framework\TestCase
 {
-    public function testConvert()
+    public function testConvert(): void
     {
         // units
         $this->assertEquals(16, Length::convert('12pt', 100));

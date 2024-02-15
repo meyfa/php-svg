@@ -15,7 +15,7 @@ class SVGTextTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterizeShouldHaveDefaultFontSize()
+    public function testRasterizeShouldHaveDefaultFontSize(): void
     {
         // Test for https://github.com/meyfa/php-svg/issues/195
 
@@ -28,9 +28,7 @@ class SVGTextTest extends \PHPUnit\Framework\TestCase
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('text'),
-            $this->callback(function ($options) {
-                return isset($options['fontSize']) && $options['fontSize'] === 16;
-            }),
+            $this->callback(fn($options) => isset($options['fontSize']) && $options['fontSize'] === 16),
             $this->identicalTo($obj)
         );
         $obj->rasterize($rast);

@@ -49,7 +49,7 @@ abstract class SVGNodeContainer extends SVGNode
             $node->parent->removeChild($node);
         }
 
-        $index = ($index !== null) ? $index : count($this->children);
+        $index ??= count($this->children);
 
         // insert and set new parent
         array_splice($this->children, $index, 0, [$node]);

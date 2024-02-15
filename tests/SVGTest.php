@@ -33,7 +33,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function testConstructSetsDocumentDimensions()
+    public function testConstructSetsDocumentDimensions(): void
     {
         $image = new SVG();
         $doc = $image->getDocument();
@@ -49,7 +49,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getDocument
      */
-    public function testGetDocument()
+    public function testGetDocument(): void
     {
         $image = new SVG();
         $doc = $image->getDocument();
@@ -66,7 +66,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
      * @requires extension gd
      * @covers ::toRasterImage
      */
-    public function testToRasterImage()
+    public function testToRasterImage(): void
     {
         $image = new SVG(37, 42);
         $rasterImage = $image->toRasterImage(100, 200);
@@ -88,7 +88,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__toString
      */
-    public function test__toString()
+    public function test__toString(): void
     {
         $image = new SVG(37, 42);
 
@@ -99,7 +99,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::toXMLString
      */
-    public function testToXMLString()
+    public function testToXMLString(): void
     {
         $image = new SVG(37, 42);
 
@@ -113,7 +113,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::fromString
      */
-    public function testFromString()
+    public function testFromString(): void
     {
         $image = SVG::fromString($this->xml);
         $doc = $image->getDocument();
@@ -136,7 +136,7 @@ class SVGTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::fromFile
      */
-    public function testFromFile()
+    public function testFromFile(): void
     {
         $image = SVG::fromFile(__DIR__ . '/php_test.svg');
 

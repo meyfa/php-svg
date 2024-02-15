@@ -9,7 +9,7 @@ namespace SVG\Rasterization\Path;
  */
 class BezierApproximatorTest extends \PHPUnit\Framework\TestCase
 {
-    public function testQuadratic()
+    public function testQuadratic(): void
     {
         $bezier = new BezierApproximator();
         $p0 = [20, 10];
@@ -24,7 +24,7 @@ class BezierApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertEqualsWithDelta(20, $result[$n - 1][1], 1);
     }
 
-    public function testCubic()
+    public function testCubic(): void
     {
         $bezier = new BezierApproximator();
         $p0 = [20, 10];

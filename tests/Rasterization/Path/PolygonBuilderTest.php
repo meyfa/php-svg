@@ -13,7 +13,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should set position to origin by default
         $obj = new PolygonBuilder();
@@ -27,7 +27,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::build
      */
-    public function testBuild()
+    public function testBuild(): void
     {
         // should return an array of float 2-tuples
         $obj = new PolygonBuilder();
@@ -42,7 +42,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getFirstPoint
      */
-    public function testGetFirstPoint()
+    public function testGetFirstPoint(): void
     {
         $obj = new PolygonBuilder();
 
@@ -58,7 +58,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getLastPoint
      */
-    public function testGetLastPoint()
+    public function testGetLastPoint(): void
     {
         $obj = new PolygonBuilder();
 
@@ -74,7 +74,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::getPosition
      */
-    public function testGetPosition()
+    public function testGetPosition(): void
     {
         $obj = new PolygonBuilder(10, 20);
 
@@ -89,7 +89,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::addPoint
      */
-    public function testAddPoint()
+    public function testAddPoint(): void
     {
         $obj = new PolygonBuilder();
 
@@ -118,7 +118,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::addPointRelative
      */
-    public function testAddPointRelative()
+    public function testAddPointRelative(): void
     {
         $obj = new PolygonBuilder();
 
@@ -145,7 +145,7 @@ class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::addPoints
      */
-    public function testAddPoints()
+    public function testAddPoints(): void
     {
         $obj = new PolygonBuilder();
 

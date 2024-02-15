@@ -15,7 +15,7 @@ class SVGPolygonTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::__construct
      */
-    public function test__construct()
+    public function test__construct(): void
     {
         // should set empty points by default
         $obj = new SVGPolygon();
@@ -33,7 +33,7 @@ class SVGPolygonTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterize()
+    public function testRasterize(): void
     {
         $points = [
             [42.5, 42.5],
@@ -73,7 +73,7 @@ class SVGPolygonTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers ::rasterize
      */
-    public function testRasterizeShouldRespectFillRule()
+    public function testRasterizeShouldRespectFillRule(): void
     {
         $points = [
             [42.5, 42.5],

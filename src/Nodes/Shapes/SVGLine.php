@@ -13,7 +13,7 @@ use SVG\Utilities\Units\Length;
  */
 class SVGLine extends SVGNodeContainer
 {
-    const TAG_NAME = 'line';
+    public const TAG_NAME = 'line';
 
     /**
      * @param mixed $x1 The first point's x coordinate.

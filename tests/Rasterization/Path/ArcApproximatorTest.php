@@ -9,7 +9,7 @@ namespace SVG\Rasterization\Path;
  */
 class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
 {
-    public function testApproximate()
+    public function testApproximate(): void
     {
         $approx = new ArcApproximator();
         $p0 = [10.5, 10.5];
@@ -25,7 +25,7 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(0, $result);
     }
 
-    public function testApproximateWithXaIsLessThanZero()
+    public function testApproximateWithXaIsLessThanZero(): void
     {
         $approx = new ArcApproximator();
         $p0 = [10.5, 10.5];
@@ -41,7 +41,7 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(0, $result);
     }
 
-    public function testApproximateWithRxAndRyAreZero()
+    public function testApproximateWithRxAndRyAreZero(): void
     {
         $approx = new ArcApproximator();
         $p0 = [10.5, 10.5];
@@ -60,7 +60,7 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(10.6, $result[1][1]);
     }
 
-    public function testApproximateWithRxAndRyAreNotZero()
+    public function testApproximateWithRxAndRyAreNotZero(): void
     {
         $approx = new ArcApproximator();
         $p0 = [10.5, 10.5];
@@ -81,7 +81,7 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertEqualsWithDelta(10.6, $result[2][1], 10e-12);
     }
 
-    public function testApproximateFlags()
+    public function testApproximateFlags(): void
     {
         $approx = new ArcApproximator();
         $p0 = [10, 10];
@@ -120,7 +120,7 @@ class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
         $this->assertEqualsWithDelta(-8.65, $result[count($result) / 2][1], 0.5);
     }
 
-    public function testApproximateRadiusScaling()
+    public function testApproximateRadiusScaling(): void
     {
         $approx = new ArcApproximator();
         $p0 = [10, 10];

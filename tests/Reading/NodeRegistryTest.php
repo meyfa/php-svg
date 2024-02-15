@@ -12,13 +12,13 @@ use SVG\Nodes\SVGGenericNodeType;
  */
 class NodeRegistryTest extends \PHPUnit\Framework\TestCase
 {
-    public function testShouldConstructKnownTypes()
+    public function testShouldConstructKnownTypes(): void
     {
         $result = NodeRegistry::create('rect');
         $this->assertInstanceOf(SVGRect::class, $result);
     }
 
-    public function testShouldUseGenericTypeForOthers()
+    public function testShouldUseGenericTypeForOthers(): void
     {
         $result = NodeRegistry::create('div');
         $this->assertInstanceOf(SVGGenericNodeType::class, $result);

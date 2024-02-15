@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGFEComponentTransfer extends SVGNodeContainer
 {
-    const TAG_NAME = 'feComponentTransfer';
+    public const TAG_NAME = 'feComponentTransfer';
 
     public function __construct()
     {

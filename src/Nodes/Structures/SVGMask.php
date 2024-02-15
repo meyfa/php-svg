@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGMask extends SVGNodeContainer
 {
-    const TAG_NAME = 'mask';
+    public const TAG_NAME = 'mask';
 
     public function __construct()
     {
