@@ -12,12 +12,12 @@
         }
     ],
     "require": {
-        "php": ">=7.3.0"
+        "php": ">=7.4.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5.26",
+        "phpunit/phpunit": "^9.6.16",
         "meyfa/phpunit-assert-gd": "^v3.0.0",
-        "phpmd/phpmd" : "^2.13.0"
+        "phpmd/phpmd" : "^2.15.0"
     },
     "suggest": {
         "ext-gd": "Needed to rasterize images",
