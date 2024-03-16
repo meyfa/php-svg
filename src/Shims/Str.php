@@ -18,7 +18,7 @@ class Str
     public static function trim(?string $string, string $characters = " \n\r\t\v\x00"): string
     {
         if ($string === null) {
-            $string = (string)$string;
+            return '';
         }
 
         return trim($string, $characters);

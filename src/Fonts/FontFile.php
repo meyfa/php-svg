@@ -7,7 +7,7 @@ namespace SVG\Fonts;
  */
 abstract class FontFile
 {
-    private $path;
+    private string $path;
 
     public function __construct(string $path)
     {

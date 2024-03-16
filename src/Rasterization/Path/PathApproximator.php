@@ -19,7 +19,7 @@ class PathApproximator
     /**
      * @var string[] $commands A map of command ids to approximation functions.
      */
-    private static $commands = [
+    private static array $commands = [
         'M' => 'moveTo',                    'm' => 'moveTo',
         'L' => 'lineTo',                    'l' => 'lineTo',
         'H' => 'lineToHorizontal',          'h' => 'lineToHorizontal',
@@ -35,26 +35,26 @@ class PathApproximator
     /**
      * @var BezierApproximator $bezier The singleton bezier approximator.
      */
-    private static $bezier;
+    private static BezierApproximator $bezier;
     /**
      * @var ArcApproximator $arc The singleton arc approximator.
      */
-    private static $arc;
+    private static ArcApproximator $arc;
 
     /**
      * @var Transform $transform The transform to use.
      */
-    private $transform;
+    private Transform $transform;
 
     /**
      * @var float[][][] $subpaths The approximation result up until now.
      */
-    private $subpaths = [];
+    private array $subpaths = [];
 
     /**
      * @var PolygonBuilder|null $builder The current subpath builder.
      */
-    private $builder;
+    private ?PolygonBuilder $builder;
 
     // the start of the current subpath, in path coordinates
     private $firstX;

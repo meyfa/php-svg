@@ -80,7 +80,7 @@ class SVGPath extends SVGNodeContainer
     private static function getPathParser(): PathParser
     {
         if (!isset(self::$pathParser)) {
-            self::$pathParser = new PathParser();
+            self::$pathParser ??= new PathParser();
         }
         return self::$pathParser;
     }

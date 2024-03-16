@@ -14,12 +14,12 @@ use SVG\Utilities\SVGStyleParser;
 abstract class SVGNodeContainer extends SVGNode
 {
     /** @var SVGNode[] $children This node's child nodes. */
-    protected $children;
+    protected array $children;
 
     /**
      * @var string[] $globalStyles A 2D array mapping CSS selectors to values.
      */
-    protected $containerStyles;
+    protected array $containerStyles;
 
     public function __construct()
     {

@@ -20,7 +20,7 @@ class SVG
     private static $fontRegistry;
 
     /** @var SVGDocumentFragment $document This image's root `svg` node/tag. */
-    private $document;
+    private SVGDocumentFragment $document;
 
     /**
      * @param mixed $width    The image's width (any CSS length).
