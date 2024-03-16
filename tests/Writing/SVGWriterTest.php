@@ -1,13 +1,16 @@
 <?php
 
-namespace SVG\Writing;
+namespace SVG\Tests\Writing;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Writing\SVGWriter;
 
 /**
  * @covers \SVG\Writing\SVGWriter
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGWriterTest extends \PHPUnit\Framework\TestCase
+class SVGWriterTest extends TestCase
 {
     private $xmlDeclaration = '<?xml version="1.0" encoding="utf-8"?>';
 

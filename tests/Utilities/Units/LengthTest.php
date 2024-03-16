@@ -1,13 +1,16 @@
 <?php
 
-namespace SVG\Utilities\Units;
+namespace SVG\Tests\Utilities\Units;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Utilities\Units\Length;
 
 /**
  * @covers \SVG\Utilities\Units\Length
  *
  * @SuppressWarnings(PHPMD)
  */
-class LengthTest extends \PHPUnit\Framework\TestCase
+class LengthTest extends TestCase
 {
     public function testConvert(): void
     {

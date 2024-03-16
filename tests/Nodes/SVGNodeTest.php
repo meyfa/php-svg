@@ -1,6 +1,9 @@
 <?php
 
-namespace SVG\Nodes;
+namespace SVG\Tests\Nodes;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Nodes\SVGNode;
 
 class SVGNodeSubclass extends SVGNode
 {
@@ -21,7 +24,7 @@ class SVGNodeSubclass extends SVGNode
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGNodeTest extends \PHPUnit\Framework\TestCase
+class SVGNodeTest extends TestCase
 {
     /**
      * @covers ::getName

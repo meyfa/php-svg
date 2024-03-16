@@ -1,7 +1,9 @@
 <?php
 
-namespace SVG\Nodes\Embedded;
+namespace SVG\Tests\Nodes\Embedded;
 
+use PHPUnit\Framework\TestCase;
+use SVG\Nodes\Embedded\SVGImage;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -10,7 +12,7 @@ use SVG\Rasterization\SVGRasterizer;
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGImageTest extends \PHPUnit\Framework\TestCase
+class SVGImageTest extends TestCase
 {
     /**
      * @covers ::__construct

@@ -1,9 +1,11 @@
 <?php
 
-namespace SVG\Rasterization\Renderers;
+namespace SVG\Tests\Rasterization\Renderers;
 
 use AssertGD\GDSimilarityConstraint;
+use PHPUnit\Framework\TestCase;
 use SVG\Nodes\SVGNode;
+use SVG\Rasterization\Renderers\RectRenderer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -12,7 +14,7 @@ use SVG\Rasterization\SVGRasterizer;
  *
  * @SuppressWarnings(PHPMD)
  */
-class RectRendererTest extends \PHPUnit\Framework\TestCase
+class RectRendererTest extends TestCase
 {
     public function testShouldRenderStroke(): void
     {

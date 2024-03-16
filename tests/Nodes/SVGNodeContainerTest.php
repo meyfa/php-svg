@@ -1,7 +1,10 @@
 <?php
 
-namespace SVG\Nodes;
+namespace SVG\Tests\Nodes;
 
+use PHPUnit\Framework\TestCase;
+use SVG\Nodes\SVGNode;
+use SVG\Nodes\SVGNodeContainer;
 use SVG\Rasterization\SVGRasterizer;
 
 class SVGNodeContainerSubclass extends SVGNodeContainer
@@ -16,7 +19,7 @@ class SVGNodeContainerSubclass extends SVGNodeContainer
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGNodeContainerTest extends \PHPUnit\Framework\TestCase
+class SVGNodeContainerTest extends TestCase
 {
     /**
      * @covers ::addChild

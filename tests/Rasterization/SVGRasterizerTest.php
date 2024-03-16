@@ -1,10 +1,12 @@
 <?php
 
-namespace SVG\Rasterization;
+namespace SVG\Tests\Rasterization;
 
 use AssertGD\GDSimilarityConstraint;
+use PHPUnit\Framework\TestCase;
 use Exception;
 use SVG\Nodes\SVGNode;
+use SVG\Rasterization\SVGRasterizer;
 
 /**
  * @requires extension gd
@@ -13,7 +15,7 @@ use SVG\Nodes\SVGNode;
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGRasterizerTest extends \PHPUnit\Framework\TestCase
+class SVGRasterizerTest extends TestCase
 {
     /**
      * @covers ::getDocumentWidth

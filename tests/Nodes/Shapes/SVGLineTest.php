@@ -1,7 +1,9 @@
 <?php
 
-namespace SVG\Nodes\Shapes;
+namespace SVG\Tests\Nodes\Shapes;
 
+use PHPUnit\Framework\TestCase;
+use SVG\Nodes\Shapes\SVGLine;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -10,7 +12,7 @@ use SVG\Rasterization\SVGRasterizer;
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGLineTest extends \PHPUnit\Framework\TestCase
+class SVGLineTest extends TestCase
 {
     /**
      * @covers ::__construct

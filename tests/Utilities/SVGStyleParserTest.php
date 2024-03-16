@@ -1,13 +1,16 @@
 <?php
 
-namespace SVG\Utilities;
+namespace SVG\Tests\Utilities;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Utilities\SVGStyleParser;
 
 /**
  * @covers \SVG\Utilities\SVGStyleParser
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGStyleParserTest extends \PHPUnit\Framework\TestCase
+class SVGStyleParserTest extends TestCase
 {
     public function testParseStylesWithEmptyString(): void
     {

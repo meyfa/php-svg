@@ -1,6 +1,9 @@
 <?php
 
-namespace SVG\Reading;
+namespace SVG\Tests\Reading;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Reading\AttributeRegistry;
 
 /**
  * @coversDefaultClass \SVG\Reading\AttributeRegistry
@@ -8,7 +11,7 @@ namespace SVG\Reading;
  *
  * @SuppressWarnings(PHPMD)
  */
-class AttributeRegistryTest extends \PHPUnit\Framework\TestCase
+class AttributeRegistryTest extends TestCase
 {
     /**
      * @covers ::isStyle

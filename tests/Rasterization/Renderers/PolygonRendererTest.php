@@ -1,9 +1,11 @@
 <?php
 
-namespace SVG\Rasterization\Renderers;
+namespace SVG\Tests\Rasterization\Renderers;
 
 use AssertGD\GDSimilarityConstraint;
+use PHPUnit\Framework\TestCase;
 use SVG\Nodes\SVGNode;
+use SVG\Rasterization\Renderers\PolygonRenderer;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -12,7 +14,7 @@ use SVG\Rasterization\SVGRasterizer;
  *
  * @SuppressWarnings(PHPMD)
  */
-class PolygonRendererTest extends \PHPUnit\Framework\TestCase
+class PolygonRendererTest extends TestCase
 {
     public function testShouldNotFailForTooFewPoints(): void
     {

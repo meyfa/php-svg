@@ -1,6 +1,9 @@
 <?php
 
-namespace SVG\Rasterization\Path;
+namespace SVG\Tests\Rasterization\Path;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Rasterization\Path\PolygonBuilder;
 
 /**
  * @coversDefaultClass \SVG\Rasterization\Path\PolygonBuilder
@@ -8,7 +11,7 @@ namespace SVG\Rasterization\Path;
  *
  * @SuppressWarnings(PHPMD)
  */
-class PolygonBuilderTest extends \PHPUnit\Framework\TestCase
+class PolygonBuilderTest extends TestCase
 {
     /**
      * @covers ::__construct

@@ -1,13 +1,16 @@
 <?php
 
-namespace SVG\Utilities\Colors;
+namespace SVG\Tests\Utilities\Colors;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Utilities\Colors\ColorLookup;
 
 /**
  * @covers \SVG\Utilities\Colors\ColorLookup
  *
  * @SuppressWarnings(PHPMD)
  */
-class ColorLookupTest extends \PHPUnit\Framework\TestCase
+class ColorLookupTest extends TestCase
 {
     public function testGet(): void
     {

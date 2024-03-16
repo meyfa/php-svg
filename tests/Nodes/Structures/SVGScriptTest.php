@@ -1,7 +1,9 @@
 <?php
 
-namespace SVG\Nodes\Structures;
+namespace SVG\Tests\Nodes\Structures;
 
+use PHPUnit\Framework\TestCase;
+use SVG\Nodes\Structures\SVGScript;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -9,7 +11,7 @@ use SVG\Rasterization\SVGRasterizer;
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGScriptTest extends \PHPUnit\Framework\TestCase
+class SVGScriptTest extends TestCase
 {
     /**
      * @covers ::__construct

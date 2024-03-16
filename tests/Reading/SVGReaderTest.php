@@ -1,7 +1,9 @@
 <?php
 
-namespace SVG\Reading;
+namespace SVG\Tests\Reading;
 
+use PHPUnit\Framework\TestCase;
+use SVG\Reading\SVGReader;
 use SVG\SVG;
 
 /**
@@ -9,7 +11,7 @@ use SVG\SVG;
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGReaderTest extends \PHPUnit\Framework\TestCase
+class SVGReaderTest extends TestCase
 {
     private $xml;
     private $xmlNoViewBox;

@@ -1,13 +1,16 @@
 <?php
 
-namespace SVG\Rasterization\Path;
+namespace SVG\Tests\Rasterization\Path;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Rasterization\Path\ArcApproximator;
 
 /**
  * @covers \SVG\Rasterization\Path\ArcApproximator
  *
  * @SuppressWarnings(PHPMD)
  */
-class ArcApproximatorTest extends \PHPUnit\Framework\TestCase
+class ArcApproximatorTest extends TestCase
 {
     public function testApproximate(): void
     {

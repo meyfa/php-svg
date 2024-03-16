@@ -1,8 +1,9 @@
 <?php
 
-namespace SVG\Shims;
+namespace SVG\Tests\Shims;
 
 use PHPUnit\Framework\TestCase;
+use SVG\Shims\Str;
 
 class StrTest extends TestCase
 {

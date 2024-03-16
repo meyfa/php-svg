@@ -1,9 +1,11 @@
 <?php
 
-namespace SVG\Rasterization\Renderers;
+namespace SVG\Tests\Rasterization\Renderers;
 
 use AssertGD\GDSimilarityConstraint;
+use PHPUnit\Framework\TestCase;
 use SVG\Nodes\SVGNode;
+use SVG\Rasterization\Renderers\ImageRenderer;
 use SVG\Rasterization\SVGRasterizer;
 
 class SVGNodeClass extends SVGNode
@@ -24,7 +26,7 @@ class SVGNodeClass extends SVGNode
  *
  * @SuppressWarnings(PHPMD)
  */
-class ImageRendererTest extends \PHPUnit\Framework\TestCase
+class ImageRendererTest extends TestCase
 {
     public function testRender(): void
     {

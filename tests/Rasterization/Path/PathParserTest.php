@@ -1,13 +1,16 @@
 <?php
 
-namespace SVG\Rasterization\Path;
+namespace SVG\Tests\Rasterization\Path;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Rasterization\Path\PathParser;
 
 /**
  * @covers \SVG\Rasterization\Path\PathParser
  *
  * @SuppressWarnings(PHPMD)
  */
-class PathParserTest extends \PHPUnit\Framework\TestCase
+class PathParserTest extends TestCase
 {
     public function testShouldSplitCorrectly(): void
     {
