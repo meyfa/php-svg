@@ -30,7 +30,9 @@ class LengthAttributeConverter implements AttributeConverter
      */
     public static function getInstance(): self
     {
-        return self::$instance ??= new self();
+        self::$instance ??= new self();
+
+        return self::$instance;
     }
 
     /**
