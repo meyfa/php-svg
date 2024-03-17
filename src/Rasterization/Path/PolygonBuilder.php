@@ -136,7 +136,7 @@ class PolygonBuilder
      */
     public function addPoints(array $points): void
     {
-        $this->points = array_merge($this->points, $points);
+        $this->points = [...$this->points, ...$points];
 
         $endPoint = $this->points[count($this->points) - 1];
         $this->posX = $endPoint[0];

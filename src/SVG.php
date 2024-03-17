@@ -14,12 +14,16 @@ use SVG\Writing\SVGWriter;
  */
 class SVG
 {
-    /** @var SVGReader $reader The singleton reader used by this class. */
+    /**
+     * @var SVGReader $reader The singleton reader used by this class.
+     */
     private static $reader;
 
     private static $fontRegistry;
 
-    /** @var SVGDocumentFragment $document This image's root `svg` node/tag. */
+    /**
+     * @var SVGDocumentFragment $document This image's root `svg` node/tag.
+     */
     private SVGDocumentFragment $document;
 
     /**
