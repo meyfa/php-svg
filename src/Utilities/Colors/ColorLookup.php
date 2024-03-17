@@ -16,18 +16,14 @@ final class ColorLookup
     {
         $keywordLower = strtolower($keyword);
 
-        if (!isset(self::$values[$keywordLower])) {
-            return null;
-        }
-
-        return self::$values[$keywordLower];
+        return self::$values[$keywordLower] ?? null;
     }
 
     /**
      * @var array[] $values A map of color names to their RGBA arrays.
      * @see https://www.w3.org/TR/SVG11/types.html#ColorKeywords For the source.
      */
-    private static $values = [
+    private static array $values = [
         'transparent'           => [  0,   0,   0,   0],
         'aliceblue'             => [240, 248, 255, 255],
         'antiquewhite'          => [250, 235, 215, 255],

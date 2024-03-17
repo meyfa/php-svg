@@ -14,7 +14,7 @@ class SVGPath extends SVGNodeContainer
 {
     public const TAG_NAME = 'path';
 
-    private static $pathParser;
+    private static PathParser $pathParser;
 
     /**
      * @param string|null $d The path description.
@@ -79,9 +79,8 @@ class SVGPath extends SVGNodeContainer
 
     private static function getPathParser(): PathParser
     {
-        if (!isset(self::$pathParser)) {
-            self::$pathParser = new PathParser();
-        }
+        self::$pathParser ??= new PathParser();
+
         return self::$pathParser;
     }
 }

@@ -12,15 +12,15 @@ use SVG\Shims\Str;
 abstract class SVGNode
 {
     /** @var SVGNodeContainer $parent The parent node. */
-    protected $parent;
+    protected ?SVGNodeContainer $parent;
     /** @var string[] $namespaces A map of custom namespaces to their URIs. */
-    private $namespaces;
+    private array $namespaces;
     /** @var string[] $attributes This node's set of attributes. */
-    protected $attributes;
+    protected array $attributes;
     /** @var string[] $styles This node's set of explicit style declarations. */
-    protected $styles;
+    protected array $styles;
     /** @var string $value This node's value */
-    protected $value;
+    protected string $value;
 
     public function __construct()
     {
@@ -28,6 +28,7 @@ abstract class SVGNode
         $this->attributes = [];
         $this->styles     = [];
         $this->value      = '';
+        $this->parent     = null;
     }
 
     /**

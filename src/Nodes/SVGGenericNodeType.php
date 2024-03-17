@@ -10,7 +10,7 @@ use SVG\Rasterization\SVGRasterizer;
  */
 class SVGGenericNodeType extends SVGNodeContainer
 {
-    private $tagName;
+    private string $tagName;
 
     public function __construct(string $tagName)
     {

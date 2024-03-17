@@ -12,7 +12,7 @@ class AttributeRegistry
      * @var string[] @styleAttributes Attributes to be interpreted as styles.
      * List comes from https://www.w3.org/TR/SVG/styling.html.
      */
-    private static $styleAttributes = [
+    private static array $styleAttributes = [
         // DEFINED IN BOTH CSS2 AND SVG
         // font properties
         'font', 'font-family', 'font-size', 'font-size-adjust', 'font-stretch',
@@ -49,7 +49,7 @@ class AttributeRegistry
      * @var string[] $styleConverters Map of style attributes to class names
      * for SVG attribute to CSS property conversion.
      */
-    private static $styleConverters = [
+    private static array $styleConverters = [
         'font-size'         => LengthAttributeConverter::class,
         'letter-spacing'    => LengthAttributeConverter::class,
         'word-spacing'      => LengthAttributeConverter::class,

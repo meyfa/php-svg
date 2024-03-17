@@ -24,9 +24,9 @@ class TrueTypeFontFile extends FontFile
     private const PLATFORM_ID_MACINTOSH = 1;
     private const PLATFORM_ID_WINDOWS = 3;
 
-    private $family;
-    private $subfamily;
-    private $weightClass;
+    private string $family;
+    private string $subfamily;
+    private ?int $weightClass;
 
     public function __construct(string $path, string $family, string $subfamily, ?int $weightClass)
     {

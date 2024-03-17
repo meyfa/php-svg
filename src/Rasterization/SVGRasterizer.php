@@ -38,11 +38,11 @@ class SVGRasterizer
     /**
      * @var int $width  The output image width, in pixels.
      */
-    private $width;
+    private int $width;
     /**
      * @var int $height The output image height, in pixels.
      */
-    private $height;
+    private int $height;
 
     /** @var resource $outImage The output image as a GD resource. */
     private $outImage;
