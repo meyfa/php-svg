@@ -15,8 +15,8 @@ use SVG\Rasterization\SVGRasterizer;
 class SVGCircleTest extends TestCase
 {
     /**
-       * @covers ::__construct
-       */
+     * @covers ::__construct
+     */
     public function test__construct(): void
     {
         // should not set any attributes by default
