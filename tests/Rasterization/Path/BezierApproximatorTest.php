@@ -1,13 +1,16 @@
 <?php
 
-namespace SVG\Rasterization\Path;
+namespace SVG\Tests\Rasterization\Path;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Rasterization\Path\BezierApproximator;
 
 /**
  * @covers \SVG\Rasterization\Path\BezierApproximator
  *
  * @SuppressWarnings(PHPMD)
  */
-class BezierApproximatorTest extends \PHPUnit\Framework\TestCase
+class BezierApproximatorTest extends TestCase
 {
     public function testQuadratic(): void
     {

@@ -1,7 +1,9 @@
 <?php
 
-namespace SVG\Nodes\Texts;
+namespace SVG\Tests\Nodes\Texts;
 
+use PHPUnit\Framework\TestCase;
+use SVG\Nodes\Texts\SVGText;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -10,7 +12,7 @@ use SVG\Rasterization\SVGRasterizer;
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGTextTest extends \PHPUnit\Framework\TestCase
+class SVGTextTest extends TestCase
 {
     /**
      * @covers ::rasterize
@@ -28,7 +30,7 @@ class SVGTextTest extends \PHPUnit\Framework\TestCase
         // should call image renderer with correct options
         $rast->expects($this->once())->method('render')->with(
             $this->identicalTo('text'),
-            $this->callback(fn($options) => isset($options['fontSize']) && $options['fontSize'] === 16),
+            $this->callback(fn ($options) => isset($options['fontSize']) && $options['fontSize'] === 16),
             $this->identicalTo($obj)
         );
         $obj->rasterize($rast);

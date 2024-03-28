@@ -1,13 +1,16 @@
 <?php
 
-namespace SVG\Reading;
+namespace SVG\Tests\Reading;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Reading\LengthAttributeConverter;
 
 /**
  * @covers \SVG\Reading\LengthAttributeConverter
  *
  * @SuppressWarnings(PHPMD)
  */
-class LengthAttributeConverterTest extends \PHPUnit\Framework\TestCase
+class LengthAttributeConverterTest extends TestCase
 {
     public function testShouldQualifyUnitlessNumbers(): void
     {

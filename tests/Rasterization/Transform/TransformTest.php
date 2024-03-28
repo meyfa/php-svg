@@ -1,13 +1,16 @@
 <?php
 
-namespace SVG\Rasterization\Transform;
+namespace SVG\Tests\Rasterization\Transform;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Rasterization\Transform\Transform;
 
 /**
  * @coversDefaultClass \SVG\Rasterization\Transform\Transform
  *
  * @SuppressWarnings(PHPMD)
  */
-class TransformTest extends \PHPUnit\Framework\TestCase
+class TransformTest extends TestCase
 {
     private function assertMap(Transform $t, array $expected, array $source): void
     {

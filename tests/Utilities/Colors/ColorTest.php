@@ -1,13 +1,16 @@
 <?php
 
-namespace SVG\Utilities\Colors;
+namespace SVG\Tests\Utilities\Colors;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Utilities\Colors\Color;
 
 /**
  * @covers \SVG\Utilities\Colors\Color
  *
  * @SuppressWarnings(PHPMD)
  */
-class ColorTest extends \PHPUnit\Framework\TestCase
+class ColorTest extends TestCase
 {
     public function testParse(): void
     {

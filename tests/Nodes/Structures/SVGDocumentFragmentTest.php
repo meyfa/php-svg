@@ -1,8 +1,10 @@
 <?php
 
-namespace SVG\Nodes\Structures;
+namespace SVG\Tests\Nodes\Structures;
 
 use AssertGD\GDSimilarityConstraint;
+use PHPUnit\Framework\TestCase;
+use SVG\Nodes\Structures\SVGDocumentFragment;
 use SVG\Nodes\SVGNode;
 use SVG\Nodes\SVGNodeContainer;
 
@@ -12,7 +14,7 @@ use SVG\Nodes\SVGNodeContainer;
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGDocumentFragmentTest extends \PHPUnit\Framework\TestCase
+class SVGDocumentFragmentTest extends TestCase
 {
     /**
      * @covers ::__construct

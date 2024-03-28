@@ -1,7 +1,9 @@
 <?php
 
-namespace SVG\Nodes\Shapes;
+namespace SVG\Tests\Nodes\Shapes;
 
+use PHPUnit\Framework\TestCase;
+use SVG\Nodes\Shapes\SVGCircle;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -10,9 +12,9 @@ use SVG\Rasterization\SVGRasterizer;
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGCircleTest extends \PHPUnit\Framework\TestCase
+class SVGCircleTest extends TestCase
 {
-  /**
+    /**
      * @covers ::__construct
      */
     public function test__construct(): void

@@ -1,7 +1,9 @@
 <?php
 
-namespace SVG\Rasterization\Path;
+namespace SVG\Tests\Rasterization\Path;
 
+use PHPUnit\Framework\TestCase;
+use SVG\Rasterization\Path\PathApproximator;
 use SVG\Rasterization\Transform\Transform;
 
 /**
@@ -9,7 +11,7 @@ use SVG\Rasterization\Transform\Transform;
  *
  * @SuppressWarnings(PHPMD)
  */
-class PathApproximatorTest extends \PHPUnit\Framework\TestCase
+class PathApproximatorTest extends TestCase
 {
     // general tests
 

@@ -1,16 +1,18 @@
 <?php
 
-namespace SVG\Reading;
+namespace SVG\Tests\Reading;
 
+use PHPUnit\Framework\TestCase;
 use SVG\Nodes\Shapes\SVGRect;
 use SVG\Nodes\SVGGenericNodeType;
+use SVG\Reading\NodeRegistry;
 
 /**
  * @covers \SVG\Reading\NodeRegistry
  *
  * @SuppressWarnings(PHPMD)
  */
-class NodeRegistryTest extends \PHPUnit\Framework\TestCase
+class NodeRegistryTest extends TestCase
 {
     public function testShouldConstructKnownTypes(): void
     {

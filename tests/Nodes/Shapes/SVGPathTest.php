@@ -1,7 +1,9 @@
 <?php
 
-namespace SVG\Nodes\Shapes;
+namespace SVG\Tests\Nodes\Shapes;
 
+use PHPUnit\Framework\TestCase;
+use SVG\Nodes\Shapes\SVGPath;
 use SVG\Rasterization\SVGRasterizer;
 
 /**
@@ -10,7 +12,7 @@ use SVG\Rasterization\SVGRasterizer;
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGPathTest extends \PHPUnit\Framework\TestCase
+class SVGPathTest extends TestCase
 {
     private static $sampleDescription = 'M100,100 h20 Z M200,200 h20';
     private static $sampleCommands = [

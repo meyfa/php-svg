@@ -1,6 +1,9 @@
 <?php
 
-namespace SVG\Nodes\Shapes;
+namespace SVG\Tests\Nodes\Shapes;
+
+use PHPUnit\Framework\TestCase;
+use SVG\Nodes\Shapes\SVGPolygonalShape;
 
 /**
  * @SuppressWarnings(PHPMD)
@@ -25,7 +28,7 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGPolygonalShapeTest extends \PHPUnit\Framework\TestCase
+class SVGPolygonalShapeTest extends TestCase
 {
     /**
      * @covers ::__construct

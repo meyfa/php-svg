@@ -1,7 +1,8 @@
 <?php
 
-namespace SVG;
+namespace SVG\Tests;
 
+use PHPUnit\Framework\TestCase;
 use SVG\Nodes\Structures\SVGDocumentFragment;
 use SVG\SVG;
 
@@ -11,7 +12,7 @@ use SVG\SVG;
  *
  * @SuppressWarnings(PHPMD)
  */
-class SVGTest extends \PHPUnit\Framework\TestCase
+class SVGTest extends TestCase
 {
     private $xml;
     private $xmlNoDeclaration;

@@ -1,8 +1,10 @@
 <?php
 
-namespace SVG\Rasterization\Renderers;
+namespace SVG\Tests\Rasterization\Renderers;
 
+use PHPUnit\Framework\TestCase;
 use SVG\Nodes\SVGNode;
+use SVG\Rasterization\Renderers\MultiPassRenderer;
 use SVG\Rasterization\Transform\Transform;
 
 /**
@@ -11,7 +13,7 @@ use SVG\Rasterization\Transform\Transform;
  *
  * @SuppressWarnings(PHPMD)
  */
-class MultiPassRendererTest extends \PHPUnit\Framework\TestCase
+class MultiPassRendererTest extends TestCase
 {
     private static $sampleOptions = [
         'option1' => 'option1-value',
