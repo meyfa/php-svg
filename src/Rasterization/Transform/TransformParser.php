@@ -18,7 +18,7 @@ final class TransformParser
     public static function parseTransformString(?string $input, Transform $applyTo = null): Transform
     {
         $transform = $applyTo ?? Transform::identity();
-        if ($input == null) {
+        if ($input === null) {
             return $transform;
         }
 

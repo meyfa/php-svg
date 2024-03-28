@@ -11,15 +11,29 @@ use SVG\Shims\Str;
  */
 abstract class SVGNode
 {
-    /** @var SVGNodeContainer $parent The parent node. */
+    /**
+     * @var SVGNodeContainer $parent The parent node.
+     */
     protected ?SVGNodeContainer $parent;
-    /** @var string[] $namespaces A map of custom namespaces to their URIs. */
+
+    /**
+     * @var string[] $namespaces A map of custom namespaces to their URIs.
+     */
     private array $namespaces;
-    /** @var string[] $attributes This node's set of attributes. */
+
+    /**
+     * @var string[] $attributes This node's set of attributes.
+     */
     protected array $attributes;
-    /** @var string[] $styles This node's set of explicit style declarations. */
+
+    /**
+     * @var string[] $styles This node's set of explicit style declarations.
+     */
     protected array $styles;
-    /** @var string $value This node's value */
+
+    /**
+     * @var string $value This node's value
+     */
     protected string $value;
 
     public function __construct()
@@ -276,7 +290,7 @@ abstract class SVGNode
      */
     public function getViewBox(): ?array
     {
-        if ($this->getAttribute('viewBox') == null) {
+        if ($this->getAttribute('viewBox') === null) {
             return null;
         }
         $attr = Str::trim($this->getAttribute('viewBox'));

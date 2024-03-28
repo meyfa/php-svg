@@ -15,7 +15,9 @@ class SVGDocumentFragment extends SVGNodeContainer
 {
     public const TAG_NAME = 'svg';
 
-    /** @var array $initialStyles A map of style keys to their defaults. */
+    /**
+     * @var array $initialStyles A map of style keys to their defaults.
+     */
     private static array $initialStyles = [
         'fill'          => '#000000',
         'stroke'        => 'none',
