@@ -199,7 +199,7 @@ final class Color
         $s = min(max($s, 0), 1);
         $l = min(max($l, 0), 1);
 
-        if ($s === 0) {
+        if ((float) $s === 0.0) {
             // shortcut if grayscale
             return [$l * 255, $l * 255, $l * 255];
         }
