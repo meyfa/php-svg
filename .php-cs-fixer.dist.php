@@ -2,7 +2,7 @@
 
 $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__)
-    ->exclude('rector.php')
+    ->exclude(['rector.php'])
 ;
 
 return (new PhpCsFixer\Config())
