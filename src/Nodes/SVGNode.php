@@ -266,7 +266,7 @@ abstract class SVGNode
     public function getIdAndClassPattern(): ?string
     {
         $id = $this->getAttribute('id') != null ? Str::trim($this->getAttribute('id')) : '';
-        $class = $this->getAttribute('class') != null  ? Str::trim($this->getAttribute('class')) : '';
+        $class = $this->getAttribute('class') != null ? Str::trim($this->getAttribute('class')) : '';
 
         $pattern = '';
         if ($id !== '') {

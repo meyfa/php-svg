@@ -156,8 +156,8 @@ class ArcApproximator
             ($y1prime - $cyprime) / $radiusY
         );
         $angleDelta = self::vectorAngle2(
-            ( $x1prime - $cxprime) / $radiusX,
-            ( $y1prime - $cyprime) / $radiusY,
+            ($x1prime - $cxprime) / $radiusX,
+            ($y1prime - $cyprime) / $radiusY,
             (-$x1prime - $cxprime) / $radiusX,
             (-$y1prime - $cyprime) / $radiusY
         );
