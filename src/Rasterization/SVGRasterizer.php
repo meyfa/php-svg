@@ -25,7 +25,9 @@ use SVG\Utilities\Colors\Color;
  */
 class SVGRasterizer
 {
-    /** @var Renderers\Renderer[] $renderers Map of shapes to renderers. */
+    /**
+     * @var Renderers\Renderer[] $renderers Map of shapes to renderers.
+     */
     private static $renderers;
 
     private $fontRegistry;
@@ -44,7 +46,9 @@ class SVGRasterizer
      */
     private int $height;
 
-    /** @var resource $outImage The output image as a GD resource. */
+    /**
+     * @var resource $outImage The output image as a GD resource.
+     */
     private $outImage;
 
     // precomputed properties for getter methods, used often during render

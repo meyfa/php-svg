@@ -13,7 +13,9 @@ use SVG\Utilities\SVGStyleParser;
  */
 abstract class SVGNodeContainer extends SVGNode
 {
-    /** @var SVGNode[] $children This node's child nodes. */
+    /**
+     * @var SVGNode[] $children This node's child nodes.
+     */
     protected array $children;
 
     /**

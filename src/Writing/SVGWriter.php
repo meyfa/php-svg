@@ -13,7 +13,9 @@ use SVG\Shims\Str;
  */
 class SVGWriter
 {
-    /** @var string $outString The XML output string being written */
+    /**
+     * @var string $outString The XML output string being written
+     */
     private string $outString = '';
 
     public function __construct(bool $isStandalone = true)

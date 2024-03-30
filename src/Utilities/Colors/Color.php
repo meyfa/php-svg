@@ -81,7 +81,7 @@ final class Color
             $g = hexdec($str[2] . $str[3]);
             $b = hexdec($str[4] . $str[5]);
             $a = $len === 8 ? hexdec($str[6] . $str[7]) : 255;
-        } elseif ($len === 3 || $len == 4) {
+        } elseif ($len === 3 || $len === 4) {
             $r = hexdec($str[0] . $str[0]);
             $g = hexdec($str[1] . $str[1]);
             $b = hexdec($str[2] . $str[2]);
@@ -199,7 +199,7 @@ final class Color
         $s = min(max($s, 0), 1);
         $l = min(max($l, 0), 1);
 
-        if ($s == 0) {
+        if ((float) $s === 0.0) {
             // shortcut if grayscale
             return [$l * 255, $l * 255, $l * 255];
         }
