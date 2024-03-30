@@ -12,11 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PHP and PHPCS
+      - name: Setup PHP and PHP-CS-Fixer
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-          tools: phpcs
+          tools: php-cs-fixer
           coverage: none
 
       - name: Validate composer.json and composer.lock
@@ -36,8 +36,8 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
-      - name: Run PHPCS
-        run: phpcs
+      - name: Run PHP-CS-Fixer
+        run: php-cs-fixer check --diff
 
   test:
     runs-on: ubuntu-latest
