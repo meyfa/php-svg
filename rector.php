@@ -10,8 +10,7 @@ return RectorConfig::configure()
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ])
-
-    ->withPhpSets(php74: true)
+    ->withPhpSets() // take PHP version from composer.json
     ->withRules([
         AddVoidReturnTypeWhereNoReturnRector::class,
     ]);
