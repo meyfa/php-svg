@@ -3,4 +3,5 @@
 /composer.lock
 /clover.xml
 .phpunit.result.cache
+.php-cs-fixer.cache
 .idea
