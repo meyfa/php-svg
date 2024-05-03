@@ -42,7 +42,7 @@ class EllipseRenderer extends MultiPassRenderer
      */
     protected function renderFill($image, $params, int $color): void
     {
-        imagefilledellipse($image, $params['cx'], $params['cy'], $params['width'], $params['height'], $color);
+        imagefilledellipse($image, (int)round($params['cx']), (int)round($params['cy']), (int)round($params['width']), (int)round($params['height']), $color);
     }
 
     /**
@@ -52,16 +52,16 @@ class EllipseRenderer extends MultiPassRenderer
     {
         imagesetthickness($image, round($strokeWidth));
 
-        $width = $params['width'];
+        $width = (int)round($params['width']);
         if ($width % 2 === 0) {
             $width += 1;
         }
-        $height = $params['height'];
+        $height = (int)round($params['height']);
         if ($height % 2 === 0) {
             $height += 1;
         }
 
         // imageellipse ignores imagesetthickness; draw arc instead
-        imagearc($image, $params['cx'], $params['cy'], $width, $height, 0, 360, $color);
+        imagearc($image, (int)round($params['cx']), (int)round($params['cy']), (int)round($width), (int)round($height), 0, 360, $color);
     }
 }
