@@ -52,16 +52,10 @@ class EllipseRenderer extends MultiPassRenderer
     {
         imagesetthickness($image, round($strokeWidth));
 
-        $width = (int)round($params['width']);
-        if ($width % 2 === 0) {
-            $width += 1;
-        }
-        $height = (int)round($params['height']);
-        if ($height % 2 === 0) {
-            $height += 1;
-        }
+        $width = (int)round($params['width']) | 1;
+        $height = (int)round($params['height']) | 1;
 
         // imageellipse ignores imagesetthickness; draw arc instead
-        imagearc($image, (int)round($params['cx']), (int)round($params['cy']), (int)round($width), (int)round($height), 0, 360, $color);
+        imagearc($image, (int)round($params['cx']), (int)round($params['cy']), $width, $height, 0, 360, $color);
     }
 }
