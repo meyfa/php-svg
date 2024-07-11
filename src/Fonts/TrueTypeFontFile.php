@@ -44,12 +44,19 @@ class TrueTypeFontFile extends FontFile
 
     public function getWeight(): float
     {
-        return $this->weightClass ?? ($this->subfamily === 'Bold' || $this->subfamily === 'Bold Italic' ? 700 : 400);
+        return $this->weightClass ?? ($this->subfamily === 'Bold' || 
+                                      $this->subfamily === 'Bold Italic' ||
+                                      $this->subfamily === 'Bold Oblique' ? 700 : 400);
     }
 
     public function isItalic(): bool
     {
         return $this->subfamily === 'Italic' || $this->subfamily === 'Bold Italic';
+    }
+
+    public function isOblique(): bool
+    {
+        return $this->subfamily === 'Oblique' || $this->subfamily === 'Bold Oblique';
     }
 
     public function isMonospace(): bool
