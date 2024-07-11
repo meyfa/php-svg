@@ -38,12 +38,12 @@ class FontRegistry
             $isItalic = $font->isItalic();
             $isOblique = $font->isOblique();
             switch ($style){
-              case 'italic':
-                return $result && ($isItalic || $isOblique);
-              case 'oblique':
-                return $result && ($isOblique || $isItalic);
-              default:
-                return $result && !($isItalic || $isOblique);
+                case 'italic':
+                    return $result && ($isItalic || $isOblique);
+                case 'oblique':
+                    return $result && ($isOblique || $isItalic);
+                default:
+                    return $result && !($isItalic || $isOblique);
             }
         }, $weight);
 
