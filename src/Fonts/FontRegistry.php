@@ -15,7 +15,7 @@ class FontRegistry
         $this->fontFiles[] = $ttfFile;
     }
 
-    public function findMatchingFont(?string $family, bool $italic, float $weight): ?FontFile
+    public function findMatchingFont(?string $family, ?string $style, float $weight): ?FontFile
     {
         if (empty($this->fontFiles)) {
             return null;
@@ -32,9 +32,19 @@ class FontRegistry
             }
         }
 
-        // Attempt to find the closest-weight match with correct family and italicness.
-        $match = $this->closestMatchBasedOnWeight(function (FontFile $font) use ($family, $anyFontFamily, $italic) {
-            return ($anyFontFamily || $font->getFamily() === $family) && $font->isItalic() === $italic;
+        // Attempt to find the closest-weight match with correct family and cursiveness.
+        $match = $this->closestMatchBasedOnWeight(function (FontFile $font) use ($family, $anyFontFamily, $style) {
+            $result = ($anyFontFamily || $font->getFamily() === $family);
+            $isItalic = $font->isItalic();
+            $isOblique = $font->isOblique();
+            switch ($style) {
+                case 'italic':
+                    return $result && ($isItalic || $isOblique);
+                case 'oblique':
+                    return $result && ($isOblique || $isItalic);
+                default:
+                    return $result && !($isItalic || $isOblique);
+            }
         }, $weight);
 
         // Attempt to match just based on the font family.

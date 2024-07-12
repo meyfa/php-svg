@@ -33,9 +33,8 @@ class TextRenderer extends MultiPassRenderer
 
         $fontPath = null;
         if (isset($fontRegistry)) {
-            $isItalic = $options['fontStyle'] === 'italic' || $options['fontStyle'] === 'oblique';
             $weight = self::resolveFontWeight($options['fontWeight']);
-            $matchingFont = $fontRegistry->findMatchingFont($options['fontFamily'], $isItalic, $weight);
+            $matchingFont = $fontRegistry->findMatchingFont($options['fontFamily'], $options['fontStyle'], $weight);
             if ($matchingFont !== null) {
                 $fontPath = $matchingFont->getPath();
             }
