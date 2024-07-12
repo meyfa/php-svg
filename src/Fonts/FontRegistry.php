@@ -34,10 +34,10 @@ class FontRegistry
 
         // Attempt to find the closest-weight match with correct family and cursiveness.
         $match = $this->closestMatchBasedOnWeight(function (FontFile $font) use ($family, $anyFontFamily, $style) {
-            $result = ($anyFontFamily || $font->getFamily() === $family); 
+            $result = ($anyFontFamily || $font->getFamily() === $family);
             $isItalic = $font->isItalic();
             $isOblique = $font->isOblique();
-            switch ($style){
+            switch ($style) {
                 case 'italic':
                     return $result && ($isItalic || $isOblique);
                 case 'oblique':
