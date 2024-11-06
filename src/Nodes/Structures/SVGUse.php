@@ -45,14 +45,18 @@ class SVGUse extends SVGNodeContainer
     public function rasterize(SVGRasterizer $rasterizer): void
     {
         $element = $this->getHref();
-        if(empty($element)) return;
+        if (empty($element)) {
+            return;
+        }
 
         /** @var SVGDocumentFragment $root */
         do {
             $root = $this->getParent();
         } while ($root->getParent() != null);
         $element = $root->getElementById(substr($element, strpos($element, "#") + 1 ?: 0));
-        if(!$element) return;
+        if ($element === null) {
+            return;
+        }
 
         TransformParser::parseTransformString($this->getAttribute('transform'), $rasterizer->pushTransform());
 
