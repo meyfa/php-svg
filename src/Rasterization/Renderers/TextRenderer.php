@@ -55,7 +55,7 @@ class TextRenderer extends MultiPassRenderer
         $y = $options['y'];
         $transform->map($x, $y);
 
-        //get rotation result from transform matrix
+        //get clockwise rotation result from transform matrix
         $rotation = $transform->rotation();
 
         return [
@@ -76,7 +76,7 @@ class TextRenderer extends MultiPassRenderer
         imagettftext(
             $image,
             $params['size'],
-            $params['rotation'],
+            $params['rotation'] * -1, //counterclockwise
             $params['x'],
             $params['y'],
             $color,
@@ -96,7 +96,16 @@ class TextRenderer extends MultiPassRenderer
 
         for ($c1 = ($x - abs($px)); $c1 <= ($x + abs($px)); $c1++) {
             for ($c2 = ($y - abs($px)); $c2 <= ($y + abs($px)); $c2++) {
-                imagettftext($image, $params['size'], $params['rotation'], $c1, $c2, $color, $params['fontPath'], $params['text']);
+                imagettftext(
+                    $image,
+                    $params['size'],
+                    $params['rotation'] * -1, //counterclockwise
+                    $c1,
+                    $c2,
+                    $color,
+                    $params['fontPath'],
+                    $params['text']
+                );
             }
         }
     }

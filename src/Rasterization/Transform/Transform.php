@@ -205,13 +205,29 @@ class Transform
     /**
      * Calculate the resulting rotation using the yaw rotation matrix
      *
-     * @return float
+     * @return float clockwise rotation
      */
     public function rotation(): float
     {
-        $caRotation = atan2($this->matrix[2], $this->matrix[0]);
-        $bdRotation = atan2(-($this->matrix[1]), $this->matrix[3]);
-        return ($caRotation + $bdRotation) / 2 * 180 / M_PI;
+        /*
+         * This is the counterclockwise rotation matrices,
+         *  although the $radians in the function rotate() is a clockwise value,
+         *  the matrix presents is counterclockwise,
+         *  using these matrices, the result is clockwise.
+         *
+         *       |cos(θ) -sin(θ)  0|     |a -c  0|
+         * R  =  |sin(θ)  cos(θ)  0|  =  |b  d  0|
+         *       |0       0       1|     |0  0  1|
+         *
+         * Note: atan2(y, x) takes params in the y, x order.
+         * First we calculate the rotation effect of skewX/c and scaleX/a into radians: atan2(-c, a)
+         * Then we calculate the rotation effect of skewY/b and scaleY/d into radians: atan2(b, d)
+         * Last we average that and convert it to degree rotation: Ave(caRadian, bdRadian) * 180 / M_PI
+         */
+
+        $caRadian = atan2(-$this->matrix[2], $this->matrix[0]);
+        $bdRadian = atan2($this->matrix[1], $this->matrix[3]);
+        return ($caRadian + $bdRadian) / 2 * 180 / M_PI;
     }
 
     /**
