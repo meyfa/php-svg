@@ -64,7 +64,7 @@ class TextRenderer extends MultiPassRenderer
             'size'      => $size,
             'fontPath'  => $fontPath,
             'text'      => $options['text'],
-            'rotation'    => $rotation
+            'rotation'  => $rotation
         ];
     }
 
