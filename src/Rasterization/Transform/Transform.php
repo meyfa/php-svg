@@ -211,9 +211,7 @@ class Transform
     {
         $caRotation = atan2($this->matrix[2], $this->matrix[0]);
         $bdRotation = atan2(-($this->matrix[1]), $this->matrix[3]);
-        $result = ($caRotation + $bdRotation) / 2 * 180 / M_PI;
-
-        return $result;
+        return ($caRotation + $bdRotation) / 2 * 180 / M_PI;
     }
 
     /**
