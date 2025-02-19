@@ -203,6 +203,20 @@ class Transform
     }
 
     /**
+     * Calculate the resulting rotation using the yaw rotation matrix
+     *
+     * @return float
+     */
+    public function rotation(): float
+    {
+        $caRotation = atan2($this->matrix[2], $this->matrix[0]);
+        $bdRotation = atan2(-($this->matrix[1]), $this->matrix[3]);
+        $result = ($caRotation + $bdRotation) / 2 * 180 / M_PI;
+
+        return $result;
+    }
+
+    /**
      * Apply a horizontal skew to this transform. This object will be mutated as a result of this operation.
      * This is the same as post-multiplying this transform with another transform representing a pure horizontal skew.
      *
