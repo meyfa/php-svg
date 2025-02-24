@@ -41,7 +41,7 @@ abstract class SVGNodeContainer extends SVGNode
      *
      * @return $this This node instance, for call chaining.
      */
-    public function addChild(SVGNode $node, int $index = null): SVGNodeContainer
+    public function addChild(SVGNode $node, ?int $index = null): SVGNodeContainer
     {
         if ($node === $this || $node->parent === $this) {
             return $this;

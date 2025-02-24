@@ -12,7 +12,7 @@ class SVGClipPath extends SVGNodeContainer
 {
     public const TAG_NAME = 'clipPath';
 
-    public function __construct(string $id = null)
+    public function __construct(?string $id = null)
     {
         parent::__construct();
 

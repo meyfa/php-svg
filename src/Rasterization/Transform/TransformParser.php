@@ -15,7 +15,7 @@ final class TransformParser
      * @param Transform|null $applyTo The optional starting Transform. If not provided, the identity will be used.
      * @return Transform Either the mutated argument transform, or the newly computed transform.
      */
-    public static function parseTransformString(?string $input, Transform $applyTo = null): Transform
+    public static function parseTransformString(?string $input, ?Transform $applyTo = null): Transform
     {
         $transform = $applyTo ?? Transform::identity();
         if ($input === null) {
