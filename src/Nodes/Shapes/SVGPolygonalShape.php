@@ -12,13 +12,13 @@ use SVG\Shims\Str;
 abstract class SVGPolygonalShape extends SVGNodeContainer
 {
     /**
-     * @param array[] $points Array of points (float 2-tuples).
+     * @param array[]|null $points Array of points (float 2-tuples).
      */
-    public function __construct(array $points = null)
+    public function __construct(?array $points = null)
     {
         parent::__construct();
 
-        if (isset($points)) {
+        if ($points !== null) {
             $this->setAttribute('points', self::joinPoints($points));
         }
     }

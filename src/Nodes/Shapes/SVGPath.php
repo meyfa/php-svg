@@ -19,7 +19,7 @@ class SVGPath extends SVGNodeContainer
     /**
      * @param string|null $d The path description.
      */
-    public function __construct(string $d = null)
+    public function __construct(?string $d = null)
     {
         parent::__construct();
 
