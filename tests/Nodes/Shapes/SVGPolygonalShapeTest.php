@@ -12,7 +12,7 @@ class SVGPolygonalShapeSubclass extends SVGPolygonalShape
 {
     public const TAG_NAME = 'test_subclass';
 
-    public function __construct(array $points = null)
+    public function __construct(?array $points = null)
     {
         parent::__construct($points);
     }
