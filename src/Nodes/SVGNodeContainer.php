@@ -32,6 +32,21 @@ abstract class SVGNodeContainer extends SVGNode
     }
 
     /**
+     * Inserts multiple SVGNodes at same time
+     *
+     * @see SVGNodeContainer::addChild();
+     *
+     * @return $this This node instance, for call chaining.
+     */
+    public function addChildren(array $nodes, ?array $indexes = null): SVGNodeContainer
+    {
+        foreach ($nodes as $k=> $node) {
+            $this->addChild($node, $indexes[$k] ?? null);
+        }
+        return $this;        
+    }
+    
+    /**
      * Inserts an SVGNode instance at the given index, or, if no index is given,
      * at the end of the child list.
      * Does nothing if the node already exists in this container.
