@@ -190,6 +190,20 @@ abstract class SVGNode
     }
 
     /**
+     * Defines multiple attributes on this node at same time.
+     *
+     * @see SVGNode::setAttribute();
+     *
+     * @return $this This node instance, for call chaining.
+     */
+    public function setAttributes(array $attributes): SVGNode {
+        foreach ($attributes as $name => $value) {
+            $this->setAttribute($name, $value);
+        }
+        return $this;
+    }
+    
+    /**
      * Defines an attribute on this node. A value of null will unset the
      * attribute. Note that the empty string is perfectly valid.
      *
