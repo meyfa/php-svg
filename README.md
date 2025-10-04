@@ -3,8 +3,6 @@
 **The zero-dependency vector graphics library for PHP applications**
 
 [![CI](https://github.com/meyfa/php-svg/actions/workflows/php.yml/badge.svg)](https://github.com/meyfa/php-svg/actions/workflows/php.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/8f73468601a653aff0e8/maintainability)](https://codeclimate.com/github/meyfa/php-svg/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/8f73468601a653aff0e8/test_coverage)](https://codeclimate.com/github/meyfa/php-svg/test_coverage)
 ![Packagist PHP Version](https://img.shields.io/packagist/dependency-v/meyfa/php-svg/php?style=plastic)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/meyfa/php-svg)](https://packagist.org/packages/meyfa/php-svg)
 
