@@ -25,7 +25,7 @@ class TextRenderer extends MultiPassRenderer
      */
     protected function prepareRenderParams(array $options, Transform $transform, ?FontRegistry $fontRegistry): ?array
     {
-        // this assumes there is no rotation or skew, but that's fine, we can't deal with that anyway
+        // only the rotational impact of skew is used
         $size1 = $options['fontSize'];
         $size2 = $size1;
         $transform->resize($size1, $size2);
@@ -55,12 +55,16 @@ class TextRenderer extends MultiPassRenderer
         $y = $options['y'];
         $transform->map($x, $y);
 
+        //get clockwise rotation result from transform matrix
+        $rotation = $transform->rotation();
+
         return [
             'x'         => $x - $anchorOffset,
             'y'         => $y,
             'size'      => $size,
             'fontPath'  => $fontPath,
             'text'      => $options['text'],
+            'rotation'  => $rotation
         ];
     }
 
@@ -72,7 +76,7 @@ class TextRenderer extends MultiPassRenderer
         imagettftext(
             $image,
             $params['size'],
-            0,
+            $params['rotation'] * -1, //counterclockwise
             $params['x'],
             $params['y'],
             $color,
@@ -92,7 +96,16 @@ class TextRenderer extends MultiPassRenderer
 
         for ($c1 = ($x - abs($px)); $c1 <= ($x + abs($px)); $c1++) {
             for ($c2 = ($y - abs($px)); $c2 <= ($y + abs($px)); $c2++) {
-                imagettftext($image, $params['size'], 0, $c1, $c2, $color, $params['fontPath'], $params['text']);
+                imagettftext(
+                    $image,
+                    $params['size'],
+                    $params['rotation'] * -1, //counterclockwise
+                    $c1,
+                    $c2,
+                    $color,
+                    $params['fontPath'],
+                    $params['text']
+                );
             }
         }
     }
